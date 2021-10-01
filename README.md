@@ -1,7 +1,7 @@
-#E-siłownia
+# E-siłownia
 (description of our project...)
 
-##Getting started:
+## Getting started:
 
 Create virtual environment: 
 ```python -m venv c:\path\to\myenv```
@@ -9,6 +9,6 @@ Create virtual environment:
 Install requirements.txt: 
 ```python -m pip install -r requirements.txt```
 
-##Updating
+## Updating
 Update requirements.txt:
 ```python -m pip freeze > requirements.txt```
