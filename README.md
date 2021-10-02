@@ -12,3 +12,8 @@ Install requirements.txt:
 ## Updating
 Update requirements.txt:
 ```python -m pip freeze > requirements.txt```
+
+
+### Notes
+Generate tokens for all users
+```for user in User.objects.all(): Token.objects.get_or_create(user=user)```

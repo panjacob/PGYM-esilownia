@@ -1,41 +1,84 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render
 from django.http import HttpResponse
-# knox libraries
-from rest_framework import generics, permissions
+
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import status
+
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from knox.models import AuthToken
-from .serializers import UserSerializer, RegisterSerializer
+from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+@csrf_exempt
+@api_view(('GET',))
+def test_connection(request):
+    return Response({'message': 'Everything works fine'}, status=status.HTTP_200_OK)
 
 
-# Register API
-class RegisterAPI(generics.GenericAPIView):
-    serializer_class = RegisterSerializer
+@csrf_exempt
+@api_view(('POST',))
+def login(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(username=username, password=password)
+    if user:
+        token = Token.objects.get(user=user)
+        content = {
+            'token': token.key
+        }
+        return Response(content)
+    else:
+        return Response({'message': 'Wrong username or password!'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)[1]
-        })
 
-from django.contrib.auth import login
+@csrf_exempt
+@api_view(('POST',))
+def register(request):
+    username = request.POST.get('username')
+    if User.objects.get(username=username):
+        return Response({'message': 'Username already exists!'}, status=status.HTTP_400_BAD_REQUEST)
+    # TODO: Check if password is strong
+    password = request.POST.get('password')
+    # TODO: Verify if email is correct
+    email = request.POST.get('email')
+    firstname = request.POST.get('firstname')
+    lastname = request.POST.get('lastname')
+    user = User.objects.create_user(username, email, password)
+    user.first_name = firstname
+    user.last_name = lastname
+    user.save()
+    token = Token.objects.get(user=user)
+    content = {
+        'token': token.key
+    }
+    return Response(content)
 
-from rest_framework import permissions
-from rest_framework.authtoken.serializers import AuthTokenSerializer
-from knox.views import LoginView as KnoxLoginView
 
-class LoginAPI(KnoxLoginView):
-    permission_classes = (permissions.AllowAny,)
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def change_password(request):
+    user = request.user
+    new_password = request.POST.get('new_password')
+    user.set_password(new_password)
+    user.save()
+    return Response({'message': 'Password has been changed!'}, status=status.HTTP_200_OK)
 
-    def post(self, request, format=None):
-        serializer = AuthTokenSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        login(request, user)
-        return super(LoginAPI, self).post(request, format=None)
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def user_info(request):
+    user = request.user
+    content = {
+        'username': user.username,
+        'email': user.email,
+        'firstname': user.first_name,
+        'lastname': user.last_name
+    }
+    return Response(content)
