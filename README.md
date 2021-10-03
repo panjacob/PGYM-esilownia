@@ -4,7 +4,7 @@
 ## Getting started:
 
 Create virtual environment: 
-```python -m venv c:\path\to\myenv```
+```python -m venv venv```
 
 Install requirements.txt: 
 ```python -m pip install -r requirements.txt```
