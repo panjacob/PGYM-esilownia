@@ -40,7 +40,7 @@ def login(request):
 @api_view(('POST',))
 def register(request):
     username = request.POST.get('username')
-    if User.objects.get(username=username):
+    if User.objects.filter(username=username).count() > 0:
         return Response({'message': 'Username already exists!'}, status=status.HTTP_400_BAD_REQUEST)
     # TODO: Check if password is strong
     password = request.POST.get('password')
