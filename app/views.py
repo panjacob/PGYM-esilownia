@@ -1,8 +1,11 @@
+from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+
+import app.serializers as serializers
 
 
 @api_view(('GET',))
@@ -14,13 +17,13 @@ def test_connection(request):
 @api_view(['GET'])
 def user_info(request):
     user = request.user
-    content = {
-        'username': user.user_name,
-        'email': user.email,
-        'firstname': user.first_name,
-        'lastname': user.last_name
-    }
-    return Response(content)
+    serializer = serializers.UserSerializer(user)
+    return JsonResponse(serializer.data)
+
+
+# @api_view(['POST'])
+# def user_edit(request):
+#     user = request.user
 
 
 @api_view(('POST',))
