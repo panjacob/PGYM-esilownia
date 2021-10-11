@@ -14,21 +14,38 @@ def test_connection(request):
     return Response({'message': 'Everything works fine'}, status=status.HTTP_200_OK)
 
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def user_register(request):
+    serializer = serializers.UserRegisterSerializer(data=request.data)
+    if serializer.is_valid():
+        new_user = serializer.save()
+        if new_user:
+            return Response({'user_name': new_user.user_name, 'email': new_user.email}, status=status.HTTP_201_CREATED)
+    print(serializer.error_messages)
+    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['GET'])
 def user_info(request):
     user = request.user
-    serializer = serializers.UserSerializer(user)
+    serializer = serializers.UserInfoSerializer(user)
     return JsonResponse(serializer.data)
 
 
-# @api_view(['POST'])
-# def user_edit(request):
-#     user = request.user
+@api_view(['POST'])
+def user_change_password(request):
+    serializer = serializers.UserRegisterSerializer(data=request.data)
+    if serializer.is_valid():
+        newuser = serializer.save()
+        if newuser:
+            return Response({'message': 'OK'}, status=status.HTTP_200_OK)
+    return Response({'message': serializer.error_messages}, status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(('POST',))
 @permission_classes([AllowAny])
-def logout(request):
+def user_logout(request):
     try:
         refresh_token = request.data['refresh_token']
         token = RefreshToken(refresh_token)
