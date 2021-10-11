@@ -3,7 +3,6 @@ cffi==1.14.6
 cryptography==35.0.0
 Django==3.2.7
 django-cors-headers==3.10.0
-django-rest-knox==4.1.0
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.8.0
 pycparser==2.20
