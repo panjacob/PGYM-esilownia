@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from app.models import UserExtended
+from users.models import UserExtended
 
 
 class UserInfoSerializer(ModelSerializer):
