@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework_simplejwt.tokens import RefreshToken
 
 import users.serializers as serializers
 from users import utilis
@@ -18,9 +18,13 @@ def test_connection(request):
 @api_view(['POST'])
 def user_edit(request):
     serializer = serializers.UserEditSerializer(request.user, data=request.data)
+    # if(request.data['user_name'])
+    # Check if user or email is in database and give message
+
     if serializer.is_valid():
         serializer.save(pk=request.user.id)
         return Response({'message': 'OK'}, status=status.HTTP_200_OK)
+    print(serializer.error_messages)
     return Response({'message': 'Data is not valid'}, status.HTTP_400_BAD_REQUEST)
 
 
@@ -40,7 +44,6 @@ def user_change_password(request):
     user = request.user
     serializer = serializers.UserChangePasswordSerializer(data=request.data)
     if serializer.is_valid():
-        print('serializer is valid', request.data)
         if not user.check_password(request.data['old_password']):
             return Response({'message': 'Old password is incorrect'}, status.HTTP_400_BAD_REQUEST)
         if not utilis.validate_password(request.data['new_password']):
@@ -68,13 +71,13 @@ def user_info(request):
 #     return Response({'message': serializer.error_messages}, status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(('POST',))
-@permission_classes([AllowAny])
-def user_logout(request):
-    try:
-        refresh_token = request.data['refresh_token']
-        token = RefreshToken(refresh_token)
-        token.blacklist()
-        return Response({'message': 'OK'}, status=status.HTTP_200_OK)
-    except Exception as e:
-        return Response({'message': 'Token is already in a blacklist'}, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(('POST',))
+# @permission_classes([AllowAny])
+# def user_logout(request):
+#     try:
+#         refresh_token = request.data['refresh_token']
+#         token = RefreshToken(refresh_token)
+#         token.blacklist()
+#         return Response({'message': 'OK'}, status=status.HTTP_200_OK)
+#     except Exception as e:
+#         return Response({'message': 'Token is already in a blacklist'}, status=status.HTTP_400_BAD_REQUEST)
