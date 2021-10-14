@@ -3,7 +3,6 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-# from rest_framework_simplejwt.tokens import RefreshToken
 
 import users.serializers as serializers
 from users import utilis
@@ -58,26 +57,3 @@ def user_info(request):
     user = request.user
     serializer = serializers.UserInfoSerializer(user)
     return JsonResponse(serializer.data)
-
-
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def user_register(request):
-#     serializer = serializers.UserRegisterSerializer(data=request.data)
-#     if serializer.is_valid():
-#         newuser = serializer.save()
-#         if newuser:
-#             return Response({'message': 'OK'}, status=status.HTTP_200_OK)
-#     return Response({'message': serializer.error_messages}, status.HTTP_400_BAD_REQUEST)
-
-
-# @api_view(('POST',))
-# @permission_classes([AllowAny])
-# def user_logout(request):
-#     try:
-#         refresh_token = request.data['refresh_token']
-#         token = RefreshToken(refresh_token)
-#         token.blacklist()
-#         return Response({'message': 'OK'}, status=status.HTTP_200_OK)
-#     except Exception as e:
-#         return Response({'message': 'Token is already in a blacklist'}, status=status.HTTP_400_BAD_REQUEST)
