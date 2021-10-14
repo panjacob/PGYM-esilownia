@@ -8,18 +8,18 @@ from users.models import UserExtended
 class UserInfoSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
-        fields = ['id', 'email', 'user_name', 'first_name', 'last_name', 'start_date', 'is_staff',
+        fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
                   'is_active', 'is_superuser']
 
 
 class UserEditSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
-        fields = ['email', 'user_name', 'first_name', 'last_name']
+        fields = ['email', 'username', 'first_name', 'last_name']
 
         def update(self, instance, validated_data):
             instance.email = validated_data.get('email', instance.email)
-            instance.user_name = validated_data.get('user_name', instance.user_name)
+            instance.user_name = validated_data.get('username', instance.user_name)
             instance.first_name = validated_data.get('first_name', instance.first_name)
             instance.last_name = validated_data.get('last_name', instance.last_name)
             instance.save()
@@ -29,7 +29,7 @@ class UserEditSerializer(ModelSerializer):
 class UserRegisterSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
-        fields = ('email', 'user_name', 'password', 'first_name', 'last_name')
+        fields = ('email', 'username', 'password', 'first_name', 'last_name')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):

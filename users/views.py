@@ -16,10 +16,13 @@ def test_connection(request):
 
 @api_view(['POST'])
 def user_edit(request):
-    serializer = serializers.UserEditSerializer(request.user, data=request.data)
-    # if(request.data['user_name'])
-    # Check if user or email is in database and give message
+    if utilis.is_email_in_db(request.user.pk, request.data['email']):
+        return Response({'message': 'Email is already in database'}, status.HTTP_400_BAD_REQUEST)
 
+    if utilis.is_username_in_db(request.user.pk, request.data['username']):
+        return Response({'message': 'Email is already in database'}, status.HTTP_400_BAD_REQUEST)
+
+    serializer = serializers.UserEditSerializer(request.user, data=request.data)
     if serializer.is_valid():
         serializer.save(pk=request.user.id)
         return Response({'message': 'OK'}, status=status.HTTP_200_OK)
@@ -34,7 +37,7 @@ def user_register(request):
     if serializer.is_valid():
         new_user = serializer.save()
         if new_user:
-            return Response({'user_name': new_user.user_name, 'email': new_user.email}, status=status.HTTP_201_CREATED)
+            return Response({'username': new_user.username, 'email': new_user.email}, status=status.HTTP_201_CREATED)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
