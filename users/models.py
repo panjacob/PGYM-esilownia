@@ -1,8 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from rest_framework.authtoken.models import Token
 
 
 class CustomAccountManager(BaseUserManager):
@@ -39,6 +37,9 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
 
+    # Properties of ContentCreator
+    is_coach = models.BooleanField(default=False)
+    is_dietician = models.BooleanField(default=False)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
