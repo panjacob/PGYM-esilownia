@@ -1,2 +1,5 @@
 @csrf_exempt - ingore csrf cookie
 token = Token.objects.get(user=user) - get token assigned to user
+
+from rest_framework import fields
+date = fields.DateField(input_formats=['%Y-%m-%d'])
