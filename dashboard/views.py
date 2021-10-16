@@ -14,11 +14,10 @@ def user_day_create(request):
     request.data._mutable = False
 
     serializer = serializers.UserDaySerializer(data=request.data)
+
     if serializer.is_valid():
-        # If there is a day with same user and date then only update
-        new_day = serializer.save()
-        if new_day:
-            return Response({'OK'}, status=status.HTTP_201_CREATED)
+        created = serializer.update_or_create(request.user.id, serializer.data)
+        return Response(f"{'CREATED' if created else 'UPDATED'}", status=status.HTTP_201_CREATED)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 

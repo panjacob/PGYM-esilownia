@@ -12,3 +12,6 @@ class UserDay(models.Model):
     sleep_start = models.DateTimeField(default=timezone.now)
     sleep_end = models.DateTimeField(default=timezone.now)
     steps = models.IntegerField(default=0)
+
+    # class Meta:
+    #     unique_together = (("user", "date"),)
