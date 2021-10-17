@@ -34,7 +34,7 @@ function Login_form() {
           />
         </Form.Group>
         <Form.Group size="lg" controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Haslo</Form.Label>
           <Form.Control
             type="password"
             value={password}
@@ -42,7 +42,7 @@ function Login_form() {
           />
         </Form.Group>
         <Button onClick={message} block size="lg" type="submit" disabled={!validateForm()}>
-          Login
+          Zaloguj
         </Button>
       </Form>
     </div>
