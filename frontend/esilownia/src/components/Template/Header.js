@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Header(props) {
   return (
     <div className="navigation">
-      <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <nav class="navbar navbar-expand navbar-dark bg-secondary">
         <div class="container">
           <Link class="navbar-brand" to="/">
             E-Silownia
@@ -13,6 +13,16 @@ function Header(props) {
           <div>
             <ul class="navbar-nav d-flex">
 
+            <li
+                class={`nav-item m-1 ${
+                  props.location.pathname === "/" ? "active" : ""
+                }`}
+              >
+                <Link class="nav-link" to="/">
+                  Home
+                </Link>
+              </li>
+              
               <li
                 class={`nav-item m-1 ${
                   props.location.pathname === "/o_nas" ? "active" : ""
@@ -20,16 +30,6 @@ function Header(props) {
               >
                 <Link class="nav-link" to="/o_nas">
                   O nas
-                </Link>
-              </li>
-
-              <li
-                class={`nav-item m-1 ${
-                  props.location.pathname === "/" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/">
-                  Home
                 </Link>
               </li>
 

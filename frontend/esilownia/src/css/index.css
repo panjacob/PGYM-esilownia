@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.nav-link:hover{
+  color: orange !important;
+}
+
+.navbar-brand:hover{
+  color: orange !important;
+}
+
+.btn{
+  background-color: orange !important;
+}

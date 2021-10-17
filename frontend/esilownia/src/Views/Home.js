@@ -21,6 +21,9 @@ function Home() {
           </div>
         </div>
       </div>
+      <div class="container">
+        <button type="button" class="btn btn-lg">200$</button>
+      </div>
     </div>
   );
 }
