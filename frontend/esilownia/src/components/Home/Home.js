@@ -16,7 +16,7 @@ function Home() {
           <div class="col-lg-5">
             <h1 class="font-weight-light">Home</h1>
             <p>
-              Home page
+              Strona domowa
             </p>
           </div>
         </div>
