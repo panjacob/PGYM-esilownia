@@ -2,13 +2,13 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import  Header  from "./components/Template/Header";
 import  Footer  from "./components/Template/Footer";
-import  Home  from "./components/Home/Home";
-import  Login  from "./components/Login/Login";
-import  Register  from "./components/Register/Register";
-import  Kadra  from "./components/Kadra/Kadra";
-import  Treningi  from "./components/Treningi/Treningi";
-import  Dieta  from "./components/Dieta/Dieta";
-import  O_nas  from "./components/O_nas/O_nas";
+import  Home  from "./Views/Home";
+import  Login  from "./Views/Login";
+import  Register  from "./Views/Register";
+import  Kadra  from "./Views/Kadra";
+import  Treningi  from "./Views/Treningi";
+import  Dieta  from "./Views/Dieta";
+import  O_nas  from "./Views/O_nas";
 
 function App() {
   return (

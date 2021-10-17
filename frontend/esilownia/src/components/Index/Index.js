@@ -1,9 +1,0 @@
-export { default as Header } from "../Template/Header";
-export { default as Footer } from "../Template/Footer";
-export { default as Home } from "../Home/Home";
-export { default as Login } from "../Login/Login";
-export { default as Register } from "../Register/Register";
-export { default as O_nas } from "../O_nas/O_nas";
-export { default as Kadra } from "../Kadra/Kadra";
-export { default as Treningi } from "../Treningi/Treningi";
-export { default as Dieta } from "../Dieta/Dieta";

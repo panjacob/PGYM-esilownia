@@ -1,18 +1,18 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Register_form from "../Register/Register_form"
+import Login_form from "../components/Login/Login_form"
 
-function Register() {
+function Login() {
 
   return (
-    <div className="Register">
+    <div className="Login">
       <div class="container">
         <div class="row d-flex justify-content-center my-5">
-            <Register_form></Register_form>
+        <Login_form></Login_form>
         </div>
       </div>
     </div>
   );
 }
 
-export default Register;
+export default Login;
