@@ -9,6 +9,7 @@ import  Kadra  from "./Views/Kadra";
 import  Treningi  from "./Views/Treningi";
 import  Dieta  from "./Views/Dieta";
 import  O_nas  from "./Views/O_nas";
+import Cennik from "./Views/Cennik";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Header />
         <Switch>
           <Route path="/o_nas" exact component={() => <O_nas />} />
+          <Route path="/cennik" exact component={() => <Cennik />} />
           <Route path="/" exact component={() => <Home />} />
           <Route path="/kadra" exact component={() => <Kadra />} />
           <Route path="/treningi" exact component={() => <Treningi />} />

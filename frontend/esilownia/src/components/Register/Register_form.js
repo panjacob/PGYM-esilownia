@@ -93,7 +93,7 @@ function Register_form() {
                       />
                   </Form.Group>
 
-<Button onClick={message} block size="lg" type="submit" disabled={!validateForm()}>
+<Button onClick={message} block size="lg" type="submit" class="btn btn-lg" id="btn-login" disabled={!validateForm()}>
   Zarejestruj
 </Button>
 </Form>

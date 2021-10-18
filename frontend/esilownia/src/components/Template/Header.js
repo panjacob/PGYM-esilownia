@@ -8,7 +8,7 @@ function Header(props) {
       <nav class="navbar navbar-expand navbar-dark bg-secondary">
         <div class="container">
           <Link class="navbar-brand" to="/">
-            E-Silownia
+            E-Siłownia
           </Link>
           <div>
             <ul class="navbar-nav d-flex">
@@ -30,6 +30,15 @@ function Header(props) {
               >
                 <Link class="nav-link" to="/o_nas">
                   O nas
+                </Link>
+              </li>
+              <li
+                class={`nav-item m-1 ${
+                  props.location.pathname === "/cennik" ? "active" : ""
+                }`}
+              >
+                <Link class="nav-link" to="/cennik">
+                  Cennik
                 </Link>
               </li>
 
