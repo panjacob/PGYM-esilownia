@@ -157,6 +157,9 @@ AUTHENTICATION_BACKENDS = (
     'drf_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+from django.core.files.storage import FileSystemStorage
+
+MEDIA_PHOTO_VIDEOS_PATH = FileSystemStorage(location='/media/photos_videos')
 
 # SIMPLE_JWT = {
 #     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
