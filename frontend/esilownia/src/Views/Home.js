@@ -21,9 +21,28 @@ function Home() {
           </div>
         </div>
       </div>
-      <div class="container">
-        <button type="button" class="btn btn-lg">200$</button>
-      </div>
+       <div class="container">
+          <div class="row">
+            <div class="col border rounded">
+              <h2 class="font-weight-light">Starter</h2>
+              <p>30h treningu</p>
+              <p>2 tyg diety</p>
+              <button type="button" class="btn btn-lg">$20</button>
+            </div>
+            <div class="col border rounded">
+              <h2 class="font-weight-light">Classic</h2>
+              <p>60h treningu</p>
+              <p>1.5 mesiac diety</p>
+              <button type="button" class="btn btn-lg">$35</button>
+            </div>
+            <div class="col border rounded">
+              <h2 class="font-weight-light">Premium</h2>
+              <p>120h treningu</p>
+              <p>2 mesiac diety</p>
+              <button type="button" class="btn btn-lg">$60</button>
+            </div>
+          </div>
+        </div>
     </div>
   );
 }
