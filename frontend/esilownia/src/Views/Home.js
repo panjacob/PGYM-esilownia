@@ -21,25 +21,45 @@ function Home() {
           </div>
         </div>
       </div>
-       <div class="container">
+      <div class="container">
           <div class="row">
-            <div class="col border rounded">
-              <h2 class="font-weight-light">Starter</h2>
-              <p>30h treningu</p>
-              <p>2 tyg diety</p>
-              <button type="button" class="btn btn-lg">$20</button>
+            <div class="col m-5 text-center font-weight-light">
+              Lorem ipsum pipsum 
             </div>
-            <div class="col border rounded">
-              <h2 class="font-weight-light">Classic</h2>
-              <p>60h treningu</p>
-              <p>1.5 mesiac diety</p>
-              <button type="button" class="btn btn-lg">$35</button>
+          </div>
+        </div>
+       <div class="container">
+          <div class="row text-center">
+            <div class="col-md-4">
+              <div class="col-md-12 border rounded">
+                <h2 class="font-weight-light">Starter</h2>
+                <p class="font-weight-light">30h treningu</p>
+                <p class="font-weight-light">2 tyg diety</p>
+                <button type="button" class="btn btn-lg">$20</button>
+              </div>
             </div>
-            <div class="col border rounded">
-              <h2 class="font-weight-light">Premium</h2>
-              <p>120h treningu</p>
-              <p>2 mesiac diety</p>
-              <button type="button" class="btn btn-lg">$60</button>
+            <div class="col-md-4">
+              <div class="col-md-12 border rounded">
+                <h2 class="font-weight-light">Classic</h2>
+                <p class="font-weight-light">60h treningu</p>
+                <p class="font-weight-light">1.5 mesiac diety</p>
+                <button type="button" class="btn btn-lg">$35</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-12 border rounded">
+                <h2 class="font-weight-light">Premium</h2>
+                <p class="font-weight-light">120h treningu</p>
+                <p class="font-weight-light">2 mesiac diety</p>
+                <button type="button" class="btn btn-lg">$60</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col m-5 text-center font-weight-light">
+              Lorem ipsum pipsum 
             </div>
           </div>
         </div>
