@@ -4,6 +4,20 @@ from django.utils import timezone
 from core import settings
 from users.models import UserExtended
 
+init_data_TrainingGroupTypes = [
+    (1, 'siłowy', 'opis'),
+    (2, 'cardio', 'opis'),
+    (3, 'funkcjonalny', 'opis'),
+    (4, 'fitness', 'opis'),
+    (5, 'aerobowy', 'opis'),
+    (6, 'ABS', 'opis'),
+    (7, 'wibracyjny', 'opis'),
+    (8, 'interwałowy', 'opis'),
+    (9, 'streching', 'opis'),
+    (10, 'yoga', 'opis'),
+    (20, 'inne', 'opis'),
+]
+
 
 class TrainingGroupTypes(models.Model):
     type = models.CharField(max_length=50, unique=True)
