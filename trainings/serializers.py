@@ -4,13 +4,11 @@ from rest_framework.serializers import ModelSerializer
 from trainings.models import TrainingGroup
 
 
-class TrainingGroupSerializer(ModelSerializer):
+class TrainingGroupSerializerCreate(ModelSerializer):
     class Meta:
         model = TrainingGroup
-        user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-        fields = ['date', 'difficulty', 'title', 'description']
+        owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        # type is to add when Type class is finished
+        # type = TagSerializer(read_only=True, many=True)
 
-    # def create(self, validated_data):
-    #     instance = self.Meta.model(**validated_data)
-    #     instance.save()
-    #     return instance
+        fields = ['owner', 'difficulty', 'title', 'description']
