@@ -11,7 +11,7 @@ from users.utilis import put_owner_to_request_data
 @permission_classes([AllowAny])
 def training_create(request):
     request = put_owner_to_request_data(request)
-    serializer = serializers.TrainingGroupSerializer(data=request.data)
+    serializer = serializers.TrainingGroupSerializerCreate(data=request.data)
 
     if serializer.is_valid():
         if serializer.save():

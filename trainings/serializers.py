@@ -1,14 +1,18 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from trainings.models import TrainingGroup
+from trainings.models import TrainingGroup, TrainingGroupTypes
+
+
+class TrainingGroupTypesSerializer(ModelSerializer):
+    model = TrainingGroupTypes
+    fields = ['id']
 
 
 class TrainingGroupSerializerCreate(ModelSerializer):
     class Meta:
         model = TrainingGroup
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-        # type is to add when Type class is finished
-        # type = TagSerializer(read_only=True, many=True)
+        type = TrainingGroupTypesSerializer(read_only=True, many=True)
 
-        fields = ['owner', 'difficulty', 'title', 'description']
+        fields = ['owner', 'difficulty', 'title', 'description', 'type']
