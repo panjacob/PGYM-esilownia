@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Logout from "../Logout/Logout";
 
 function Header(props) {
   return (
@@ -89,6 +90,16 @@ function Header(props) {
               >
                 <Link class="nav-link" to="/register">
                   Register
+                </Link>
+              </li>
+
+              <li
+                  className={`nav-item m-1 ${
+                      props.location.pathname === "/" ? "active" : ""
+                  }`}
+              >
+                <Link class="nav-link" to="/">
+                  <Logout></Logout>
                 </Link>
               </li>
 
