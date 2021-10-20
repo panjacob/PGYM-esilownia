@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axiosInstance from '../Axios/axios';
 
 function Login_form() {
 
@@ -11,15 +12,30 @@ function Login_form() {
     function validateForm() {
       return email.length > 0 && password.length > 0;
     }
-  
-    function handleSubmit(event) {
-      event.preventDefault();
-    }
-  
-    const message = () => {
-      console.log(email)
-      console.log(password) 
-     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(email);
+        console.log(password);
+
+        axiosInstance
+            .post(`auth/token/`, {
+                grant_type: 'password',
+                username: email,
+                password: password,
+                client_id: 'TUz2wd25Z9hfRbOUr9z3CFEKAc42hJrjsz57sMt6',
+                client_secret:
+                    'QpMCaevBW6VRJ42wtJ1Cgqitz0aVuBMJRQFgULMTGYievg572RVlcQoTD6xtaVf4mL6K38Df6tcazzfsxMfaDTEjzbH343kFCItJfJKEa2bcjL0ukufLOsfQCAFx3hTR',
+            })
+            .then((res) => {
+                console.log(res)
+                console.log(res.data)
+                // localStorage.setItem('access_token', res.data.access_token);
+                // localStorage.setItem('refresh_token', res.data.refresh_token);
+                // history.push('/');
+                // window.location.reload();
+            });
+    };
 
   return (
     <div className="login_form">
@@ -41,7 +57,7 @@ function Login_form() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button onClick={message} block size="lg" class="btn btn-lg" id="btn-login" type="submit" disabled={!validateForm()}>
+        <Button onClick={handleSubmit} block size="lg" class="btn btn-lg" id="btn-login" type="submit" disabled={!validateForm()}>
           Zaloguj
         </Button>
       </Form>

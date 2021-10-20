@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axiosInstance from '../Axios/axios';
+
 
 // scrypt do sily hasla
 
@@ -17,19 +19,30 @@ function Register_form() {
     function validateForm() {
       return email.length > 0 && password.length > 0 && login.length > 0 && firstname.length > 0 && lastname.length > 0 && rep_password.length > 0;
     }
-  
-    function handleSubmit(event) {
-      event.preventDefault();
-    }
-  
-    const message = () => {
-        console.log(login)
-        console.log(firstname)
-        console.log(lastname)
-        console.log(email)
-        console.log(password)
-        console.log(rep_password)
-     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+            console.log(login)
+            console.log(firstname)
+            console.log(lastname)
+            console.log(email)
+            console.log(password)
+            console.log(rep_password)
+
+        axiosInstance
+            .post(`users/register/`, {
+                email: email,
+                username: login,
+                password: password,
+                first_name: firstname,
+                last_name: lastname
+            })
+            .then((res) => {
+                //history.push('/login');
+                console.log(res);
+                console.log(res.data);
+            });
+    };
 
   return (
     <div className="login_form">
@@ -93,7 +106,7 @@ function Register_form() {
                       />
                   </Form.Group>
 
-<Button onClick={message} block size="lg" type="submit" class="btn btn-lg" id="btn-login" disabled={!validateForm()}>
+<Button onClick={handleSubmit} block size="lg" type="submit" class="btn btn-lg" id="btn-login" disabled={!validateForm()}>
   Zarejestruj
 </Button>
 </Form>
