@@ -37,8 +37,18 @@ code {
   
 }
 
-
 #btn-login{
   width: 100%;
   border-color: orange !important;
+}
+
+.card-text{
+    font-size:19px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.font-nunito {
+    font-family: Nunito,sans-serif;
 }
