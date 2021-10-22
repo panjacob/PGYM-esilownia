@@ -1,5 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Oferta_trener from "../components/Home/Oferta_trener"
 
 function Home() {
   return (
@@ -25,7 +26,7 @@ function Home() {
         </div>
       </div>
       <div class="container text-center">
-        <h1 class="display-1">Czym się zajmujemy</h1>
+        <h1 class="display-1">Zacznij swój trening</h1>
         <div class="container align-items-center my-5">
           <div class="container-lg-7">
               <img
@@ -36,7 +37,12 @@ function Home() {
             </div>
           </div>
       </div>
-
+      <div class="container text-center">
+        <h1 class="display-1">Jesteś trenerem?</h1>
+        <h4 class="font-weight-light">Dołącz do naszego zespołu!</h4>
+        <Oferta_trener></Oferta_trener>
+          <button class="btn btn-lg">Dołącz</button>
+      </div>
         <div class="container">
           <div class="row">
             <div class="col m-5 text-center font-weight-light">
