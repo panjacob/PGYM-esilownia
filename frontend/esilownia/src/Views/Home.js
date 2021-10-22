@@ -26,7 +26,12 @@ function Home() {
         </div>
       </div>
       <div class="container text-center">
-        <h1 class="display-1">Zacznij swój trening</h1>
+        <h1 class="display-1">Zacznij swój trening!</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+           Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa.
+            Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit.
+             Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent.
+           In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.</p>
         <div class="container align-items-center my-5">
           <div class="container-lg-7">
               <img
@@ -38,8 +43,8 @@ function Home() {
           </div>
       </div>
       <div class="container text-center">
-        <h1 class="display-1">Jesteś trenerem?</h1>
-        <h4 class="font-weight-light">Dołącz do naszego zespołu!</h4>
+        <h1 class="display-1 pb-4">Jesteś trenerem?</h1>
+        <h4 class="font-weight-light pb-4">Dołącz do naszego zespołu!</h4>
         <Oferta_trener></Oferta_trener>
           <button class="btn btn-lg">Dołącz</button>
       </div>

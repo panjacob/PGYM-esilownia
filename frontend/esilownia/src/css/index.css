@@ -52,3 +52,7 @@ code {
 .font-nunito {
     font-family: Nunito,sans-serif;
 }
+
+#trener_col{
+  height: 100%;
+}
