@@ -56,3 +56,10 @@ code {
 #trener_col{
   height: 100%;
 }
+
+.carousel-item{
+  height: 32rem;
+  background: #777;
+  position: relative;
+}
+
