@@ -1,5 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Oferta_trener from "../components/Home/Oferta_trener"
+import Karuzela from "../components/Home/Carousel";
 
 function Home() {
   return (
@@ -9,7 +11,7 @@ function Home() {
           <div class="col-lg-7">
             <img
               class="img-fluid rounded mb-4 mb-lg-0"
-              src="https://riotopgym.pl/wp-content/uploads/2020/06/IMG-3651.jpg"
+              src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZW1wdHklMjBneW18ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
               alt=""
             />
           </div>
@@ -25,18 +27,14 @@ function Home() {
         </div>
       </div>
       <div class="container text-center">
-        <h1 class="display-1">Czym się zajmujemy</h1>
-        <div class="container align-items-center my-5">
-          <div class="container-lg-7">
-              <img
-                class="img-fluid rounded mb-4 mb-lg-0"
-                src="https://riotopgym.pl/wp-content/uploads/2020/06/IMG-3651.jpg"
-                alt=""
-              />
-            </div>
-          </div>
+        <h1 class="display-1 pb-4">Zacznij swój trening!</h1>
+        <Karuzela></Karuzela>
+        <button class="btn btn-lg mt-4">Zapoznaj się z ofertą</button>
+        <h1 class="display-1 pb-4">Jesteś trenerem?</h1>
+        <h4 class="font-weight-light pb-4">Dołącz do naszego zespołu!</h4>
+        <Oferta_trener></Oferta_trener>
+          <button class="btn btn-lg">Dołącz</button>
       </div>
-
         <div class="container">
           <div class="row">
             <div class="col m-5 text-center font-weight-light">
