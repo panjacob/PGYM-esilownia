@@ -3,9 +3,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from '../Axios/axios';
+import {useHistory} from "react-router-dom";
 
 function Login_form() {
 
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
   
@@ -33,11 +35,12 @@ function Login_form() {
                 localStorage.setItem('access_token', res.data.access_token);
                 localStorage.setItem('refresh_token', res.data.refresh_token);
 
-                console.log("Token : " + localStorage.getItem('access_token'))
-                console.log("Token : " + localStorage.getItem('refresh_token'))
+                console.log("Token acc: " + localStorage.getItem('access_token'))
+                console.log("Token ref: " + localStorage.getItem('refresh_token'))
 
-                // history.push('/');
-                // window.location.reload();
+
+                history.push('/');
+                window.location.reload();
             });
     };
 

@@ -3,12 +3,14 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from '../Axios/axios';
+import {useHistory} from "react-router-dom";
 
 
 // scrypt do sily hasla
 
 function Register_form() {
 
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rep_password, setRep_password] = useState("");
@@ -38,9 +40,11 @@ function Register_form() {
                 last_name: lastname
             })
             .then((res) => {
-                //history.push('/login');
+
                 console.log(res);
                 console.log(res.data);
+                history.push('/login');
+
             });
     };
 

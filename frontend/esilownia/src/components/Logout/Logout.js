@@ -16,7 +16,8 @@ export default function SignUp() {
         localStorage.removeItem('refresh_token');
         axiosInstance.defaults.headers['Authorization'] = null;
         console.log("Logout and removed tokens")
-        console.log("Token : " + localStorage.getItem('refresh_token'))
+        console.log("Token acc: " + localStorage.getItem('access_token'))
+        console.log("Token ref: " + localStorage.getItem('refresh_token'))
         //history.push('/login');
     });
     return <div>Logout</div>;
