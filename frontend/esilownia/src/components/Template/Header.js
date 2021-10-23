@@ -20,7 +20,6 @@ function Header(props) {
                 <Nav.Link href="/treningi">Treningi</Nav.Link>
                 <Nav.Link href="/dieta">Dieta</Nav.Link>
               </Nav>
-
               {
                 localStorage.getItem('access_token') ? (
                     <Nav className="ml-auto">
@@ -39,7 +38,6 @@ function Header(props) {
                     </Nav>
                 )
               }
-
             </Navbar.Collapse>
           </Container>
         </Navbar>

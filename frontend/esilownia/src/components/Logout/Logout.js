@@ -18,7 +18,7 @@ export default function SignUp() {
         console.log("Logout and removed tokens")
         console.log("Token acc: " + localStorage.getItem('access_token'))
         console.log("Token ref: " + localStorage.getItem('refresh_token'))
-        //history.push('/login');
+        //history.push('/');
     });
     return <div>Logout</div>;
 }

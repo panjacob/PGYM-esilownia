@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from '../Axios/axios';
 import {useHistory} from "react-router-dom";
 
-
 // scrypt do sily hasla
 
 function Register_form() {
