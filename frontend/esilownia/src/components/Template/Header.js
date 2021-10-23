@@ -9,7 +9,7 @@ function Header(props) {
       <div className="navigation">
         <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
           <Container>
-            <Navbar.Brand href="#home">E-Siłownia</Navbar.Brand>
+            <Navbar.Brand href="/">E-Siłownia</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
@@ -24,12 +24,12 @@ function Header(props) {
                 localStorage.getItem('access_token') ? (
                     <Nav className="ml-auto">
                       <NavDropdown title="Konto" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="/">Moje konto</NavDropdown.Item>
+                        <NavDropdown.Item href="/konto">Moje konto</NavDropdown.Item>
+                        <NavDropdown.Divider />
                         <NavDropdown.Item href="/">Edytuj konto</NavDropdown.Item>
                         <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="/"><Logout></Logout></NavDropdown.Item>
                       </NavDropdown>
+                      <Nav.Link><Logout></Logout></Nav.Link>
                     </Nav>
                 ) : (
                     <Nav className="ml-auto">

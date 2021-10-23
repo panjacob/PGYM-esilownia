@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import axiosInstance from '../Axios/axios';
 import { useHistory } from 'react-router-dom';
 
-export default function SignUp() {
+export default function Logout() {
     const history = useHistory();
 
-    useEffect(() => {
+    const handleLogout = (e) => {
         const response = axiosInstance.post('auth/revoke-token/', {
             client_id: 'TUz2wd25Z9hfRbOUr9z3CFEKAc42hJrjsz57sMt6',
             client_secret:
@@ -18,7 +18,7 @@ export default function SignUp() {
         console.log("Logout and removed tokens")
         console.log("Token acc: " + localStorage.getItem('access_token'))
         console.log("Token ref: " + localStorage.getItem('refresh_token'))
-        //history.push('/');
-    });
-    return <div>Logout</div>;
+        history.push('/');
+    };
+    return <div onClick={handleLogout}>Logout</div>;
 }
