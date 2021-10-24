@@ -34,7 +34,7 @@ function Home() {
         <Karuzela></Karuzela>
         <Oferta_user></Oferta_user>
         {/* trener */}
-        <h1 class="display-1 pb-4">Jesteś trenerem?</h1>
+        <h1 class="display-1 pb-4 pt-4">Jesteś trenerem?</h1>
         <h4 class="font-weight-light pb-4">Dołącz do naszego zespołu!</h4>
         <Oferta_trener></Oferta_trener>
           <Link class="btn btn-lg" to="/register">Dołącz</Link>

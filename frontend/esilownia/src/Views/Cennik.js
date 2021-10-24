@@ -11,11 +11,11 @@ function Cennik() {
 
             <div className="container">
 
-                <img src={bg_img} alt="Bg_Img" width="100%" class="pt-3"/>
+                {/* <img src={bg_img} alt="Bg_Img" width="100%" class="pt-3"/> */}
                 <div className="row justify-content-center my-5">
 
                     <div class="container text-center">
-                        <h1 class="display-1 font-weight-light">Cennik</h1>
+                        <h1 class="display-1 font-weight-light mb-4">Cennik</h1>
                     </div>
                     <Oferta_cennik></Oferta_cennik>
                 </div>
