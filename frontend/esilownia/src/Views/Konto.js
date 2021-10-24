@@ -4,22 +4,34 @@ import axiosInstance from "../components/Axios/axios";
 
 function Konto() {
 
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [joindate, setJoindate] = useState("");
+
     useEffect(() => {
 
         axiosInstance
-            .get(`/users/info`, {
-                // grant_type: 'password',
-                // client_id: 'TUz2wd25Z9hfRbOUr9z3CFEKAc42hJrjsz57sMt6',
-                // client_secret:
-                //     'QpMCaevBW6VRJ42wtJ1Cgqitz0aVuBMJRQFgULMTGYievg572RVlcQoTD6xtaVf4mL6K38Df6tcazzfsxMfaDTEjzbH343kFCItJfJKEa2bcjL0ukufLOsfQCAFx3hTR',
+            .get(`users/info/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('access_token')
+                }
             })
             .then((res) => {
                 console.log(res)
                 console.log(res.data)
 
+                setEmail(res.data.email)
+                setUsername(res.data.username)
+                setFirstname(res.data.first_name)
+                setLastname(res.data.last_name)
+                setJoindate(res.data.start_date.slice(0,10))
+
             });
 
-    });
+    },[]);
 
     return (
         <div className="konto">
@@ -34,9 +46,14 @@ function Konto() {
                     </div>
                     <div class="col-lg-5">
                         <h1 class="font-weight-light">Konto</h1>
-                        <p>
-                            Strona na diety
-                        </p>
+
+                            <p>Dane :</p>
+                            <p>Username : {username}</p>
+                            <p>Imie : {firstname}</p>
+                            <p>Nazwisko : {lastname}</p>
+                            <p>Mail : {email}</p>
+                            <p>Data dołaczenia : {joindate}</p>
+
                     </div>
                 </div>
             </div>
