@@ -10,6 +10,7 @@ urlpatterns = [
     path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
     path('users/', include('users.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('trainings/', include('trainings.urls')),
     path('admin/', admin.site.urls),
     # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

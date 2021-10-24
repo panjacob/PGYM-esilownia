@@ -1,5 +1,9 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Oferta_trener from "../components/Home/Oferta_trener"
+import Karuzela from "../components/Home/Carousel";
+import Oferta_user from "../components/Home/Oferta_user";
+import {Link} from "react-router-dom";
 
 function Home() {
   return (
@@ -9,53 +13,30 @@ function Home() {
           <div class="col-lg-7">
             <img
               class="img-fluid rounded mb-4 mb-lg-0"
-              src="https://riotopgym.pl/wp-content/uploads/2020/06/IMG-3651.jpg"
+              src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZW1wdHklMjBneW18ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
               alt=""
             />
           </div>
-          <div class="col-lg-5">
-            <h1 class="font-weight-light">Home</h1>
-            <p>
-              Strona domowa
-            </p>
+          <div class="col-lg-5 text-black shadow-lg" id="home_start">
+            <div class="content">
+              <p>  </p>
+              <h1 class="font-weight-light display-4">E-Siłownia</h1>
+              <p class="font-weight-light">Ćwicz już dziś w swoim domu z</p>
+              <h2 class="display-6 font-weight-light"> licencjonowanymi</h2>
+              <p class="font-weight-light">trenerami personalnymi !</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="container">
-          <div class="row">
-            <div class="col m-5 text-center font-weight-light">
-              Lorem ipsum pipsum 
-            </div>
-          </div>
-        </div>
-       <div class="container">
-          <div class="row text-center">
-            <div class="col-md-4">
-              <div class="col-md-12 border rounded">
-                <h2 class="font-weight-light">Starter</h2>
-                <p class="font-weight-light">30h treningu</p>
-                <p class="font-weight-light">2 tyg diety</p>
-                <button type="button" class="btn btn-lg">$20</button>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="col-md-12 border rounded">
-                <h2 class="font-weight-light">Classic</h2>
-                <p class="font-weight-light">60h treningu</p>
-                <p class="font-weight-light">1.5 mesiac diety</p>
-                <button type="button" class="btn btn-lg">$35</button>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="col-md-12 border rounded">
-                <h2 class="font-weight-light">Premium</h2>
-                <p class="font-weight-light">120h treningu</p>
-                <p class="font-weight-light">2 mesiac diety</p>
-                <button type="button" class="btn btn-lg">$60</button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="container text-center">
+        <h1 class="display-1 pb-4">Zacznij swój trening!</h1>
+        <Karuzela></Karuzela>
+        <Oferta_user></Oferta_user>
+        <h1 class="display-1 pb-4">Jesteś trenerem?</h1>
+        <h4 class="font-weight-light pb-4">Dołącz do naszego zespołu!</h4>
+        <Oferta_trener></Oferta_trener>
+          <Link class="btn btn-lg" to="/register">Dołącz</Link>
+      </div>
         <div class="container">
           <div class="row">
             <div class="col m-5 text-center font-weight-light">
