@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Logout from "../Logout/Logout";
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
@@ -13,12 +13,24 @@ function Header(props) {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="/">Home</Nav.Link>
+                {
+                  localStorage.getItem('access_token') ?
+                      <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                      : <Nav.Link href="/">Home</Nav.Link>
+                }
                 <Nav.Link href="/o_nas">O nas</Nav.Link>
                 <Nav.Link href="/cennik">Cennik</Nav.Link>
                 <Nav.Link href="/kadra">Kadra</Nav.Link>
-                <Nav.Link href="/treningi">Treningi</Nav.Link>
-                <Nav.Link href="/dieta">Dieta</Nav.Link>
+                {
+                localStorage.getItem('access_token') ?
+                    <Nav.Link href="/treningi">Treningi</Nav.Link>
+                    : ""
+                }
+                {
+                  localStorage.getItem('access_token') ?
+                      <Nav.Link href="/dieta">Dieta</Nav.Link>
+                      : ""
+                }
               </Nav>
               {
                 localStorage.getItem('access_token') ? (

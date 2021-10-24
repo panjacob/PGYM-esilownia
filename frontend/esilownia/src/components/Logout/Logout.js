@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axiosInstance from '../Axios/axios';
 import { useHistory } from 'react-router-dom';
 

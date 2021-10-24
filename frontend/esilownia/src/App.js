@@ -11,6 +11,7 @@ import  Dieta  from "./Views/Dieta";
 import  O_nas  from "./Views/O_nas";
 import Cennik from "./Views/Cennik";
 import Konto from "./Views/Konto";
+import Dashboard from "./Views/Dashboard";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" exact component={() => <Login />} />
           <Route path="/register" exact component={() => <Register />} />
           <Route path="/konto" exact component={() => <Konto />} />
+          <Route path="/dashboard" exact component={() => <Dashboard />} />
         </Switch>
         <Footer />
       </Router>
