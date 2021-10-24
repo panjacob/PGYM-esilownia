@@ -21,7 +21,7 @@ function Oferta_cennik() {
                                 <Card.Text as={"h2"}>
                                     20$
                                 </Card.Text>
-                                <Button variant="primary">Kup</Button>
+                                <Button variant="primary" id="btn-login">Kup</Button>
                             </Card.Body>
                         </Card>
                     </div>
@@ -36,7 +36,7 @@ function Oferta_cennik() {
                                 <Card.Text as={"h2"}>
                                     40$
                                 </Card.Text>
-                                <Button variant="primary">Kup</Button>
+                                <Button variant="primary" id="btn-login">Kup</Button>
                             </Card.Body>
                         </Card>
                     </div>
@@ -51,7 +51,7 @@ function Oferta_cennik() {
                                 <Card.Text as={"h2"}>
                                     60$
                                 </Card.Text>
-                                <Button variant="primary">Kup</Button>
+                                <Button variant="primary" id="btn-login">Kup</Button>
                             </Card.Body>
                         </Card>
                     </div>
