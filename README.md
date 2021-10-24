@@ -18,6 +18,9 @@ and in venv:
 
 ## Start frontend:
 
+Install node packages in /esilownia/frontend/esilownia:
+```npm install```
+
 Start react-app in /esilownia/frontend/esilownia:
 ```npm start```
 
