@@ -6,13 +6,42 @@
 Create virtual environment: 
 ```python -m venv venv```
 
-Install requirements.txt: 
-```python -m pip install -r requirements.txt```
+-Windows:
 
-## Start backend:
+Activate venv in /esilownia/venv/Scripts:
+```./activate```
+
+-Linux:
 
 Activate virtual environment in /esilownia: 
 ```source venv/bin/activate```
+
+Install requirements.txt: 
+```python -m pip install -r requirements.txt```
+
+Make migrations:
+```python manage.py makemigrations```
+
+Migrate:
+```python manage.py migrate```
+
+## If there is no admin@admin.pl:
+
+Create Superuser:
+```python manage.py createsuperuser```
+
+## Start backend:
+
+-Windows:
+
+Activate venv in /esilownia/venv/Scripts:
+```./activate```
+
+-Linux:
+
+Activate virtual environment in /esilownia: 
+```source venv/bin/activate```
+
 and in venv:
 ```python3 manage.py runserver```
 
