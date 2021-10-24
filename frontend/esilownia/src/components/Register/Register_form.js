@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from '../Axios/axios';
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 
 // scrypt do sily hasla
 
@@ -112,6 +112,7 @@ function Register_form() {
 <Button onClick={handleSubmit} block size="lg" type="submit" class="btn btn-lg" id="btn-login" disabled={!validateForm()}>
   Zarejestruj
 </Button>
+Masz już konto? <Link to="/login">Zaloguj się!</Link>
 </Form>
     </div>
   );

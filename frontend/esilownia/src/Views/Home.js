@@ -2,6 +2,8 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Oferta_trener from "../components/Home/Oferta_trener"
 import Karuzela from "../components/Home/Carousel";
+import Oferta_user from "../components/Home/Oferta_user";
+import {Link} from "react-router-dom";
 
 function Home() {
   return (
@@ -29,11 +31,11 @@ function Home() {
       <div class="container text-center">
         <h1 class="display-1 pb-4">Zacznij swój trening!</h1>
         <Karuzela></Karuzela>
-        <button class="btn btn-lg mt-4">Zapoznaj się z ofertą</button>
+        <Oferta_user></Oferta_user>
         <h1 class="display-1 pb-4">Jesteś trenerem?</h1>
         <h4 class="font-weight-light pb-4">Dołącz do naszego zespołu!</h4>
         <Oferta_trener></Oferta_trener>
-          <button class="btn btn-lg">Dołącz</button>
+          <Link class="btn btn-lg" to="/register">Dołącz</Link>
       </div>
         <div class="container">
           <div class="row">

@@ -3,7 +3,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from '../Axios/axios';
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
+
 
 function Login_form() {
 
@@ -67,6 +68,7 @@ function Login_form() {
         <Button onClick={handleSubmit} block size="lg" class="btn btn-lg" id="btn-login" type="submit" disabled={!validateForm()}>
           Zaloguj
         </Button>
+        Nie masz konta? <Link to="/register">Zarejestruj się!</Link>
       </Form>
     </div>
   );

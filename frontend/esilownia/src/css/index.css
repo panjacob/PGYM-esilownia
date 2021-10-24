@@ -63,3 +63,7 @@ code {
   position: relative;
 }
 
+#linia{
+	background-image: linear-gradient(100deg, orange, yellow);
+  border-radius: 0.5rem;
+}
