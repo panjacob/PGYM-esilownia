@@ -29,9 +29,11 @@ function Home() {
         </div>
       </div>
       <div class="container text-center">
+        {/* user */}
         <h1 class="display-1 pb-4">Zacznij swój trening!</h1>
         <Karuzela></Karuzela>
         <Oferta_user></Oferta_user>
+        {/* trener */}
         <h1 class="display-1 pb-4">Jesteś trenerem?</h1>
         <h4 class="font-weight-light pb-4">Dołącz do naszego zespołu!</h4>
         <Oferta_trener></Oferta_trener>
