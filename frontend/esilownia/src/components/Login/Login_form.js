@@ -40,7 +40,7 @@ function Login_form() {
                 console.log("Token ref: " + localStorage.getItem('refresh_token'))
 
 
-                history.push('/');
+                history.push('/dashboard');
                 window.location.reload();
             });
     };
