@@ -15,4 +15,4 @@ class TrainingGroupSerializerCreate(ModelSerializer):
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
 
-        fields = ['owner', 'difficulty', 'title', 'description', 'type']
+        fields = ['owner', 'date', 'difficulty', 'title', 'description', 'type']
