@@ -38,7 +38,7 @@ function Header(props) {
                       <NavDropdown title="Konto" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="/konto">Moje konto</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="/">Edytuj konto</NavDropdown.Item>
+                        <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
                         <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
                       </NavDropdown>
                       <Nav.Link><Logout></Logout></Nav.Link>
