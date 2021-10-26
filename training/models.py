@@ -44,6 +44,16 @@ class TrainingGroup(models.Model):
     type = models.ManyToManyField(TrainingGroupTypes)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
+    # cost
+
+
+class Training(models.Model):
+    title = models.CharField(max_length=300)
+    description = models.CharField(max_length=10000)
+    date_start = models.DateTimeField(default=timezone.now)
+    date_end = models.DateTimeField(default=timezone.now)
+    participants = models.ManyToManyField(UserExtended)  # Participants which were on training
+    calories = models.IntegerField(default=0)
 
 
 class Files(models.Model):
