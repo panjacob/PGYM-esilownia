@@ -24,11 +24,6 @@ class TrainingGroupTypes(models.Model):
     description = models.CharField(max_length=300)
 
 
-class Files(models.Model):
-    my_file = models.FileField(storage=settings.MEDIA_PHOTO_VIDEOS_PATH)
-    user = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
-
-
 class TrainingGroup(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None,
                               related_name='owner')
@@ -49,3 +44,9 @@ class TrainingGroup(models.Model):
     type = models.ManyToManyField(TrainingGroupTypes)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
+
+
+class Files(models.Model):
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    my_file = models.FileField(storage=settings.MEDIA_PHOTO_VIDEOS_PATH)
+    training_group = models.ForeignKey(TrainingGroup, on_delete=models.CASCADE)
