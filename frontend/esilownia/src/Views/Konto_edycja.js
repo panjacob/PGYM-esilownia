@@ -140,7 +140,7 @@ function KontoEdycja() {
 
     return (
         <div className="konto_edycja">
-            <div class="container">
+            <div className="container">
 
                 <div className="col-md-8 mx-auto mt-3">
                     <div className="card mb-3">

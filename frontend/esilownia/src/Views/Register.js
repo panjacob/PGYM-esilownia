@@ -6,8 +6,8 @@ function Register() {
 
   return (
     <div className="Register">
-      <div class="container">
-        <div class="row d-flex justify-content-center my-5">
+      <div className="container">
+        <div className="row d-flex justify-content-center my-5">
             <RegisterForm></RegisterForm>
         </div>
       </div>

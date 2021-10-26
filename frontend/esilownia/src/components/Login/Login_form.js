@@ -65,7 +65,7 @@ function Login_form() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button onClick={handleSubmit} block size="lg" class="btn btn-lg" id="btn-login" type="submit" disabled={!validateForm()}>
+        <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login" type="submit" disabled={!validateForm()}>
           Zaloguj
         </Button>
         Nie masz konta? <Link to="/register">Zarejestruj się!</Link>

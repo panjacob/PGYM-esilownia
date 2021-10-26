@@ -109,7 +109,7 @@ function Register_form() {
                       />
                   </Form.Group>
 
-<Button onClick={handleSubmit} block size="lg" type="submit" class="btn btn-lg" id="btn-login" disabled={!validateForm()}>
+<Button onClick={handleSubmit} block size="lg" type="submit" className="btn btn-lg" id="btn-login" disabled={!validateForm()}>
   Zarejestruj
 </Button>
 Masz już konto? <Link to="/login">Zaloguj się!</Link>

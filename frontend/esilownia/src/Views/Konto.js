@@ -35,7 +35,7 @@ function Konto() {
 
     return (
         <div className="konto">
-            <div class="container">
+            <div className="container">
 
                 <div className="col-md-8 mx-auto mt-3">
                     <div className="card mb-3">

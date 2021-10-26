@@ -19,8 +19,8 @@ function Karuzela() {
             alt="slide1"
           />
           <Carousel.Caption>
-            <h3 class="font-weight-light">Treningi personalne i grupowe</h3>
-            <p class="font-weight-light">Wybierz co Ci bardziej odpowiada.</p>
+            <h3 className="font-weight-light">Treningi personalne i grupowe</h3>
+            <p className="font-weight-light">Wybierz co Ci bardziej odpowiada.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -31,8 +31,8 @@ function Karuzela() {
           />
   
           <Carousel.Caption>
-            <h3 class="font-weight-light">Dashboard</h3>
-            <p class="font-weight-light">Korzystaj z naszego Dashboardu do ustalania terminów ćwiczeń.</p>
+            <h3 className="font-weight-light">Dashboard</h3>
+            <p className="font-weight-light">Korzystaj z naszego Dashboardu do ustalania terminów ćwiczeń.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -43,8 +43,8 @@ function Karuzela() {
           />
   
           <Carousel.Caption>
-            <h3 class="font-weight-light">Dieta</h3>
-            <p class="font-weight-light">Wybierz odpowiadającą Ci dietę.</p>
+            <h3 className="font-weight-light">Dieta</h3>
+            <p className="font-weight-light">Wybierz odpowiadającą Ci dietę.</p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>

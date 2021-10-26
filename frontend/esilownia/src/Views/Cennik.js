@@ -12,8 +12,8 @@ function Cennik() {
 
                 <div className="row justify-content-center my-5">
 
-                    <div class="container text-center">
-                        <h1 class="display-1 font-weight-light mb-4">Cennik</h1>
+                    <div className="container text-center">
+                        <h1 className="display-1 font-weight-light mb-4">Cennik</h1>
                     </div>
                     <OfertaCennik></OfertaCennik>
                 </div>

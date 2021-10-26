@@ -6,8 +6,8 @@ function Login() {
 
   return (
     <div className="Login">
-      <div class="container">
-        <div class="row d-flex justify-content-center my-5">
+      <div className="container">
+        <div className="row d-flex justify-content-center my-5">
             <LoginForm></LoginForm>
         </div>
       </div>
