@@ -31,7 +31,8 @@ function Konto_zmiana_hasla() {
 
         postData('http://127.0.0.1:8000/users/change_password/', {
             old_password: oldpassword,
-            new_password: newpassword })
+            new_password: newpassword
+        })
             .then(data => {
                 //console.log(data);
                 //window.location.reload();

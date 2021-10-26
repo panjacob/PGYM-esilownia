@@ -1,7 +1,7 @@
 import React from 'react';
 import axiosInstance from '../Axios/axios';
 import axiosZmienne from '../Axios/axiosZmienne';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 export default function Logout() {
     const history = useHistory();

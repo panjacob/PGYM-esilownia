@@ -4,8 +4,6 @@ import DaneKonto from '../components/Konto/Dane_konto'
 
 function Konto() {
 
-
-
     return (
         <div className="konto">
             <div className="container">

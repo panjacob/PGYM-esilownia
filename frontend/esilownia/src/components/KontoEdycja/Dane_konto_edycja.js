@@ -46,27 +46,27 @@ function Dane_konto_edycja() {
             });
     }
 
-        useEffect(() => {
+    useEffect(() => {
 
-            axiosInstance
-                .get(`users/info/`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                    }
-                })
-                .then((res) => {
-                    //console.log(res)
-                    //console.log(res.data)
+        axiosInstance
+            .get(`users/info/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                //console.log(res)
+                //console.log(res.data)
 
-                    setEmail(res.data.email)
-                    setUsername(res.data.username)
-                    setFirstname(res.data.first_name)
-                    setLastname(res.data.last_name)
+                setEmail(res.data.email)
+                setUsername(res.data.username)
+                setFirstname(res.data.first_name)
+                setLastname(res.data.last_name)
 
-                });
+            });
 
-        },[]);
+    }, []);
 
     return (
         <div className="dane_konto_edycja">

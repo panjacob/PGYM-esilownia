@@ -27,65 +27,65 @@ function Dane_konto() {
                 setUsername(res.data.username)
                 setFirstname(res.data.first_name)
                 setLastname(res.data.last_name)
-                setJoindate(res.data.start_date.slice(0,10))
+                setJoindate(res.data.start_date.slice(0, 10))
 
             });
 
-    },[]);
+    }, []);
 
     return (
         <div className="dane_konto">
 
-        <div className="col-md-8 mx-auto mt-3">
-            <div className="card mb-3">
-                <div className="card-body">
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <h6 className="mb-0">Username</h6>
+            <div className="col-md-8 mx-auto mt-3">
+                <div className="card mb-3">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <h6 className="mb-0">Username</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                                {username}
+                            </div>
                         </div>
-                        <div className="col-sm-9 text-secondary">
-                            {username}
+                        <hr></hr>
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <h6 className="mb-0">Imie</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                                {firstname}
+                            </div>
                         </div>
-                    </div>
-                    <hr></hr>
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <h6 className="mb-0">Imie</h6>
+                        <hr></hr>
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <h6 className="mb-0">Nazwisko</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                                {lastname}
+                            </div>
                         </div>
-                        <div className="col-sm-9 text-secondary">
-                            {firstname}
+                        <hr></hr>
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <h6 className="mb-0">Mail</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                                {email}
+                            </div>
                         </div>
-                    </div>
-                    <hr></hr>
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <h6 className="mb-0">Nazwisko</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                            {lastname}
-                        </div>
-                    </div>
-                    <hr></hr>
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <h6 className="mb-0">Mail</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                            {email}
-                        </div>
-                    </div>
-                    <hr></hr>
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <h6 className="mb-0">Data dołaczenia</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                            {joindate}
+                        <hr></hr>
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <h6 className="mb-0">Data dołaczenia</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                                {joindate}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         </div>
     );

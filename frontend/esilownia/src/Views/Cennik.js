@@ -28,4 +28,5 @@ function Cennik() {
         </div>
     );
 }
+
 export default Cennik;
