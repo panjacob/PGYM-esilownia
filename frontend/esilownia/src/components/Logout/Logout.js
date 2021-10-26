@@ -1,5 +1,6 @@
 import React from 'react';
 import axiosInstance from '../Axios/axios';
+import axiosZmienne from '../Axios/axiosZmienne';
 import { useHistory } from 'react-router-dom';
 
 export default function Logout() {
@@ -7,9 +8,8 @@ export default function Logout() {
 
     const handleLogout = (e) => {
         axiosInstance.post('auth/revoke-token/', {
-            client_id: 'TUz2wd25Z9hfRbOUr9z3CFEKAc42hJrjsz57sMt6',
-            client_secret:
-                'QpMCaevBW6VRJ42wtJ1Cgqitz0aVuBMJRQFgULMTGYievg572RVlcQoTD6xtaVf4mL6K38Df6tcazzfsxMfaDTEjzbH343kFCItJfJKEa2bcjL0ukufLOsfQCAFx3hTR',
+            client_id: axiosZmienne.client_id,
+            client_secret: axiosZmienne.client_secret,
             token: localStorage.getItem('refresh_token'),
         });
         localStorage.removeItem('access_token');

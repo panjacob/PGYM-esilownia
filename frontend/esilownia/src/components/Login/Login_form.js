@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from '../Axios/axios';
+import axiosZmienne from '../Axios/axiosZmienne';
 import {useHistory, Link} from "react-router-dom";
 
 
@@ -26,9 +27,8 @@ function Login_form() {
                 grant_type: 'password',
                 username: email,
                 password: password,
-                client_id: 'TUz2wd25Z9hfRbOUr9z3CFEKAc42hJrjsz57sMt6',
-                client_secret:
-                    'QpMCaevBW6VRJ42wtJ1Cgqitz0aVuBMJRQFgULMTGYievg572RVlcQoTD6xtaVf4mL6K38Df6tcazzfsxMfaDTEjzbH343kFCItJfJKEa2bcjL0ukufLOsfQCAFx3hTR',
+                client_id: axiosZmienne.client_id,
+                client_secret: axiosZmienne.client_secret,
             })
             .then((res) => {
                 console.log(res)
