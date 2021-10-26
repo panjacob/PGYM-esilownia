@@ -20,7 +20,7 @@ function KontoEdycja() {
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
@@ -120,7 +120,7 @@ function KontoEdycja() {
             .get(`users/info/`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {

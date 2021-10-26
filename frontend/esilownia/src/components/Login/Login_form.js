@@ -19,8 +19,8 @@ function Login_form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
-        console.log(password);
+        //console.log(email);
+        //console.log(password);
 
         axiosInstance
             .post(`auth/token/`, {
@@ -31,13 +31,14 @@ function Login_form() {
                 client_secret: axiosZmienne.client_secret,
             })
             .then((res) => {
-                console.log(res)
-                console.log(res.data)
+                //console.log(res)
+                //console.log(res.data)
                 localStorage.setItem('access_token', res.data.access_token);
                 localStorage.setItem('refresh_token', res.data.refresh_token);
+                localStorage.setItem('token_type', res.data.token_type);
 
-                console.log("Token acc: " + localStorage.getItem('access_token'))
-                console.log("Token ref: " + localStorage.getItem('refresh_token'))
+                //console.log("Token acc: " + localStorage.getItem('access_token'))
+                //console.log("Token ref: " + localStorage.getItem('refresh_token'))
 
 
                 history.push('/dashboard');

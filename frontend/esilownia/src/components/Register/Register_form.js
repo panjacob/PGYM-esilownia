@@ -23,12 +23,12 @@ function Register_form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-            console.log(login)
-            console.log(firstname)
-            console.log(lastname)
-            console.log(email)
-            console.log(password)
-            console.log(rep_password)
+            //console.log(login)
+            //console.log(firstname)
+            //console.log(lastname)
+            //console.log(email)
+            //console.log(password)
+            //console.log(rep_password)
 
         axiosInstance
             .post(`users/register/`, {
@@ -40,8 +40,8 @@ function Register_form() {
             })
             .then((res) => {
 
-                console.log(res);
-                console.log(res.data);
+                //console.log(res);
+                //console.log(res.data);
                 history.push('/login');
 
             });

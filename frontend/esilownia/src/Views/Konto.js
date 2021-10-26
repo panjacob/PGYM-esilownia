@@ -16,12 +16,12 @@ function Konto() {
             .get(`users/info/`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
-                console.log(res)
-                console.log(res.data)
+                //console.log(res)
+                //console.log(res.data)
 
                 setEmail(res.data.email)
                 setUsername(res.data.username)
