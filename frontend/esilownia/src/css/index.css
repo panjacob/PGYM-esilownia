@@ -71,3 +71,8 @@ code {
 #opis-cennik{
   background-color: #f1f1f1;
 }
+
+#linia_nas{
+	background-image: linear-gradient(100deg, orange, #f1f1f1);
+  border-radius: 0.5rem;
+}
