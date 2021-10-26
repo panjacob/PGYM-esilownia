@@ -12,7 +12,7 @@ function Oferta_cennik() {
             <div className="row text-center">
                 <div className="col-md-4">
                     <Card border="dark" style={{width: '80%'}} className="mx-auto">
-                        <Card.Header><Card.Img variant="top" src={gymcoin}/></Card.Header>
+                        <Card.Header><Card.Img variant="top" src={gymcoin}/>Najlepsze na start</Card.Header>
                         <Card.Body>
                             <Card.Title as={"h3"}>Starter</Card.Title>
                             <hr width="35%" color="black"/>
@@ -29,7 +29,7 @@ function Oferta_cennik() {
                 </div>
                 <div className="col-md-4">
                     <Card border="dark" style={{width: '80%'}} className="mx-auto">
-                        <Card.Header><Card.Img variant="top" src={gymcoin2}/></Card.Header>
+                        <Card.Header><Card.Img variant="top" src={gymcoin2}/>Najczęściej wybierany</Card.Header>
                         <Card.Body>
                             <Card.Title as={"h3"}>Classic</Card.Title>
                             <hr width="35%" color="black"/>
@@ -46,7 +46,7 @@ function Oferta_cennik() {
                 </div>
                 <div className="col-md-4">
                     <Card border="dark" style={{width: '80%'}} className="mx-auto">
-                        <Card.Header><Card.Img variant="top" src={gymcoin3}/></Card.Header>
+                        <Card.Header><Card.Img variant="top" src={gymcoin3}/>Najbardziej opłacalny</Card.Header>
                         <Card.Body>
                             <Card.Title as={"h3"}>Premium</Card.Title>
                             <hr width="35%" color="black"/>
