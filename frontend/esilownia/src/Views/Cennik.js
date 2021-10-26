@@ -13,14 +13,18 @@ function Cennik() {
                 <div className="row justify-content-center my-5">
 
                     <div className="container text-center">
+                        <hr></hr>
                         <h1 className="display-1 font-weight-light mb-4">Cennik</h1>
+                        <hr></hr>
                     </div>
                     <OfertaCennik></OfertaCennik>
                 </div>
                 <div className="row justify-content-center my-5">
 
                     <div className="container text-center">
-                        <h1 className="display-1 font-weight-light">Co to Gymcoin ?</h1>
+                        <hr></hr>
+                        <h1 className="display-3 font-weight-light"><i>Co to Gymcoin ?</i></h1>
+                        <hr></hr>
                     </div>
                     <OpisCennik></OpisCennik>
                 </div>

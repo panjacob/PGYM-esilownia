@@ -11,45 +11,51 @@ function Oferta_cennik() {
         <div id="oferta-cennik" className="container mb-4">
             <div className="row text-center">
                 <div className="col-md-4">
-                    <Card border="dark" style={{width: '90%'}}>
+                    <Card border="dark" style={{width: '80%'}} className="mx-auto">
                         <Card.Header><Card.Img variant="top" src={gymcoin}/></Card.Header>
                         <Card.Body>
                             <Card.Title as={"h3"}>Starter</Card.Title>
+                            <hr width="35%" color="black"/>
                             <Card.Text as={"h1"}>
-                                100 GymCoinów
+                                <i>100 GymCoinów</i>
                             </Card.Text>
+                            <hr width="35%" color="black"/>
                             <Card.Text as={"h2"}>
-                                20$
+                                <b><i>20$</i></b>
                             </Card.Text>
                             <Button variant="primary" id="btn-login">Kup</Button>
                         </Card.Body>
                     </Card>
                 </div>
                 <div className="col-md-4">
-                    <Card border="dark" style={{width: '90%'}}>
+                    <Card border="dark" style={{width: '80%'}} className="mx-auto">
                         <Card.Header><Card.Img variant="top" src={gymcoin2}/></Card.Header>
                         <Card.Body>
                             <Card.Title as={"h3"}>Classic</Card.Title>
+                            <hr width="35%" color="black"/>
                             <Card.Text as={"h1"}>
-                                200 GymCoinów
+                                <i>200 GymCoinów</i>
                             </Card.Text>
+                            <hr width="35%" color="black"/>
                             <Card.Text as={"h2"}>
-                                40$
+                                <b><i>40$</i></b>
                             </Card.Text>
                             <Button variant="primary" id="btn-login">Kup</Button>
                         </Card.Body>
                     </Card>
                 </div>
                 <div className="col-md-4">
-                    <Card border="dark" style={{width: '90%'}}>
+                    <Card border="dark" style={{width: '80%'}} className="mx-auto">
                         <Card.Header><Card.Img variant="top" src={gymcoin3}/></Card.Header>
                         <Card.Body>
                             <Card.Title as={"h3"}>Premium</Card.Title>
+                            <hr width="35%" color="black"/>
                             <Card.Text as={"h1"}>
-                                300 GymCoinów
+                                <i>300 GymCoinów</i>
                             </Card.Text>
+                            <hr width="35%" color="black"/>
                             <Card.Text as={"h2"}>
-                                60$
+                                <b><i>60$</i></b>
                             </Card.Text>
                             <Button variant="primary" id="btn-login">Kup</Button>
                         </Card.Body>
