@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Karuzela_kadra from "../components/Kadra/Carousel_trenerzy";
-import Karuzela_dietetycy from "../components/Kadra/Carousel_dietetycy";
+import KaruzelaKadra from "../components/Kadra/Carousel_trenerzy";
+import KaruzelaDietetycy from "../components/Kadra/Carousel_dietetycy";
 import Trenerzy from "../components/Kadra/Trenerzy";
 import Dietetycy from "../components/Kadra/Dietetycy";
 
@@ -19,7 +19,7 @@ function Kadra() {
                 <hr></hr>
 
                 <h1 className="font-weight-light pt-4 pb-4">Wybierz z kim chcesz trenowac !</h1>
-                <Karuzela_kadra></Karuzela_kadra>
+                <KaruzelaKadra></KaruzelaKadra>
 
                 <hr></hr>
                 <h1 className="font-weight-light pt-4 pb-4"><i>Nasi Dietetycy</i></h1>
@@ -28,7 +28,7 @@ function Kadra() {
                 <hr></hr>
 
                 <h1 className="font-weight-light pt-4 pb-4">Wybierz diete dostosowana do twojego treningu !</h1>
-                <Karuzela_dietetycy></Karuzela_dietetycy>
+                <KaruzelaDietetycy></KaruzelaDietetycy>
 
 
 

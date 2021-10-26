@@ -9,7 +9,7 @@ function Trenerzy() {
                 <div className="col-sm">
                     <div className="row justify-content-center">
                         <img src={Photo} width="75%" height="width" className="rounded-circle border border-dark"
-                             alt="Photo"/>
+                             alt="PhotoTrener"/>
                     </div>
                     <div className="row justify-content-center">
                         <p><b>Imie Nazwisko</b></p>
@@ -21,7 +21,7 @@ function Trenerzy() {
                 <div className="col-sm">
                     <div className="row justify-content-center">
                         <img src={Photo} width="75%" height="width" className="rounded-circle border border-dark"
-                             alt="Photo"/>
+                             alt="PhotoTrener"/>
                     </div>
                     <div className="row justify-content-center">
                         <p><b>Imie Nazwisko</b></p>
@@ -33,7 +33,7 @@ function Trenerzy() {
                 <div className="col-sm">
                     <div className="row justify-content-center">
                         <img src={Photo} width="75%" height="width" className="rounded-circle border border-dark"
-                             alt="Photo"/>
+                             alt="PhotoTrener"/>
                     </div>
                     <div className="row justify-content-center">
                         <p><b>Imie Nazwisko</b></p>
@@ -45,7 +45,7 @@ function Trenerzy() {
                 <div className="col-sm">
                     <div className="row justify-content-center">
                         <img src={Photo} width="75%" height="width" className="rounded-circle border border-dark"
-                             alt="Photo"/>
+                             alt="PhotoTrener"/>
                     </div>
                     <div className="row justify-content-center">
                         <p><b>Imie Nazwisko</b></p>
