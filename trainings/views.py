@@ -15,12 +15,12 @@ def training_group_create(request):
 
     if serializer.is_valid():
         if serializer.save():
-            return Response({'OK'}, status=status.HTTP_201_CREATED)
+            return Response({'OK'}, status=status.HTTP_200_OK)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 # TODO
 def training_group_add_participant(request):
-    pass
+    return Response({'OK'}, status=status.HTTP_201_CREATED)
 
 
 def training_group_remove_participant(request):
