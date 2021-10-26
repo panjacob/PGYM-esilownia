@@ -16,7 +16,7 @@ function Konto() {
             .get(`users/info/`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer' + " " + localStorage.getItem('access_token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {

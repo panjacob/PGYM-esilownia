@@ -1,6 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login_form from "../components/Login/Login_form"
+import LoginForm from "../components/Login/Login_form"
 
 function Login() {
 
@@ -8,7 +8,7 @@ function Login() {
     <div className="Login">
       <div class="container">
         <div class="row d-flex justify-content-center my-5">
-        <Login_form></Login_form>
+            <LoginForm></LoginForm>
         </div>
       </div>
     </div>

@@ -8,11 +8,11 @@ import  Register  from "./Views/Register";
 import  Kadra  from "./Views/Kadra";
 import  Treningi  from "./Views/Treningi";
 import  Dieta  from "./Views/Dieta";
-import  O_nas  from "./Views/O_nas";
+import  ONas  from "./Views/O_nas";
 import Cennik from "./Views/Cennik";
 import Konto from "./Views/Konto";
 import Dashboard from "./Views/Dashboard";
-import Konto_edycja from "./Views/Konto_edycja";
+import KontoEdycja from "./Views/Konto_edycja";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/o_nas" exact component={() => <O_nas />} />
+          <Route path="/o_nas" exact component={() => <ONas />} />
           <Route path="/cennik" exact component={() => <Cennik />} />
           <Route path="/" exact component={() => <Home />} />
           <Route path="/kadra" exact component={() => <Kadra />} />
@@ -29,7 +29,7 @@ function App() {
           <Route path="/login" exact component={() => <Login />} />
           <Route path="/register" exact component={() => <Register />} />
           <Route path="/konto" exact component={() => <Konto />} />
-          <Route path="/konto_edycja" exact component={() => <Konto_edycja />} />
+          <Route path="/konto_edycja" exact component={() => <KontoEdycja />} />
           <Route path="/dashboard" exact component={() => <Dashboard />} />
         </Switch>
         <Footer />

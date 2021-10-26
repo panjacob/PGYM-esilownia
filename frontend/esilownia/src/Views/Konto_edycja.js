@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../components/Axios/axios";
 import Button from "react-bootstrap/Button";
 
-function Konto() {
+function KontoEdycja() {
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -20,7 +20,7 @@ function Konto() {
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer' + " " + localStorage.getItem('access_token')
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
@@ -120,7 +120,7 @@ function Konto() {
             .get(`users/info/`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer' + " " + localStorage.getItem('access_token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
@@ -139,7 +139,7 @@ function Konto() {
     },[]);
 
     return (
-        <div className="konto">
+        <div className="konto_edycja">
             <div class="container">
 
                 <div className="col-md-8 mx-auto mt-3">
@@ -230,4 +230,4 @@ function Konto() {
     );
 }
 
-export default Konto;
+export default KontoEdycja;
