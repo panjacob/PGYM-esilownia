@@ -20,7 +20,7 @@ def training_group_create(request):
 
 # TODO
 def training_group_add_participant(request):
-    return Response({'OK'}, status=status.HTTP_201_CREATED)
+    return Response({'OK'}, status=status.HTTP_200_OK)
 
 
 def training_group_remove_participant(request):

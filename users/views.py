@@ -37,7 +37,7 @@ def user_register(request):
     if serializer.is_valid():
         new_user = serializer.save()
         if new_user:
-            return Response({'username': new_user.username, 'email': new_user.email}, status=status.HTTP_201_CREATED)
+            return Response({'username': new_user.username, 'email': new_user.email}, status=status.HTTP_200_OK)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
