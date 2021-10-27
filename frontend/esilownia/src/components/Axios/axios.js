@@ -48,6 +48,19 @@ axiosInstance.interceptors.response.use(
                     window.location.reload();
                 });
 
+                setTimeout(() => {
+                if (error.response.status === 401 || error.response.status === 400) {
+                    alert(
+                        'Authentication Failed. ' +
+                        "Please Login again. "
+                    );
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('refresh_token');
+                    localStorage.removeItem('token_type');
+                    window.location.href = '/login';
+                }
+                }, 2000);
+
             return Promise.reject(error);
         }
 
