@@ -6,8 +6,9 @@ from users.models import UserExtended
 
 
 class TrainingGroupTypesSerializer(ModelSerializer):
-    model = TrainingGroupTypes
-    fields = ['id']
+    class Meta:
+        model = TrainingGroupTypes
+        fields = ['id', 'type', 'description']
 
 
 class FilesSerializer(ModelSerializer):
