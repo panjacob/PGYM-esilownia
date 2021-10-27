@@ -62,11 +62,6 @@ def training_remove(request):
 
 @api_view(['GET'])
 def training_group_type_get(request):
-    print(1)
     training_group_type = models.TrainingGroupTypes.objects.get(id=request.data['id'])
-    print(2)
     serializer = serializers.TrainingGroupTypesSerializer(training_group_type)
-    print(3)
-    print(serializer)
-    print(4)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii':False})
