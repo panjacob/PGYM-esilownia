@@ -15,7 +15,6 @@ function Kadra() {
                 <h1 className="font-weight-light pt-4 pb-4"><i>Nasi Trenerzy</i></h1>
                 <hr></hr>
                 <Trenerzy></Trenerzy>
-                <Trenerzy></Trenerzy>
                 <hr></hr>
 
                 <h1 className="font-weight-light pt-4 pb-4">Wybierz z kim chcesz trenowac !</h1>

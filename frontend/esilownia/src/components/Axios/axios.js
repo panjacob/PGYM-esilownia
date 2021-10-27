@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosZmienne from "./axiosZmienne";
 
 const baseURL = 'http://127.0.0.1:8000/';
 
@@ -25,6 +26,28 @@ axiosInstance.interceptors.response.use(
                 'Looks like CORS might be the problem. ' +
                 'Sorry about this - we will get it fixed shortly.'
             );
+            return Promise.reject(error);
+        }
+
+        if (error.response.status === 401) {
+
+            axiosInstance
+                .post(`auth/token/`, {
+                    grant_type: 'refresh_token',
+                    refresh_token: localStorage.getItem('refresh_token'),
+                    client_id: axiosZmienne.client_id,
+                    client_secret: axiosZmienne.client_secret,
+                })
+                .then((res) => {
+                    console.log(res)
+                    console.log(res.data)
+                    localStorage.setItem('access_token', res.data.access_token);
+                    localStorage.setItem('refresh_token', res.data.refresh_token);
+                    localStorage.setItem('token_type', res.data.token_type);
+
+                    window.location.reload();
+                });
+
             return Promise.reject(error);
         }
 
