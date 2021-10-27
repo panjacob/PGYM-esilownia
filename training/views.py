@@ -22,16 +22,16 @@ def training_group_create(request):
 
 
 @api_view(['POST'])
-def training_group_add_participant(request):
+def training_group_participant_add(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     if request.user.id is not training_group.owner_id:
         return Response('Current user is not owner of a group', status=status.HTTP_400_BAD_REQUEST)
     training_group.participants.add(request.data['participant'])
-    return Response({'OK'}, status=status.HTTP_200_OK) @ api_view(['POST'])
+    return Response({'OK'}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
-def training_group_remove_participant(request):
+def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     if request.user.id is not training_group.owner_id:
         return Response('Current user is not owner of a group', status=status.HTTP_400_BAD_REQUEST)
@@ -47,9 +47,19 @@ def training_group_get(request):
     return JsonResponse(serializer.data)
 
 
-# @api_view(['GET'])
-# def training_group_get(request):
-#     pass
+# @api_view(['POST'])
+# def training_group_participant_add(request):
+#     participant = models.UserExtended.objects.get(id=request.data['participant'])
+#     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
+#     #TODO: Assert request.user is owner of training group
+#     training_group.participants.add(participant)
+#     training_group.save()
+
+
+
+# @api_view(['POST'])
+# def training_group_participant_remove():
+#     return None
 
 
 def training_create(request):
@@ -64,4 +74,4 @@ def training_remove(request):
 def training_group_type_get(request):
     training_group_type = models.TrainingGroupType.objects.get(id=request.data['id'])
     serializer = serializers.TrainingGroupTypesSerializer(training_group_type)
-    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii':False})
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})

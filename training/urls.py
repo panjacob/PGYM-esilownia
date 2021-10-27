@@ -7,7 +7,6 @@ urlpatterns = [
     path('group/get', views.training_group_get, name='group_get'),
     path('group/type/get', views.training_group_type_get, name='group_type_get'),
 
-    path('add_participant', views.training_group_add_participant, name='training_add_participant'),
-    path('remove_participant', views.training_group_remove_participant, name='training_remove_participant'),
-
+    path('group/participant/add', views.training_group_participant_add, name='training_group_participant_add'),
+    path('group/participant/remove', views.training_group_participant_remove, name='training_group_participant_remove'),
 ]
