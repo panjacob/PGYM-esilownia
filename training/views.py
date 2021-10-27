@@ -41,13 +41,15 @@ def training_group_remove_participant(request):
 
 @api_view(['GET'])
 def training_group_get(request):
-    serializer = serializers.TrainingGroupSerializerGet()
+    training_group = models.TrainingGroup.objects.get(id=request.data['id'])
+
+    serializer = serializers.TrainingGroupSerializerGet(training_group)
     return JsonResponse(serializer.data)
 
 
-@api_view(['GET'])
-def training_group_get(request):
-    pass
+# @api_view(['GET'])
+# def training_group_get(request):
+#     pass
 
 
 def training_create(request):

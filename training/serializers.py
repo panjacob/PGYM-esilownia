@@ -39,4 +39,4 @@ class TrainingGroupSerializerGet(ModelSerializer):
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
         participants = ParticipantsSerializerGet(read_only=True, many=True)
 
-        fields = ['owner', 'date', 'difficulty', 'title', 'description', 'type', 'participants']
+        fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'participants']
