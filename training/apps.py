@@ -11,9 +11,9 @@ class TrainingsConfig(AppConfig):
 
 def init_TrainingGroupTypes():
     try:
-        from training.models import TrainingGroupTypes, init_data_TrainingGroupTypes
+        from training.models import TrainingGroupType, init_data_TrainingGroupTypes
         for id, type, description in init_data_TrainingGroupTypes:
-            group, created = TrainingGroupTypes.objects.get_or_create(id=id)
+            group, created = TrainingGroupType.objects.get_or_create(id=id)
             group.type = type
             group.description = description
             group.save()

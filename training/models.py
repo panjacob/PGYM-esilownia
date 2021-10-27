@@ -18,8 +18,8 @@ init_data_TrainingGroupTypes = [
     (20, 'inne', 'opis'),
 ]
 
-
-class TrainingGroupTypes(models.Model):
+# TODO Zmienic na bez 's'
+class TrainingGroupType(models.Model):
     type = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=300)
 
@@ -41,7 +41,7 @@ class TrainingGroup(models.Model):
         (ARMAGEDON, 'Armagedon'),
     ]
     difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default=MEDIUM)
-    type = models.ManyToManyField(TrainingGroupTypes)
+    type = models.ManyToManyField(TrainingGroupType)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
     # cost

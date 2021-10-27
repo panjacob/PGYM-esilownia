@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from training.models import TrainingGroup, TrainingGroupTypes, Files
+from training.models import TrainingGroup, TrainingGroupType, Files
 from users.models import UserExtended
 
 
 class TrainingGroupTypesSerializer(ModelSerializer):
     class Meta:
-        model = TrainingGroupTypes
+        model = TrainingGroupType
         fields = ['id', 'type', 'description']
 
 

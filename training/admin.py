@@ -1,6 +1,14 @@
 from django.contrib import admin
+from training.models import TrainingGroup, TrainingGroupType
 
-# @admin.register(UserDay)
-# class AdminUserDay(admin.ModelAdmin):
-#     model = UserDay
-#     list_display = ['id', 'date', 'sleep_start', 'calories_burned', 'calories_eaten', 'steps']
+
+@admin.register(TrainingGroup)
+class TrainingGroupAdmin(admin.ModelAdmin):
+    model = TrainingGroup
+    list_display = ['id', 'owner', 'title', 'description', 'date', 'difficulty']
+
+
+@admin.register(TrainingGroupType)
+class TrainingGroupTypesAdmin(admin.ModelAdmin):
+    model = TrainingGroupType
+    list_display = ['id', 'type', 'description']
