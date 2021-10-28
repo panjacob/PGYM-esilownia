@@ -11,4 +11,5 @@ urlpatterns = [
     path('group/participant/remove', views.training_group_participant_remove, name='training_group_participant_remove'),
 
     path('create', views.training_create, name='training_create'),
+    path('remove', views.training_remove, name='training_remove'),
 ]

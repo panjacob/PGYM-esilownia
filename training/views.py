@@ -74,10 +74,14 @@ def training_create(request):
             return Response({'OK'}, status=status.HTTP_200_OK)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
-
+@api_view(['POST'])
 def training_remove(request):
-    pass
-
+    # TODO assert user is a trainer
+    if not Training.objects.filter(id=request.data['id']).exists():
+        return Response({'Training doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)
+    training = Training.objects.get(id=request.data['id'])
+    training.delete()
+    return Response({'OK'}, status=status.HTTP_200_OK)
 
 def training_participant_add(request):
     pass
