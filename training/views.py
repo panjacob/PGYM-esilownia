@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from core.settings import JITSI_PRIVATE_KEY
 from training import models
 from training.serializers import *
-from training.utilis import jitsi_payload_create, jitsi_token_encode
+from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time
 from users.utilis import put_owner_in_request_data
 
 
@@ -111,6 +111,16 @@ def training_leave(request):
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
-@api_view(['GET'])
+
+@api_view(['POST'])
 def training_ping(request):
-    pass
+    training = models.Training.objects.get(id=request.data['id'])
+    training.ping = current_milli_time()
+    training.save()
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def training_ping_get(request):
+    training = models.Training.objects.get(id=request.data['id'])
+    return Response({'ping': training.ping}, status=status.HTTP_200_OK)

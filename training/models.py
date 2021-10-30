@@ -54,10 +54,7 @@ class Training(models.Model):
     date_end = models.DateTimeField(default=timezone.now)
     participants = models.ManyToManyField(UserExtended)  # Participants which were on particular training
     calories = models.IntegerField(default=0)
-    ping = models.IntegerField(default=-1)
-
-
-#     interested_in_training
+    ping = models.IntegerField(default=0)
 
 
 class Files(models.Model):
