@@ -12,3 +12,15 @@ def is_email_in_db(pk, email):
 
 def is_username_in_db(pk, username):
     return UserExtended.objects.exclude(pk=pk).filter(username=username).exists()
+
+
+def put_owner_in_request_data(request):
+    request.data._mutable = True
+    request.data['owner'] = request.user.id
+    request.data._mutable = False
+    return request
+
+
+# TODO
+def is_owner(model):
+    return True
