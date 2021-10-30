@@ -49,3 +49,12 @@ class TrainingSerializerCreate(ModelSerializer):
         model = Training
         training_group = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         fields = ['id', 'training_group', 'title', 'description', 'date_start', 'date_end', 'calories']
+
+
+class TrainingSerializerGet(ModelSerializer):
+    class Meta:
+        model = Training
+        owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        participants = ParticipantsSerializerGet(read_only=True, many=True)
+
+        fields = '__all__'

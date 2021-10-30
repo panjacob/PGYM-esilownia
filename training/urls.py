@@ -12,4 +12,5 @@ urlpatterns = [
 
     path('create', views.training_create, name='training_create'),
     path('remove', views.training_remove, name='training_remove'),
+    path('get', views.training_get, name='training_get'),
 ]

@@ -41,7 +41,6 @@ def training_group_participant_remove(request):
 @api_view(['GET'])
 def training_group_get(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['id'])
-
     serializer = TrainingGroupSerializerGet(training_group)
     return JsonResponse(serializer.data)
 
@@ -71,8 +70,9 @@ def training_create(request):
 
     if serializer.is_valid():
         if serializer.save():
-            return Response({'OK'}, status=status.HTTP_200_OK)
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def training_remove(request):
@@ -83,5 +83,16 @@ def training_remove(request):
     training.delete()
     return Response({'OK'}, status=status.HTTP_200_OK)
 
-def training_participant_add(request):
-    pass
+
+@api_view(['GET'])
+def training_get(request):
+    training = models.Training.objects.get(id=request.data['id'])
+    serializer = TrainingSerializerGet(training)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['GET'])
+def training_join(request):
+    training = models.Training.objects.get(id=request.data['training'])
+    training.participants.add(request.user)
+    
