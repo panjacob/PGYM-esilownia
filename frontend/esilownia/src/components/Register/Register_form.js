@@ -18,7 +18,7 @@ function Register_form() {
     const [lastname, setLastname] = useState("");
 
     function validateForm() {
-        return email.length > 0 && password.length > 0 && login.length > 0 && firstname.length > 0 && lastname.length > 0 && rep_password.length > 0;
+        return email.length > 0 && password.length > 0 && login.length > 0 && firstname.length > 0 && lastname.length > 0 && rep_password.length > 0 && password === rep_password;
     }
 
     const handleSubmit = (e) => {
