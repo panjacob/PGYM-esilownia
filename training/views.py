@@ -3,8 +3,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from core.settings import JITSI_PRIVATE_KEY
 from training import models
 from training.serializers import *
+from training.utilis import jitsi_payload_create, jitsi_token_encode
 from users.utilis import put_owner_in_request_data
 
 
@@ -93,6 +95,22 @@ def training_get(request):
 
 @api_view(['GET'])
 def training_join(request):
-    training = models.Training.objects.get(id=request.data['training'])
-    training.participants.add(request.user)
-    
+    user = request.user
+    training = models.Training.objects.get(id=request.data['id'])
+    training.participants.add(user)
+    payload = jitsi_payload_create(user, training)
+    token = jitsi_token_encode(JITSI_PRIVATE_KEY, payload)
+    return Response({'token': token}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def training_leave(request):
+    user = request.user
+    training = models.Training.objects.get(id=request.data['id'])
+    training.participants.remove(user)
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def training_ping(request):
+    pass
