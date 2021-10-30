@@ -16,7 +16,7 @@ def training_group_create(request):
 
     if serializer.is_valid():
         if serializer.save():
-            return Response({'OK'}, status=status.HTTP_200_OK)
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
