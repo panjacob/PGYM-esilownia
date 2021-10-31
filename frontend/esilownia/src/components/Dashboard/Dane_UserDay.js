@@ -108,6 +108,13 @@ function Dane_UserDay() {
 
     return (
         <div className="dane_konto">
+
+            <div className="text-center">
+                <hr></hr>
+                <h3 className="display-1 font-weight-light mb-4">Dane twoich treningów</h3>
+                <hr></hr>
+            </div>
+
             {
                 UserDays.length === 0 ?
                     <Carousel className="m-3" activeIndex={index} onSelect={handleSelect}>
