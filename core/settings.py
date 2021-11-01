@@ -156,9 +156,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.UserExtended'
 
 AUTHENTICATION_BACKENDS = (
+    # drf_social_oauth2
     'drf_social_oauth2.backends.DjangoOAuth2',
+    # Django
     'django.contrib.auth.backends.ModelBackend',
+    # Facebook OAuth2
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
 )
+
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '412879967053238'
+SOCIAL_AUTH_FACEBOOK_SECRET = '68a29697b18a588ee205b3170036be2a'
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
+# Email is not sent by default, to get it, you must request the email permission.
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+}
+
 from django.core.files.storage import FileSystemStorage
 
 MEDIA_PHOTO_VIDEOS_PATH = FileSystemStorage(location='/media/photos_videos')
