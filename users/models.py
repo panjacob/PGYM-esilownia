@@ -40,6 +40,8 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     # Properties of ContentCreator
     is_coach = models.BooleanField(default=False)
     is_dietician = models.BooleanField(default=False)
+
+    is_moderator = models.BooleanField(default=False)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'

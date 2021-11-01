@@ -1,0 +1,37 @@
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="en-us">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Job Application</title>
+</head>
+<body>
+<script>
+    const url = "http://localhost:8000/users/edit/"
+    const auth = "Bearer bPtUXYMPrJ41sFBAcyyZPenV4muvPP"
+    const body = {
+        username: "Frankie.Emard5Edited",
+        first_name: "VivienEdited",
+        last_name: "JacobsonEdited",
+        email: "Lucinda_Williamson6@yahoo.comEdited"
+    }
+    fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': auth
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(body) // body data type must match "Content-Type" header
+    }).then(response => response.json())
+        .then(data => console.log(data));
+
+</script>
+</body>
+</html>
+
+
+

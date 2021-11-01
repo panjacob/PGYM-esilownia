@@ -19,19 +19,13 @@ init_data_TrainingGroupTypes = [
 ]
 
 
-class TrainingGroupTypes(models.Model):
+class TrainingGroupType(models.Model):
     type = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=300)
 
 
-class Files(models.Model):
-    my_file = models.FileField(storage=settings.MEDIA_PHOTO_VIDEOS_PATH)
-    user = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
-
-
 class TrainingGroup(models.Model):
-    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None,
-                              related_name='owner')
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, default=None, related_name='owner')
     participants = models.ManyToManyField(UserExtended)
     date = models.DateField(default=timezone.now)
 
@@ -46,6 +40,24 @@ class TrainingGroup(models.Model):
         (ARMAGEDON, 'Armagedon'),
     ]
     difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default=MEDIUM)
-    type = models.ManyToManyField(TrainingGroupTypes)
+    type = models.ManyToManyField(TrainingGroupType)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
+    # cost
+
+
+class Training(models.Model):
+    training_group = models.ForeignKey(TrainingGroup, on_delete=models.CASCADE, default=None)
+    title = models.CharField(max_length=300)
+    description = models.CharField(max_length=10000)
+    date_start = models.DateTimeField(default=timezone.now)
+    date_end = models.DateTimeField(default=timezone.now)
+    participants = models.ManyToManyField(UserExtended)  # Participants which were on particular training
+    calories = models.IntegerField(default=0)
+    ping = models.IntegerField(default=0)
+
+
+class Files(models.Model):
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    my_file = models.FileField(storage=settings.MEDIA_PHOTO_VIDEOS_PATH)
+    training_group = models.ForeignKey(TrainingGroup, on_delete=models.CASCADE)
