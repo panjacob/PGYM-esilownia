@@ -123,4 +123,7 @@ def training_ping(request):
 @api_view(['GET'])
 def training_ping_get(request):
     training = models.Training.objects.get(id=request.data['id'])
-    return Response({'ping': training.ping}, status=status.HTTP_200_OK)
+    last_ping_time = current_milli_time() - training.ping
+    active = last_ping_time < 60 * 1000
+    return Response({'last_ping_time_ms': last_ping_time, 'active': active},
+                    status=status.HTTP_200_OK)
