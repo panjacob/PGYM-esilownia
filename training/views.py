@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from core.settings import JITSI_PRIVATE_KEY
+from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
 from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time
@@ -99,7 +99,7 @@ def training_join(request):
     training = models.Training.objects.get(id=request.data['id'])
     training.participants.add(user)
     payload = jitsi_payload_create(user, training)
-    token = jitsi_token_encode(JITSI_PRIVATE_KEY, payload)
+    token = jitsi_token_encode(JITSI_SECRET, payload)
     return Response({'token': token}, status=status.HTTP_200_OK)
 
 

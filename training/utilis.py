@@ -7,12 +7,12 @@ def current_milli_time():
     return round(time.time() * 1000)
 
 
-def jitsi_token_encode(private_key, payload):
-    return jwt.encode(payload, private_key, algorithm="RS256")
+def jitsi_token_encode(secret, payload):
+    return jwt.encode(payload, secret, algorithm="HS256")
 
 
-def jitsi_token_decode(public_key, token):
-    return jwt.decode(token, public_key, algorithms=["RS256"])
+def jitsi_token_decode(secret, token):
+    return jwt.decode(token, secret, algorithms=["HS256"])
 
 
 def jitsi_exp(time_to_live_minutes):
@@ -42,4 +42,3 @@ def is_training_owner(user, training):
 
 def is_training_group_owner(user, training_group):
     pass
-
