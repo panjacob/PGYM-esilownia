@@ -48,6 +48,16 @@ def training_group_get(request):
 
 
 @api_view(['GET'])
+def training_group_get_all(request):
+    result = []
+    training_groups = TrainingGroup.objects.all()
+    for training_group in training_groups:
+        serializer = TrainingGroupSerializerGetAll(training_group)
+        result.append(serializer.data)
+    return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['GET'])
 def training_group_type_get(request):
     training_group_type = models.TrainingGroupType.objects.get(id=request.data['id'])
     serializer = TrainingGroupTypesSerializer(training_group_type)
