@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from '../Axios/axios';
 import {useHistory, Link} from "react-router-dom";
+import PasswordStrength from "./PasswordStrength";
+import zxcvbn from "zxcvbn";
 
 // scrypt do sily hasla
 
@@ -17,8 +19,10 @@ function Register_form() {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
 
+
+
     function validateForm() {
-        return email.length > 0 && password.length > 0 && login.length > 0 && firstname.length > 0 && lastname.length > 0 && rep_password.length > 0 && password === rep_password;
+        return email.length > 0 && password.length > 0 && login.length > 0 && firstname.length > 0 && lastname.length > 0 && rep_password.length > 0 && password === rep_password && zxcvbn(password).score >= 2;
     }
 
     const handleSubmit = (e) => {
@@ -98,6 +102,7 @@ function Register_form() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <PasswordStrength password={password} />
                 </Form.Group>
 
                 <Form.Group size="lg" controlId="rep_password">
