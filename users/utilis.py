@@ -74,3 +74,18 @@ def dietician_required():
         return wrapper
 
     return decorator
+
+
+def superuser_required():
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            request = args[0]
+            if not request.user.is_superuser:
+                return Response({'message': 'Moderator is required'}, status.HTTP_400_BAD_REQUEST)
+            else:
+                return func(request)
+
+        return wrapper
+
+    return decorator
