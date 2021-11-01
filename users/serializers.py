@@ -9,7 +9,7 @@ class UserInfoSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
         fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
-                  'is_active', 'is_superuser']
+                  'is_active', 'is_superuser', 'is_coach', 'is_dietician']
 
 
 class UserEditSerializer(ModelSerializer):
