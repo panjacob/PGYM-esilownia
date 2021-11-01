@@ -60,3 +60,4 @@ def user_info(request):
     user = request.user
     serializer = serializers.UserInfoSerializer(user)
     return JsonResponse(serializer.data)
+
