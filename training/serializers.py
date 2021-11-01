@@ -44,6 +44,16 @@ class TrainingGroupSerializerGet(ModelSerializer):
         fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'participants']
 
 
+class TrainingGroupSerializerGetAll(ModelSerializer):
+    class Meta:
+        model = TrainingGroup
+        owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        type = TrainingGroupTypesSerializer(read_only=True, many=True)
+        participants = ParticipantsSerializerGet(read_only=True, many=True)
+
+        fields = ['id', 'difficulty', 'title', 'type']
+
+
 class TrainingSerializerCreate(ModelSerializer):
     class Meta:
         model = Training
