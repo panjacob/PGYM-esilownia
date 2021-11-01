@@ -1,94 +1,60 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Logout from "../Logout/Logout";
+import {Container, Navbar, Nav, NavDropdown} from 'react-bootstrap'
 
 function Header(props) {
-  return (
-    <div className="navigation">
-      <nav class="navbar navbar-expand navbar-dark bg-secondary">
-        <div class="container">
-          <Link class="navbar-brand" to="/">
-            E-Silownia
-          </Link>
-          <div>
-            <ul class="navbar-nav d-flex">
-
-            <li
-                class={`nav-item m-1 ${
-                  props.location.pathname === "/" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/">
-                  Home
-                </Link>
-              </li>
-              
-              <li
-                class={`nav-item m-1 ${
-                  props.location.pathname === "/o_nas" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/o_nas">
-                  O nas
-                </Link>
-              </li>
-
-              <li
-                class={`nav-item m-1 ${
-                  props.location.pathname === "/kadra" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/kadra">
-                  Kadra
-                </Link>
-              </li>
-
-              <li
-                class={`nav-item m-1 ${
-                  props.location.pathname === "/treningi" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/treningi">
-                  Treningi
-                </Link>
-              </li>
-              
-              <li
-                class={`nav-item m-1 ${
-                  props.location.pathname === "/dieta" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/dieta">
-                  Dieta
-                </Link>
-              </li>
-
-              <li 
-                class={`nav-item ml-5 m-1 ${
-                  props.location.pathname === "/login" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link " to="/login">
-                  Login
-                </Link>
-              </li>
-
-              <li
-                class={`nav-item m-1 ${
-                  props.location.pathname === "/register" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/register">
-                  Register
-                </Link>
-              </li>
-
-            </ul>
-          </div>
+    return (
+        <div className="navigation">
+            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
+                <Container>
+                    <Navbar.Brand href="/">E-Siłownia</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="me-auto">
+                            {
+                                localStorage.getItem('access_token') ?
+                                    <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                                    : <Nav.Link href="/">Home</Nav.Link>
+                            }
+                            <Nav.Link href="/o_nas">O nas</Nav.Link>
+                            <Nav.Link href="/cennik">Cennik</Nav.Link>
+                            <Nav.Link href="/kadra">Kadra</Nav.Link>
+                            {
+                                localStorage.getItem('access_token') ?
+                                    <Nav.Link href="/treningi">Treningi</Nav.Link>
+                                    : ""
+                            }
+                            {
+                                localStorage.getItem('access_token') ?
+                                    <Nav.Link href="/dieta">Dieta</Nav.Link>
+                                    : ""
+                            }
+                        </Nav>
+                        {
+                            localStorage.getItem('access_token') ? (
+                                <Nav className="ml-auto">
+                                    <NavDropdown title="Konto" id="collasible-nav-dropdown">
+                                        <NavDropdown.Item href="/konto">Moje konto</NavDropdown.Item>
+                                        <NavDropdown.Divider/>
+                                        <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
+                                        <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
+                                    </NavDropdown>
+                                    <Nav.Link><Logout></Logout></Nav.Link>
+                                </Nav>
+                            ) : (
+                                <Nav className="ml-auto">
+                                    <Nav.Link href="/login">Login</Nav.Link>
+                                    <Nav.Link href="/register">Register</Nav.Link>
+                                </Nav>
+                            )
+                        }
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
         </div>
-      </nav>
-    </div>
-  );
+    );
 }
 
 export default withRouter(Header);

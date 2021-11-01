@@ -3,9 +3,12 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 
 import users.serializers as serializers
 from users import utilis
+from users.models import UserExtended
+from users.utilis import superuser_required, moderator_required
 
 
 @api_view(('GET',))
@@ -37,7 +40,8 @@ def user_register(request):
     if serializer.is_valid():
         new_user = serializer.save()
         if new_user:
-            return Response({'username': new_user.username, 'email': new_user.email}, status=status.HTTP_200_OK)
+            return Response({'id': new_user.id, 'username': new_user.username, 'email': new_user.email},
+                            status=status.HTTP_200_OK)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -54,9 +58,36 @@ def user_change_password(request):
         user.save()
     return Response({'message': 'OK'}, status=status.HTTP_200_OK)
 
-
+@csrf_exempt
 @api_view(['GET'])
 def user_info(request):
     user = request.user
     serializer = serializers.UserInfoSerializer(user)
     return JsonResponse(serializer.data)
+
+
+@api_view(['POST'])
+@superuser_required()
+def user_set_moderator(request):
+    user = UserExtended.objects.get(id=request.data['id'])
+    user.is_moderator = request.data['value'].title()
+    user.save()
+    return Response({'message': 'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@moderator_required()
+def user_set_coach(request):
+    user = UserExtended.objects.get(id=request.data['id'])
+    user.is_coach = request.data['value'].title()
+    user.save()
+    return Response({'message': 'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@moderator_required()
+def user_set_dietician(request):
+    user = UserExtended.objects.get(id=request.data['id'])
+    user.is_dietician = request.data['value'].title()
+    user.save()
+    return Response({'message': 'OK'}, status=status.HTTP_200_OK)

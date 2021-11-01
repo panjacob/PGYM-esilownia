@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from core.settings import JITSI_PRIVATE_KEY
+from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
 from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time
@@ -45,6 +45,16 @@ def training_group_get(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['id'])
     serializer = TrainingGroupSerializerGet(training_group)
     return JsonResponse(serializer.data)
+
+
+@api_view(['GET'])
+def training_group_get_all(request):
+    result = []
+    training_groups = TrainingGroup.objects.all()
+    for training_group in training_groups:
+        serializer = TrainingGroupSerializerGetAll(training_group)
+        result.append(serializer.data)
+    return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
 @api_view(['GET'])
@@ -99,7 +109,7 @@ def training_join(request):
     training = models.Training.objects.get(id=request.data['id'])
     training.participants.add(user)
     payload = jitsi_payload_create(user, training)
-    token = jitsi_token_encode(JITSI_PRIVATE_KEY, payload)
+    token = jitsi_token_encode(JITSI_SECRET, payload)
     return Response({'token': token}, status=status.HTTP_200_OK)
 
 
@@ -123,4 +133,7 @@ def training_ping(request):
 @api_view(['GET'])
 def training_ping_get(request):
     training = models.Training.objects.get(id=request.data['id'])
-    return Response({'ping': training.ping}, status=status.HTTP_200_OK)
+    last_ping_time = current_milli_time() - training.ping
+    active = last_ping_time < 60 * 1000
+    return Response({'last_ping_time_ms': last_ping_time, 'active': active},
+                    status=status.HTTP_200_OK)
