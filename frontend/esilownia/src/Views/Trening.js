@@ -1,18 +1,18 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Trening_grupa from "../components/Treningi/Trening_Grupa";
+import Trening_dane from "../components/Trening/Trening_dane";
 
-function Treningi() {
+function Trening() {
 
 
     return (
         <div className="treningi">
             <div className="container">
-                <Trening_grupa></Trening_grupa>
+                <Trening_dane></Trening_dane>
 
             </div>
         </div>
     );
 }
 
-export default Treningi;
+export default Trening;

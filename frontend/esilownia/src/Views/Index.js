@@ -7,6 +7,7 @@ export { default as Register } from "./Register";
 export { default as O_nas } from "./O_nas";
 export { default as Kadra } from "./Kadra";
 export { default as Treningi } from "./Treningi";
+export { default as Trening } from "./Trening";
 export { default as Dieta } from "./Dieta";
 export { default as Konto } from "./Konto";
 export { default as Konto_edycja } from "./Konto_edycja";
