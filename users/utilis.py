@@ -36,10 +36,10 @@ def moderator_required():
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             request = args[0]
-            if not request.user.is_moderator:
-                return Response({'message': 'Moderator is required'}, status.HTTP_400_BAD_REQUEST)
-            else:
+            if request.user.is_moderator or request.user.is_superuser:
                 return func(request)
+            else:
+                return Response({'message': 'Moderator is required'}, status.HTTP_400_BAD_REQUEST)
 
         return wrapper
 
@@ -51,10 +51,10 @@ def coach_required():
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             request = args[0]
-            if not request.user.is_coach:
-                return Response({'message': 'Coach is required'}, status.HTTP_400_BAD_REQUEST)
-            else:
+            if request.user.is_coach or request.user.is_moderator or request.user.is_superuser:
                 return func(request)
+            else:
+                return Response({'message': 'Coach is required'}, status.HTTP_400_BAD_REQUEST)
 
         return wrapper
 
@@ -81,10 +81,10 @@ def superuser_required():
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             request = args[0]
-            if not request.user.is_superuser:
-                return Response({'message': 'Moderator is required'}, status.HTTP_400_BAD_REQUEST)
-            else:
+            if request.user.is_superuser:
                 return func(request)
+            else:
+                return Response({'message': 'Moderator is required'}, status.HTTP_400_BAD_REQUEST)
 
         return wrapper
 
