@@ -7,6 +7,8 @@ import axiosZmienne from "../Axios/axiosZmienne";
 
 function Fb_login() {
 
+    const history = useHistory();
+
     const facebookLogin = (accesstoken) => {
         console.log(accesstoken);
         axiosInstance
@@ -21,11 +23,15 @@ function Fb_login() {
                 localStorage.setItem('access_token', res.data.access_token);
                 localStorage.setItem('refresh_token', res.data.refresh_token);
                 localStorage.setItem('token_type', res.data.token_type);
+
+                history.push('/dashboard');
+                window.location.reload();
             });
     };
 
     const responseFacebook = async (response) => {
-        facebookLogin(response.accessToken);
+        console.log(response);
+        //facebookLogin(response.accessToken);
     };
 
     return (
