@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 
 import users.serializers as serializers
 from users import utilis
@@ -57,7 +58,7 @@ def user_change_password(request):
         user.save()
     return Response({'message': 'OK'}, status=status.HTTP_200_OK)
 
-
+@csrf_exempt
 @api_view(['GET'])
 def user_info(request):
     user = request.user
