@@ -1,6 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Trening_grupa from "../components/Treningi/Trening_Grupa";
+import TrainingGroupGet from "../components/Treningi/Get/TrainingGroupGet";
+import TrainingGroupCreate from "../components/Treningi/Post/TrainingGroupCreate";
 
 function Treningi() {
 
@@ -8,7 +9,8 @@ function Treningi() {
     return (
         <div className="treningi">
             <div className="container">
-                <Trening_grupa></Trening_grupa>
+                <TrainingGroupGet></TrainingGroupGet>
+                <TrainingGroupCreate></TrainingGroupCreate>
 
             </div>
         </div>

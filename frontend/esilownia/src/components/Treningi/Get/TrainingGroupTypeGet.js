@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axiosInstance from "../Axios/axios";
+import axiosInstance from "../../Axios/axios";
 
-function Trening_grupa(){
-const [trainingGroup, setTrainingGroup] = useState("");
+function TrainingGroupTypeGet(){
+const [trainingGroupType, setTrainingGroupType] = useState("");
 
 useEffect(() => {
 
     axiosInstance
-        .get(`training/group/get/`, {
+        .get(`training/group/type/get`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -18,15 +18,14 @@ useEffect(() => {
             //console.log(res)
             //console.log(res.data)
 
-            setTrainingGroup(res.data.trainingGroup)
+            setTrainingGroupType(res.data.trainingGroupType)
 
         });
 
 }, []);
     return(
-        <div className="trening_grupa">
-            <button className="btn btn-lg" onClick={console.log({trainingGroup})}>Dołącz</button>
+        <div className="trainingGroupTypeGet">
         </div>
     );
 }
-export default Trening_grupa;
+export default TrainingGroupTypeGet;

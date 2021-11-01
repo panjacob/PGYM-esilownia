@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axiosInstance from "../Axios/axios";
+import axiosInstance from "../../Axios/axios";
 
-function Trening_dane(){
+function TrainingGet(){
 const [training, setTraining] = useState("");
 
 useEffect(() => {
 
     axiosInstance
-        .get(`training/get/`, {
+        .get(`training/get`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -29,4 +29,4 @@ useEffect(() => {
         </div>
     );
 }
-export default Trening_dane;
+export default TrainingGet;
