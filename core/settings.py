@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     # Apps
     'users',
     'dashboard',
-    'trainings',
+    'training',
     # Django
     'django.contrib.admin',
     'django.contrib.auth',
@@ -169,3 +169,5 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ('http://localhost:3000',)
 
 # CORS_ALLOWED_ORIGINS = ['*']
+
+JITSI_SECRET = "0JJbsqPcqayuUiJftRadR0ilW137goLQgfxw5VjZxjDoBCtHfxqZhci5zllX8E6"

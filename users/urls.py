@@ -9,4 +9,7 @@ urlpatterns = [
     path('edit/', views.user_edit, name='edit'),
     # path('logout/', views.user_logout, name='logout'),
     path('change_password/', views.user_change_password, name='change_password'),
+    path('set_moderator/', views.user_set_moderator, name='set_moderator'),
+    path('set_coach/', views.user_set_coach, name='set_coach'),
+    path('set_dietician/', views.user_set_dietician, name='set_dietician'),
 ]
