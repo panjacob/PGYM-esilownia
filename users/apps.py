@@ -10,14 +10,19 @@ class AppConfig(AppConfig):
     verbose_name = 'Users'
 
     def ready(self):
-        # esilownia
-        init_application()
-        # facebook
-        init_application(id=2, name='facebook', client_id=SOCIAL_AUTH_FACEBOOK_KEY,
-                         client_secret=SOCIAL_AUTH_FACEBOOK_SECRET)
-        # google
-        init_application(id=3, name='google', client_id=SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
-                         client_secret=SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET)
+        try:
+            # esilownia
+            init_application()
+            # facebook
+            init_application(id=2, name='facebook', client_id=SOCIAL_AUTH_FACEBOOK_KEY,
+                             client_secret=SOCIAL_AUTH_FACEBOOK_SECRET)
+            # google
+            init_application(id=3, name='google', client_id=SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
+                             client_secret=SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET)
+            create_admin_default()
+        except Exception as e:
+            print(e)
+            print('Application and admin not added automatically \n Probably its first migration')
 
 
 def init_application(
@@ -47,9 +52,12 @@ def init_application(
 
 
 def create_admin_default():
-    from users.models import UserExtended
-    if not UserExtended.objects.filter(id=1).exists():
-        return UserExtended.objects.create_superuser(id=1, username='admin', email='admin@admin.pl',
-                                                     first_name='admin', password='admin')
-    else:
-        return UserExtended.objects.get(id=1)
+    try:
+        from users.models import UserExtended
+        if not UserExtended.objects.filter(id=1).exists():
+            return UserExtended.objects.create_superuser(id=1, username='admin@admin.pl', email='admin@admin.pl',
+                                                         first_name='admin', password='admin')
+        else:
+            return UserExtended.objects.get(id=1)
+    except:
+        print("There is no user table!")

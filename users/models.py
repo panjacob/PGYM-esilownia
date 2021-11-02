@@ -43,6 +43,7 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     is_dietician = models.BooleanField(default=False)
 
     is_moderator = models.BooleanField(default=False)
+    profile_photo = models.ImageField(null=True, blank=True)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'

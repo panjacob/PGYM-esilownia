@@ -59,5 +59,5 @@ class Training(models.Model):
 
 class Files(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
-    my_file = models.FileField(storage=settings.MEDIA_PHOTO_VIDEOS_PATH)
+    # my_file = models.FileField(storage=settings.MEDIA_PHOTO_VIDEOS_PATH)
     training_group = models.ForeignKey(TrainingGroup, on_delete=models.CASCADE)
