@@ -4,6 +4,7 @@ import OfertaTrener from "../components/Home/Oferta_trener"
 import Karuzela from "../components/Home/Carousel";
 import OfertaUser from "../components/Home/Oferta_user";
 import {Link} from "react-router-dom";
+import CookieCon from "../components/Home/CookieCon";
 
 function Home() {
     return (
@@ -46,6 +47,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <CookieCon></CookieCon>
         </div>
     );
 }

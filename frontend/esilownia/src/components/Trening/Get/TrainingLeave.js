@@ -2,14 +2,14 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/axios";
 
+function TrainingLeave(){
+const [training, setTraining] = useState("");
 
-function TrainingGroupGetAll(){
-const [trainingGroup, setTrainingGroup] = useState("");
-
-useEffect(() => {
+const handleSubmit = (e) => {
+    e.preventDefault();
 
     axiosInstance
-        .get(`training/group/get/all`, {
+        .get(`training/leave`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -19,15 +19,15 @@ useEffect(() => {
             //console.log(res)
             //console.log(res.data)
 
-            setTrainingGroup(res.data.trainingGroup)
+            setTraining(res.data.training)
 
         });
 
-}, []);
+};
     return(
-        <div className="trainingGroupGetAll">
-            <button className="btn btn-lg" onClick={console.log({trainingGroup})}>Dołącz</button>
+        <div className="trening_leave">
+            <button className="btn btn-lg" onClick={handleSubmit}>Opuść</button>
         </div>
     );
 }
-export default TrainingGroupGetAll;
+export default TrainingLeave;
