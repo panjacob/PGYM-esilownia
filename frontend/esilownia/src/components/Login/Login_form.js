@@ -6,12 +6,12 @@ import axiosInstance from '../Axios/axios';
 import axiosZmienne from '../Axios/axiosZmienne';
 import {useHistory, Link} from "react-router-dom";
 
-
 function Login_form() {
 
     const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginMessage, setLoginMessage] = useState("");
 
     function validateForm() {
         return email.length > 0 && password.length > 0;
@@ -43,6 +43,11 @@ function Login_form() {
 
                 history.push('/dashboard');
                 window.location.reload();
+            })
+            .catch((error) => {
+                if (error.response.status === 400) {
+                    setLoginMessage('Błędny login lub hasło');
+                }
             });
     };
 
@@ -66,6 +71,7 @@ function Login_form() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Group>
+                <p className="alert alert-danger">{loginMessage}</p>
                 <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login" type="submit"
                         disabled={!validateForm()}>
                     Zaloguj

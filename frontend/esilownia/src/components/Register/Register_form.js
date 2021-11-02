@@ -8,8 +8,6 @@ import PasswordStrength from "./PasswordStrength";
 import zxcvbn from "zxcvbn";
 import RegisterNotifications from "./Register_Notifications";
 
-// scrypt do sily hasla
-
 function Register_form() {
 
     const history = useHistory();
@@ -64,7 +62,7 @@ function Register_form() {
 
     const loginWarnign = () => {
         if (login.length > 0) {
-            if (login.length < 3) {
+            if (login.length < 2) {
                 return false
             } else {
                 return true;
@@ -72,17 +70,7 @@ function Register_form() {
         }
     }
 
-    const firstnameWarnign1 = () => {
-        if (firstname.length > 0) {
-            if (firstname.length < 2) {
-                return false
-            } else {
-                return true;
-            }
-        }
-    }
-
-    const firstnameWarnign2 = () => {
+    const firstnameWarnign = () => {
         if (firstname.length > 0) {
             const re = /^[\s\p{L}]+$/u;
             if (re.test(String(firstname).toLowerCase())) {
@@ -93,17 +81,7 @@ function Register_form() {
         }
     }
 
-    const lastnameWarnign1 = () => {
-        if (lastname.length > 0) {
-            if (lastname.length < 2) {
-                return false
-            } else {
-                return true;
-            }
-        }
-    }
-
-    const lastnameWarnign2 = () => {
+    const lastnameWarnign = () => {
         if (lastname.length > 0) {
             const re = /^[\s\p{L}]+$/u;
             if (re.test(String(lastname).toLowerCase())) {
@@ -121,7 +99,7 @@ function Register_form() {
 
     // POPRWANA WALIDACJA DLA WERSJI KONCOWEJ
     // function validateForm() {
-    //     return loginWarnign()===true && firstnameWarnign1()===true && firstnameWarnign2()===true && lastnameWarnign1()===true && lastnameWarnign2()===true && emailWarnign()===true && passWarning()===true && rep_pasWarning()===true;
+    //     return loginWarnign()===true && firstnameWarnign()===true && lastnameWarnign()===true && emailWarnign()===true && passWarning()===true && rep_pasWarning()===true && firstname.length > 0 && lastname.length > 0;
     // }
 
     const handleSubmit = (e) => {
@@ -201,7 +179,7 @@ function Register_form() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <PasswordStrength password={password} />
+                    <PasswordStrength password={password}/>
                 </Form.Group>
 
                 <Form.Group size="lg" controlId="rep_password">
@@ -213,7 +191,8 @@ function Register_form() {
                     />
                 </Form.Group>
 
-                <RegisterNotifications email={email} password={password} rep_password={rep_password} login={login} firstname={firstname} lastname={lastname}></RegisterNotifications >
+                <RegisterNotifications email={email} password={password} rep_password={rep_password} login={login}
+                                       firstname={firstname} lastname={lastname}></RegisterNotifications>
 
                 <Button onClick={handleSubmit} block size="lg" type="submit" className="btn btn-lg" id="btn-login"
                         disabled={!validateForm()}>
