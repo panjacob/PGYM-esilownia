@@ -111,7 +111,7 @@ function Dane_UserDay() {
 
             <div className="text-center">
                 <hr></hr>
-                <h3 className="display-1 font-weight-light mb-4">Dane twoich treningów</h3>
+                <h3 style={{"font-size":"8vw"}} className="display-1 font-weight-light mb-4">Dane twoich treningów</h3>
                 <hr></hr>
             </div>
 
@@ -119,14 +119,22 @@ function Dane_UserDay() {
                 UserDays.length === 0 ?
                     <Carousel className="m-3" activeIndex={index} onSelect={handleSelect}>
                         <Carousel.Item>
-                            <div className="col-md-8 mx-auto mt-3">
+                            <div className="row h-100">
+                            <div className="col-md-8 mx-auto my-auto">
                                 <div className="card mb-3">
                                     <div className="card-body">
                                         <div className="row justify-content-center">
-                                            Brak danych.
+                                            <p>Nie brałeś jeszcze udziału w treningach.</p>
+                                        </div>
+                                        <div className="row justify-content-center">
+                                            <p>Brak danych do wyświetlenia.</p>
+                                        </div>
+                                        <div className="row justify-content-center text-center">
+                                            <p>Wykup i bierz udzial w trenigach by uzyskać podglad do podsumowania.</p>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </Carousel.Item>
                     </Carousel>
