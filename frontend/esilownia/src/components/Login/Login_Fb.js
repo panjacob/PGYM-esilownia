@@ -10,14 +10,14 @@ function Fb_login() {
     const history = useHistory();
 
     const facebookLogin = (accesstoken) => {
-        console.log(accesstoken);
+        //console.log(accesstoken);
         axiosInstance
             .post('auth/convert-token', {
                 token: accesstoken,
                 backend: 'facebook',
                 grant_type: 'convert_token',
-                client_id: axiosZmienne.client_id,
-                client_secret: axiosZmienne.client_secret,
+                client_id: axiosZmienne.client_id_fb,
+                client_secret: axiosZmienne.client_secret_fb,
             })
             .then((res) => {
                 localStorage.setItem('access_token', res.data.access_token);
@@ -30,8 +30,8 @@ function Fb_login() {
     };
 
     const responseFacebook = async (response) => {
-        console.log(response);
-        //facebookLogin(response.accessToken);
+        //console.log(response);
+        facebookLogin(response.accessToken);
     };
 
     return (

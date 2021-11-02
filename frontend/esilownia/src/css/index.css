@@ -82,3 +82,7 @@ button:disabled {
     cursor: not-allowed;
     pointer-events: all !important;
 }
+
+p:empty {
+    display: none;
+}

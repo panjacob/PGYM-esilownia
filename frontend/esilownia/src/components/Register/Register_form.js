@@ -6,6 +6,7 @@ import axiosInstance from '../Axios/axios';
 import {useHistory, Link} from "react-router-dom";
 import PasswordStrength from "./PasswordStrength";
 import zxcvbn from "zxcvbn";
+import RegisterNotifications from "./Register_Notifications";
 
 // scrypt do sily hasla
 
@@ -19,11 +20,109 @@ function Register_form() {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
 
+    const testResult = zxcvbn(password);
 
+    const passWarning = () => {
+        if (password.length > 0) {
+            switch (testResult.score) {
+                case 0:
+                    return false;
+                case 1:
+                    return false;
+                case 2:
+                    return true;
+                case 3:
+                    return true;
+                case 4:
+                    return true;
+                default:
+                    return true;
+            }
+        }
+    }
 
+    const emailWarnign = () => {
+        if (email.length > 0) {
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (re.test(String(email).toLowerCase())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    const rep_pasWarning = () => {
+        if (rep_password.length > 0) {
+            if (password !== rep_password) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    const loginWarnign = () => {
+        if (login.length > 0) {
+            if (login.length < 3) {
+                return false
+            } else {
+                return true;
+            }
+        }
+    }
+
+    const firstnameWarnign1 = () => {
+        if (firstname.length > 0) {
+            if (firstname.length < 2) {
+                return false
+            } else {
+                return true;
+            }
+        }
+    }
+
+    const firstnameWarnign2 = () => {
+        if (firstname.length > 0) {
+            const re = /^[\s\p{L}]+$/u;
+            if (re.test(String(firstname).toLowerCase())) {
+                return true;
+            } else {
+                return false
+            }
+        }
+    }
+
+    const lastnameWarnign1 = () => {
+        if (lastname.length > 0) {
+            if (lastname.length < 2) {
+                return false
+            } else {
+                return true;
+            }
+        }
+    }
+
+    const lastnameWarnign2 = () => {
+        if (lastname.length > 0) {
+            const re = /^[\s\p{L}]+$/u;
+            if (re.test(String(lastname).toLowerCase())) {
+                return true;
+            } else {
+                return false
+            }
+        }
+    }
+
+    // DLA TESTOW BY NIE WYMYSLAC INPUTOW
     function validateForm() {
         return email.length > 0 && password.length > 0 && login.length > 0 && firstname.length > 0 && lastname.length > 0 && rep_password.length > 0 && password === rep_password && zxcvbn(password).score >= 2;
     }
+
+    // POPRWANA WALIDACJA DLA WERSJI KONCOWEJ
+    // function validateForm() {
+    //     return loginWarnign()===true && firstnameWarnign1()===true && firstnameWarnign2()===true && lastnameWarnign1()===true && lastnameWarnign2()===true && emailWarnign()===true && passWarning()===true && rep_pasWarning()===true;
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -113,6 +212,8 @@ function Register_form() {
                         onChange={(e) => setRep_password(e.target.value)}
                     />
                 </Form.Group>
+
+                <RegisterNotifications email={email} password={password} rep_password={rep_password} login={login} firstname={firstname} lastname={lastname}></RegisterNotifications >
 
                 <Button onClick={handleSubmit} block size="lg" type="submit" className="btn btn-lg" id="btn-login"
                         disabled={!validateForm()}>

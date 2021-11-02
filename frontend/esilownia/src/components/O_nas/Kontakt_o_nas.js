@@ -22,22 +22,22 @@ function Kontakt() {
                 </div>
 
                 <div className="row justify-content-between">
-                    <a href="#" className="mx-4 text-reset">
+                    <a href="/o_nas" className="mx-4 text-reset">
                         <FaFacebookF/>
                     </a>
-                    <a href="#" className="mx-4 text-reset">
+                    <a href="/o_nas" className="mx-4 text-reset">
                         <FaTwitter/>
                     </a>
-                    <a href="#" className="mx-4 text-reset">
+                    <a href="/o_nas" className="mx-4 text-reset">
                         <FaGoogle/>
                     </a>
-                    <a href="#" className="mx-4 text-reset">
+                    <a href="/o_nas" className="mx-4 text-reset">
                         <FaInstagram/>
                     </a>
-                    <a href="#" className="mx-4 text-reset">
+                    <a href="/o_nas" className="mx-4 text-reset">
                         <FaLinkedinIn/>
                     </a>
-                    <a href="#" className="mx-4 text-reset">
+                    <a href="/o_nas" className="mx-4 text-reset">
                         <FaGithub/>
                     </a>
                 </div>

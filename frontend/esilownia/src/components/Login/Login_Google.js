@@ -10,14 +10,14 @@ function Google_login() {
     const history = useHistory();
 
     const googleLogin = (accesstoken) => {
-        console.log(accesstoken);
+        //console.log(accesstoken);
         axiosInstance
             .post('auth/convert-token', {
                 token: accesstoken,
-                backend: 'google',
+                backend: 'google-oauth2',
                 grant_type: 'convert_token',
-                client_id: axiosZmienne.client_id,
-                client_secret: axiosZmienne.client_secret,
+                client_id: axiosZmienne.client_id_google,
+                client_secret: axiosZmienne.client_secret_google,
             })
             .then((res) => {
                 localStorage.setItem('access_token', res.data.access_token);
@@ -30,14 +30,14 @@ function Google_login() {
     };
 
     const responseGoogle = (response) => {
-        console.log(response);
-        //googleLogin(response.accessToken);
+        //console.log(response);
+        googleLogin(response.accessToken);
     }
 
     return (
         <div className="google_login">
             <GoogleLogin
-                clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                clientId="184998521093-72jv3431tpjsrgfb1icl3qftpqda7e8j.apps.googleusercontent.com"
                 buttonText="Login"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
