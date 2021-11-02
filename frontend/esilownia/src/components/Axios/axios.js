@@ -29,8 +29,7 @@ axiosInstance.interceptors.response.use(
             return Promise.reject(error);
         }
 
-        if (error.response.status === 401) {
-
+        if (error.response.status === 401 && window.location.href.split("/").pop() !== 'login') {
             const timeout_id = setTimeout(() => {
                 if (error.response.status === 401 || error.response.status === 400) {
                     alert(

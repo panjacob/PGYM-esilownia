@@ -156,9 +156,37 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.UserExtended'
 
 AUTHENTICATION_BACKENDS = (
+    # drf_social_oauth2
     'drf_social_oauth2.backends.DjangoOAuth2',
+    # Django
     'django.contrib.auth.backends.ModelBackend',
+    # Facebook OAuth2
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    # Google OAuth2
+    'social_core.backends.google.GoogleOAuth2',
 )
+
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '412879967053238'
+SOCIAL_AUTH_FACEBOOK_SECRET = '68a29697b18a588ee205b3170036be2a'
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
+# Email is not sent by default, to get it, you must request the email permission.
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+}
+
+# Google configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '184998521093-72jv3431tpjsrgfb1icl3qftpqda7e8j.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
+
 from django.core.files.storage import FileSystemStorage
 
 MEDIA_PHOTO_VIDEOS_PATH = FileSystemStorage(location='/media/photos_videos')
