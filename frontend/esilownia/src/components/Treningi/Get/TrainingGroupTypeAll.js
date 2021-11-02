@@ -25,6 +25,7 @@ useEffect(() => {
 }, []);
     return(
         <div className="trainingGroupTypeAll">
+            <button className="btn btn-lg" onClick={console.log({trainingGroupTypeAll})}>Dołącz</button>
         </div>
     );
 }

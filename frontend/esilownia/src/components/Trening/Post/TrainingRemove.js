@@ -4,7 +4,7 @@ import axiosInstance from "../../Axios/axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function TrainingGroupCreate(){
+function TrainingRemove(){
     
     const [trainingId, setTrainingId] = useState("");
  
@@ -36,4 +36,4 @@ const handleSubmit = (e) => {
         </div>
     );
 }
-export default TrainingGroupCreate;
+export default TrainingRemove;

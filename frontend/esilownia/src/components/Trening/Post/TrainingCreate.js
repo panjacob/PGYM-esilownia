@@ -4,7 +4,7 @@ import axiosInstance from "../../Axios/axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function TrainingGroupCreate(){
+function TrainingCreate(){
     
     const [date_start, setDateStart] = useState("");
     const [date_end, setDateEnd] = useState("");
@@ -132,4 +132,4 @@ const handleSubmit = (e) => {
         </div>
     );
 }
-export default TrainingGroupCreate;
+export default TrainingCreate;
