@@ -81,7 +81,7 @@ def training_group_type_all(request):
 
 
 @api_view(['POST'])
-def training_image_add(request):
+def training_group_image_add(request):
     request = put_owner_in_request_data(request)
     serializer = TrainingGroupSerializerImageAdd(data=request.data)
 
@@ -89,6 +89,14 @@ def training_image_add(request):
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def training_group_image_remove(request):
+    image_id = request.data['id']
+    if TrainingGroupImage.objects.filter(id=image_id).exists():
+        TrainingGroupImage.objects.get(id=image_id).delete()
+        return Response({'OK'}, status=status.HTTP_200_OK)
+    return Response({'error': 'Image doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
