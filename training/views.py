@@ -44,7 +44,13 @@ def training_group_participant_remove(request):
 def training_group_get(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['id'])
     serializer = TrainingGroupSerializerGet(training_group)
-    return JsonResponse(serializer.data)
+    result = serializer.data
+    result['images'] = []
+
+    for training_group_image in training_group.traininggroupimage_set.all():
+        result['images'] += {training_group_image.image.url}
+
+    return JsonResponse(result)
 
 
 @api_view(['GET'])
