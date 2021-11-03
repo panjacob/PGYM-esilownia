@@ -1,8 +1,8 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DaneKontaEdycja from '../components/Account_Edit/Account_data_edit'
-import KontoZmianaHasla from '../components/Account_Edit/Account_password_change'
-import KontoZmianaZdjecia from "../components/Account_Edit/Account_photo_change";
+import DaneKontaEdycja from '../components/Account_Edit/Account_Edit_data_edit'
+import KontoZmianaHasla from '../components/Account_Edit/Account_Edit_password_change'
+import KontoZmianaZdjecia from "../components/Account_Edit/Account_Edit_photo_change";
 
 function KontoEdycja() {
 

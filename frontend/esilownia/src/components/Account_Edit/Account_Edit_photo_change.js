@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import profilePicture from '../../imgs/basic_profile_photo.jpg'
 import Button from "react-bootstrap/Button";
 
-function Account_photo_change() {
+function Account_Edit_photo_change() {
 
     const handleSubmitPic = (e) => {
         e.preventDefault();
@@ -57,4 +57,4 @@ function Account_photo_change() {
     );
 }
 
-export default Account_photo_change;
+export default Account_Edit_photo_change;

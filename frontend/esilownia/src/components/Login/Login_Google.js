@@ -1,9 +1,9 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleLogin from 'react-google-login';
-import axiosInstance from '../Axios/axios';
+import axiosInstance from '../Axios/Axios';
 import {useHistory} from 'react-router-dom';
-import axiosZmienne from "../Axios/axiosZmienne";
+import axios_variebles from "../Axios/Axios_variebles";
 
 function Google_login() {
 
@@ -16,8 +16,8 @@ function Google_login() {
                 token: accesstoken,
                 backend: 'google-oauth2',
                 grant_type: 'convert_token',
-                client_id: axiosZmienne.client_id_google,
-                client_secret: axiosZmienne.client_secret_google,
+                client_id: axios_variebles.client_id_google,
+                client_secret: axios_variebles.client_secret_google,
             })
             .then((res) => {
                 localStorage.setItem('access_token', res.data.access_token);

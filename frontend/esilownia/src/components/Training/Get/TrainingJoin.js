@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axiosInstance from "../../Axios/axios";
+import axiosInstance from "../../Axios/Axios";
 
 function TrainingJoin(){
 const [training, setTraining] = useState("");

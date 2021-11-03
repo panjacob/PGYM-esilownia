@@ -1,9 +1,9 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FbLogin from 'react-facebook-login';
-import axiosInstance from '../Axios/axios';
+import axiosInstance from '../Axios/Axios';
 import {useHistory} from 'react-router-dom';
-import axiosZmienne from "../Axios/axiosZmienne";
+import axios_variebles from "../Axios/Axios_variebles";
 
 function Fb_login() {
 
@@ -16,8 +16,8 @@ function Fb_login() {
                 token: accesstoken,
                 backend: 'facebook',
                 grant_type: 'convert_token',
-                client_id: axiosZmienne.client_id_fb,
-                client_secret: axiosZmienne.client_secret_fb,
+                client_id: axios_variebles.client_id_fb,
+                client_secret: axios_variebles.client_secret_fb,
             })
             .then((res) => {
                 localStorage.setItem('access_token', res.data.access_token);

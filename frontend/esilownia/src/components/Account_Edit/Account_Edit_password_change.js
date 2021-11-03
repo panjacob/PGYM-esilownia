@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from "react-bootstrap/Button";
 
-function Account_password_change() {
+function Account_Edit_password_change() {
 
     const [oldpassword, setOldPassword] = useState("");
     const [newpassword, setNewPassword] = useState("");
@@ -84,4 +84,4 @@ function Account_password_change() {
     );
 }
 
-export default Account_password_change;
+export default Account_Edit_password_change;

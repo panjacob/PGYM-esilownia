@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axiosInstance from "../Axios/axios";
+import axiosInstance from "../Axios/Axios";
 import Button from "react-bootstrap/Button";
 
-function Account_data_edit() {
+function Account_Edit_data_edit() {
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -126,4 +126,4 @@ function Account_data_edit() {
     );
 }
 
-export default Account_data_edit;
+export default Account_Edit_data_edit;

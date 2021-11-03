@@ -1,7 +1,7 @@
 import React from 'react';
 import zxcvbn from 'zxcvbn';
 
-const PasswordStrength = ({ password }) => {
+const Register_Password_Strength = ({ password }) => {
     const testResult = zxcvbn(password);
     const num = testResult.score * 100/4;
 
@@ -56,4 +56,4 @@ const PasswordStrength = ({ password }) => {
     )
 }
 
-export default PasswordStrength
+export default Register_Password_Strength

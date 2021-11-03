@@ -1,4 +1,4 @@
-const axiosZmienne = {
+const axios_variebles = {
     client_id : 'dFdnC978WJPKdx9efSKTFdym2LIQWkd8HXGMTpzs',
     client_secret : 'jjKsavkJG913gLTzWm4bcYjLWCdUUDapm7tuXElBji9FQuWckkty2RkqU0Z0rTIqiZw1UlQiKjMUG9a92whxOLCOZriszlHiNfIAELTp6zde31T0IgLKiRzOAzm4HihV',
 
@@ -9,4 +9,4 @@ const axiosZmienne = {
     client_secret_fb : '68a29697b18a588ee205b3170036be2a'
 }
 
-export default axiosZmienne
+export default axios_variebles

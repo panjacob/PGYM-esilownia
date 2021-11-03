@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axiosInstance from '../Axios/axios';
-import axiosZmienne from '../Axios/axiosZmienne';
+import axiosInstance from '../Axios/Axios';
+import axios_variebles from '../Axios/Axios_variebles';
 import {useHistory, Link} from "react-router-dom";
 
 function Login_form() {
@@ -25,8 +25,8 @@ function Login_form() {
                 grant_type: 'password',
                 username: email,
                 password: password,
-                client_id: axiosZmienne.client_id,
-                client_secret: axiosZmienne.client_secret,
+                client_id: axios_variebles.client_id,
+                client_secret: axios_variebles.client_secret,
             })
             .then((res) => {
                 localStorage.setItem('access_token', res.data.access_token);

@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axiosInstance from '../Axios/axios';
+import axiosInstance from '../Axios/Axios';
 import {useHistory, Link} from "react-router-dom";
-import PasswordStrength from "./PasswordStrength";
+import Register_Password_Strength from "./Register_Password_Strength";
 import zxcvbn from "zxcvbn";
 import RegisterNotifications from "./Register_Notifications";
 
@@ -170,7 +170,7 @@ function Register_form() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <PasswordStrength password={password}/>
+                    <Register_Password_Strength password={password}/>
                 </Form.Group>
 
                 <Form.Group size="lg" controlId="rep_password">

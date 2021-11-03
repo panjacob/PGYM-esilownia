@@ -1,5 +1,5 @@
 import axios from 'axios';
-import axiosZmienne from "./axiosZmienne";
+import axios_variebles from "./Axios_variebles";
 
 const baseURL = 'http://127.0.0.1:8000/';
 
@@ -47,8 +47,8 @@ axiosInstance.interceptors.response.use(
                 .post(`auth/token/`, {
                     grant_type: 'refresh_token',
                     refresh_token: localStorage.getItem('refresh_token'),
-                    client_id: axiosZmienne.client_id,
-                    client_secret: axiosZmienne.client_secret,
+                    client_id: axios_variebles.client_id,
+                    client_secret: axios_variebles.client_secret,
                 })
                 .then((res) => {
 
