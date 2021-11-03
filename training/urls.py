@@ -10,6 +10,7 @@ urlpatterns = [
     path('group/type/all', views.training_group_type_all, name='group_type_all'),
     path('group/participant/add', views.training_group_participant_add, name='training_group_participant_add'),
     path('group/participant/remove', views.training_group_participant_remove, name='training_group_participant_remove'),
+    path('group/image/add', views.training_image_add, name='training_group_image_add'),
 
     path('create', views.training_create, name='training_create'),
     path('remove', views.training_remove, name='training_remove'),

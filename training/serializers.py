@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from training.models import TrainingGroup, TrainingGroupType, Files, Training
+from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupImage
 from users.models import UserExtended
 
 
@@ -11,12 +11,12 @@ class TrainingGroupTypesSerializer(ModelSerializer):
         fields = ['id', 'type', 'description']
 
 
-class FilesSerializer(ModelSerializer):
+class TrainingGroupSerializerImageAdd(ModelSerializer):
     class Meta:
-        model = Files
+        model = TrainingGroupImage
         training_group = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-        fields = ['my_file', 'owner', 'training_group']
+        fields = ['image', 'owner', 'training_group']
 
 
 class TrainingGroupSerializerCreate(ModelSerializer):
