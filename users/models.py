@@ -53,6 +53,14 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+# formularz
+
+# user
+# tresc
+# zalacznik wiele plikow
+# dietetyk czy trener czy moderator
+
+
 
 # @receiver(post_save, sender=User)
 # def create_auth_token(sender, instance=None, created=False, **kwargs):
