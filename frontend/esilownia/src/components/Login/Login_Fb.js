@@ -2,7 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FbLogin from 'react-facebook-login';
 import axiosInstance from '../Axios/axios';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import axiosZmienne from "../Axios/axiosZmienne";
 
 function Fb_login() {
@@ -10,7 +10,7 @@ function Fb_login() {
     const history = useHistory();
 
     const facebookLogin = (accesstoken) => {
-        //console.log(accesstoken);
+
         axiosInstance
             .post('auth/convert-token', {
                 token: accesstoken,
@@ -30,17 +30,18 @@ function Fb_login() {
     };
 
     const responseFacebook = async (response) => {
-        //console.log(response);
         facebookLogin(response.accessToken);
     };
 
     return (
         <div className="fb_login">
+
             <FbLogin
                 appId="412879967053238"
                 fields="id, name, email"
                 callback={responseFacebook}
             />
+
         </div>
     );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleLogin from 'react-google-login';
 import axiosInstance from '../Axios/axios';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import axiosZmienne from "../Axios/axiosZmienne";
 
 function Google_login() {
@@ -10,7 +10,7 @@ function Google_login() {
     const history = useHistory();
 
     const googleLogin = (accesstoken) => {
-        //console.log(accesstoken);
+
         axiosInstance
             .post('auth/convert-token', {
                 token: accesstoken,
@@ -30,12 +30,12 @@ function Google_login() {
     };
 
     const responseGoogle = (response) => {
-        //console.log(response);
         googleLogin(response.accessToken);
     }
 
     return (
         <div className="google_login">
+
             <GoogleLogin
                 clientId="184998521093-72jv3431tpjsrgfb1icl3qftpqda7e8j.apps.googleusercontent.com"
                 buttonText="Login"
@@ -43,6 +43,7 @@ function Google_login() {
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
             />
+
         </div>
     );
 }

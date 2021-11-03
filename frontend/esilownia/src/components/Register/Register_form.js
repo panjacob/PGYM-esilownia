@@ -104,12 +104,6 @@ function Register_form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(login)
-        //console.log(firstname)
-        //console.log(lastname)
-        //console.log(email)
-        //console.log(password)
-        //console.log(rep_password)
 
         axiosInstance
             .post(`users/register/`, {
@@ -120,16 +114,13 @@ function Register_form() {
                 last_name: lastname
             })
             .then((res) => {
-
-                //console.log(res);
-                //console.log(res.data);
                 history.push('/login');
-
             });
     };
 
     return (
         <div className="login_form">
+
             <Form onSubmit={handleSubmit}>
 
                 <Form.Group size="lg" controlId="Login">
@@ -199,7 +190,9 @@ function Register_form() {
                     Zarejestruj
                 </Button>
                 Masz już konto? <Link to="/login">Zaloguj się!</Link>
+
             </Form>
+
         </div>
     );
 }

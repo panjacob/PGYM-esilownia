@@ -9,15 +9,19 @@ function Login() {
     return (
         <div className="Login">
             <div className="container">
+
                 <div className="row d-flex justify-content-center my-5">
                     <LoginForm></LoginForm>
                 </div>
+
                 <div className="row d-flex justify-content-center my-5">
                     <LoginFb></LoginFb>
                 </div>
+
                 <div className="row d-flex justify-content-center my-5">
                     <GoogleLogin></GoogleLogin>
                 </div>
+
             </div>
         </div>
     );
