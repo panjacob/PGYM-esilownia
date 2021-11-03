@@ -8,11 +8,11 @@ import Register from "./Views/Register";
 import Cadre from "./Views/Cadre";
 import Trainings from "./Views/Trainings";
 import Diet from "./Views/Diet";
-import ONas from "./Views/About_us";
-import Price_list from "./Views/Price_list";
+import AboutUs from "./Views/About_us";
+import PriceList from "./Views/Price_list";
 import Account from "./Views/Account";
 import Dashboard from "./Views/Dashboard";
-import KontoEdycja from "./Views/Account_edit";
+import AccountEdit from "./Views/Account_edit";
 
 function App() {
     return (
@@ -20,8 +20,8 @@ function App() {
             <Router>
                 <Header/>
                 <Switch>
-                    <Route path="/o_nas" exact component={() => <ONas/>}/>
-                    <Route path="/cennik" exact component={() => <Price_list/>}/>
+                    <Route path="/o_nas" exact component={() => <AboutUs/>}/>
+                    <Route path="/cennik" exact component={() => <PriceList/>}/>
                     <Route path="/" exact component={() => <Home/>}/>
                     <Route path="/kadra" exact component={() => <Cadre/>}/>
                     <Route path="/treningi" exact component={() => <Trainings/>}/>
@@ -29,7 +29,7 @@ function App() {
                     <Route path="/login" exact component={() => <Login/>}/>
                     <Route path="/register" exact component={() => <Register/>}/>
                     <Route path="/konto" exact component={() => <Account/>}/>
-                    <Route path="/konto_edycja" exact component={() => <KontoEdycja/>}/>
+                    <Route path="/konto_edycja" exact component={() => <AccountEdit/>}/>
                     <Route path="/dashboard" exact component={() => <Dashboard/>}/>
                 </Switch>
                 <Footer/>

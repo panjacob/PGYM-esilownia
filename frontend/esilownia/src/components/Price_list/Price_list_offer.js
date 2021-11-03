@@ -15,7 +15,7 @@ function Price_list_offer() {
 
                     <div className="container text-center">
                         <hr></hr>
-                        <h1 style={{"font-size": "5vw"}} className="display-1 font-weight-light mb-4">Cennik</h1>
+                        <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Cennik</h1>
                         <hr></hr>
                     </div>
 

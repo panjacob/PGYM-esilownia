@@ -129,7 +129,7 @@ function Dashboard_data_userday() {
 
             <div className="text-center">
                 <hr></hr>
-                <h1 style={{"font-size": "5vw"}} className="display-1 font-weight-light mb-4">Dane twoich treningów</h1>
+                <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Dane twoich treningów</h1>
                 <hr></hr>
             </div>
 

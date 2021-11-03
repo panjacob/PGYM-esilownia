@@ -7,7 +7,7 @@ function Cadre_trainers() {
         <div className="cadre_trainers">
 
             <hr></hr>
-            <h1 style={{"font-size": "4vw"}} className="font-weight-light pt-4 pb-4"><i>Nasi Trenerzy</i></h1>
+            <h1 style={{"fontSize": "4vw"}} className="font-weight-light pt-4 pb-4"><i>Nasi Trenerzy</i></h1>
             <hr></hr>
 
             <div className="row">
