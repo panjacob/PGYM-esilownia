@@ -43,7 +43,7 @@ class TrainingGroup(models.Model):
     type = models.ManyToManyField(TrainingGroupType)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
-    image = models.ImageField(null=True, blank=True)
+    # image = models.ImageField(null=True, blank=True)
     # cost
 
 

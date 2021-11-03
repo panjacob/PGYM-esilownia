@@ -74,8 +74,7 @@ def training_group_type_all(request):
     return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
-
-@api_view(['GET'])
+@api_view(['POST'])
 def training_image_add(request):
     request = put_owner_in_request_data(request)
     serializer = TrainingGroupSerializerImageAdd(data=request.data)
