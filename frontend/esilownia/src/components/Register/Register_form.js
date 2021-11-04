@@ -2,13 +2,11 @@ import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axiosInstance from '../Axios/axios';
+import axiosInstance from '../Axios/Axios';
 import {useHistory, Link} from "react-router-dom";
-import PasswordStrength from "./PasswordStrength";
+import Register_Password_Strength from "./Register_Password_Strength";
 import zxcvbn from "zxcvbn";
 import RegisterNotifications from "./Register_Notifications";
-
-// scrypt do sily hasla
 
 function Register_form() {
 
@@ -64,7 +62,7 @@ function Register_form() {
 
     const loginWarnign = () => {
         if (login.length > 0) {
-            if (login.length < 3) {
+            if (login.length < 2) {
                 return false
             } else {
                 return true;
@@ -72,17 +70,7 @@ function Register_form() {
         }
     }
 
-    const firstnameWarnign1 = () => {
-        if (firstname.length > 0) {
-            if (firstname.length < 2) {
-                return false
-            } else {
-                return true;
-            }
-        }
-    }
-
-    const firstnameWarnign2 = () => {
+    const firstnameWarnign = () => {
         if (firstname.length > 0) {
             const re = /^[\s\p{L}]+$/u;
             if (re.test(String(firstname).toLowerCase())) {
@@ -93,17 +81,7 @@ function Register_form() {
         }
     }
 
-    const lastnameWarnign1 = () => {
-        if (lastname.length > 0) {
-            if (lastname.length < 2) {
-                return false
-            } else {
-                return true;
-            }
-        }
-    }
-
-    const lastnameWarnign2 = () => {
+    const lastnameWarnign = () => {
         if (lastname.length > 0) {
             const re = /^[\s\p{L}]+$/u;
             if (re.test(String(lastname).toLowerCase())) {
@@ -121,17 +99,11 @@ function Register_form() {
 
     // POPRWANA WALIDACJA DLA WERSJI KONCOWEJ
     // function validateForm() {
-    //     return loginWarnign()===true && firstnameWarnign1()===true && firstnameWarnign2()===true && lastnameWarnign1()===true && lastnameWarnign2()===true && emailWarnign()===true && passWarning()===true && rep_pasWarning()===true;
+    //     return loginWarnign()===true && firstnameWarnign()===true && lastnameWarnign()===true && emailWarnign()===true && passWarning()===true && rep_pasWarning()===true && firstname.length > 0 && lastname.length > 0;
     // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(login)
-        //console.log(firstname)
-        //console.log(lastname)
-        //console.log(email)
-        //console.log(password)
-        //console.log(rep_password)
 
         axiosInstance
             .post(`users/register/`, {
@@ -142,16 +114,13 @@ function Register_form() {
                 last_name: lastname
             })
             .then((res) => {
-
-                //console.log(res);
-                //console.log(res.data);
                 history.push('/login');
-
             });
     };
 
     return (
         <div className="login_form">
+
             <Form onSubmit={handleSubmit}>
 
                 <Form.Group size="lg" controlId="Login">
@@ -201,7 +170,7 @@ function Register_form() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <PasswordStrength password={password} />
+                    <Register_Password_Strength password={password}/>
                 </Form.Group>
 
                 <Form.Group size="lg" controlId="rep_password">
@@ -213,14 +182,17 @@ function Register_form() {
                     />
                 </Form.Group>
 
-                <RegisterNotifications email={email} password={password} rep_password={rep_password} login={login} firstname={firstname} lastname={lastname}></RegisterNotifications >
+                <RegisterNotifications email={email} password={password} rep_password={rep_password} login={login}
+                                       firstname={firstname} lastname={lastname}></RegisterNotifications>
 
                 <Button onClick={handleSubmit} block size="lg" type="submit" className="btn btn-lg" id="btn-login"
                         disabled={!validateForm()}>
                     Zarejestruj
                 </Button>
                 Masz już konto? <Link to="/login">Zaloguj się!</Link>
+
             </Form>
+
         </div>
     );
 }

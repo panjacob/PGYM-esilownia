@@ -9,8 +9,10 @@ function Header(props) {
         <div className="navigation">
             <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
                 <Container>
+
                     <Navbar.Brand href="/">E-Siłownia</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             {
@@ -51,6 +53,7 @@ function Header(props) {
                             )
                         }
                     </Navbar.Collapse>
+
                 </Container>
             </Navbar>
         </div>

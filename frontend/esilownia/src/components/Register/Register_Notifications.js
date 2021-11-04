@@ -46,7 +46,7 @@ const RegisterNotifications = ({email, password, rep_password, login, firstname,
 
     const loginWarnign = () => {
         if (login.length > 0) {
-            if (login.length < 3) {
+            if (login.length < 2) {
                 return 'Zbyt krótki login'
             } else {
                 return '';
@@ -54,17 +54,7 @@ const RegisterNotifications = ({email, password, rep_password, login, firstname,
         }
     }
 
-    const firstnameWarnign1 = () => {
-        if (firstname.length > 0) {
-            if (firstname.length < 2) {
-                return 'Zbyt krótkie imie'
-            } else {
-                return '';
-            }
-        }
-    }
-
-    const firstnameWarnign2 = () => {
+    const firstnameWarnign = () => {
         if (firstname.length > 0) {
             const re = /^[\s\p{L}]+$/u;
             if (re.test(String(firstname).toLowerCase())) {
@@ -75,17 +65,7 @@ const RegisterNotifications = ({email, password, rep_password, login, firstname,
         }
     }
 
-    const lastnameWarnign1 = () => {
-        if (lastname.length > 0) {
-            if (lastname.length < 2) {
-                return 'Zbyt krótkie nazwisko'
-            } else {
-                return '';
-            }
-        }
-    }
-
-    const lastnameWarnign2 = () => {
+    const lastnameWarnign = () => {
         if (lastname.length > 0) {
             const re = /^[\s\p{L}]+$/u;
             if (re.test(String(lastname).toLowerCase())) {
@@ -100,10 +80,8 @@ const RegisterNotifications = ({email, password, rep_password, login, firstname,
         <div className="warnings">
 
             <p className="alert alert-danger">{loginWarnign()}</p>
-            <p className="alert alert-danger">{firstnameWarnign1()}</p>
-            <p className="alert alert-danger">{firstnameWarnign2()}</p>
-            <p className="alert alert-danger">{lastnameWarnign1()}</p>
-            <p className="alert alert-danger">{lastnameWarnign2()}</p>
+            <p className="alert alert-danger">{firstnameWarnign()}</p>
+            <p className="alert alert-danger">{lastnameWarnign()}</p>
             <p className="alert alert-danger">{emailWarnign()}</p>
             <p className="alert alert-danger">{passWarning()}</p>
             <p className="alert alert-danger">{rep_pasWarning()}</p>
