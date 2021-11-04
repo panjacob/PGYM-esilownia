@@ -83,7 +83,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setDateEnd(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="date">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Grupa Trenignowa</Form.Label>
                     <Form.Control
                         autoFocus
@@ -92,7 +92,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setTrainingGroup(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Stopień Zaawansowania</Form.Label>
                     <Form.Control
                         type="text"
@@ -100,7 +100,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setDifficulity(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Tytuł</Form.Label>
                     <Form.Control
                         type="text"
@@ -108,7 +108,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Opis</Form.Label>
                     <Form.Control
                         type="text"
@@ -116,7 +116,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Typ</Form.Label>
                     <Form.Control
                         type="text"

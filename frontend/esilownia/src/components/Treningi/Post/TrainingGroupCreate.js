@@ -50,7 +50,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setDate(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Stopień Zaawansowania</Form.Label>
                         <select class="form-select" aria-label="Default select example" onChange={(e)=> setDifficulity(e.target.value)}>
                             <option value="0">Łatwy</option>
@@ -59,7 +59,7 @@ const handleSubmit = (e) => {
                             <option value="3">Armagedon</option>
                         </select>
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Tytuł</Form.Label>
                     <Form.Control
                         type="text"
@@ -67,7 +67,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Opis</Form.Label>
                     <Form.Control
                         type="text"
@@ -75,7 +75,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Typ</Form.Label>
                     <Form.Control
                         type="text"

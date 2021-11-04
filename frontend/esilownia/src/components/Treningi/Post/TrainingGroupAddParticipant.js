@@ -62,7 +62,7 @@ const handleSubmit = (e) => {
                         onChange={(e) => setParticipant(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group size="lg" controlId="text">
                     <Form.Label>Grupa</Form.Label>
                     <Form.Control
                         type="text"
