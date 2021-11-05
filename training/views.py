@@ -33,6 +33,7 @@ def training_group_participant_add(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     if request.user.id is not training_group.owner_id:
@@ -47,14 +48,18 @@ def training_group_get(request):
     serializer = TrainingGroupSerializerGet(training_group)
     result = serializer.data
     result['images'] = []
+    result['trainings'] = []
 
     for training_group_image in training_group.traininggroupimage_set.all():
         result['images'] += {training_group_image.image.url}
+    for training in training_group.training_set.all():
+        result['trainings'] += {training.id}
 
     return JsonResponse(result)
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['id'])
     training_group.delete()
@@ -90,6 +95,7 @@ def training_group_type_all(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_image_add(request):
     request = put_owner_in_request_data(request)
     serializer = TrainingGroupSerializerImageAdd(data=request.data)
@@ -101,6 +107,7 @@ def training_group_image_add(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_image_remove(request):
     image_id = request.data['id']
     if TrainingGroupImage.objects.filter(id=image_id).exists():
@@ -110,8 +117,8 @@ def training_group_image_remove(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_create(request):
-    # TODO: assert user is a trainer
     request = put_owner_in_request_data(request)
     serializer = TrainingSerializerCreate(data=request.data)
 
@@ -122,8 +129,8 @@ def training_create(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_remove(request):
-    # TODO assert user is a trainer
     if not Training.objects.filter(id=request.data['id']).exists():
         return Response({'Training doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)
     training = Training.objects.get(id=request.data['id'])
