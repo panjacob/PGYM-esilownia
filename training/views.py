@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
-from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_owner_required, training_group_owner_required
+from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required
 from users.utilis import put_owner_in_request_data
 
 
@@ -54,6 +54,14 @@ def training_group_get(request):
     return JsonResponse(result)
 
 
+@api_view(['POST'])
+def training_group_remove(request):
+    training_group = models.TrainingGroup.objects.get(id=request.data['id'])
+    training_group.delete()
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
 def training_group_get_all(request):
     result = []
@@ -90,6 +98,7 @@ def training_group_image_add(request):
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def training_group_image_remove(request):
