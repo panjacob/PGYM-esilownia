@@ -10,7 +10,7 @@ function Dashboard_data_user() {
     useEffect(() => {
 
         axiosInstance
-            .get(`users/info/`, {
+            .post(`users/info/`, {},{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')

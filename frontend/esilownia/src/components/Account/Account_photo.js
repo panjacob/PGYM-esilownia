@@ -1,8 +1,25 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import profilePicture from '../../imgs/basic_profile_photo.jpg'
+import axiosInstance from "../Axios/Axios";
 
 function Account_photo() {
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //
+    //     axiosInstance
+    //         .post(`users/register/`, {
+    //             email: email,
+    //             username: login,
+    //             password: password,
+    //             first_name: firstname,
+    //             last_name: lastname
+    //         })
+    //         .then((res) => {
+    //             history.push('/login');
+    //         });
+    // };
 
     return (
         <div className="account_photo">

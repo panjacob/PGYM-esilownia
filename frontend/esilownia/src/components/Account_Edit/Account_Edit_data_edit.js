@@ -10,33 +10,22 @@ function Account_Edit_data_edit() {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
 
-    async function postData(url = '', data = {}) {
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }
-
     const handleSubmitData = (e) => {
         e.preventDefault();
 
-        postData('http://127.0.0.1:8000/users/edit/', {
-            username: username,
-            first_name: firstname,
-            last_name: lastname,
-            email: email
-        })
-            .then(data => {
+        axiosInstance
+            .post(`users/edit/`, {
+                username: username,
+                first_name: firstname,
+                last_name: lastname,
+                email: email
+            },{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
                 window.location.reload();
             });
     }
@@ -44,7 +33,7 @@ function Account_Edit_data_edit() {
     useEffect(() => {
 
         axiosInstance
-            .get(`users/info/`, {
+            .post(`users/info/`, {},{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')

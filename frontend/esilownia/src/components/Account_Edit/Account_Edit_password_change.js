@@ -1,40 +1,30 @@
 import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from "react-bootstrap/Button";
+import axiosInstance from "../Axios/Axios";
 
 function Account_Edit_password_change() {
 
     const [oldpassword, setOldPassword] = useState("");
     const [newpassword, setNewPassword] = useState("");
 
-    async function postData(url = '', data = {}) {
-
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }
-
     const handleSubmitPass = (e) => {
         e.preventDefault();
 
-        postData('http://127.0.0.1:8000/users/change_password/', {
-            old_password: oldpassword,
-            new_password: newpassword
-        })
-            .then(data => {
-                //window.location.reload();
+        axiosInstance
+            .post(`users/change_password/`, {
+                old_password: oldpassword,
+                new_password: newpassword
+            },{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                window.location.reload();
             });
+
     };
 
     return (

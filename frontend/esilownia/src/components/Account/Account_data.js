@@ -13,11 +13,11 @@ function Account_data() {
     useEffect(() => {
 
         axiosInstance
-            .get(`users/info/`, {
+            .post(`users/info/`, {},{
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
+            'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+        }
             })
             .then((res) => {
                 setEmail(res.data.email)

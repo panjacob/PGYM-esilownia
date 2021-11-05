@@ -3,26 +3,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
 
 function TrainingGroupTypeGet(){
-const [trainingGroupType, setTrainingGroupType] = useState("");
+const [trainingGroupType, setTrainingGroupType] = useState([]);
 
 useEffect(() => {
 
     axiosInstance
-        .get(`training/group/type/get`, {
+        .post(`training/group/type/get`, {id:'1'},{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
             }
         })
         .then((res) => {
-            //console.log(res)
-            //console.log(res.data)
-
             setTrainingGroupType(res.data.trainingGroupType)
-
         });
 
 }, []);
+
     return(
         <div className="trainingGroupTypeGet">
             <button className="btn btn-lg" onClick={console.log({trainingGroupType})}>Dołącz</button>

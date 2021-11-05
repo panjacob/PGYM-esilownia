@@ -3,23 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
 
 function TrainingGroupGet(){
-const [trainingGroup, setTrainingGroup] = useState("");
+const [trainingGroup, setTrainingGroup] = useState([]);
 
 useEffect(() => {
 
     axiosInstance
-        .get(`training/group/get`, {
+        .post(`training/group/get`, { id: '1' },{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
             }
         })
         .then((res) => {
-            //console.log(res)
-            //console.log(res.data)
-
             setTrainingGroup(res.data.trainingGroup)
-
         });
 
 }, []);

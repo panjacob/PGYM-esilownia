@@ -16,7 +16,7 @@ function Dashboard_data_userday() {
     useEffect(() => {
 
         axiosInstance
-            .get(`/dashboard/user_day/get_all`, {
+            .post(`/dashboard/user_day/get_all`, {},{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
