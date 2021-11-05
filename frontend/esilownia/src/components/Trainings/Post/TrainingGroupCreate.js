@@ -11,6 +11,7 @@ function TrainingGroupCreate(){
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [type, setType] = useState([]);
+    const [type2, setType2] = useState([]);
    
     function validateForm() {
         return date.length > 0 && difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0;
@@ -19,19 +20,23 @@ function TrainingGroupCreate(){
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(date, difficulity, title, description, type)
+
     axiosInstance
-        .post(`training/group/create`, {
-            date: date,
+        .post(`training/group/create`, {           
+             date: date,
             difficulity: difficulity,
             title: title,
             description: description,
-            type: type,
-        })
-        .then((res) => {
-            console.log(res)
-
-        });
+            type: type2,
+        },{
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+        }
+    })
+    .then((res) => {
+        console.log(res);
+    });
 };
 
 useEffect(() => {
@@ -51,9 +56,6 @@ useEffect(() => {
               alert(error)
               return Promise.reject(error)
             });
-        
-        
-
 }, []);
 
     return(
@@ -70,7 +72,7 @@ useEffect(() => {
                 </Form.Group>
                 <Form.Group size="lg" controlId="text">
                     <Form.Label>Stopień Zaawansowania</Form.Label>
-                        <select class="form-select" aria-label="Default select example" onChange={(e)=> setDifficulity(e.target.value)}>
+                        <select class="form-select" onChange={(e)=> setDifficulity(e.target.value)}>
                             <option value="0">Łatwy</option>
                             <option value="1">Średni</option>
                             <option value="2">Zaawansowany</option>
@@ -95,13 +97,13 @@ useEffect(() => {
                 </Form.Group>
                 <Form.Group size="lg" controlId="text">
                     <Form.Label>Typ</Form.Label>
-                    <select onChange={(e)=> setType(e.target.value)}>
+                    <select onChange={(e)=> setType2(e.target.value)}>
                         {type.map(function(cValue, idx){
-                        return (<option value="1" key={idx}>{cValue.type}</option>)
+                        return (<option value={cValue.id} key={idx}>{cValue.type}</option>)
                         })}
                     </select>
                 </Form.Group>
-                <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login" type="submit"
+                <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
                         disabled={!validateForm()}>
                     Utwórz Grupę
                 </Button>
