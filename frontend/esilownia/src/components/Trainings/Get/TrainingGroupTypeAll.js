@@ -15,13 +15,18 @@ useEffect(() => {
             }
         })
         .then((res) => {
-            setTrainingGroupTypeAll(res.data.trainingGroupTypeAll)
+            setTrainingGroupTypeAll(res.data)
         });
 
 }, []);
     return(
         <div className="trainingGroupTypeAll">
-            <button className="btn btn-lg" onClick={console.log({trainingGroupTypeAll})}>Dołącz</button>
+            Typ Treningu: 
+            <select>
+                {trainingGroupTypeAll.map(function(cValue, idx){
+                    return (<option key={idx}>{cValue.type}</option>)
+                })}
+            </select>
         </div>
     );
 }

@@ -4,25 +4,30 @@ import axiosInstance from "../../Axios/Axios";
 
 
 function TrainingGroupGetAll(){
-const [trainingGroup, setTrainingGroup] = useState([]);
+const [trainingGroupAll, setTrainingGroupAll] = useState([]);
 
 useEffect(() => {
 
     axiosInstance
-        .post(`training/group/get`, {},{
+        .post(`training/group/all`, {},{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
             }
         })
         .then((res) => {
-            setTrainingGroup(res.data.trainingGroup)
+            setTrainingGroupAll(res.data)
         });
 
 }, []);
     return(
         <div className="trainingGroupGetAll">
-            <button className="btn btn-lg" onClick={console.log({trainingGroup})}>Dołącz</button>
+            <div>
+                Grupy Treningowe
+                {trainingGroupAll.map(function(cValue, idx){
+                    return (<li key={idx}>id={cValue.id}, typ={cValue.type}, tytuł={cValue.title}, Stopień trudności ={cValue.difficulty}</li>)
+                })}
+            </div>
         </div>
     );
 }

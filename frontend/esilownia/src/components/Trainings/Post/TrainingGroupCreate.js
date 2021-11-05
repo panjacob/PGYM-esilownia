@@ -7,11 +7,11 @@ import Button from "react-bootstrap/Button";
 function TrainingGroupCreate(){
     
     const [date, setDate] = useState("");
-    const [difficulity, setDifficulity] = useState("");
+    const [difficulity, setDifficulity] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [type, setType] = useState("");
-
+    const [type, setType] = useState([]);
+   
     function validateForm() {
         return date.length > 0 && difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0;
     }
@@ -19,7 +19,7 @@ function TrainingGroupCreate(){
 
 const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(date, difficulity, title, description, type)
     axiosInstance
         .post(`training/group/create`, {
             date: date,
@@ -29,14 +29,32 @@ const handleSubmit = (e) => {
             type: type,
         })
         .then((res) => {
-            //console.log(res)
-            //console.log(res.data)
-            localStorage.setItem('access_token', res.data.access_token);
-            localStorage.setItem('refresh_token', res.data.refresh_token);
-            localStorage.setItem('token_type', res.data.token_type);
+            console.log(res)
 
         });
 };
+
+useEffect(() => {
+
+    axiosInstance
+        .post(`training/group/type/all`, {},{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+            }
+        })
+        .then((res) => {
+            setType(res.data)
+        })
+        .catch(
+            function (error) {
+              alert(error)
+              return Promise.reject(error)
+            });
+        
+        
+
+}, []);
 
     return(
         <div className="createGroup">
@@ -77,11 +95,11 @@ const handleSubmit = (e) => {
                 </Form.Group>
                 <Form.Group size="lg" controlId="text">
                     <Form.Label>Typ</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={type}
-                        onChange={(e) => setType(e.target.value)}
-                    />
+                    <select onChange={(e)=> setType(e.target.value)}>
+                        {type.map(function(cValue, idx){
+                        return (<option value="1" key={idx}>{cValue.type}</option>)
+                        })}
+                    </select>
                 </Form.Group>
                 <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login" type="submit"
                         disabled={!validateForm()}>

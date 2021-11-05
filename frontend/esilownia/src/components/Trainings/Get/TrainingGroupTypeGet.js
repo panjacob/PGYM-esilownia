@@ -8,21 +8,26 @@ const [trainingGroupType, setTrainingGroupType] = useState([]);
 useEffect(() => {
 
     axiosInstance
-        .post(`training/group/type/get`, {id:'1'},{
+        .post(`training/group/type/get`, {id:"5"},{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
             }
         })
         .then((res) => {
-            setTrainingGroupType(res.data.trainingGroupType)
+            setTrainingGroupType(res.data)
         });
 
 }, []);
 
     return(
         <div className="trainingGroupTypeGet">
-            <button className="btn btn-lg" onClick={console.log({trainingGroupType})}>Dołącz</button>
+            Typ grupy
+            <ul>
+                <li>{trainingGroupType.id}</li>
+                <li>{trainingGroupType.description}</li>
+                <li>{trainingGroupType.type}</li>
+           </ul>
         </div>
     );
 }
