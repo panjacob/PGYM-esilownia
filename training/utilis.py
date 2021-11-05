@@ -78,7 +78,7 @@ def training_owner_required():
             id = request.data.get('id', None)
             training_id = request.data.get('training', None)
             if Training.objects.filter(id=id).exists():
-                training = TrainingGroup.objects.get(id=id)
+                training = Training.objects.get(id=id)
             elif Training.objects.filter(id=training_id).exists():
                 training = Training.objects.get(id=id)
             else:

@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
-from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required
+from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required, \
+    training_owner_required
 from users.utilis import put_owner_in_request_data
 
 
@@ -129,7 +130,7 @@ def training_create(request):
 
 
 @api_view(['POST'])
-@training_group_owner_required()
+@training_owner_required()
 def training_remove(request):
     if not Training.objects.filter(id=request.data['id']).exists():
         return Response({'Training doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)
