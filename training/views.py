@@ -11,8 +11,8 @@ from users.utilis import put_owner_in_request_data
 
 
 @api_view(['POST'])
+# Trainer required
 def training_group_create(request):
-    # TODO: assert user is a trainer
     request = put_owner_in_request_data(request)
     serializer = TrainingGroupSerializerCreate(data=request.data)
 
