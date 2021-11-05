@@ -60,7 +60,7 @@ def user_change_password(request):
 
 
 @csrf_exempt
-@api_view(['GET'])
+@api_view(['POST'])
 def user_info(request):
     user = request.user
     serializer = serializers.UserInfoSerializer(user)
@@ -99,7 +99,7 @@ def user_photo_add(request):
     serializer = serializers.UserAddProfilePhotoSerializer(request.user, data=request.data)
     if serializer.is_valid():
         if serializer.save():
-            return Response({'OK'}, status=status.HTTP_200_OK)
+            return Response({'OK': str(serializer.instance.profile_photo)}, status=status.HTTP_200_OK)
     return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -20,14 +20,14 @@ def application_send(request):
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def application_get(request):
     application = models.Application.objects.get(id=request.data['id'])
     serializer = ApplicationGetSerializer(application)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def application_all(request):
     applications = models.Application.objects.all()
     result = []

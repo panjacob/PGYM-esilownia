@@ -43,7 +43,7 @@ def training_group_participant_remove(request):
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_group_get(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['id'])
     serializer = TrainingGroupSerializerGet(training_group)
@@ -68,7 +68,7 @@ def training_group_remove(request):
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_group_get_all(request):
     result = []
     training_groups = TrainingGroup.objects.all()
@@ -78,14 +78,14 @@ def training_group_get_all(request):
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_group_type_get(request):
     training_group_type = models.TrainingGroupType.objects.get(id=request.data['id'])
     serializer = TrainingGroupTypesSerializer(training_group_type)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_group_type_all(request):
     training_group_types = models.TrainingGroupType.objects.all()
     response = []
@@ -139,14 +139,14 @@ def training_remove(request):
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_get(request):
     training = models.Training.objects.get(id=request.data['id'])
     serializer = TrainingSerializerGet(training)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_join(request):
     user = request.user
     training = models.Training.objects.get(id=request.data['id'])
@@ -156,7 +156,7 @@ def training_join(request):
     return Response({'token': token}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_leave(request):
     user = request.user
     training = models.Training.objects.get(id=request.data['id'])
@@ -173,7 +173,7 @@ def training_ping(request):
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_ping_get(request):
     training = models.Training.objects.get(id=request.data['id'])
     last_ping_time = current_milli_time() - training.ping
