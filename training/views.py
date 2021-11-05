@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
-from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time
+from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_owner_required, training_group_owner_required
 from users.utilis import put_owner_in_request_data
 
 
@@ -23,6 +23,7 @@ def training_group_create(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_participant_add(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     if request.user.id is not training_group.owner_id:

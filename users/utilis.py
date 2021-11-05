@@ -26,9 +26,7 @@ def put_owner_in_request_data(request):
     return request
 
 
-# TODO
-def is_owner(model):
-    return True
+
 
 
 def moderator_required():

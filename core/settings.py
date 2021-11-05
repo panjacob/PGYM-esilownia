@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'drf_social_oauth2',
     # CORS
     'corsheaders',
+    # django models to diagram
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
@@ -138,7 +140,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
