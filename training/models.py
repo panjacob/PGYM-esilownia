@@ -43,6 +43,7 @@ class TrainingGroup(models.Model):
     type = models.ManyToManyField(TrainingGroupType)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
+    # image = models.ImageField(null=True, blank=True)
     # cost
 
 
@@ -57,7 +58,7 @@ class Training(models.Model):
     ping = models.IntegerField(default=0)
 
 
-class Files(models.Model):
+class TrainingGroupImage(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
-    my_file = models.FileField(storage=settings.MEDIA_PHOTO_VIDEOS_PATH)
+    image = models.ImageField(null=True, blank=True)
     training_group = models.ForeignKey(TrainingGroup, on_delete=models.CASCADE)

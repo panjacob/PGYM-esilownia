@@ -21,7 +21,7 @@ def user_day_create(request):
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def user_day_get_all(request):
     days = UserDay.objects.all().filter(user_id=request.user.id)
     data = list(days.values())

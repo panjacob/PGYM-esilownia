@@ -12,4 +12,8 @@ urlpatterns = [
     path('set_moderator/', views.user_set_moderator, name='set_moderator'),
     path('set_coach/', views.user_set_coach, name='set_coach'),
     path('set_dietician/', views.user_set_dietician, name='set_dietician'),
+
+    path('photo/add', views.user_photo_add, name='photo_add'),
+    path('photo/remove', views.user_photo_remove, name='photo_remove'),
+
 ]

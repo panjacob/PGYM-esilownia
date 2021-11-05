@@ -43,6 +43,7 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     is_dietician = models.BooleanField(default=False)
 
     is_moderator = models.BooleanField(default=False)
+    profile_photo = models.ImageField(null=True, blank=True)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
@@ -52,6 +53,14 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+# formularz
+
+# user
+# tresc
+# zalacznik wiele plikow
+# dietetyk czy trener czy moderator
+
+
 
 # @receiver(post_save, sender=User)
 # def create_auth_token(sender, instance=None, created=False, **kwargs):
