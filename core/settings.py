@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'users',
     'dashboard',
     'training',
+    'moderator',
     # Django
     'django.contrib.admin',
     'django.contrib.auth',
