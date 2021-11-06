@@ -8,7 +8,7 @@ const [trainingGroupType, setTrainingGroupType] = useState([]);
 useEffect(() => {
 
     axiosInstance
-        .post(`training/group/type/get`, {id:"5"},{
+        .post(`training/group/type/get`, {id:"1"},{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')

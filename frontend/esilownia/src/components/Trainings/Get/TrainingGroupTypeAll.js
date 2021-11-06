@@ -21,12 +21,17 @@ useEffect(() => {
 }, []);
     return(
         <div className="trainingGroupTypeAll">
-            Typ Treningu: 
-            <select>
-                {trainingGroupTypeAll.map(function(cValue, idx){
-                    return (<option key={idx}>{cValue.type}</option>)
-                })}
-            </select>
+            <div className="container pt-4 m-4 font-weight-light">
+                <div className="col-lg-2 border" id="tren_col">
+                <h5 className="font-weight-light">Typ Treningu:</h5> 
+                <select className="font-weight-light mb-2">
+                    {trainingGroupTypeAll.map(function(cValue, idx){
+                        return (<option key={idx}>{cValue.type}</option>)
+                    })}
+                </select>
+                </div>
+
+            </div>
         </div>
     );
 }
