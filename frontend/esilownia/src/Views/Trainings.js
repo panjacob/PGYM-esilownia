@@ -14,17 +14,13 @@ function Trainings() {
     return (
         <div className="treningi">
             <div className="container font-weight-light mt-4">
-                <h1 className="display-1 font-weight-light text-center">Treningi</h1>
-                <hr/>
-                <h1 className="display-5 font-weight-light text-center">Dostępne grupy treningowe</h1>
-                <TrainingGroupTypeAll></TrainingGroupTypeAll>
+
+                {/*<TrainingGroupTypeAll></TrainingGroupTypeAll>*/}
                 <TrainingGroupGetAll></TrainingGroupGetAll>
-                <h1 className="display-3 font-weight-light text-center">Twoje grupy treningowe</h1>
-                <hr/>
 
-                <TrainingGroupTypeGet></TrainingGroupTypeGet>
+                {/*<TrainingGroupTypeGet></TrainingGroupTypeGet>*/}
 
-                <TrainingGroupGet></TrainingGroupGet>
+                {/*<TrainingGroupGet></TrainingGroupGet>*/}
 
                 
                 {/* Strefa dla trenera */}
