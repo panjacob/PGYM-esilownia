@@ -21,17 +21,18 @@ def remove(path):
         print(f"path: {path} doesnt exist. It's OK")
 
 
-apps = ['dashboard', 'moderator', 'users', 'training']
-remove('db.sqlite3')
-remove('__pycache__')
-remove("core/__pycache__")
-for app in apps:
-    remove(f"{app}/migrations")
-    remove(f"{app}/__pycache__")
+if __name__ == '__main__':
+    apps = ['dashboard', 'moderator', 'users', 'training']
+    remove('db.sqlite3')
+    remove('__pycache__')
+    remove("core/__pycache__")
+    for app in apps:
+        remove(f"{app}/migrations")
+        remove(f"{app}/__pycache__")
 
-manage_py('makemigrations')
-for app in apps:
-    manage_py(f"makemigrations {app}")
+    manage_py('makemigrations')
+    for app in apps:
+        manage_py(f"makemigrations {app}")
 
-manage_py('migrate')
-manage_py('runserver')
+    manage_py('migrate')
+    manage_py('runserver')
