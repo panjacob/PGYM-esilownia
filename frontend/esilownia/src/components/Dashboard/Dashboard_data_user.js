@@ -6,6 +6,7 @@ import axiosInstance from "../Axios/Axios";
 function Dashboard_data_user() {
 
     const [username, setUsername] = useState("");
+    const [photo, setPhoto] = useState("");
 
     useEffect(() => {
 
@@ -18,6 +19,11 @@ function Dashboard_data_user() {
             })
             .then((res) => {
                 setUsername(res.data.username)
+                if(res.data.profile_photo === null){
+                    setPhoto(profilePicture)
+                } else {
+                    setPhoto('http://localhost:8000' + res.data.profile_photo)
+                }
             });
 
     }, []);
@@ -41,7 +47,7 @@ function Dashboard_data_user() {
                             <div className="row justify-content-center">
 
                                 <div className="mx-1">
-                                    <img src={profilePicture} alt="..." className="img-thumbnail" width='200px'
+                                    <img src={photo} alt="..." className="img-thumbnail" width='200px'
                                          height='200px'/>
                                 </div>
 

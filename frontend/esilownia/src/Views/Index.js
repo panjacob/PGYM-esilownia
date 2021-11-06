@@ -12,4 +12,5 @@ export { default as Diet } from "./Diet";
 export { default as Account } from "./Account";
 export { default as AccountEdit } from "./Account_edit";
 export { default as Dashboard } from "./Dashboard";
+export { default as ModeratorPanel } from "./Cockpit";
 

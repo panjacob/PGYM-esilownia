@@ -1,25 +1,30 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import profilePicture from '../../imgs/basic_profile_photo.jpg'
 import axiosInstance from "../Axios/Axios";
 
 function Account_photo() {
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //
-    //     axiosInstance
-    //         .post(`users/register/`, {
-    //             email: email,
-    //             username: login,
-    //             password: password,
-    //             first_name: firstname,
-    //             last_name: lastname
-    //         })
-    //         .then((res) => {
-    //             history.push('/login');
-    //         });
-    // };
+    const [photo, setPhoto] = useState("");
+
+    useEffect(() => {
+
+        axiosInstance
+            .post(`users/info/`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                if(res.data.profile_photo === null){
+                    setPhoto(profilePicture)
+                } else {
+                    setPhoto('http://localhost:8000' + res.data.profile_photo)
+                }
+            });
+
+    }, []);
 
     return (
         <div className="account_photo">
@@ -36,7 +41,7 @@ function Account_photo() {
                         </div>
                         <div className="row">
                             <div className="mx-auto">
-                                <img src={profilePicture} alt="..." className="img-thumbnail" width='200px'
+                                <img src={photo} alt="..." className="img-thumbnail" width='200px'
                                      height='200px'/>
                             </div>
                         </div>

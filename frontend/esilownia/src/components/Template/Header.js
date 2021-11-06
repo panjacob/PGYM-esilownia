@@ -42,6 +42,9 @@ function Header(props) {
                                         <NavDropdown.Divider/>
                                         <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
                                         <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
+
+                                        <NavDropdown.Item href="/cockpit">Kokpit</NavDropdown.Item>
+
                                     </NavDropdown>
                                     <Nav.Link><Logout></Logout></Nav.Link>
                                 </Nav>

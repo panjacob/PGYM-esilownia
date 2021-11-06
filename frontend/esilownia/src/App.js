@@ -13,6 +13,7 @@ import PriceList from "./Views/Price_list";
 import Account from "./Views/Account";
 import Dashboard from "./Views/Dashboard";
 import AccountEdit from "./Views/Account_edit";
+import ModeratorPanel from "./Views/Moderator_panel";
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                     <Route path="/konto" exact component={() => <Account/>}/>
                     <Route path="/konto_edycja" exact component={() => <AccountEdit/>}/>
                     <Route path="/dashboard" exact component={() => <Dashboard/>}/>
+                    <Route path="/cockpit" exact component={() => <ModeratorPanel/>}/>
                 </Switch>
                 <Footer/>
             </Router>
