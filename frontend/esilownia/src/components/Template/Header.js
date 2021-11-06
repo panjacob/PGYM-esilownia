@@ -5,6 +5,12 @@ import Logout from "../Logout/Logout";
 import {Container, Navbar, Nav, NavDropdown} from 'react-bootstrap'
 
 function Header(props) {
+
+    let UserRole = false;
+    if(localStorage.getItem('role')!==null){
+        UserRole = JSON.parse(localStorage.getItem('role')).includes('moderator')
+    }
+
     return (
         <div className="navigation">
             <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
@@ -42,9 +48,11 @@ function Header(props) {
                                         <NavDropdown.Divider/>
                                         <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
                                         <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
-
-                                        <NavDropdown.Item href="/cockpit">Kokpit</NavDropdown.Item>
-
+                                        {
+                                            (UserRole===true) ? (
+                                            < NavDropdown.Item href="/cockpit">Kokpit</NavDropdown.Item>
+                                            ) : ("")
+                                        }
                                     </NavDropdown>
                                     <Nav.Link><Logout></Logout></Nav.Link>
                                 </Nav>

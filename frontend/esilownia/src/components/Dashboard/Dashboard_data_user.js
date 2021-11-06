@@ -37,7 +37,6 @@ function Dashboard_data_user() {
                 }
 
                 localStorage.setItem('role', JSON.stringify(UserRole));
-                console.log(JSON.parse(localStorage.getItem('role')))
 
             });
 
