@@ -7,7 +7,7 @@ from manage import main
 
 def manage_py(command):
     command_arr = command.split(' ')
-    print(command_arr)
+    # print(command_arr)
     sys.argv = ['.\\manage.py'] + command_arr
     main()
     sys.argv = []
