@@ -11,18 +11,37 @@ function DashboardApplication() {
     const handleSubmitData = (e) => {
         e.preventDefault();
 
-        axiosInstance
-            .post(`/moderator/application/send`, {
-                description: description
-            },{
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-            .then((res) => {
-                window.location.reload();
-            });
+        // axiosInstance
+        //     .post(`/moderator/application/send`, {
+        //         description: description
+        //     },{
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+        //         }
+        //     })
+        //     .then((res) => {
+        //         window.location.reload();
+        //     });
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("description", description);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: urlencoded,
+            redirect: 'follow'
+        };
+
+        fetch("http://127.0.0.1:8000/moderator/application/send", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
     }
 
 

@@ -24,6 +24,21 @@ function Dashboard_data_user() {
                 } else {
                     setPhoto('http://localhost:8000' + res.data.profile_photo)
                 }
+
+                let UserRole = ["user"]
+                if(res.data.is_coach === true){
+                    UserRole.push("trainer")
+                }
+                if(res.data.is_dietician === true){
+                    UserRole.push("dietician")
+                }
+                if(res.data.is_moderator === true){
+                    UserRole.push("moderator")
+                }
+
+                localStorage.setItem('role', JSON.stringify(UserRole));
+                console.log(JSON.parse(localStorage.getItem('role')))
+
             });
 
     }, []);

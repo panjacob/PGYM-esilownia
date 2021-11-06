@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
 
 function TrainingGroupTypeAll(){
+
 const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
 
 useEffect(() => {

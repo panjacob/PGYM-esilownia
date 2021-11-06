@@ -30,7 +30,7 @@ function Trainings() {
                 {/* Strefa dla trenera */}
                 {/*<TrainingGroupAddParticipant></TrainingGroupAddParticipant>*/}
                 {/*<TrainingGroupRemoveParticipant></TrainingGroupRemoveParticipant>*/}
-                {/* <TrainingGroupCreate></TrainingGroupCreate> */}
+                 <TrainingGroupCreate></TrainingGroupCreate>
 
             </div>
         </div>

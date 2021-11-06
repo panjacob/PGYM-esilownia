@@ -11,7 +11,7 @@ from users.utilis import put_owner_in_request_data
 
 @api_view(['POST'])
 def application_send(request):
-    # request = put_owner_in_request_data(request)
+    request = put_owner_in_request_data(request)
     serializer = ApplicationCreateSerializer(data=request.data)
 
     if serializer.is_valid():

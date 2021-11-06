@@ -41,7 +41,7 @@ function Account_Edit_photo_change() {
         e.preventDefault();
 
         let formData = new FormData();
-        formData.append("profile_photo", fileToUpload,'pp.png');
+        formData.append("profile_photo", fileToUpload);
 
         for(let pair of formData.entries()) {
             console.log(pair[0]+', '+pair[1]);

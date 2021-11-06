@@ -19,6 +19,7 @@ useEffect(() => {
         });
 
 }, []);
+
     return(
         <div className="trainingGroupGet">
             Grupa Treningowa Dane
