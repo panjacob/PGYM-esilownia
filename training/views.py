@@ -108,7 +108,8 @@ def training_group_image_add(request):
 
 
 @api_view(['POST'])
-@training_group_owner_required()
+# Tu musi być cos innego
+# @training_group_owner_required()
 def training_group_image_remove(request):
     image_id = request.data['id']
     if TrainingGroupImage.objects.filter(id=image_id).exists():

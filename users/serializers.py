@@ -12,6 +12,12 @@ class UserInfoSerializer(ModelSerializer):
                   'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo']
 
 
+class UserGetSerializer(ModelSerializer):
+    class Meta:
+        model = UserExtended
+        fields = ['id', 'username', 'first_name', 'last_name', 'profile_photo']
+
+
 class UserEditSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
