@@ -51,6 +51,7 @@ def training_group_owner_required():
         def wrapper(*args, **kwargs):
             request = args[0]
             id = request.data.get('id', None)
+            print(id)
             training_group_id = request.data.get('training_group', None)
             if TrainingGroup.objects.filter(id=id).exists():
                 training_group = TrainingGroup.objects.get(id=id)
@@ -80,7 +81,7 @@ def training_owner_required():
             if Training.objects.filter(id=id).exists():
                 training = Training.objects.get(id=id)
             elif Training.objects.filter(id=training_id).exists():
-                training = Training.objects.get(id=id)
+                training = Training.objects.get(id=training_id)
             else:
                 return Response({'error': 'training_owner_required(): training_group not found'},
                                 status.HTTP_400_BAD_REQUEST)

@@ -11,7 +11,7 @@ from users.models import UserExtended
 from users.utilis import superuser_required, moderator_required
 
 
-@api_view(('GET',))
+@api_view((['POST']))
 @permission_classes([AllowAny])
 def test_connection(request):
     return Response({'message': 'Everything works fine'}, status=status.HTTP_200_OK)
