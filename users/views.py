@@ -1,9 +1,9 @@
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from django.views.decorators.csrf import csrf_exempt
 
 import users.serializers as serializers
 from users import utilis
@@ -11,7 +11,7 @@ from users.models import UserExtended
 from users.utilis import superuser_required, moderator_required
 
 
-@api_view(('GET',))
+@api_view((['POST']))
 @permission_classes([AllowAny])
 def test_connection(request):
     return Response({'message': 'Everything works fine'}, status=status.HTTP_200_OK)
@@ -58,8 +58,9 @@ def user_change_password(request):
         user.save()
     return Response({'message': 'OK'}, status=status.HTTP_200_OK)
 
+
 @csrf_exempt
-@api_view(['GET'])
+@api_view(['POST'])
 def user_info(request):
     user = request.user
     serializer = serializers.UserInfoSerializer(user)
@@ -91,3 +92,28 @@ def user_set_dietician(request):
     user.is_dietician = request.data['value'].title()
     user.save()
     return Response({'message': 'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def user_photo_add(request):
+    serializer = serializers.UserAddProfilePhotoSerializer(request.user, data=request.data)
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'OK': str(serializer.instance.profile_photo)}, status=status.HTTP_200_OK)
+    return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def user_photo_remove(request):
+    request.user.profile_photo.delete()
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(['POST'])
+def user_get(request):
+    if not UserExtended.objects.filter(id=request.data['id']).exists():
+        return Response({'message': 'User doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)
+    user = UserExtended.objects.get(id=request.data['id'])
+    serializer = serializers.UserGetSerializer(user)
+    return JsonResponse(serializer.data)

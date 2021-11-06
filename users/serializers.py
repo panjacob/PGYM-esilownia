@@ -9,7 +9,13 @@ class UserInfoSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
         fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
-                  'is_active', 'is_superuser', 'is_coach', 'is_dietician']
+                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo']
+
+
+class UserGetSerializer(ModelSerializer):
+    class Meta:
+        model = UserExtended
+        fields = ['id', 'username', 'first_name', 'last_name', 'profile_photo']
 
 
 class UserEditSerializer(ModelSerializer):
@@ -47,3 +53,9 @@ class UserChangePasswordSerializer(serializers.Serializer):
 
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
+
+
+class UserAddProfilePhotoSerializer(ModelSerializer):
+    class Meta:
+        model = UserExtended
+        fields = ['profile_photo']

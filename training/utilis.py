@@ -1,6 +1,11 @@
+import functools
 import time
 
 import jwt
+from rest_framework.response import Response
+from rest_framework import status
+
+from training.models import TrainingGroup, Training
 
 
 def current_milli_time():
@@ -40,5 +45,52 @@ def is_training_owner(user, training):
     return training.training_group.owner_id == user.id
 
 
-def is_training_group_owner(user, training_group):
-    pass
+def training_group_owner_required():
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            request = args[0]
+            id = request.data.get('id', None)
+            print(id)
+            training_group_id = request.data.get('training_group', None)
+            if TrainingGroup.objects.filter(id=id).exists():
+                training_group = TrainingGroup.objects.get(id=id)
+            elif TrainingGroup.objects.filter(id=training_group_id).exists():
+                training_group = TrainingGroup.objects.get(id=training_group_id)
+            else:
+                return Response({'error': 'training_group_owner_required(): training_group not found'},
+                                status.HTTP_400_BAD_REQUEST)
+
+            if training_group.owner_id == request.user.id:
+                return func(request)
+            else:
+                return Response({'message': 'User is not owner of a training group'}, status.HTTP_400_BAD_REQUEST)
+
+        return wrapper
+
+    return decorator
+
+
+def training_owner_required():
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            request = args[0]
+            id = request.data.get('id', None)
+            training_id = request.data.get('training', None)
+            if Training.objects.filter(id=id).exists():
+                training = Training.objects.get(id=id)
+            elif Training.objects.filter(id=training_id).exists():
+                training = Training.objects.get(id=training_id)
+            else:
+                return Response({'error': 'training_owner_required(): training_group not found'},
+                                status.HTTP_400_BAD_REQUEST)
+
+            if training.training_group.owner_id == request.user.id:
+                return func(request)
+            else:
+                return Response({'message': 'User is not owner of a training group'}, status.HTTP_400_BAD_REQUEST)
+
+        return wrapper
+
+    return decorator

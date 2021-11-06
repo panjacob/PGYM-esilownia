@@ -6,13 +6,14 @@ from rest_framework.response import Response
 from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
-from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time
+from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required, \
+    training_owner_required
 from users.utilis import put_owner_in_request_data
 
 
 @api_view(['POST'])
+# Trainer required
 def training_group_create(request):
-    # TODO: assert user is a trainer
     request = put_owner_in_request_data(request)
     serializer = TrainingGroupSerializerCreate(data=request.data)
 
@@ -23,6 +24,7 @@ def training_group_create(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_participant_add(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     if request.user.id is not training_group.owner_id:
@@ -32,6 +34,7 @@ def training_group_participant_add(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     if request.user.id is not training_group.owner_id:
@@ -40,14 +43,32 @@ def training_group_participant_remove(request):
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_group_get(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['id'])
     serializer = TrainingGroupSerializerGet(training_group)
-    return JsonResponse(serializer.data)
+    result = serializer.data
+    result['images'] = []
+    result['trainings'] = []
+
+    for training_group_image in training_group.traininggroupimage_set.all():
+        result['images'] += {training_group_image.image.url}
+    for training in training_group.training_set.all():
+        result['trainings'] += {training.id}
+
+    return JsonResponse(result)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
+@training_group_owner_required()
+def training_group_remove(request):
+    training_group = models.TrainingGroup.objects.get(id=request.data['id'])
+    training_group.delete()
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
 def training_group_get_all(request):
     result = []
     training_groups = TrainingGroup.objects.all()
@@ -57,14 +78,14 @@ def training_group_get_all(request):
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_group_type_get(request):
     training_group_type = models.TrainingGroupType.objects.get(id=request.data['id'])
     serializer = TrainingGroupTypesSerializer(training_group_type)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_group_type_all(request):
     training_group_types = models.TrainingGroupType.objects.all()
     response = []
@@ -75,8 +96,31 @@ def training_group_type_all(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
+def training_group_image_add(request):
+    request = put_owner_in_request_data(request)
+    serializer = TrainingGroupSerializerImageAdd(data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+# Tu musi być cos innego
+# @training_group_owner_required()
+def training_group_image_remove(request):
+    image_id = request.data['id']
+    if TrainingGroupImage.objects.filter(id=image_id).exists():
+        TrainingGroupImage.objects.get(id=image_id).delete()
+        return Response({'OK'}, status=status.HTTP_200_OK)
+    return Response({'error': 'Image doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@training_group_owner_required()
 def training_create(request):
-    # TODO: assert user is a trainer
     request = put_owner_in_request_data(request)
     serializer = TrainingSerializerCreate(data=request.data)
 
@@ -87,8 +131,8 @@ def training_create(request):
 
 
 @api_view(['POST'])
+@training_owner_required()
 def training_remove(request):
-    # TODO assert user is a trainer
     if not Training.objects.filter(id=request.data['id']).exists():
         return Response({'Training doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)
     training = Training.objects.get(id=request.data['id'])
@@ -96,14 +140,14 @@ def training_remove(request):
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_get(request):
     training = models.Training.objects.get(id=request.data['id'])
     serializer = TrainingSerializerGet(training)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_join(request):
     user = request.user
     training = models.Training.objects.get(id=request.data['id'])
@@ -113,7 +157,7 @@ def training_join(request):
     return Response({'token': token}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_leave(request):
     user = request.user
     training = models.Training.objects.get(id=request.data['id'])
@@ -130,7 +174,7 @@ def training_ping(request):
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def training_ping_get(request):
     training = models.Training.objects.get(id=request.data['id'])
     last_ping_time = current_milli_time() - training.ping
