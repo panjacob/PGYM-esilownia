@@ -59,3 +59,7 @@ class UserAddProfilePhotoSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
         fields = ['profile_photo']
+
+        def update(self, instance, validated_data):
+            instance.profile_photo = validated_data.get('profile_photo', instance.email)
+            return instance
