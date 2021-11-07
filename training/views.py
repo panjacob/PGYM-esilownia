@@ -211,7 +211,7 @@ def training_join(request):
 def training_leave(request):
     user = request.user
     training = models.Training.objects.get(id=request.data['id'])
-    training.participants.remove_path(user)
+    training.participants.remove(user)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
@@ -249,4 +249,4 @@ def training_file_add(request):
 def training_file_remove(request):
     instance = Training.objects.get(id=request.data['id'])
     instance.file.delete()
-    return Response('OK', status=status.HTTP_400_BAD_REQUEST)
+    return Response('OK', status=status.HTTP_200_OK)
