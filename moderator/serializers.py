@@ -6,10 +6,10 @@ from moderator.models import Application
 class ApplicationCreateSerializer(ModelSerializer):
     class Meta:
         model = Application
-        fields = ['owner', 'description']
+        fields = ['owner', 'description', 'trainer', 'dietician', 'file']
 
 
 class ApplicationGetSerializer(ModelSerializer):
     class Meta:
         model = Application
-        fields = ['id', 'date', 'owner', 'description', 'active']
+        fields = ['id', 'date', 'owner', 'description', 'status', 'trainer', 'dietician', 'file']
