@@ -93,7 +93,7 @@ def training_group_remove(request):
 
 
 @api_view(['POST'])
-def training_group_get_all(request):
+def training_group_all(request):
     result = []
     training_groups = TrainingGroup.objects.all()
     for training_group in training_groups:

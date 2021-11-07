@@ -5,7 +5,7 @@ from training import views
 urlpatterns = [
     path('group/create', views.training_group_create, name='training_group_create'),
     path('group/get', views.training_group_get, name='group_get'),
-    path('group/all', views.training_group_get_all, name='group_all'),
+    path('group/all', views.training_group_all, name='group_all'),
     path('group/type/get', views.training_group_type_get, name='group_type_get'),
     path('group/type/all', views.training_group_type_all, name='group_type_all'),
     path('group/join', views.training_group_join, name='training_group_join'),

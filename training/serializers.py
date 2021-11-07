@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupImage, TrainingGroupParticipant
+from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupImage
 
 
 class TrainingGroupTypesSerializer(ModelSerializer):
@@ -56,7 +56,7 @@ class TrainingGroupSerializerGetAll(ModelSerializer):
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
         # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
-        fields = ['id', 'difficulty', 'title', 'type']
+        fields = ['id', 'owner', 'difficulty', 'title', 'type']
 
 
 class TrainingSerializerCreate(ModelSerializer):
