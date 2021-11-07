@@ -67,12 +67,12 @@ function DashboardApplication() {
                     <div className="card-body">
                         <div className="row">
                             <div className="col-sm-12 text-secondary">
-                                <h1 style={{"fontSize": "1.5vw"}} className="display-1 font-weight-light mb-4">Tekst podania</h1>
+                                <h1 style={{"fontSize": "1.25vw"}} className="display-1 font-weight-light mb-4">Tekst podania</h1>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-sm-12 text-secondary">
-                                <textarea type="text-area" className="form-control form-control-sm"
+                                <textarea type="text-area" rows={5} className="form-control form-control-sm"
                                           onChange={(e) => setDescription(e.target.value)}/>
                             </div>
                         </div>

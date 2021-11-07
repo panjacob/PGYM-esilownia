@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import Button from "react-bootstrap/Button";
@@ -65,7 +65,7 @@ function ModeratorPanelApplications() {
     }
 
     const listItems = applications.map((id) =>
-        <div className="row" key={id.id}>
+        <div className="row" key={id.id} id={`application-${id.id}`}>
             <div className="card m-3" style={{width: '100%'}}>
                 <div className="card-body">
                     <div className="row">
@@ -128,7 +128,7 @@ function ModeratorPanelApplications() {
                     <hr></hr>
                 </div>
                 <div className="my-2 border">
-                    <div className="container" style={{overflowY: 'scroll', flex: '1', height: '300px'}}>
+                    <div className="container" style={{overflowY: 'scroll', flex: '1', height: '575px'}}>
                         {listItems}
                     </div>
                 </div>

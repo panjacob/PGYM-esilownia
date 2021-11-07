@@ -6,9 +6,9 @@ import {Container, Navbar, Nav, NavDropdown} from 'react-bootstrap'
 
 function Header(props) {
 
-    let UserRole = false;
+    let isModerator = false;
     if(localStorage.getItem('role')!==null){
-        UserRole = JSON.parse(localStorage.getItem('role')).includes('moderator')
+        isModerator = JSON.parse(localStorage.getItem('role')).includes('moderator')
     }
 
     return (
@@ -48,8 +48,10 @@ function Header(props) {
                                         <NavDropdown.Divider/>
                                         <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
                                         <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
+                                        <NavDropdown.Divider/>
                                         {
-                                            (UserRole===true) ? (
+                                            (isModerator===true) ? (
+
                                             < NavDropdown.Item href="/cockpit">Kokpit</NavDropdown.Item>
                                             ) : ("")
                                         }
