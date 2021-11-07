@@ -1,7 +1,6 @@
 from datetime import timedelta
 
 from django.http import JsonResponse
-from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -48,7 +47,7 @@ def training_group_join(request):
 
     training_group_participant, _ = models.TrainingGroupParticipant.objects.get_or_create(user=user,
                                                                                           training_group=training_group)
-    training_group_participant.subscription_end +=  timedelta(days_to_add)
+    training_group_participant.subscription_end += timedelta(days_to_add)
     training_group_participant.save()
     user.money -= price
     user.save()
@@ -73,12 +72,14 @@ def training_group_get(request):
     result = serializer.data
     result['images'] = []
     result['trainings'] = []
+    result['participants'] = []
 
     for training_group_image in training_group.traininggroupimage_set.all():
         result['images'] += {training_group_image.image.url}
     for training in training_group.training_set.all():
         result['trainings'] += {training.id}
-
+    for participant in training_group.traininggroupparticipant_set.all():
+        result['participants'].append(participantsSerializerGet(participant))
     return JsonResponse(result)
 
 

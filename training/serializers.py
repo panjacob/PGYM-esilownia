@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupImage
-from users.models import UserExtended
+from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupImage, TrainingGroupParticipant
 
 
 class TrainingGroupTypesSerializer(ModelSerializer):
@@ -29,10 +28,14 @@ class TrainingGroupSerializerCreate(ModelSerializer):
                   'price_week', 'price_month']
 
 
-class ParticipantsSerializerGet(ModelSerializer):
-    class Meta:
-        model = UserExtended
-        fields = ['id', 'username', 'first_name', 'last_name']
+def participantsSerializerGet(participant):
+    # participant = TrainingGroupParticipant.objects.get()
+    result = {
+        'training_group_participant': participant.id,
+        'user': participant.user.id,
+        'subscription_end': participant.subscription_end
+    }
+    return result
 
 
 class TrainingGroupSerializerGet(ModelSerializer):
@@ -42,7 +45,7 @@ class TrainingGroupSerializerGet(ModelSerializer):
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
         # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
-        fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type',  'price_day',
+        fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'price_day',
                   'price_week', 'price_month']
 
 
@@ -51,7 +54,7 @@ class TrainingGroupSerializerGetAll(ModelSerializer):
         model = TrainingGroup
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
-        participants = ParticipantsSerializerGet(read_only=True, many=True)
+        # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
         fields = ['id', 'difficulty', 'title', 'type']
 
@@ -67,6 +70,6 @@ class TrainingSerializerGet(ModelSerializer):
     class Meta:
         model = Training
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-        participants = ParticipantsSerializerGet(read_only=True, many=True)
+        # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
         fields = '__all__'
