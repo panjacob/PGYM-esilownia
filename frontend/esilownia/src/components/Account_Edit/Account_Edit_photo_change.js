@@ -8,6 +8,7 @@ function Account_Edit_photo_change() {
 
     const [photo, setPhoto] = useState();
     const [fileToUpload, setFileToUpload] = useState();
+    const [fileToUploadName, setFileToUploadName] = useState("");
     const [isFilePicked, setIsFilePicked] = useState(false);
 
     useEffect(() => {
@@ -25,13 +26,14 @@ function Account_Edit_photo_change() {
                 } else {
                     setPhoto('http://localhost:8000' + res.data.profile_photo)
                 }
-                console.log(res)
+                //console.log(res)
             });
 
     }, []);
 
     const onFileChange = (event) => {
         setFileToUpload(event.target.files[0]);
+        setFileToUploadName(event.target.files[0].name)
         setPhoto(URL.createObjectURL(event.target.files[0]));
         setIsFilePicked(true);
     };
@@ -40,23 +42,26 @@ function Account_Edit_photo_change() {
     const handleSubmitPic = (e) => {
         e.preventDefault();
 
-        let formData = new FormData();
-        formData.append("profile_photo", fileToUpload);
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
 
-        for(let pair of formData.entries()) {
-            console.log(pair[0]+', '+pair[1]);
-        }
+        var formdata = new FormData();
+        formdata.append("profile_photo", fileToUpload, fileToUploadName);
 
-            axiosInstance
-                .post(`/users/photo/add`, {formData}, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                    }
-                })
-                .then((res) => {
-                    //console.log(res)
-                });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch("http://127.0.0.1:8000/users/photo/add", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+        window.location.reload()
+
     }
 
     return (
