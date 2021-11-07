@@ -22,16 +22,18 @@ function TrainingGroupCreate() {
 
         console.log(typeSelected)
 
+         var urlencoded = new URLSearchParams();
+        urlencoded.append("date", date);
+        urlencoded.append("difficulty", difficulity);
+        urlencoded.append("title", title);
+        urlencoded.append("description", description);
+        for(let i=0;i<typeSelected.length;i++){
+            urlencoded.append("type", typeSelected[i]);
+        }
+
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("date", date);
-        urlencoded.append("difficulity", difficulity);
-        urlencoded.append("title", title);
-        urlencoded.append("description", description);
-        urlencoded.append("type", typeSelected[0]);
 
         var requestOptions = {
             method: 'POST',
