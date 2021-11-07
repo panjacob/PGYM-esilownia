@@ -26,6 +26,19 @@ def training_group_create(request):
 
 
 @api_view(['POST'])
+# Trainer required
+def training_group_edit(request):
+    request = put_owner_in_request_data(request)
+    instance = TrainingGroup.objects.get(id=request.data['id'])
+    serializer = TrainingGroupSerializerCreate(instance=instance, data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
 def training_group_join(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     payment_type = request.data['payment_type']
