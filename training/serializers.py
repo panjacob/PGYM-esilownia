@@ -66,6 +66,13 @@ class TrainingSerializerCreate(ModelSerializer):
         fields = ['id', 'training_group', 'title', 'description', 'date_start', 'date_end', 'calories']
 
 
+class TrainingSerializerEdit(ModelSerializer):
+    class Meta:
+        model = Training
+        training_group = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        fields = ['id', 'title', 'description', 'date_start', 'date_end', 'calories']
+
+
 class TrainingSerializerGet(ModelSerializer):
     class Meta:
         model = Training

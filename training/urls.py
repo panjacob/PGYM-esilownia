@@ -16,6 +16,7 @@ urlpatterns = [
     path('group/remove', views.training_group_remove, name='training_group_remove'),
 
     path('create', views.training_create, name='training_create'),
+    path('edit', views.training_edit, name='training_edit'),
     path('remove', views.training_remove, name='training_remove'),
     path('get', views.training_get, name='training_get'),
     path('join', views.training_join, name='training_join'),

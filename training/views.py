@@ -168,6 +168,19 @@ def training_create(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
+def training_edit(request):
+    request = put_owner_in_request_data(request)
+    instance = Training.objects.get(id=request.data['id'])
+    serializer = TrainingSerializerEdit(instance=instance, data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
 @training_owner_required()
 def training_remove(request):
     if not Training.objects.filter(id=request.data['id']).exists():
