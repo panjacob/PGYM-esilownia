@@ -10,6 +10,7 @@ function Account_Edit_photo_change() {
     const [fileToUpload, setFileToUpload] = useState();
     const [fileToUploadName, setFileToUploadName] = useState("");
     const [isFilePicked, setIsFilePicked] = useState(false);
+    const [userId, setUserId] = useState("");
 
     useEffect(() => {
 
@@ -27,6 +28,7 @@ function Account_Edit_photo_change() {
                     setPhoto('http://localhost:8000' + res.data.profile_photo)
                 }
                 //console.log(res)
+                setUserId(res.data.id)
             });
 
     }, []);
@@ -44,6 +46,21 @@ function Account_Edit_photo_change() {
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+        var formdata2 = new FormData();
+        formdata2.append("id", userId);
+
+        var requestOptions2 = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata2,
+            redirect: 'follow'
+        };
+
+        fetch("http://127.0.0.1:8000/users/photo/remove", requestOptions2)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
 
         var formdata = new FormData();
         formdata.append("profile_photo", fileToUpload, fileToUploadName);
