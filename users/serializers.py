@@ -61,6 +61,6 @@ class UserAddProfilePhotoSerializer(ModelSerializer):
         fields = ['profile_photo']
 
         def update(self, instance, validated_data):
-            instance.profile_photo = validated_data.get('profile_photo', instance.email)
+            instance.profile_photo = validated_data.get('profile_photo', instance.profile_photo)
             print(instance.profile_photo)
             return instance
