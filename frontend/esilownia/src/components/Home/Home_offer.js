@@ -38,7 +38,7 @@ function HomeOffer() {
                         <p className="font-weight-light">Masz uprawnienia trenera fitness, trenera personalnego czy
                             po prostu jesteś sportowcem?</p>
                         <p className="font-weight-light">Po założeniu konta zaaplikuj o pozycje trenera lub
-                            dietetyka</p>
+                            dietetyka.</p>
 
                         <Link className="align-self-center btn btn-lg mt-2 align-self-end" to="/register">Dołacz do
                             nas</Link>

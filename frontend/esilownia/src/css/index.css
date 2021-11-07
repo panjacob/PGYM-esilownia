@@ -30,7 +30,8 @@ code {
   text-align: center;
   transform: skewY(-7deg);
   height: 20rem;
-} 
+}
+
 .content {
 	max-width: 50em;;
 	margin: 0 auto;
@@ -105,3 +106,17 @@ p:empty {
   border-radius: 2rem;
   min-height: 50rem;
 }
+
+/*Home-Start*/
+#home_tabs nav a {
+    color: gray !important;
+}
+
+#home_tabs nav a:hover {
+    color: orange !important;
+}
+
+#home_tabs nav .active {
+    color: black !important;
+}
+/*Home-End*/
