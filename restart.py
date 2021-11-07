@@ -13,7 +13,7 @@ def manage_py(command):
     sys.argv = []
 
 
-def remove(path):
+def remove_path(path):
     print(f"removing: {path}")
     if os.path.exists(path):
         shutil.rmtree(path, ignore_errors=True)
@@ -21,18 +21,25 @@ def remove(path):
         print(f"path: {path} doesnt exist. It's OK")
 
 
+def remove_file(path):
+    if os.path.exists(path):
+        os.remove(path)
+    else:
+        print(f"{path} doesnt exist")
+
+
 if __name__ == '__main__':
     apps = ['dashboard', 'moderator', 'users', 'training']
-    remove('db.sqlite3')
-    remove('__pycache__')
-    remove("core/__pycache__")
+    remove_file('db.sqlite3')
+    remove_path('__pycache__')
+    remove_path("core/__pycache__")
     for app in apps:
-        remove(f"{app}/migrations")
-        remove(f"{app}/__pycache__")
+        remove_path(f"{app}/migrations")
+        remove_path(f"{app}/__pycache__")
 
     manage_py('makemigrations')
     for app in apps:
         manage_py(f"makemigrations {app}")
 
     manage_py('migrate')
-    manage_py('runserver')
+    # manage_py('runserver')
