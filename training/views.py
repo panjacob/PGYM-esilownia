@@ -231,3 +231,22 @@ def training_ping_get(request):
     active = last_ping_time < 60 * 1000
     return Response({'last_ping_time_ms': last_ping_time, 'active': active},
                     status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+# @training_group_owner_required()
+def training_file_add(request):
+    instance = Training.objects.get(id=request.data['id'])
+    serializer = TrainingSerializerFile(instance=instance, data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def training_file_remove(request):
+    instance = Training.objects.get(id=request.data['id'])
+    instance.file.delete()
+    return Response('OK', status=status.HTTP_400_BAD_REQUEST)

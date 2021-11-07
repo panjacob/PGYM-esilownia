@@ -61,6 +61,7 @@ class Training(models.Model):
     participants = models.ManyToManyField(UserExtended)  # Participants which were on particular training
     calories = models.IntegerField(default=0)
     ping = models.IntegerField(default=0)
+    file = models.FileField(null=True, blank=True)
 
 
 class TrainingGroupImage(models.Model):

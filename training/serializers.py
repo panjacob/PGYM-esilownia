@@ -80,3 +80,12 @@ class TrainingSerializerGet(ModelSerializer):
         # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
         fields = '__all__'
+
+
+class TrainingSerializerFile(ModelSerializer):
+    class Meta:
+        model = Training
+        fields = ['file']
+
+
+
