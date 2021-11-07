@@ -11,50 +11,57 @@ function Karuzela() {
     };
 
     return (
+        <div className="homeCarousel">
 
-        <Carousel activeIndex={index} onSelect={handleSelect}>
+            <hr></hr>
+            <h1 style={{"fontSize": "4vw"}} className="display-1 pb-4 pt-4">Zacznij z nami trenować !</h1>
+            <hr></hr>
 
-            <Carousel.Item>
+            <Carousel activeIndex={index} onSelect={handleSelect}>
 
-                <img
-                    className="d-block w-100"
-                    src={placeholder}
-                    alt="slide1"
-                />
-                <Carousel.Caption>
-                    <h3 className="font-weight-light">Treningi personalne i grupowe</h3>
-                    <p className="font-weight-light">Wybierz co Ci bardziej odpowiada.</p>
-                </Carousel.Caption>
+                <Carousel.Item>
 
-            </Carousel.Item>
-            <Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={placeholder}
+                        alt="slide1"
+                    />
+                    <Carousel.Caption>
+                        <h3 className="font-weight-light">Treningi personalne i grupowe</h3>
+                        <p className="font-weight-light">Wybierz co Ci bardziej odpowiada.</p>
+                    </Carousel.Caption>
 
-                <img
-                    className="d-block w-100"
-                    src={placeholder}
-                    alt="slide2"
-                />
-                <Carousel.Caption>
-                    <h3 className="font-weight-light">Dashboard</h3>
-                    <p className="font-weight-light">Korzystaj z naszego Dashboardu do ustalania terminów ćwiczeń.</p>
-                </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
 
-            </Carousel.Item>
-            <Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={placeholder}
+                        alt="slide2"
+                    />
+                    <Carousel.Caption>
+                        <h3 className="font-weight-light">Dashboard</h3>
+                        <p className="font-weight-light">Korzystaj z naszego Dashboardu do ustalania terminów
+                            ćwiczeń.</p>
+                    </Carousel.Caption>
 
-                <img
-                    className="d-block w-100"
-                    src={placeholder}
-                    alt="slide3"
-                />
-                <Carousel.Caption>
-                    <h3 className="font-weight-light">Dieta</h3>
-                    <p className="font-weight-light">Wybierz odpowiadającą Ci dietę.</p>
-                </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
 
-            </Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={placeholder}
+                        alt="slide3"
+                    />
+                    <Carousel.Caption>
+                        <h3 className="font-weight-light">Dieta</h3>
+                        <p className="font-weight-light">Wybierz odpowiadającą Ci dietę.</p>
+                    </Carousel.Caption>
 
-        </Carousel>
+                </Carousel.Item>
+
+            </Carousel>
+        </div>
     );
 }
 
