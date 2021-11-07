@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 from django.http import JsonResponse
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -24,12 +27,32 @@ def training_group_create(request):
 
 
 @api_view(['POST'])
-@training_group_owner_required()
-def training_group_participant_add(request):
+def training_group_join(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
-    if request.user.id is not training_group.owner_id:
-        return Response('Current user is not owner of a group', status=status.HTTP_400_BAD_REQUEST)
-    training_group.participants.add(request.data['participant'])
+    payment_type = request.data['payment_type']
+    if payment_type == '0':
+        price = training_group.price_day
+        days_to_add = 1
+    elif payment_type == '1':
+        price = training_group.price_week
+        days_to_add = 7
+    elif payment_type == '2':
+        price = training_group.price_month
+        days_to_add = 30
+    else:
+        return Response({'payment_type is not specified'}, status=status.HTTP_400_BAD_REQUEST)
+
+    user = request.user
+    if user.money < price:
+        return Response({'User does not have enough money'}, status=status.HTTP_400_BAD_REQUEST)
+
+    training_group_participant, _ = models.TrainingGroupParticipant.objects.get_or_create(user=user,
+                                                                                          training_group=training_group)
+    training_group_participant.subscription_end +=  timedelta(days_to_add)
+    training_group_participant.save()
+    user.money -= price
+    user.save()
+
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
