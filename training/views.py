@@ -39,7 +39,7 @@ def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     if request.user.id is not training_group.owner_id:
         return Response('Current user is not owner of a group', status=status.HTTP_400_BAD_REQUEST)
-    training_group.participants.remove(request.data['participant'])
+    training_group.participants.remove_path(request.data['participant'])
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
@@ -161,7 +161,7 @@ def training_join(request):
 def training_leave(request):
     user = request.user
     training = models.Training.objects.get(id=request.data['id'])
-    training.participants.remove(user)
+    training.participants.remove_path(user)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 

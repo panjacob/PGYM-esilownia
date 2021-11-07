@@ -25,7 +25,7 @@ class TrainingGroupSerializerCreate(ModelSerializer):
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
 
-        fields = ['owner', 'date', 'difficulty', 'title', 'description', 'type']
+        fields = ['owner', 'date', 'difficulty', 'title', 'description', 'type', 'price']
 
 
 class ParticipantsSerializerGet(ModelSerializer):
@@ -41,7 +41,7 @@ class TrainingGroupSerializerGet(ModelSerializer):
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
         participants = ParticipantsSerializerGet(read_only=True, many=True)
 
-        fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'participants']
+        fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'participants', 'price']
 
 
 class TrainingGroupSerializerGetAll(ModelSerializer):

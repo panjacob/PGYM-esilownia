@@ -24,6 +24,10 @@ class TrainingGroupType(models.Model):
     description = models.CharField(max_length=300)
 
 
+# class TrainingGroupParticipant(models.Model):
+#     user = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+
+
 class TrainingGroup(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, default=None, related_name='owner')
     participants = models.ManyToManyField(UserExtended)
@@ -43,8 +47,7 @@ class TrainingGroup(models.Model):
     type = models.ManyToManyField(TrainingGroupType)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
-    # image = models.ImageField(null=True, blank=True)
-    # cost
+    price = models.FloatField(default=None, null=True)
 
 
 class Training(models.Model):
