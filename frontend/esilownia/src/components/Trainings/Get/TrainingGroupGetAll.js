@@ -4,6 +4,8 @@ import axiosInstance from "../../Axios/Axios";
 import Photo from '../../../imgs/gymcoin.png';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
 
 
 function TrainingGroupGetAll() {
@@ -13,6 +15,7 @@ function TrainingGroupGetAll() {
     const [typeSelected, setTypeSelected] = useState([]);
     const [trainingFilter, setTrainingFilter] = useState([]);
     const [trainingGroup, setTrainingGroup] = useState([]);
+    const [show, setShow] = useState(false);
 
 
     const handleChange = (e) => {
@@ -59,33 +62,57 @@ function TrainingGroupGetAll() {
             setTrainingGroup(res.data)
             console.log(trainingGroup.title)
         });
-
-        const trainingItems = () => {
-            <div className="modal" tabIndex="-1" role="dialog">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">{trainingGroup.title}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <p>Trener: {trainingGroup.owner}</p>
-                            <p>{trainingGroup.description}</p>
-                            <p>Data utworzenia: {trainingGroup.date}</p>
-                            <p>Cena: {trainingGroup.price}</p>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-lg" data-dismiss="modal">Zamknij</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        }
-        trainingItems();
+     trainingItems();   
     }
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const trainingItems = () => {
+        
+        <div>
+            <Modal show={show} style={{opacity:1}} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{trainingGroup.title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                        <p>Trener: {trainingGroup.owner}</p>
+                        <p>{trainingGroup.description}</p>
+                        <p>Data utworzenia: {trainingGroup.date}</p>
+                        <p>Cena: {trainingGroup.price}</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="btn btn-lg" onClick={handleClose}>
+                        Zamknij
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
+        
+        
+        // <div className="modal" id="popupModal" tabIndex="-1" role="dialog">
+        //     <div className="modal-dialog" role="document">
+        //         <div className="modal-content">
+        //             <div className="modal-header">
+        //                 <h5 className="modal-title">{trainingGroup.title}</h5>
+        //                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        //                     <span aria-hidden="true">&times;</span>
+        //                 </button>
+        //             </div>
+        //             <div className="modal-body">
+        //                 <p>Trener: {trainingGroup.owner}</p>
+        //                 <p>{trainingGroup.description}</p>
+        //                 <p>Data utworzenia: {trainingGroup.date}</p>
+        //                 <p>Cena: {trainingGroup.price}</p>
+        //             </div>
+        //             <div className="modal-footer">
+        //                 <button type="button" className="btn btn-lg" data-dismiss="modal">Zamknij</button>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
+    console.log(trainingGroup.date)
+    }
+
 
     const typesChecked = (e) => {
 
@@ -194,7 +221,7 @@ function TrainingGroupGetAll() {
                                     </div>
                                     <p className="card-text"> Poziom: {cValue.difficulty}</p>
                                     <p>id={cValue.id}</p>
-                                    <button className="btn btn-lg" onClick={handleShowMore(cValue.id)}>Pokaż więcej</button>
+                                    <button className="btn btn-lg" data-toggle="modal" data-target="#popupModal" onClick={handleShowMore(cValue.id)}>Pokaż więcej</button>
                                     <a href="#" className="btn btn-lg">Kup dostęp</a>
                                 </div>
                             </div>
