@@ -72,9 +72,8 @@ def training_group_join(request):
 @training_group_owner_required()
 def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
-    if request.user.id is not training_group.owner_id:
-        return Response('Current user is not owner of a group', status=status.HTTP_400_BAD_REQUEST)
-    training_group.participants.remove_path(request.data['participant'])
+    participant = models.TrainingGroupParticipant.objects.get(user=request.user, training_group = training_group)
+    training_group.traininggroupparticipant_set.remove(participant)
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
