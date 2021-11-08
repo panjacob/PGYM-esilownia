@@ -48,9 +48,7 @@ function TrainingGroupGetAll() {
     }
 
     const handleShowMore = (groupId) => (e) => {
-
         e.preventDefault();
-        console.log(groupId);
     axiosInstance
         .post(`training/group/get`, { id:groupId},{
             headers: {
@@ -60,58 +58,57 @@ function TrainingGroupGetAll() {
         })
         .then((res) => {
             setTrainingGroup(res.data)
-            console.log(trainingGroup.title)
         });
-     trainingItems();   
+     handleShow();   
     }
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const trainingItems = () => {
+    // const trainingItems = () => {
         
-        <div>
-            <Modal show={show} style={{opacity:1}} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{trainingGroup.title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                        <p>Trener: {trainingGroup.owner}</p>
-                        <p>{trainingGroup.description}</p>
-                        <p>Data utworzenia: {trainingGroup.date}</p>
-                        <p>Cena: {trainingGroup.price}</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="btn btn-lg" onClick={handleClose}>
-                        Zamknij
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
+    //     <div>
+    //         <Modal show={show} style={{opacity:1}} onHide={handleClose}>
+    //             <Modal.Header closeButton>
+    //                 <Modal.Title>{trainingGroup.title}</Modal.Title>
+    //             </Modal.Header>
+    //             <Modal.Body>
+    //                     <p>Trener: {trainingGroup.owner}</p>
+    //                     <p>{trainingGroup.description}</p>
+    //                     <p>Data utworzenia: {trainingGroup.date}</p>
+    //                     <p>Cena: {trainingGroup.price}</p>
+    //             </Modal.Body>
+    //             <Modal.Footer>
+    //                 <Button variant="btn btn-lg" onClick={handleClose}>
+    //                     Zamknij
+    //                 </Button>
+    //             </Modal.Footer>
+    //         </Modal>
+    //     </div>
         
         
-        // <div className="modal" id="popupModal" tabIndex="-1" role="dialog">
-        //     <div className="modal-dialog" role="document">
-        //         <div className="modal-content">
-        //             <div className="modal-header">
-        //                 <h5 className="modal-title">{trainingGroup.title}</h5>
-        //                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        //                     <span aria-hidden="true">&times;</span>
-        //                 </button>
-        //             </div>
-        //             <div className="modal-body">
-        //                 <p>Trener: {trainingGroup.owner}</p>
-        //                 <p>{trainingGroup.description}</p>
-        //                 <p>Data utworzenia: {trainingGroup.date}</p>
-        //                 <p>Cena: {trainingGroup.price}</p>
-        //             </div>
-        //             <div className="modal-footer">
-        //                 <button type="button" className="btn btn-lg" data-dismiss="modal">Zamknij</button>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
-    console.log(trainingGroup.date)
-    }
+    //     <div className="modal" id="popupModal" tabIndex="-1" role="dialog">
+    //         <div className="modal-dialog" role="document">
+    //             <div className="modal-content">
+    //                 <div className="modal-header">
+    //                     <h5 className="modal-title">{trainingGroup.title}</h5>
+    //                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    //                         <span aria-hidden="true">&times;</span>
+    //                     </button>
+    //                 </div>
+    //                 <div className="modal-body">
+    //                     <p>Trener: {trainingGroup.owner}</p>
+    //                     <p>{trainingGroup.description}</p>
+    //                     <p>Data utworzenia: {trainingGroup.date}</p>
+    //                     <p>Cena: {trainingGroup.price}</p>
+    //                 </div>
+    //                 <div className="modal-footer">
+    //                     <button type="button" className="btn btn-lg" data-dismiss="modal">Zamknij</button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // console.log(trainingGroup.date)
+    // }
 
 
     const typesChecked = (e) => {
@@ -204,27 +201,47 @@ function TrainingGroupGetAll() {
                     }
 
                     return (
-                        <div className="card m-1" id="karta_tren" key={idx}>
-                            <img src={Photo} width="100%" height="width" className="card-img-top rounded-circle"
-                                 alt="..."/>
-                            <div className="card-body">
-                                <div>
-                                    <h5 className="card-title">{cValue.title}</h5>
-                                    <div className="card-subtitle">
-                                        {trainingGroupTypeAll.map(function (type, id) {
-                                            for (let i = 0; i < cValue.type.length; i++) {
-                                                if (cValue.type.includes(type.id)) {
-                                                    return (<p key={id}>{type.type}</p>)
+                        <div>
+                            <div className="card m-1" id="karta_tren" key={idx}>
+                                <img src={Photo} width="100%" height="width" className="card-img-top rounded-circle"
+                                     alt="..."/>
+                                <div className="card-body">
+                                    <div>
+                                        <h5 className="card-title">{cValue.title}</h5>
+                                        <div className="card-subtitle">
+                                            {trainingGroupTypeAll.map(function (type, id) {
+                                                for (let i = 0; i < cValue.type.length; i++) {
+                                                    if (cValue.type.includes(type.id)) {
+                                                        return (<p key={id}>{type.type}</p>)
+                                                    }
                                                 }
-                                            }
-                                        })}
+                                            })}
+                                        </div>
+                                        <p className="card-text"> Poziom: {cValue.difficulty}</p>
+                                        <button className="btn btn-lg mb-4" data-toggle="modal" data-target="#popupModal" onClick={handleShowMore(cValue.id)}>Pokaż więcej</button>
+                                        <br/>
+                                        <a href="#" className="btn btn-lg">Kup dostęp</a>
                                     </div>
-                                    <p className="card-text"> Poziom: {cValue.difficulty}</p>
-                                    <p>id={cValue.id}</p>
-                                    <button className="btn btn-lg" data-toggle="modal" data-target="#popupModal" onClick={handleShowMore(cValue.id)}>Pokaż więcej</button>
-                                    <a href="#" className="btn btn-lg">Kup dostęp</a>
                                 </div>
                             </div>
+                                <div>
+                                    <Modal show={show} style={{opacity:1}} onHide={handleClose}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>{trainingGroup.title}</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <p>Trener: {trainingGroup.owner}</p>
+                                            <p>{trainingGroup.description}</p>
+                                            <p>Data utworzenia: {trainingGroup.date}</p>
+                                            <p>Cena: {trainingGroup.price}</p>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            {/* <Button variant="btn btn-lg" onClick={handleClose}>
+                                                Zamknij
+                                            </Button> */}
+                                        </Modal.Footer>
+                                    </Modal>
+                                </div>
                         </div>
                     )
                 })}

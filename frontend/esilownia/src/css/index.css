@@ -98,6 +98,7 @@ p:empty {
   width: 22rem;
   height: auto;
   border-radius: 0.5rem;
+  min-height: 45rem;
 }
 
 #tren_container {
