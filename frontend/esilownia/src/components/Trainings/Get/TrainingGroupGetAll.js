@@ -6,8 +6,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 
-
-
 function TrainingGroupGetAll() {
 
     const [trainingGroupAll, setTrainingGroupAll] = useState([]);
@@ -15,42 +13,47 @@ function TrainingGroupGetAll() {
     const [typeSelected, setTypeSelected] = useState([]);
     const [trainingFilter, setTrainingFilter] = useState([]);
 
-    const handleChange = (e) =>{
+
+    const handleChange = (e) => {
         e.preventDefault();
-        // document.getElementById("tren_container").innerHTML = "1"
-        setTrainingFilter([]); // gdzies tu blad
-        if(typeSelected.length === 0){
-            setTrainingFilter(trainingGroupAll);
-        }else{
-            trainingGroupAll.map(function (training){
-                for(let j=0; j < training.type.length; j++){
-                    for(let i=0; i < typeSelected.length; i++){
-                        if(training.type[j].toString() === typeSelected[i]){
-                            setTrainingFilter([...trainingFilter,training]); //gdzies tu blad
+
+        let cleanArray = []
 
 
-                        }    
+        if (typeSelected.length === 0) {
+
+            cleanArray = trainingGroupAll;
+        } else {
+
+            trainingGroupAll.map(function (training) {
+
+                for (let j = 0; j < training.type.length; j++) {
+
+                    for (let i = 0; i < typeSelected.length; i++) {
+
+                        if (training.type[j].toString() === typeSelected[i]) {
+
+                            cleanArray.push(training)
+
+                        }
                     }
                 }
-        })
+            })
         }
-        console.log(trainingFilter);
-        console.log(typeSelected);
+        setTrainingFilter(cleanArray);
     }
 
     const typesChecked = (e) => {
 
-        if(typeSelected.indexOf(e.target.name) !== -1) {
+        if (typeSelected.indexOf(e.target.name) !== -1) {
             let name = e.target.name;
-            setTypeSelected(typeSelected.filter((e)=>(e !== name)))
+            setTypeSelected(typeSelected.filter((e) => (e !== name)))
         } else {
             let name = e.target.name;
-            setTypeSelected([...typeSelected,name]);
+            setTypeSelected([...typeSelected, name]);
         }
-        // console.log(typeSelected)
 
     }
-
 
 
     useEffect(() => {
@@ -65,7 +68,6 @@ function TrainingGroupGetAll() {
             .then((res) => {
                 setTrainingGroupAll(res.data)
                 setTrainingFilter(res.data)
-                console.log(res.data)
             });
 
         axiosInstance
@@ -79,7 +81,7 @@ function TrainingGroupGetAll() {
                 setTrainingGroupTypeAll(res.data)
             });
 
-        }, []); 
+    }, []);
     return (
         <div className="trainingGroupGetAll">
 
@@ -89,66 +91,65 @@ function TrainingGroupGetAll() {
                 <hr></hr>
             </div>
 
-            <div className="container border" id="tren_col">
-                <h5 className="font-weight-light">Typ Treningu:</h5>
-                {/* <select className="font-weight-light mb-2" onChange={handleChange.bind(this)}>
-                    {trainingGroupTypeAll.map(function(cValue, idx){
-                        return (<option key={idx}>{cValue.type}</option>)
-                    })}
-                </select> */}
-                <Form>
-                {trainingGroupTypeAll.map((types) => (
-                    <div key={`inline-checkbox-${types.id}`} className="form-check-inline mb-3">
-                                <Form.Check
-                                    inline
-                                    name={types.id}
-                                    type="checkbox"
-                                    onChange={typesChecked.bind(this)}
-                                    id={`inline-checkbox-${types.id}`}
-                                /> {types.type}
-                            </div>
-                        ))}
-                        <Button onClick={handleChange}>Filtruj</Button>
+            <div className="container p-4 mx-auto border border-2"  id="tren_col">
+                <h5 className="font-weight-light text-center">Typ Treningu:</h5>
+                <Form className="row justify-content-start">
+                    <hr width={'100%'} color={'black'}/>
+                    {trainingGroupTypeAll.map((types) => (
+                        <div key={`inline-checkbox-${types.id}`} className="form-check-inline mx-auto">
+                            <Form.Check
+                                inline
+                                name={types.id}
+                                type="checkbox"
+                                onChange={typesChecked.bind(this)}
+                                id={`inline-checkbox-${types.id}`}
+                            /> {types.type.charAt(0).toUpperCase()+types.type.slice(1)}
+                        </div>
+                    ))}
+                    <div className="col-md-3">
+                    </div>
+                    <hr width={'90%'} color={'black'}/>
+                    <div className="container">
+                        <Button onClick={handleChange} variant="btn btn-lg border">Filtruj</Button>
+                    </div>
                 </Form>
-                </div>
+            </div>
 
-            <div className="row border p-4 mb-4 mt-4 text-center" id="tren_container">
+            <div className="row p-4 border mb-4 mt-4 text-center flex" id="tren_container">
                 {trainingFilter.map(function (cValue, idx) {
 
-                    if(cValue.difficulty === "0"){
+                    if (cValue.difficulty === "0") {
                         cValue.difficulty = "Łatwy"
                     }
-                    if(cValue.difficulty === "1"){
+                    if (cValue.difficulty === "1") {
                         cValue.difficulty = "Średni"
                     }
-                    if(cValue.difficulty === "2"){
+                    if (cValue.difficulty === "2") {
                         cValue.difficulty = "Trudny"
                     }
-                    if(cValue.difficulty === "3"){
+                    if (cValue.difficulty === "3") {
                         cValue.difficulty = "Armagedon"
                     }
 
                     return (
-                        <div className="row">
-                            <div className="card m-4" id="karta_tren">
-                                <img src={Photo} width="100%" height="width" className="card-img-top rounded-circle"
-                                     alt="..."/>
-                                <div className="card-body">
-                                    <div key={idx}>
-                                        <h5 className="card-title">{cValue.title}</h5>
-                                        <p className="card-subtitle">
-                                        { trainingGroupTypeAll.map(function (type,id){
-                                            for(let i=0; i < cValue.type.length; i++) {
-                                                if(cValue.type.includes(type.id)){
-                                                    return(<p>{type.type}</p>)
+                        <div className="card m-1" id="karta_tren" key={idx}>
+                            <img src={Photo} width="100%" height="width" className="card-img-top rounded-circle"
+                                 alt="..."/>
+                            <div className="card-body">
+                                <div>
+                                    <h5 className="card-title">{cValue.title}</h5>
+                                    <div className="card-subtitle">
+                                        {trainingGroupTypeAll.map(function (type, id) {
+                                            for (let i = 0; i < cValue.type.length; i++) {
+                                                if (cValue.type.includes(type.id)) {
+                                                    return (<p key={id}>{type.type}</p>)
                                                 }
                                             }
                                         })}
-                                        </p>
-                                        <p className="card-text"> Poziom: {cValue.difficulty}</p>
-                                        <p>id={cValue.id}</p>
-                                        <a href="#" className="btn btn-lg">Kup dostęp</a>
                                     </div>
+                                    <p className="card-text"> Poziom: {cValue.difficulty}</p>
+                                    <p>id={cValue.id}</p>
+                                    <a href="#" className="btn btn-lg">Kup dostęp</a>
                                 </div>
                             </div>
                         </div>
