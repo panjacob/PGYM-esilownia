@@ -12,10 +12,11 @@ function TrainingGroupGetAll() {
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
     const [trainingFilter, setTrainingFilter] = useState([]);
+    const [trainingGroup, setTrainingGroup] = useState([]);
 
 
     const handleChange = (e) => {
-        e.preventDefault();
+         
 
         let cleanArray = []
 
@@ -41,6 +42,49 @@ function TrainingGroupGetAll() {
             })
         }
         setTrainingFilter(cleanArray);
+    }
+
+    const handleShowMore = (groupId) => (e) => {
+
+        e.preventDefault();
+        console.log(groupId);
+    axiosInstance
+        .post(`training/group/get`, { id:groupId},{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+            }
+        })
+        .then((res) => {
+            setTrainingGroup(res.data)
+            console.log(trainingGroup.title)
+        });
+
+        const trainingItems = () => {
+            <div className="modal" tabIndex="-1" role="dialog">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">{trainingGroup.title}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <p>Trener: {trainingGroup.owner}</p>
+                            <p>{trainingGroup.description}</p>
+                            <p>Data utworzenia: {trainingGroup.date}</p>
+                            <p>Cena: {trainingGroup.price}</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-lg" data-dismiss="modal">Zamknij</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        trainingItems();
     }
 
     const typesChecked = (e) => {
@@ -80,6 +124,7 @@ function TrainingGroupGetAll() {
             .then((res) => {
                 setTrainingGroupTypeAll(res.data)
             });
+        
 
     }, []);
     return (
@@ -149,6 +194,7 @@ function TrainingGroupGetAll() {
                                     </div>
                                     <p className="card-text"> Poziom: {cValue.difficulty}</p>
                                     <p>id={cValue.id}</p>
+                                    <button className="btn btn-lg" onClick={handleShowMore(cValue.id)}>Pokaż więcej</button>
                                     <a href="#" className="btn btn-lg">Kup dostęp</a>
                                 </div>
                             </div>
