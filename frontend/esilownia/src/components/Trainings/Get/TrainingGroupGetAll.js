@@ -89,7 +89,7 @@ function TrainingGroupGetAll() {
                 <hr></hr>
             </div>
 
-            <div className="col-lg-2 border" id="tren_col">
+            <div className="container border" id="tren_col">
                 <h5 className="font-weight-light">Typ Treningu:</h5>
                 {/* <select className="font-weight-light mb-2" onChange={handleChange.bind(this)}>
                     {trainingGroupTypeAll.map(function(cValue, idx){
@@ -98,7 +98,7 @@ function TrainingGroupGetAll() {
                 </select> */}
                 <Form>
                 {trainingGroupTypeAll.map((types) => (
-                    <div key={`inline-checkbox-${types.id}`} className="mb-3">
+                    <div key={`inline-checkbox-${types.id}`} className="form-check-inline mb-3">
                                 <Form.Check
                                     inline
                                     name={types.id}
