@@ -1,13 +1,56 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
-import Photo from '../../../imgs/gymcoin.png'
+import Photo from '../../../imgs/gymcoin.png';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
+
 
 
 function TrainingGroupGetAll() {
 
     const [trainingGroupAll, setTrainingGroupAll] = useState([]);
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
+    const [typeSelected, setTypeSelected] = useState([]);
+    const [trainingFilter, setTrainingFilter] = useState([]);
+
+    const handleChange = (e) =>{
+        e.preventDefault();
+        // document.getElementById("tren_container").innerHTML = "1"
+        setTrainingFilter([]); // gdzies tu blad
+        if(typeSelected.length === 0){
+            setTrainingFilter(trainingGroupAll);
+        }else{
+            trainingGroupAll.map(function (training){
+                for(let j=0; j < training.type.length; j++){
+                    for(let i=0; i < typeSelected.length; i++){
+                        if(training.type[j].toString() === typeSelected[i]){
+                            setTrainingFilter([...trainingFilter,training]); //gdzies tu blad
+
+
+                        }    
+                    }
+                }
+        })
+        }
+        console.log(trainingFilter);
+        console.log(typeSelected);
+    }
+
+    const typesChecked = (e) => {
+
+        if(typeSelected.indexOf(e.target.name) !== -1) {
+            let name = e.target.name;
+            setTypeSelected(typeSelected.filter((e)=>(e !== name)))
+        } else {
+            let name = e.target.name;
+            setTypeSelected([...typeSelected,name]);
+        }
+        // console.log(typeSelected)
+
+    }
+
 
 
     useEffect(() => {
@@ -21,6 +64,7 @@ function TrainingGroupGetAll() {
             })
             .then((res) => {
                 setTrainingGroupAll(res.data)
+                setTrainingFilter(res.data)
                 console.log(res.data)
             });
 
@@ -35,7 +79,7 @@ function TrainingGroupGetAll() {
                 setTrainingGroupTypeAll(res.data)
             });
 
-    }, []);
+        }, []); 
     return (
         <div className="trainingGroupGetAll">
 
@@ -47,15 +91,29 @@ function TrainingGroupGetAll() {
 
             <div className="col-lg-2 border" id="tren_col">
                 <h5 className="font-weight-light">Typ Treningu:</h5>
-                <select className="font-weight-light mb-2">
+                {/* <select className="font-weight-light mb-2" onChange={handleChange.bind(this)}>
                     {trainingGroupTypeAll.map(function(cValue, idx){
                         return (<option key={idx}>{cValue.type}</option>)
                     })}
-                </select>
-            </div>
+                </select> */}
+                <Form>
+                {trainingGroupTypeAll.map((types) => (
+                    <div key={`inline-checkbox-${types.id}`} className="mb-3">
+                                <Form.Check
+                                    inline
+                                    name={types.id}
+                                    type="checkbox"
+                                    onChange={typesChecked.bind(this)}
+                                    id={`inline-checkbox-${types.id}`}
+                                /> {types.type}
+                            </div>
+                        ))}
+                        <Button onClick={handleChange}>Filtruj</Button>
+                </Form>
+                </div>
 
             <div className="row border p-4 mb-4 mt-4 text-center" id="tren_container">
-                {trainingGroupAll.map(function (cValue, idx) {
+                {trainingFilter.map(function (cValue, idx) {
 
                     if(cValue.difficulty === "0"){
                         cValue.difficulty = "Łatwy"
@@ -78,7 +136,7 @@ function TrainingGroupGetAll() {
                                 <div className="card-body">
                                     <div key={idx}>
                                         <h5 className="card-title">{cValue.title}</h5>
-                                        <p className="card-subtitle">Typ:
+                                        <p className="card-subtitle">
                                         { trainingGroupTypeAll.map(function (type,id){
                                             for(let i=0; i < cValue.type.length; i++) {
                                                 if(cValue.type.includes(type.id)){
@@ -89,7 +147,7 @@ function TrainingGroupGetAll() {
                                         </p>
                                         <p className="card-text"> Poziom: {cValue.difficulty}</p>
                                         <p>id={cValue.id}</p>
-                                        <a href="#" class="btn btn-lg">Kup dostęp</a>
+                                        <a href="#" className="btn btn-lg">Kup dostęp</a>
                                     </div>
                                 </div>
                             </div>
