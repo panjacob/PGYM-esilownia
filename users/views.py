@@ -96,9 +96,13 @@ def user_set_dietician(request):
 
 @api_view(['POST'])
 def user_photo_add(request):
+    if not request.FILES:
+        return Response({'error': 'request.FILES is empty'}, status=status.HTTP_400_BAD_REQUEST)
     serializer = serializers.UserAddProfilePhotoSerializer(request.user, data=request.data)
+
     if serializer.is_valid():
-        if serializer.save():
+        if serializer.save(pk=request.user.id):
+            print(serializer.instance.profile_photo)
             return Response({'OK': str(serializer.instance.profile_photo)}, status=status.HTTP_200_OK)
     return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
 
