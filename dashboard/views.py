@@ -45,3 +45,10 @@ def achievment_get(request):
     achievment = Achievement.objects.get(id=request.data['id'])
     serializer = serializers.AchievmentSerializer(achievment)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def achievment_remove(request):
+    Achievement.objects.get(id=request.data['id']).delete()
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
