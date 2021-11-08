@@ -6,36 +6,47 @@ import Button from "react-bootstrap/Button";
 function DashboardApplication() {
 
     const [description, setDescription] = useState("");
-    const [appRole, setAppRole] = useState("");
+    const [appRole, setAppRole] = useState([]);
+
+    const [fileToUpload, setFileToUpload] = useState();
+    const [fileToUploadName, setFileToUploadName] = useState("");
+    const [isFilePicked, setIsFilePicked] = useState(false);
+
+    const onFileChange = (event) => {
+        setFileToUpload(event.target.files[0]);
+        setFileToUploadName(event.target.files[0].name)
+        setIsFilePicked(true);
+    };
 
 
     const handleSubmitData = (e) => {
         e.preventDefault();
 
-        // axiosInstance
-        //     .post(`/moderator/application/send`, {
-        //         description: description
-        //     },{
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-        //         }
-        //     })
-        //     .then((res) => {
-        //         window.location.reload();
-        //     });
-
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("description", description+" "+appRole);
+        var formdata = new FormData();
+
+        formdata.append("description", description);
+
+        if(appRole.includes('Trainer')){
+            formdata.append("trainer", JSON.stringify(true));
+        } else {
+            formdata.append("trainer", JSON.stringify(false));
+        }
+
+        if(appRole.includes('Dietician')){
+            formdata.append("dietician", JSON.stringify(true));
+        } else {
+            formdata.append("dietician", JSON.stringify(false));
+        }
+
+        formdata.append("file", fileToUpload, fileToUploadName);
 
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
-            body: urlencoded,
+            body: formdata,
             redirect: 'follow'
         };
 
@@ -46,8 +57,19 @@ function DashboardApplication() {
     }
 
     const ApplicationRole = (e) => {
-        //console.log(e.target.value);
-        setAppRole(e.target.value)
+
+        if(appRole.indexOf(e.target.value) !== -1) {
+            let name = e.target.value;
+            setAppRole(appRole.filter((e)=>(e !== name)))
+        } else {
+            let name = e.target.value;
+            setAppRole([...appRole,name]);
+        }
+
+    }
+
+    function validateForm() {
+        return description.length > 0 && (appRole.includes('Trainer') || appRole.includes('Dietician'));
     }
 
     return (
@@ -80,20 +102,37 @@ function DashboardApplication() {
                             <div className="col-sm-12 m-1 text-secondary">
                                 <div onChange={ApplicationRole.bind(this)}>
                                     <div className="mx-2">
-                                        <input type="radio" value="Trainer"
+                                        <input type="checkbox" value="Trainer"
                                                name="application_role"/> Trener
                                     </div>
                                     <div className="mx-2">
-                                        <input type="radio" value="Dietetician"
+                                        <input type="checkbox" value="Dietician"
                                                name="application_role"/> Dietetyk
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="custom-file">
+                            <input type="file" className="custom-file-input" id="customFile" onChange={onFileChange}></input>
+                            <label className="custom-file-label" htmlFor="customFile">Wybierz plik</label>
+                            {isFilePicked ? (
+                                <div>
+                                    <p>Filename: {fileToUpload.name}</p>
+                                    <p>Filetype: {fileToUpload.type}</p>
+                                    <p>Size in bytes: {fileToUpload.size}</p>
+                                    <p>
+                                        lastModifiedDate:{' '}
+                                        {fileToUpload.lastModifiedDate.toLocaleDateString()}
+                                    </p>
+                                </div>
+                            ) : (
+                                <p>Select a file to show details</p>
+                            )}
+                        </div>
 
                         <div className="row mt-1">
                             <div className="col-sm-3">
-                                <Button onClick={handleSubmitData} variant="primary" size="sm">Wyślij aplikacje</Button>
+                                <Button disabled={!validateForm()} onClick={handleSubmitData} variant="primary" size="sm">Wyślij aplikacje</Button>
                             </div>
                         </div>
 

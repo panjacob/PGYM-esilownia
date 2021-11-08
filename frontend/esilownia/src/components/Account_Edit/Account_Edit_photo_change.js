@@ -106,7 +106,7 @@ function Account_Edit_photo_change() {
                         <div className="row">
                             <div className="mx-auto pt-1">
                                 <div className="custom-file">
-                                    <input type="file" className="custom-file-input" id="customFile" onChange={onFileChange}></input>
+                                    <input type="file" accept="image/png, image/gif, image/jpeg" className="custom-file-input" id="customFile" onChange={onFileChange}></input>
                                     <label className="custom-file-label" htmlFor="customFile">Wybierz plik</label>
                                     {isFilePicked ? (
                                         <div>

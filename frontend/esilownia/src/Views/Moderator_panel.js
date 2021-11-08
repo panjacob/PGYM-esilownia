@@ -27,7 +27,11 @@ function ModeratorPanel() {
         document.getElementById(`application-${e.target.id}`).scrollIntoView()
     };
 
-    const listApplications = applications.map((id) =>
+    function checkStatus(app) {
+        return app.status === '0';
+    }
+
+    const listApplications = applications.filter(checkStatus).map((id) =>
         <li key={id.id}>
             <button className={'btn btn-outline-dark my-1'} id={id.id}
                     onClick={onButtonClick.bind(this)}>Podanie nr.{id.id}</button>
