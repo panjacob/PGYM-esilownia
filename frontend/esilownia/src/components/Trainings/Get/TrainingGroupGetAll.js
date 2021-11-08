@@ -160,26 +160,28 @@ function TrainingGroupGetAll() {
                 <hr></hr>
             </div>
 
-            <div className="container p-4 mx-auto border border-2"  id="tren_col">
+            <div className="row p-3 mx-auto border border-2 border-dark"  id="tren_col">
                 <h5 className="font-weight-light text-center">Typ Treningu:</h5>
                 <Form className="row justify-content-start">
-                    <hr width={'100%'} color={'black'}/>
+                    <hr width={'90%'} color={'black'}/>
                     {trainingGroupTypeAll.map((types) => (
-                        <div key={`inline-checkbox-${types.id}`} className="form-check-inline mx-auto">
+                        <div key={`inline-checkbox-${types.id}`}  className="col-md-3">
+                            <div className="border m-1 p-1 border-dark rounded-pill mx-auto">
                             <Form.Check
                                 inline
                                 name={types.id}
                                 type="checkbox"
                                 onChange={typesChecked.bind(this)}
                                 id={`inline-checkbox-${types.id}`}
-                            /> {types.type.charAt(0).toUpperCase()+types.type.slice(1)}
+                            /> <b>{types.type.charAt(0).toUpperCase()+types.type.slice(1)}</b>
+                            </div>
                         </div>
                     ))}
                     <div className="col-md-3">
                     </div>
                     <hr width={'90%'} color={'black'}/>
-                    <div className="container">
-                        <Button onClick={handleChange} variant="btn btn-lg border">Filtruj</Button>
+                    <div className="col-md-3">
+                        <Button onClick={handleChange}>Filtruj</Button>
                     </div>
                 </Form>
             </div>
