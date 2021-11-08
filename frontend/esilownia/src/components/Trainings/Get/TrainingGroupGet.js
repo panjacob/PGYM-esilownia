@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
+import Photo from '../../../imgs/gymcoin.png';
+
 
 function TrainingGroupGet(){
 const [trainingGroup, setTrainingGroup] = useState([]);
+
 
 useEffect(() => {
 
@@ -22,19 +25,31 @@ useEffect(() => {
 
     return(
         <div className="trainingGroupGet">
-            Grupa Treningowa Dane
-            <ul>
-                <li>{trainingGroup.id}</li>
-                <li>{trainingGroup.title}</li>
-                <li>{trainingGroup.owner}</li>
-                <li>{trainingGroup.date}</li>
-                <li>{trainingGroup.difficulty}</li>
-                <li>{trainingGroup.description}</li>
-                <li>{trainingGroup.type}</li>
-                <li>{trainingGroup.participants}</li>
-                <li>{trainingGroup.images}</li>
-                <li>{trainingGroup.trainings}</li>
-            </ul>
+            <div className="text-center">
+                <hr></hr>
+                <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Twoje Grupy</h1>
+                <hr></hr>
+            </div>
+            <div className="row p-4 border mb-4 mt-4 text-center flex" id="tren_container">
+
+                
+                <div className="card m-1" id="karta_tren">
+                    <img src={trainingGroup.image} width="100%" height="width" className="card-img-top rounded-circle"
+                            alt="..." placeholder={Photo}/>
+                    <div className="card-body">
+                        <h5 className="card-title">{trainingGroup.title}</h5>
+                        <div className="card-subtitle">{trainingGroup.type}</div>
+                        <p className="card-text"> Poziom: {trainingGroup.difficulty}</p>
+                        <p className="card-text"> Trener: {trainingGroup.owner}</p>
+                        <p className="card-text">{trainingGroup.description}</p>
+                        <p className="card-text">{trainingGroup.date}</p>
+                        <p className="card-text">{trainingGroup.participants}</p>
+                        <p className="card-text">{trainingGroup.trainings}</p>
+                        <p className="card-text">id={trainingGroup.id}</p>
+                        <button className="btn btn-lg">Dołącz {trainingGroup.price}</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

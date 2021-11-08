@@ -6,20 +6,20 @@ import Button from "react-bootstrap/Button";
 
 function TrainingGroupAddParticipant(){
     
-    const [participant, setParticipant] = useState([]);
+    const [paymentType, setPaymentType] = useState([]);
     const [trainingGroup, setTrainingGroup] = useState([]);
 
     function validateForm() {
-        return participant.length > 0 && trainingGroup.length > 0;
+        return paymentType.length > 0 && trainingGroup.length > 0;
     }
 
 const handleSubmit = (e) => {
     e.preventDefault();
 
     axiosInstance
-        .post(`training/group/participant/add`,{id:"1", participant:"1"}, {
-            participant: participant,
-            trainingGroup: trainingGroup,
+        .post(`training/group/join`,{id:"1", payment_type:"0"}, {
+            payment_type: paymentType,
+            training_group: trainingGroup,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -33,29 +33,7 @@ const handleSubmit = (e) => {
 
     return(
         <div className="addParticipant">
-            <Form onSubmit={handleSubmit}>
-                <Form.Group size="lg" controlId="date">
-                    <Form.Label>Użytkownik</Form.Label>
-                    <Form.Control
-                        autoFocus
-                        type="text"
-                        value={participant}
-                        onChange={(e) => setParticipant(e.target.value)}
-                    />
-                </Form.Group>
-                <Form.Group size="lg" controlId="text">
-                    <Form.Label>Grupa</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={trainingGroup}
-                        onChange={(e) => setTrainingGroup(e.target.value)}
-                    />
-                </Form.Group>
-                <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login" type="submit"
-                        disabled={!validateForm()}>
-                    Dodaj użytkownika
-                </Button>
-            </Form>
+            <button className="btn btn-lg" onClick={handleSubmit}>Dołącz</button>
         </div>
     );
 }

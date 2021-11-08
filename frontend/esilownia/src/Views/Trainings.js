@@ -20,11 +20,12 @@ function Trainings() {
 
                 {/*<TrainingGroupTypeGet></TrainingGroupTypeGet>*/}
 
-                {/*<TrainingGroupGet></TrainingGroupGet>*/}
-
+                <TrainingGroupGet></TrainingGroupGet>
+                testowy guzik
+                <TrainingGroupAddParticipant></TrainingGroupAddParticipant>
                 
                 {/* Strefa dla trenera */}
-                {/*<TrainingGroupAddParticipant></TrainingGroupAddParticipant>*/}
+                
                 {/*<TrainingGroupRemoveParticipant></TrainingGroupRemoveParticipant>*/}
                  <TrainingGroupCreate></TrainingGroupCreate>
 
