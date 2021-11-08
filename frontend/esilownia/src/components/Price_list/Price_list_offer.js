@@ -7,6 +7,7 @@ import gymcoin2 from "../../imgs/gymcoin2.png";
 import gymcoin3 from "../../imgs/gymcoin3.png";
 
 function Price_list_offer() {
+
     return (
         <div id="price_list_offer">
             <div className="container mb-4">
@@ -22,7 +23,7 @@ function Price_list_offer() {
                     <div className="row text-center">
                         <div className="col-md-4">
 
-                            <Card border="dark" style={{width: '80%'}} className="mx-auto">
+                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg mt-1 mb-1" >
                                 <Card.Header><Card.Img variant="top" src={gymcoin}/>Najlepsze na start</Card.Header>
                                 <Card.Body>
                                     <Card.Title as={"h3"}>Starter</Card.Title>
@@ -41,7 +42,7 @@ function Price_list_offer() {
                         </div>
                         <div className="col-md-4">
 
-                            <Card border="dark" style={{width: '80%'}} className="mx-auto">
+                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg container-t container-t2 mt-1 mb-1">
                                 <Card.Header><Card.Img variant="top" src={gymcoin2}/>Najczęściej wybierany</Card.Header>
                                 <Card.Body>
                                     <Card.Title as={"h3"}>Classic</Card.Title>
@@ -60,7 +61,7 @@ function Price_list_offer() {
                         </div>
                         <div className="col-md-4">
 
-                            <Card border="dark" style={{width: '80%'}} className="mx-auto">
+                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg mt-1 mb-1">
                                 <Card.Header><Card.Img variant="top" src={gymcoin3}/>Najbardziej opłacalny</Card.Header>
                                 <Card.Body>
                                     <Card.Title as={"h3"}>Premium</Card.Title>

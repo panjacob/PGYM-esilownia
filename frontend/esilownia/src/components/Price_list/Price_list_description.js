@@ -13,19 +13,40 @@ function Price_list_description() {
                     <hr></hr>
                 </div>
 
-                <div id="zawartosc_opis_cennik" className="container p-5 font-weight-light border rounded border-3 border-dark">
+                <div id="zawartosc_opis_cennik" className="container p-5 font-weight-light border rounded border-3 border-dark mt-2">
                     <div className="row text-center">
 
                         <div className="col-md my-auto">
                             <hr width="80%"/>
-                            Gymcoin to nasza wirtualna waluta,
-                            pozwala na kupowanie treningów od trenerów.
+                            Gym-coin to nasza wirtualna waluta.
                             <hr width="80%"/>
                         </div>
 
                         <div className="col-md my-auto">
                             <hr width="80%"/>
-                            Gymcoiny pozwalaja ci uniknać ciaglych płatności przy kazdym zakupie.
+                            Kupione tokeny trafiaja do twojego portfela.
+                            <hr width="80%"/>
+                        </div>
+
+                        <div className="col-md my-auto">
+                            <hr width="80%"/>
+                            Każda oferta w serwisie kosztuje Gym-coiny.
+                            <hr width="80%"/>
+                        </div>
+
+                    </div>
+                    <hr color={'black'} width={'50%'} className={'mt-2 mb-2'}/>
+                    <div className="row text-center">
+
+                        <div className="col-md my-auto">
+                            <hr width="80%"/>
+                            Wykupujesz treningi i diety bez potrzeby płatności przy każdej transakcji.
+                            <hr width="80%"/>
+                        </div>
+
+                        <div className="col-md my-auto">
+                            <hr width="80%"/>
+                            Na start dostajesz 20 darmowych Gym-coinów.
                             <hr width="80%"/>
                         </div>
 

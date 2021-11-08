@@ -120,3 +120,34 @@ p:empty {
     color: black !important;
 }
 /*Home-End*/
+
+/*Cennik-Start*/
+.container-t {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.container-t:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 150px 150px 0;
+    border-color: transparent #608A32 transparent transparent;
+    right: 0;
+    top: 0;
+    position: absolute;
+}
+
+.container-t2:before {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    color: white;
+    content: "Najpopularniejsza";
+    transform: rotate(45deg) translate(20%,-100%);
+    transform-origin: left top;
+}
+/*Cennik-End*/
