@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from dashboard import serializers
-from dashboard.models import UserDay
+from dashboard.models import UserDay, Achievement
 
 
 @api_view(['POST'])
@@ -42,4 +42,6 @@ def achievment_create(request):
 
 @api_view(['POST'])
 def achievment_get(request):
-    pass
+    achievment = Achievement.objects.get(id=request.data['id'])
+    serializer = serializers.AchievmentSerializer(achievment)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
