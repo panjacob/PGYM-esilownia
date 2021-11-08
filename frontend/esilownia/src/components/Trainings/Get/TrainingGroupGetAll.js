@@ -24,7 +24,7 @@ function TrainingGroupGetAll() {
 
             cleanArray = trainingGroupAll;
         } else {
-            setTrainingFilter([]);
+
             trainingGroupAll.map(function (training) {
 
                 for (let j = 0; j < training.type.length; j++) {
@@ -91,25 +91,31 @@ function TrainingGroupGetAll() {
                 <hr></hr>
             </div>
 
-            <div className="col-lg-2 border" id="tren_col">
-                <h5 className="font-weight-light">Typ Treningu:</h5>
-                <Form>
+            <div className="row p-3 mx-auto border border-2 border-dark"  id="tren_col">
+                <h5 className="font-weight-light text-center">Typ Treningu:</h5>
+                <Form className="row justify-content-start">
+                    <hr width={'90%'} color={'black'}/>
                     {trainingGroupTypeAll.map((types) => (
-                        <div key={`inline-checkbox-${types.id}`} className="mb-3">
+                        <div key={`inline-checkbox-${types.id}`} className="col-md-3 mx-auto">
                             <Form.Check
                                 inline
                                 name={types.id}
                                 type="checkbox"
                                 onChange={typesChecked.bind(this)}
                                 id={`inline-checkbox-${types.id}`}
-                            /> {types.type}
+                            /> {types.type.charAt(0).toUpperCase()+types.type.slice(1)}
                         </div>
                     ))}
-                    <Button onClick={handleChange}>Filtruj</Button>
+                    <div className="col-md-3">
+                    </div>
+                    <hr width={'90%'} color={'black'}/>
+                    <div className="col-md-3">
+                        <Button onClick={handleChange}>Filtruj</Button>
+                    </div>
                 </Form>
             </div>
 
-            <div className="row border p-4 mb-4 mt-4 text-center" id="tren_container">
+            <div className="row p-2 border mb-4 mt-4 text-center flex" id="tren_container">
                 {trainingFilter.map(function (cValue, idx) {
 
                     if (cValue.difficulty === "0") {
@@ -126,7 +132,7 @@ function TrainingGroupGetAll() {
                     }
 
                     return (
-                        <div className="card m-4" id="karta_tren" key={idx}>
+                        <div className="card m-1" id="karta_tren" key={idx}>
                             <img src={Photo} width="100%" height="width" className="card-img-top rounded-circle"
                                  alt="..."/>
                             <div className="card-body">
