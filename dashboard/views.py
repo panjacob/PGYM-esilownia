@@ -52,3 +52,13 @@ def achievment_remove(request):
     Achievement.objects.get(id=request.data['id']).delete()
     return Response({'OK'}, status=status.HTTP_200_OK)
 
+
+@api_view(['POST'])
+def achievment_all(request):
+    achievments = Achievement.objects.all()
+    result = []
+    for achievment in achievments:
+        serializer = serializers.AchievmentSerializer(achievment)
+        result.append(serializer.data)
+
+    return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
