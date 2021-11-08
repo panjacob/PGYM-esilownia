@@ -26,3 +26,20 @@ def user_day_get_all(request):
     days = UserDay.objects.all().filter(user_id=request.user.id)
     data = list(days.values())
     return JsonResponse(data, safe=False)
+
+
+@api_view(['POST'])
+def achievment_create(request):
+    # request = put_owner_in_request_data(request)
+    print(request.data)
+    serializer = serializers.AchievmentSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse({'id': serializer.instance.id}, safe=False)
+    return Response({'message': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def achievment_get(request):
+    pass

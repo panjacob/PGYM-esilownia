@@ -16,8 +16,8 @@ class UserDay(models.Model):
 
 
 class Achievement(models.Model):
-    title = models.CharField(max_length=150, unique=True)
-    description = models.CharField(max_length=150, unique=True)
+    title = models.CharField(max_length=150)
+    description = models.CharField(max_length=150)
     image = models.ImageField(null=True, blank=True)
 
 
