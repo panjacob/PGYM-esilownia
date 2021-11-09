@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 
-
 function TrainingGroupGetAll() {
 
     const [trainingGroupAll, setTrainingGroupAll] = useState([]);
@@ -17,9 +16,8 @@ function TrainingGroupGetAll() {
     const [trainingGroup, setTrainingGroup] = useState([]);
     const [show, setShow] = useState(false);
 
-
     const handleChange = (e) => {
-         
+
 
         let cleanArray = []
 
@@ -49,23 +47,23 @@ function TrainingGroupGetAll() {
 
     const handleShowMore = (groupId) => (e) => {
         e.preventDefault();
-    axiosInstance
-        .post(`training/group/get`, { id:groupId},{
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-            }
-        })
-        .then((res) => {
-            setTrainingGroup(res.data)
-        });
-     handleShow();   
+        axiosInstance
+            .post(`training/group/get`, {id: groupId}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setTrainingGroup(res.data)
+            });
+        handleShow();
     }
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     // const trainingItems = () => {
-        
+
     //     <div>
     //         <Modal show={show} style={{opacity:1}} onHide={handleClose}>
     //             <Modal.Header closeButton>
@@ -84,8 +82,8 @@ function TrainingGroupGetAll() {
     //             </Modal.Footer>
     //         </Modal>
     //     </div>
-        
-        
+
+
     //     <div className="modal" id="popupModal" tabIndex="-1" role="dialog">
     //         <div className="modal-dialog" role="document">
     //             <div className="modal-content">
@@ -148,9 +146,14 @@ function TrainingGroupGetAll() {
             .then((res) => {
                 setTrainingGroupTypeAll(res.data)
             });
-        
+
 
     }, []);
+
+
+
+
+
     return (
         <div className="trainingGroupGetAll">
 
@@ -160,94 +163,122 @@ function TrainingGroupGetAll() {
                 <hr></hr>
             </div>
 
-            <div className="row p-3 mx-auto border border-2 border-dark"  id="tren_col">
-                <h5 className="font-weight-light text-center">Typ Treningu:</h5>
-                <Form className="row justify-content-start">
-                    <hr width={'90%'} color={'black'}/>
-                    {trainingGroupTypeAll.map((types) => (
-                        <div key={`inline-checkbox-${types.id}`}  className="col-md-3">
-                            <div className="border m-1 p-1 border-dark rounded-pill mx-auto">
-                            <Form.Check
-                                inline
-                                name={types.id}
-                                type="checkbox"
-                                onChange={typesChecked.bind(this)}
-                                id={`inline-checkbox-${types.id}`}
-                            /> <b>{types.type.charAt(0).toUpperCase()+types.type.slice(1)}</b>
-                            </div>
-                        </div>
-                    ))}
-                    <div className="col-md-3">
-                    </div>
-                    <hr width={'90%'} color={'black'}/>
-                    <div className="col-md-3">
-                        <Button onClick={handleChange}>Filtruj</Button>
-                    </div>
-                </Form>
-            </div>
 
-            <div className="row p-4 border mb-4 mt-4 text-center flex" id="tren_container">
-                {trainingFilter.map(function (cValue, idx) {
+            <div className="row">
 
-                    if (cValue.difficulty === "0") {
-                        cValue.difficulty = "Łatwy"
-                    }
-                    if (cValue.difficulty === "1") {
-                        cValue.difficulty = "Średni"
-                    }
-                    if (cValue.difficulty === "2") {
-                        cValue.difficulty = "Trudny"
-                    }
-                    if (cValue.difficulty === "3") {
-                        cValue.difficulty = "Armagedon"
-                    }
+                <div className="col-md-3 border text-center">
+                    <h5 className="font-weight-light mt-1">Typ Treningu:</h5>
 
-                    return (
-                        <div>
-                            <div className="card m-1" id="karta_tren" key={idx}>
-                                <img src={Photo} width="100%" height="width" className="card-img-top rounded-circle"
-                                     alt="..."/>
-                                <div className="card-body">
-                                    <div>
-                                        <h5 className="card-title">{cValue.title}</h5>
-                                        <div className="card-subtitle">
-                                            {trainingGroupTypeAll.map(function (type, id) {
-                                                for (let i = 0; i < cValue.type.length; i++) {
-                                                    if (cValue.type.includes(type.id)) {
-                                                        return (<p key={id}>{type.type}</p>)
-                                                    }
-                                                }
-                                            })}
-                                        </div>
-                                        <p className="card-text"> Poziom: {cValue.difficulty}</p>
-                                        <button className="btn btn-lg mb-4" data-toggle="modal" data-target="#popupModal" onClick={handleShowMore(cValue.id)}>Pokaż więcej</button>
-                                        <br/>
-                                        <a href="#" className="btn btn-lg">Kup dostęp</a>
-                                    </div>
+                    <Form>
+                        <hr width={'90%'} color={'black'}/>
+                        {trainingGroupTypeAll.map((types) => (
+                            <div key={`inline-checkbox-${types.id}`} className="row justify-content-center">
+                                <div className="border p-2 rounded-pill border-dark">
+                                    <Form.Check
+                                        inline
+                                        name={types.id}
+                                        type="checkbox"
+                                        onChange={typesChecked.bind(this)}
+                                        id={`inline-checkbox-${types.id}`}
+                                    /> <b>{types.type.charAt(0).toUpperCase() + types.type.slice(1)}</b>
                                 </div>
                             </div>
-                                <div>
-                                    <Modal show={show} style={{opacity:1}} onHide={handleClose}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>{trainingGroup.title}</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            <p>Trener: {trainingGroup.owner}</p>
-                                            <p>{trainingGroup.description}</p>
-                                            <p>Data utworzenia: {trainingGroup.date}</p>
-                                            <p>Cena: {trainingGroup.price}</p>
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            {/* <Button variant="btn btn-lg" onClick={handleClose}>
+                        ))}
+                        <hr width={'90%'} color={'black'}/>
+                        <div className="col">
+                            <Button onClick={handleChange}>Filtruj</Button>
+                        </div>
+                    </Form>
+
+                </div>
+
+                <div className="col-md-9 border text-center inline-block">
+                    <div className="row justify-content-center">
+                        {trainingFilter.map(function (cValue, idx) {
+
+                            if (cValue.difficulty === "0") {
+                                cValue.difficulty = "Łatwy"
+                            }
+                            if (cValue.difficulty === "1") {
+                                cValue.difficulty = "Średni"
+                            }
+                            if (cValue.difficulty === "2") {
+                                cValue.difficulty = "Trudny"
+                            }
+                            if (cValue.difficulty === "3") {
+                                cValue.difficulty = "Armagedon"
+                            }
+
+                            return (
+                                <div style={{minWidth:'250px'}} className="col-md-4 mb-2 flex">
+                                    <div className="h-100 card m-1" key={idx}>
+                                        <img src={Photo} width="100%" height="width"
+                                             className="card-img-top rounded-circle"
+                                             alt="..."/>
+                                        <div className="card-body">
+                                            <div>
+                                                <h5 className="card-title">{cValue.title}</h5>
+                                                <div className="card-subtitle" style={{overflow:'auto', height:'100px'}}>
+                                                    {trainingGroupTypeAll.map(function (type, id) {
+                                                        for (let i = 0; i < cValue.type.length; i++) {
+                                                            if (cValue.type.includes(type.id)) {
+                                                                return (<p className="m-0" key={id}>{type.type}</p>)
+                                                            }
+                                                        }
+                                                    })}
+                                                </div>
+                                                <p className="card-text"> Poziom: {cValue.difficulty}</p>
+                                                <button className="btn btn-lg mb-4" data-toggle="modal"
+                                                        data-target="#popupModal"
+                                                        onClick={handleShowMore(cValue.id)}>Pokaż
+                                                    więcej
+                                                </button>
+                                                <br/>
+                                                <a href="#" className="btn btn-lg">Kup dostęp</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <Modal show={show} style={{opacity: 1}} onHide={handleClose}>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title>{trainingGroup.title}</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <p>Trener: {trainingGroup.owner}</p>
+                                                <p>{trainingGroup.description}</p>
+                                                <p>Data utworzenia: {trainingGroup.date}</p>
+                                                <p>Cena: {trainingGroup.price}</p>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                {/* <Button variant="btn btn-lg" onClick={handleClose}>
                                                 Zamknij
                                             </Button> */}
-                                        </Modal.Footer>
-                                    </Modal>
+                                            </Modal.Footer>
+                                        </Modal>
+                                    </div>
                                 </div>
-                        </div>
-                    )
-                })}
+                            )
+                        })}
+                        {(trainingFilter.length%3===1) ? (
+                            <div className="col-md-4"></div>
+                        ) : (
+                            ''
+                        )}
+                        {(trainingFilter.length%3===1) ? (
+                            <div className="col-md-4"></div>
+                        ) : (
+                            ''
+                        )}
+                        {(trainingFilter.length%3===2) ? (
+                            <div className="col-md-4"></div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                </div>
+
             </div>
+
         </div>
     );
 }
