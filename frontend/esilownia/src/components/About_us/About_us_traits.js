@@ -18,8 +18,8 @@ function About_us_traits() {
                     </div>
                     <div className="row text-center mx-auto" style={{padding: "5% 15% 5% 15%"}}>
                         <p><b>
-                            Trenujesz w wybranym przez siebie miejscu. Bezpiecznie i w znajomym środowiksu bez
-                            fizycznego kontaku.
+                            Trenujesz w wybranym przez siebie miejscu. Bezpiecznie i w znajomym środowisku bez
+                            fizycznego kontaktu.
                         </b></p>
                     </div>
 
@@ -30,7 +30,8 @@ function About_us_traits() {
                         <AiFillCar size={100}/>
                     </div>
                     <div className="row text-center mx-auto" style={{padding: "5% 15% 5% 15%"}}>
-                        <p><b>Nie traczisz czasu i pieniedzy na dojazdy i stanie w korkch.</b></p>
+                        <p><b>Nie tracisz czasu i pieniędzy na dojazdy i stanie w korkach.
+                        </b></p>
                     </div>
 
                 </div>
@@ -44,8 +45,8 @@ function About_us_traits() {
                     </div>
                     <div className="row text-center mx-auto" style={{padding: "5% 15% 5% 15%"}}>
                         <p><b>
-                            Plan i czas treningów jest w zupełnoci zależny od ciebie. Wybierasz z kim lub kiedy chcesz
-                            ćwiczyc.
+                            Plan i czas treningów jest w zupełności zależny od ciebie. Wybierasz z kim lub kiedy chcesz
+                            ćwiczyć.
                         </b></p>
                     </div>
 
@@ -69,7 +70,7 @@ function About_us_traits() {
                         <BsFillDisplayFill size={100}/>
                     </div>
                     <div className="row text-center mx-auto" style={{padding: "5% 15% 5% 15%"}}>
-                        <p><b>Na tej samej platformie znajdziesz siłownie , klub fintess lub porady dietetyczne.</b></p>
+                        <p><b>Na tej samej platformie znajdziesz siłownie , klub fitness lub porady dietetyczne.</b></p>
                     </div>
 
                 </div>

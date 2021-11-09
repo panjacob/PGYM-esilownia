@@ -20,7 +20,7 @@ function TrainingGroupGetAll() {
 
 
         let cleanArray = []
-
+        //document.getElementById('offer_container').innerHTML = ''
 
         if (typeSelected.length === 0) {
 
@@ -42,7 +42,17 @@ function TrainingGroupGetAll() {
                 }
             })
         }
-        setTrainingFilter(cleanArray);
+
+        function uniqBy(a, key) {
+            var seen = {};
+            return a.filter(function(item) {
+                var k = key(item);
+                return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+            })
+        }
+
+        setTrainingFilter(uniqBy(cleanArray, JSON.stringify));
+
     }
 
     const handleShowMore = (groupId) => (e) => {
@@ -168,19 +178,27 @@ function TrainingGroupGetAll() {
 
                     <Form>
                         <hr width={'90%'} color={'black'}/>
+                        <ul className="list-inline" style={{display: 'table' ,margin: '0 auto'}}>
                         {trainingGroupTypeAll.map((types) => (
-                            <div key={`inline-checkbox-${types.id}`} className="row justify-content-center">
-                                <div className="border p-2 rounded-pill border-dark">
-                                    <Form.Check
-                                        inline
-                                        name={types.id}
-                                        type="checkbox"
-                                        onChange={typesChecked.bind(this)}
-                                        id={`inline-checkbox-${types.id}`}
-                                    /> <b>{types.type.charAt(0).toUpperCase() + types.type.slice(1)}</b>
-                                </div>
+                            <li className="m-1" key={`inline-checkbox-${types.id}`}>
+                            <div className="row">
+                                    <div className="form-check">
+                                        <input
+                                            className="form-check-input switch_1 align-text-bottom"
+                                            type="checkbox"
+                                            onChange={typesChecked.bind(this)}
+                                            name={types.id}
+                                            id={`inline-checkbox-${types.id}`}
+                                        />
+                                        <label className="form-check-label ml-4 align-text-bottom" htmlFor="defaultCheck1">
+                                            <b>{types.type.charAt(0).toUpperCase() + types.type.slice(1)}</b>
+                                        </label>
+                                    </div>
                             </div>
+                                <hr color={'black'} className="m-1"/>
+                            </li>
                         ))}
+                        </ul>
                         <hr width={'90%'} color={'black'}/>
                         <div className="col">
                             <Button onClick={handleChange}>Filtruj</Button>
@@ -190,7 +208,7 @@ function TrainingGroupGetAll() {
                 </div>
 
                 <div className="col-md-9 border text-center inline-block">
-                    <div className="row justify-content-center">
+                    <div id="offer_container" className="row justify-content-center">
                         {trainingFilter.map(function (cValue, idx) {
 
                             if (cValue.difficulty === "0") {
@@ -207,7 +225,7 @@ function TrainingGroupGetAll() {
                             }
 
                             return (
-                                <div style={{minWidth: '250px'}} className="col-md-4 mb-2 flex">
+                                <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-2 flex">
                                     <div className="h-100 card m-1" key={idx}>
                                         <img src={Photo} width="100%" height="width"
                                              className="card-img-top rounded-circle"
@@ -242,7 +260,7 @@ function TrainingGroupGetAll() {
                                                centered
                                                show={show}
                                                onHide={handleClose}
-                                                >
+                                        >
                                             <Modal.Header closeButton>
                                                 <Modal.Title>{trainingGroup.title}</Modal.Title>
                                             </Modal.Header>
@@ -262,18 +280,23 @@ function TrainingGroupGetAll() {
                                 </div>
                             )
                         })}
-                        {(trainingFilter.length % 3 === 1) ? (
-                            <div className="col-md-4"></div>
+                        {(trainingFilter.length % 3 === 0) ? (
+                            <div style={{minWidth: '250px'}} className="col-md-4"></div>
                         ) : (
                             ''
                         )}
                         {(trainingFilter.length % 3 === 1) ? (
-                            <div className="col-md-4"></div>
+                            <div style={{minWidth: '250px'}} className="col-md-4"></div>
+                        ) : (
+                            ''
+                        )}
+                        {(trainingFilter.length % 3 === 1) ? (
+                            <div style={{minWidth: '250px'}} className="col-md-4"></div>
                         ) : (
                             ''
                         )}
                         {(trainingFilter.length % 3 === 2) ? (
-                            <div className="col-md-4"></div>
+                            <div style={{minWidth: '250px'}} className="col-md-4"></div>
                         ) : (
                             ''
                         )}
