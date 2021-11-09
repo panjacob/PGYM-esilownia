@@ -15,6 +15,7 @@ function TrainingGroupGetAll() {
     const [trainingFilter, setTrainingFilter] = useState([]);
     const [trainingGroup, setTrainingGroup] = useState([]);
     const [show, setShow] = useState(false);
+    const [treinerInfo, setTreinerInfo] = useState([]);
 
     const handleChange = (e) => {
 
@@ -45,7 +46,7 @@ function TrainingGroupGetAll() {
 
         function uniqBy(a, key) {
             var seen = {};
-            return a.filter(function(item) {
+            return a.filter(function (item) {
                 var k = key(item);
                 return seen.hasOwnProperty(k) ? false : (seen[k] = true);
             })
@@ -66,6 +67,18 @@ function TrainingGroupGetAll() {
             })
             .then((res) => {
                 setTrainingGroup(res.data)
+                console.log(res.data)
+                axiosInstance
+                    .post(`/users/get/`, {id: res.data.owner}, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                        }
+                    })
+                    .then((res2) => {
+                        setTreinerInfo(res2.data)
+
+                    });
             });
         handleShow();
     }
@@ -178,26 +191,27 @@ function TrainingGroupGetAll() {
 
                     <Form>
                         <hr width={'90%'} color={'black'}/>
-                        <ul className="list-inline" style={{display: 'table' ,margin: '0 auto'}}>
-                        {trainingGroupTypeAll.map((types) => (
-                            <li className="m-1" key={`inline-checkbox-${types.id}`}>
-                            <div className="row">
-                                    <div className="form-check">
-                                        <input
-                                            className="form-check-input switch_1 align-text-bottom"
-                                            type="checkbox"
-                                            onChange={typesChecked.bind(this)}
-                                            name={types.id}
-                                            id={`inline-checkbox-${types.id}`}
-                                        />
-                                        <label className="form-check-label ml-4 align-text-bottom" htmlFor="defaultCheck1">
-                                            <b>{types.type.charAt(0).toUpperCase() + types.type.slice(1)}</b>
-                                        </label>
+                        <ul className="list-inline" style={{display: 'table', margin: '0 auto'}}>
+                            {trainingGroupTypeAll.map((types) => (
+                                <li className="m-1" key={`inline-checkbox-${types.id}`}>
+                                    <div className="row">
+                                        <div className="form-check">
+                                            <input
+                                                className="form-check-input switch_1 align-text-bottom"
+                                                type="checkbox"
+                                                onChange={typesChecked.bind(this)}
+                                                name={types.id}
+                                                id={`inline-checkbox-${types.id}`}
+                                            />
+                                            <label className="form-check-label ml-4 align-text-bottom"
+                                                   htmlFor="defaultCheck1">
+                                                <b>{types.type.charAt(0).toUpperCase() + types.type.slice(1)}</b>
+                                            </label>
+                                        </div>
                                     </div>
-                            </div>
-                                <hr color={'black'} className="m-1"/>
-                            </li>
-                        ))}
+                                    <hr color={'black'} className="m-1"/>
+                                </li>
+                            ))}
                         </ul>
                         <hr width={'90%'} color={'black'}/>
                         <div className="col">
@@ -250,6 +264,7 @@ function TrainingGroupGetAll() {
                                                     więcej
                                                 </button>
                                                 <br/>
+
                                                 <a href="#" className="btn btn-lg">Kup dostęp</a>
                                             </div>
                                         </div>
@@ -265,10 +280,65 @@ function TrainingGroupGetAll() {
                                                 <Modal.Title>{trainingGroup.title}</Modal.Title>
                                             </Modal.Header>
                                             <Modal.Body>
-                                                <p>Trener: {trainingGroup.owner}</p>
-                                                <p>{trainingGroup.description}</p>
-                                                <p>Data utworzenia: {trainingGroup.date}</p>
-                                                <p>Cena: {trainingGroup.price}</p>
+
+                                                <p>Trener : {treinerInfo.first_name + " " + treinerInfo.last_name}</p>
+                                                <p>Opis : {trainingGroup.description}</p>
+
+                                                <div className="row justify-content-center">
+                                                    <div className="col-2 justify-content-center">
+                                                    <p>Typ treningu :</p>
+                                                    </div>
+                                                    <div className="col-10">
+                                                        <div className="row">
+                                                    {trainingGroupTypeAll.map(function (type, id) {
+                                                        for (let i = 0; i < trainingGroup.type.length; i++) {
+                                                            if (trainingGroup.type.includes(type.id)) {
+                                                                return (<p className="ml-1 mr-1" key={id}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</p>)
+                                                            }
+                                                        }
+                                                    })}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <p>Data utworzenia : {trainingGroup.date}</p>
+
+                                                <div className="row justify-content-center text-center">
+                                                    <div className="col-4">
+                                                        <div className="row justify-content-center text-center">
+                                                            <p className="m-0">Jedne zajęcia :</p>
+                                                            <p className="m-0 pl-1 pr-1">{trainingGroup.price_day}</p>
+                                                            <p className="m-0">Gym-coinów</p>
+                                                        </div>
+                                                        <div className="row justify-content-center text-center">
+                                                            <a href="#" className="btn btn-primary btn-sm">Kup
+                                                                dostęp</a>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-4">
+                                                        <div className="row justify-content-center text-center">
+                                                            <p className="m-0">Tydzień :</p>
+                                                            <p className="m-0 pl-1 pr-1">{trainingGroup.price_week}</p>
+                                                            <p className="m-0">Gym-coinów</p>
+                                                        </div>
+                                                        <div className="row justify-content-center text-center">
+                                                            <a href="#" className="btn btn-primary btn-sm">Kup
+                                                                dostęp</a>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-4">
+                                                        <div className="row justify-content-center text-center">
+                                                            <p className="m-0">Miesiąc :</p>
+                                                            <p className="m-0 pl-1 pr-1">{trainingGroup.price_month}</p>
+                                                            <p className="m-0">Gym-coinów</p>
+                                                        </div>
+                                                        <div className="row justify-content-center text-center">
+                                                            <a href="#" className="btn btn-primary btn-sm">Kup
+                                                                dostęp</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </Modal.Body>
                                             <Modal.Footer>
                                                 {/* <Button variant="btn btn-lg" onClick={handleClose}>

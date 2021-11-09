@@ -10,11 +10,15 @@ function TrainingGroupCreate() {
     const [difficulity, setDifficulity] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [pricePractice, setPricePractice] = useState(0);
+    const [priceWeek, setPriceWeek] = useState(0);
+    const [priceMonth, setPriceMonth] = useState(0);
+
     const [type, setType] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
 
     function validateForm() {
-        return date.length > 0 && difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0;
+        return date.length > 0 && difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0 && pricePractice > 0 && priceWeek > 0 && priceMonth > 0;
     }
 
     const handleSubmit = (e) => {
@@ -22,14 +26,17 @@ function TrainingGroupCreate() {
 
         console.log(typeSelected)
 
-         var urlencoded = new URLSearchParams();
+        var urlencoded = new URLSearchParams();
         urlencoded.append("date", date);
         urlencoded.append("difficulty", difficulity);
         urlencoded.append("title", title);
         urlencoded.append("description", description);
-        for(let i=0;i<typeSelected.length;i++){
+        for (let i = 0; i < typeSelected.length; i++) {
             urlencoded.append("type", typeSelected[i]);
         }
+        urlencoded.append("price_day", pricePractice);
+        urlencoded.append("price_week", priceWeek);
+        urlencoded.append("price_month", priceMonth);
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
@@ -70,12 +77,12 @@ function TrainingGroupCreate() {
 
     const typesChecked = (e) => {
 
-        if(typeSelected.indexOf(e.target.name) !== -1) {
+        if (typeSelected.indexOf(e.target.name) !== -1) {
             let name = e.target.name;
-            setTypeSelected(typeSelected.filter((e)=>(e !== name)))
+            setTypeSelected(typeSelected.filter((e) => (e !== name)))
         } else {
             let name = e.target.name;
-            setTypeSelected([...typeSelected,name]);
+            setTypeSelected([...typeSelected, name]);
         }
 
     }
@@ -90,7 +97,8 @@ function TrainingGroupCreate() {
 
             <div className="text-center">
                 <hr></hr>
-                <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Stwórz grupe treningową</h1>
+                <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Stwórz grupe
+                    treningową</h1>
                 <hr></hr>
             </div>
 
@@ -145,17 +153,46 @@ function TrainingGroupCreate() {
                 </Form.Group>
                 <Form.Group size="lg" controlId="text">
                     <Form.Label>Typ</Form.Label>
-                        {type.map((types) => (
-                            <div key={`inline-checkbox-${types.id}`} className="mb-3">
-                                <Form.Check
-                                    inline
-                                    name={types.id}
-                                    type="checkbox"
-                                    onChange={typesChecked.bind(this)}
-                                    id={`inline-checkbox-${types.id}`}
-                                /> {types.type}
-                            </div>
-                        ))}
+                    {type.map((types) => (
+                        <div key={`inline-checkbox-${types.id}`} className="mb-3">
+                            <Form.Check
+                                inline
+                                name={types.id}
+                                type="checkbox"
+                                onChange={typesChecked.bind(this)}
+                                id={`inline-checkbox-${types.id}`}
+                            /> {types.type}
+                        </div>
+                    ))}
+                </Form.Group>
+                <Form.Group size="lg" controlId="text">
+                    <Form.Label>Ceny</Form.Label>
+                    <div className="row justify-content-center">
+                    <div className="col-md-3">
+                        <Form.Label>Jedne Zajecia</Form.Label>
+                        <Form.Control
+                            type="number"
+                            value={pricePractice}
+                            onChange={(e) => setPricePractice(e.target.value)}
+                        />
+                    </div>
+                    <div className="col-md-3">
+                        <Form.Label>Tydzień</Form.Label>
+                        <Form.Control
+                            type="number"
+                            value={priceWeek}
+                            onChange={(e) => setPriceWeek(e.target.value)}
+                        />
+                    </div>
+                    <div className="col-md-3">
+                        <Form.Label>Miesiąć</Form.Label>
+                        <Form.Control
+                            type="number"
+                            value={priceMonth}
+                            onChange={(e) => setPriceMonth(e.target.value)}
+                        />
+                    </div>
+                    </div>
                 </Form.Group>
                 <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
                         disabled={!validateForm()}>
