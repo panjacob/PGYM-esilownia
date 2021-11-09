@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from dashboard import serializers
 from dashboard import utilis
 from dashboard.models import UserDay, Achievement
+from users.models import UserExtended
 
 
 @api_view(['POST'])
@@ -31,8 +32,6 @@ def user_day_get_all(request):
 
 @api_view(['POST'])
 def achievment_create(request):
-    # request = put_owner_in_request_data(request)
-    print(request.data)
     serializer = serializers.AchievmentSerializer(data=request.data)
 
     if serializer.is_valid():
@@ -77,3 +76,13 @@ def achievment_user_remove(request):
     achievment = Achievement.objects.get(id=request.data['achievment'])
     utilis.remove_achievment_user(request.user, achievment)
     return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def achievnemt_user_get(request):
+    user = UserExtended.objects.get(id=request.data['user'])
+    achievments_user = list(user.achievementtuser_set.values())
+    achievments = []
+    for achievment_user in achievments_user:
+        achievments.append(achievment_user['achievment_id'])
+    return JsonResponse(achievments, safe=False, json_dumps_params={'ensure_ascii': False})

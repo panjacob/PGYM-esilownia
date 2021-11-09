@@ -11,4 +11,5 @@ urlpatterns = [
     path('achievment/remove', views.achievment_remove, name='achievment_remove'),
     path('achievment/user/add', views.achievment_user_add, name='achievment_user_add'),
     path('achievment/user/remove', views.achievment_user_remove, name='achievment_user_remove'),
+    path('achievment/user/get', views.achievnemt_user_get, name='achievment_user_get'),
 ]
