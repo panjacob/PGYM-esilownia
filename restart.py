@@ -6,10 +6,11 @@ from manage import main
 
 path = os.getcwd()
 print(path)
-if sys.platform == 'linux' or sys.platform == 'linux2':
-    path = f"{os.getcwd()}/manage.py"
-else:
+if sys.platform == 'windows':
     path = '.\\manage.py'
+else:
+    path = f"{os.getcwd()}/manage.py"
+
 
 
 def manage_py(command):
