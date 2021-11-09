@@ -148,3 +148,10 @@ p:empty {
     transform-origin: left top;
 }
 /*Cennik-End*/
+
+/*Modal-Start*/
+.modal-backdrop.fade {
+    background: rgba(0,0,0,2) !important;
+    opacity: 0.1 !important;
+}
+/*Modal-End*/

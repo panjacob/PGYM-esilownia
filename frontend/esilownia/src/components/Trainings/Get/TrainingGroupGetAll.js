@@ -151,9 +151,6 @@ function TrainingGroupGetAll() {
     }, []);
 
 
-
-
-
     return (
         <div className="trainingGroupGetAll">
 
@@ -210,7 +207,7 @@ function TrainingGroupGetAll() {
                             }
 
                             return (
-                                <div style={{minWidth:'250px'}} className="col-md-4 mb-2 flex">
+                                <div style={{minWidth: '250px'}} className="col-md-4 mb-2 flex">
                                     <div className="h-100 card m-1" key={idx}>
                                         <img src={Photo} width="100%" height="width"
                                              className="card-img-top rounded-circle"
@@ -218,7 +215,8 @@ function TrainingGroupGetAll() {
                                         <div className="card-body">
                                             <div>
                                                 <h5 className="card-title">{cValue.title}</h5>
-                                                <div className="card-subtitle" style={{overflow:'auto', height:'100px'}}>
+                                                <div className="card-subtitle"
+                                                     style={{overflow: 'auto', height: '100px'}}>
                                                     {trainingGroupTypeAll.map(function (type, id) {
                                                         for (let i = 0; i < cValue.type.length; i++) {
                                                             if (cValue.type.includes(type.id)) {
@@ -239,7 +237,12 @@ function TrainingGroupGetAll() {
                                         </div>
                                     </div>
                                     <div>
-                                        <Modal show={show} style={{opacity: 1}} onHide={handleClose}>
+                                        <Modal size="lg"
+                                               aria-labelledby="contained-modal-title-vcenter"
+                                               centered
+                                               show={show}
+                                               onHide={handleClose}
+                                                >
                                             <Modal.Header closeButton>
                                                 <Modal.Title>{trainingGroup.title}</Modal.Title>
                                             </Modal.Header>
@@ -259,17 +262,17 @@ function TrainingGroupGetAll() {
                                 </div>
                             )
                         })}
-                        {(trainingFilter.length%3===1) ? (
+                        {(trainingFilter.length % 3 === 1) ? (
                             <div className="col-md-4"></div>
                         ) : (
                             ''
                         )}
-                        {(trainingFilter.length%3===1) ? (
+                        {(trainingFilter.length % 3 === 1) ? (
                             <div className="col-md-4"></div>
                         ) : (
                             ''
                         )}
-                        {(trainingFilter.length%3===2) ? (
+                        {(trainingFilter.length % 3 === 2) ? (
                             <div className="col-md-4"></div>
                         ) : (
                             ''
