@@ -6,6 +6,8 @@ import axiosInstance from "../components/Axios/Axios";
 function ModeratorPanel() {
 
     const [applications, setApplications] = useState([]);
+    const [appStatus, setAppStatus] = useState(['0']);
+    let s = appStatus;
 
     useEffect(() => {
 
@@ -28,7 +30,7 @@ function ModeratorPanel() {
     };
 
     function checkStatus(app) {
-        return app.status === '0';
+        return appStatus.includes(app.status);
     }
 
     const listApplications = applications.filter(checkStatus).map((id) =>
@@ -37,6 +39,19 @@ function ModeratorPanel() {
                     onClick={onButtonClick.bind(this)}>Podanie nr.{id.id}</button>
         </li>
     );
+
+    const applicationStatus = (e) => {
+
+        if(appStatus.indexOf(e.target.value) !== -1) {
+            let name = e.target.value;
+            setAppStatus(appStatus.filter((e)=>(e !== name)))
+        } else {
+            let name = e.target.value;
+            setAppStatus([...appStatus,name]);
+        }
+        console.log(appStatus)
+    }
+
 
     return (
         <div className="moderatorPanel">
@@ -48,6 +63,20 @@ function ModeratorPanel() {
                             <hr></hr>
                             <h1 style={{"fontSize": "3vw"}} className="display-1 font-weight-light mb-4">Spis podań</h1>
                             <h1 style={{"fontSize": "2vw"}} className="display-1 font-weight-light mb-4">Kliknij by przejść do podania</h1>
+                            <div onChange={applicationStatus.bind(this)}>
+                                <div className="mx-2">
+                                    <input type="checkbox" value="0"
+                                           name="application_role" defaultChecked/> Oczekujace
+                                </div>
+                                <div className="mx-2">
+                                    <input type="checkbox" value="1"
+                                           name="application_role"/> Zaakceptowane
+                                </div>
+                                <div className="mx-2">
+                                    <input type="checkbox" value="2"
+                                           name="application_role"/> Odrzucone
+                                </div>
+                            </div>
                             <hr></hr>
                         </div>
                         <ul className="border text-center list-unstyled" style={{overflowY: 'scroll', flex: '1', height: '500px'}}>
@@ -56,7 +85,7 @@ function ModeratorPanel() {
                     </div>
 
                     <div className="col-9 ">
-                        <ModeratorPanelApplications></ModeratorPanelApplications>
+                        <ModeratorPanelApplications appStatus={s}></ModeratorPanelApplications>
                     </div>
                 </div>
             </div>
