@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from dashboard.models import UserDay
+from dashboard.models import UserDay, Achievement
 
 
 class UserDaySerializer(ModelSerializer):
@@ -21,3 +21,10 @@ class UserDaySerializer(ModelSerializer):
 
         instance.save()
         return created
+
+
+class AchievmentSerializer(ModelSerializer):
+    class Meta:
+        model = Achievement
+        # owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        fields = ['title', 'description', 'image']
