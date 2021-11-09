@@ -9,4 +9,5 @@ urlpatterns = [
     path('achievment/get', views.achievment_get, name='achievment_get'),
     path('achievment/all', views.achievment_all, name='achievment_all'),
     path('achievment/remove', views.achievment_remove, name='achievment_remove'),
+    path('achievment/user/add', views.achievment_user_add, name='achievment_user_add'),
 ]

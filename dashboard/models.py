@@ -23,4 +23,4 @@ class Achievement(models.Model):
 
 class AchievementtUser(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
-    achivment = models.ForeignKey(Achievement, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    achievment = models.ForeignKey(Achievement, on_delete=models.CASCADE, null=True, blank=True, default=None)
