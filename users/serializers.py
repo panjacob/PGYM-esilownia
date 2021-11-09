@@ -18,6 +18,13 @@ class UserGetSerializer(ModelSerializer):
         fields = ['id', 'username', 'first_name', 'last_name', 'profile_photo']
 
 
+class UserGetModeratorSerializer(ModelSerializer):
+    class Meta:
+        model = UserExtended
+        fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
+                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money']
+
+
 class UserEditSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
