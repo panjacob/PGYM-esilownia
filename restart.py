@@ -4,8 +4,6 @@ import sys
 import os
 from manage import main
 
-# '/home/kuba/Dokumenty/Projekty/esilownia/manage.py'
-
 path = os.getcwd()
 print(path)
 if sys.platform == 'linux' or sys.platform == 'linux2':
