@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DaneUserDay from "../components/Dashboard/Dashboard_data_userday";
 import DaneUser from "../components/Dashboard/Dashboard_data_user";
 import DashboardApplication from "../components/Dashboard/Dashboard_application";
-import OfertaTrener from "../components/Home/Home_offer_trainer";
+import OfertaTrener from "../components/Dashboard/Dashboard_offer_trainer";
 
 function Dashboard() {
     return (

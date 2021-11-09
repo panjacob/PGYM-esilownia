@@ -1,6 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import OfertaTrener from "../components/Home/Home_offer_trainer"
+import OfertaTrener from "../components/Dashboard/Dashboard_offer_trainer"
 import HomeCarousel from "../components/Home/Home_carousel";
 import OfertaUser from "../components/Home/Home_offer_user";
 import {Link} from "react-router-dom";

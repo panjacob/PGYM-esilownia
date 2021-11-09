@@ -1,14 +1,14 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Home_offer_trainer() {
+function Dashboard_offer_trainer() {
     return (
-        <div className="home_offer_trainer">
+        <div className="dashboard_offer_trainer">
             <div className="container mb-4">
                 <div className="row text-center">
 
-                    <div className="col-md-4">
-                        <div className="col-md-12 border rounded shadow-lg">
+                    <div className="col-md-4 align-middle">
+                        <div className="col-md-12 h-100 border rounded shadow-lg">
                             <h4 className="font-weight-light">Poszukujemy osób do współpracy!</h4>
                             <p className="font-weight-light">Masz uprawnienia trenera fitness, trenera personalnego czy
                                 po prostu jesteś sportowcem?
@@ -16,8 +16,8 @@ function Home_offer_trainer() {
                         </div>
                     </div>
 
-                    <div className="col-md-4">
-                        <div className="col-md-12 border rounded shadow-lg">
+                    <div className="col-md-4 align-middle">
+                        <div className="col-md-12 h-100 border rounded shadow-lg">
                             <h4 className="font-weight-light">Co oferuje współpraca z nami?</h4>
                             <ul>
                                 <li className="font-weight-light">Prowadzenie treningów online na twoich zasadach.</li>
@@ -28,8 +28,8 @@ function Home_offer_trainer() {
                         </div>
                     </div>
 
-                    <div className="col-md-4">
-                        <div className="col-md-12 border rounded shadow-lg" id="trener_col">
+                    <div className="col-md-4 align-middle">
+                        <div className="col-md-12 h-100 border rounded shadow-lg">
 
                             <h4 className="font-weight-light">Jakie masz z tego korzyści?</h4>
                             <ul>
@@ -50,4 +50,4 @@ function Home_offer_trainer() {
     );
 }
 
-export default Home_offer_trainer;
+export default Dashboard_offer_trainer;

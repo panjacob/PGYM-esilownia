@@ -69,7 +69,7 @@ function DashboardApplication() {
     }
 
     function validateForm() {
-        return description.length > 0 && (appRole.includes('Trainer') || appRole.includes('Dietician'));
+        return description.length > 0 && (appRole.includes('Trainer') || appRole.includes('Dietician')) && fileToUpload !== undefined;
     }
 
     return (
