@@ -1,14 +1,22 @@
 import os
 import shutil
 import sys
-
+import os
 from manage import main
+
+# '/home/kuba/Dokumenty/Projekty/esilownia/manage.py'
+
+path = os.getcwd()
+print(path)
+if sys.platform == 'linux' or sys.platform == 'linux2':
+    path = f"{os.getcwd()}/manage.py"
+else:
+    path = '.\\manage.py'
 
 
 def manage_py(command):
     command_arr = command.split(' ')
-    # print(command_arr)
-    sys.argv = ['.\\manage.py'] + command_arr
+    sys.argv = [path] + command_arr
     main()
     sys.argv = []
 
