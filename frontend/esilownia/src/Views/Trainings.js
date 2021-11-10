@@ -9,6 +9,10 @@ import TrainingGroupAddParticipant from "../components/Trainings/Post/TrainingGr
 import TrainingGroupRemoveParticipant from "../components/Trainings/Post/TrainingGroupRemoveParticipant";
 
 function Trainings() {
+    let isTrainer = false;
+    if(localStorage.getItem('role')!==null){
+        isTrainer = JSON.parse(localStorage.getItem('role')).includes('trainer')
+    }
 
 
     return (
@@ -20,14 +24,19 @@ function Trainings() {
 
                 {/*<TrainingGroupTypeGet></TrainingGroupTypeGet>*/}
 
-                <TrainingGroupGet></TrainingGroupGet>
-                testowy guzik
-                <TrainingGroupAddParticipant></TrainingGroupAddParticipant>
+                {/* <TrainingGroupGet></TrainingGroupGet> */}
+                {/* testowy guzik
+                <TrainingGroupAddParticipant></TrainingGroupAddParticipant> */}
                 
                 {/* Strefa dla trenera */}
                 
                 {/*<TrainingGroupRemoveParticipant></TrainingGroupRemoveParticipant>*/}
-                 <TrainingGroupCreate></TrainingGroupCreate>
+                { (isTrainer === true) ? (
+                    <TrainingGroupCreate></TrainingGroupCreate>
+                ): ("")
+                    
+                }
+                 
 
             </div>
         </div>
