@@ -290,13 +290,13 @@ function TrainingGroupGetAll() {
                                                     </div>
                                                     <div className="col-10">
                                                         <div className="row">
-                                                    {trainingGroupTypeAll.map(function (type, id) {
-                                                        for (let i = 0; i < trainingGroup.type.length; i++) {
-                                                            if (trainingGroup.type.includes(type.id)) {
-                                                                return (<p className="ml-1 mr-1" key={id}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</p>)
-                                                            }
-                                                        }
-                                                    })}
+                                                    {/*{trainingGroupTypeAll.map(function (type, id) {*/}
+                                                    {/*    for (let i = 0; i < trainingGroup.type.length; i++) {*/}
+                                                    {/*        if (trainingGroup.type.includes(type.id)) {*/}
+                                                    {/*            return (<p className="ml-1 mr-1" key={id}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</p>)*/}
+                                                    {/*        }*/}
+                                                    {/*    }*/}
+                                                    {/*})}*/}
                                                         </div>
                                                     </div>
                                                 </div>

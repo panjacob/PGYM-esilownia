@@ -2,12 +2,45 @@ import React from "react";
 import {withRouter} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Logout from "../Logout/Logout";
-import {Container, Navbar, Nav, NavDropdown} from 'react-bootstrap'
+import {Container, Navbar, Nav, NavDropdown, NavItem} from 'react-bootstrap'
+import logo from '../../imgs/coin_img.png'
+import Notifications from "react-notifications-menu";
 
 function Header(props) {
 
+    const data = [
+        {
+            // zdjecie
+            image: logo,
+            // opis ktory sie wyswietla
+            message: 'Lorem ipsum dolor sit amet1.',
+            // opcjonalny href po kliknieciu w powiadomienie
+            detailPage: '/events',
+            // wyswietlany czas dostania
+            receivedTime: '12h ago',
+        },
+        {
+            image: logo,
+            message: 'Lorem ipsum dolor sit amet2.',
+            detailPage: '/events',
+            receivedTime: '12h ago'
+        }, {
+            image: logo,
+            message: 'Lorem ipsum dolor sit amet3.',
+            detailPage: '/events',
+            receivedTime: '12h ago'
+        },
+        {
+            image: logo,
+            message: 'Lorem ipsum dolor sit amet4.',
+            detailPage: '/events',
+            receivedTime: '12h ago'
+        }
+    ]
+
+
     let isModerator = false;
-    if(localStorage.getItem('role')!==null){
+    if (localStorage.getItem('role') !== null) {
         isModerator = JSON.parse(localStorage.getItem('role')).includes('moderator')
     }
 
@@ -50,12 +83,28 @@ function Header(props) {
                                         <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
                                         <NavDropdown.Divider/>
                                         {
-                                            (isModerator===true) ? (
+                                            (isModerator === true) ? (
 
-                                            < NavDropdown.Item href="/cockpit">Kokpit</NavDropdown.Item>
+                                                < NavDropdown.Item href="/cockpit">Kokpit</NavDropdown.Item>
                                             ) : ("")
                                         }
                                     </NavDropdown>
+                                    <Nav.Link>
+                                        <Notifications
+                                            data={data}
+                                            cardOption={data => console.log(data)}
+                                            markAsRead={data => {console.log('mar')}}
+                                            viewAllBtn={{text:'Pokaż wszystkie',onClick: ()=>{}}}
+                                            header={
+                                                {
+                                                    title: 'Notifications',
+                                                    option: {
+                                                        text: 'Zaznacz wszystkie jako przeczytane', onClick: () => {console.log(data)}
+                                                    }
+                                                }
+                                            }
+                                        />
+                                    </Nav.Link>
                                     <Nav.Link><Logout></Logout></Nav.Link>
                                 </Nav>
                             ) : (

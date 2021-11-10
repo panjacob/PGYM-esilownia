@@ -32,13 +32,6 @@ code {
   height: 20rem;
 }
 
-.content {
-	max-width: 50em;;
-	margin: 0 auto;
-	transform: skewY(7deg);
-  
-}
-
 #btn-login{
   width: 100%;
   border-color: orange !important;
@@ -198,3 +191,74 @@ input[type="checkbox"].switch_1:checked:after{
     left: calc(100% - 1.5em);
 }
 /* Switch 1 Specific Style End */
+
+/*Notification Menu-Start*/
+div.notifications div.container{
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px black;
+    background-color: rgba(100, 100, 100, 0.7);
+}
+
+div.notifications div.container div.header{
+    width:100%;
+    background: orange;
+    border: 1px solid gray;
+}
+
+div.notifications div.container div.header div.header-option{
+    color: black !important;
+    text-decoration: none;
+}
+
+div.notifications div.container div.items{
+    width:100%;
+    color: black;
+}
+div.notifications div.container div.footer{
+    width:100%;
+    background: orange;
+    border: 1px solid gray;
+}
+
+div.notifications div.container div.footer div.see-all{
+    color:black !important;
+}
+
+div.notifications div.container div.items div.card{
+    border-radius: 0;
+    border: 1px solid gray;
+    display: grid;
+    grid-template-columns: 85% 15%;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "main sidebar"
+}
+
+div.notifications div.container div.items div.card div.content{
+    grid-area: main;
+}
+div.notifications div.container div.items div.card div.options{
+    grid-area: sidebar;
+}
+div.notifications div.container div.items div.card div.options div.option{
+    height: 100%;
+    line-height: 2.0;
+    display: inline-block;
+    vertical-align: middle;
+    color: black;
+}
+
+@media screen and (max-width: 976px) {
+    /* UNDER 976px CSS here */
+    div.notifications div.container{
+        transform: translateX(0px) !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    div.notifications div.container{
+        width : 90vw;
+    }
+}
+/*Notification Menu-End*/
