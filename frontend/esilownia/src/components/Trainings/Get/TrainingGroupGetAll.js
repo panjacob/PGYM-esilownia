@@ -146,7 +146,6 @@ function TrainingGroupGetAll() {
                     setTrainingDetailsAll([...trainingDetailsAll, res.data]);
                     // console.log(trainingDetailsAll);
                 });
-
         });
 
 
