@@ -83,12 +83,7 @@ p:empty {
   border-radius: 0.5rem;
 }
 
-#karta_tren {
-  width: 22rem;
-  height: auto;
-  border-radius: 0.5rem;
-  min-height: 45rem;
-}
+
 
 #tren_container {
   height: auto;

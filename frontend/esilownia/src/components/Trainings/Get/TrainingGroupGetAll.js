@@ -128,11 +128,11 @@ function TrainingGroupGetAll() {
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
-            .then((res)=>{
+            .then((res) => {
                 setUserId(res.data.id)
-
             });
 
+        let listTrainingDetails = []
         trainingGroupAll.map((training) => {
             axiosInstance
                 .post(`training/group/get`, {id: training.id}, {
@@ -141,17 +141,13 @@ function TrainingGroupGetAll() {
                         'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                     }
                 })
-                .then((res)=>{
-                    
-                    setTrainingDetailsAll([...trainingDetailsAll, res.data]);
-                    // console.log(trainingDetailsAll);
+                .then((res) => {
+                    listTrainingDetails.push(res.data)
                 });
-
         });
-
+        setTrainingDetailsAll(listTrainingDetails)
 
     }, []);
-
 
     return (
         <div className="trainingGroupGetAll">
@@ -262,17 +258,17 @@ function TrainingGroupGetAll() {
 
                                                 <div className="row justify-content-center">
                                                     <div className="col-2 justify-content-center">
-                                                    <p>Typ treningu :</p>
+                                                        <p>Typ treningu :</p>
                                                     </div>
                                                     <div className="col-10">
                                                         <div className="row">
-                                                    {/*{trainingGroupTypeAll.map(function (type, id) {*/}
-                                                    {/*    for (let i = 0; i < trainingGroup.type.length; i++) {*/}
-                                                    {/*        if (trainingGroup.type.includes(type.id)) {*/}
-                                                    {/*            return (<p className="ml-1 mr-1" key={id}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</p>)*/}
-                                                    {/*        }*/}
-                                                    {/*    }*/}
-                                                    {/*})}*/}
+                                                            {/*{trainingGroupTypeAll.map(function (type, id) {*/}
+                                                            {/*    for (let i = 0; i < trainingGroup.type.length; i++) {*/}
+                                                            {/*        if (trainingGroup.type.includes(type.id)) {*/}
+                                                            {/*            return (<p className="ml-1 mr-1" key={id}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</p>)*/}
+                                                            {/*        }*/}
+                                                            {/*    }*/}
+                                                            {/*})}*/}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -344,7 +340,7 @@ function TrainingGroupGetAll() {
                             ''
                         )}
                     </div>
-                </div>    
+                </div>
             </div>
 
             <div className="text-center">
@@ -354,48 +350,51 @@ function TrainingGroupGetAll() {
             </div>
             <div className="row">
                 <div className="col-md-3 border text-center">
-                    sadas
+                    Filter
                 </div>
                 <div className="col-md-9 border text-center inline-block">
-                        <div id="offer_container" className="row justify-content-center">
-                            {trainingDetailsAll.map(function (training){
-                                if (training.participant.includes(userId)){
+                    <div id="offer_container" className="row justify-content-center">
+                        {trainingDetailsAll.map(function (training) {
+                            if (training.participant.length !== 0) {
+                                if (training.participant.includes(userId)) {
 
-                                    return(
-                                    <div style={{minWidth: '250px'}} className="col-md-4 mb-2 flex">
-                                    <div className="h-100 card m-1">
-                                        <img src={Photo} width="100%" height="width"
-                                             className="card-img-top rounded-circle"
-                                             alt="..."/>
-                                        <div className="card-body">
-                                            <div>
-                                                <h5 className="card-title">{training.title}</h5>
-                                                <div className="card-subtitle"
-                                                     style={{overflow: 'auto', height: '100px'}}>
-                                                    {trainingGroupTypeAll.map(function (type, id) {
-                                                        for (let i = 0; i < training.type.length; i++) {
-                                                            if (training.type.includes(type.id)) {
-                                                                return (<p className="m-0" key={id}>{type.type}</p>)
-                                                            }
-                                                        }
-                                                    })}
+                                    return (
+                                        <div style={{minWidth: '250px'}} className="col-md-4 mb-2 flex">
+                                            <div className="h-100 card m-1">
+                                                <img src={Photo} width="100%" height="width"
+                                                     className="card-img-top rounded-circle"
+                                                     alt="..."/>
+                                                <div className="card-body">
+                                                    <div>
+                                                        <h5 className="card-title">{training.title}</h5>
+                                                        <div className="card-subtitle"
+                                                             style={{overflow: 'auto', height: '100px'}}>
+                                                            {trainingGroupTypeAll.map(function (type, id) {
+                                                                for (let i = 0; i < training.type.length; i++) {
+                                                                    if (training.type.includes(type.id)) {
+                                                                        return (<p className="m-0"
+                                                                                   key={id}>{type.type}</p>)
+                                                                    }
+                                                                }
+                                                            })}
+                                                        </div>
+                                                        <p className="card-text"> Poziom: {training.difficulty}</p>
+                                                        <button className="btn btn-lg mb-4">
+                                                            Pokaż więcej
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <p className="card-text"> Poziom: {training.difficulty}</p>
-                                                <button className="btn btn-lg mb-4">
-                                                    Pokaż więcej
-                                                </button>
                                             </div>
                                         </div>
-                                    </div>
-                                    </div>
-                                    
-                                        )
+
+                                    )
 
                                 }
+                            }
 
-                            })}
-                                
-                        </div>
+                        })}
+
+                    </div>
                 </div>
             </div>
 
