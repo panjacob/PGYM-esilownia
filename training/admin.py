@@ -5,7 +5,7 @@ from training.models import TrainingGroup, TrainingGroupType, Training
 @admin.register(TrainingGroup)
 class TrainingGroupAdmin(admin.ModelAdmin):
     model = TrainingGroup
-    list_display = ['id', 'owner', 'title', 'description', 'date', 'difficulty']
+    list_display = ['id', 'owner', 'title', 'description', 'date', 'difficulty', 'price_day', 'price_week', 'price_month']
 
 
 @admin.register(TrainingGroupType)
@@ -15,6 +15,9 @@ class TrainingGroupTypesAdmin(admin.ModelAdmin):
 
 
 @admin.register(Training)
-class TrainingGroupTypesAdmin(admin.ModelAdmin):
+class TrainingAdmin(admin.ModelAdmin):
     model = Training
     list_display = ['id', 'training_group', 'title', 'description', 'date_start', 'date_end', 'calories']
+
+# TrainingGroupParticipant
+# Image
