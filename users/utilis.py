@@ -26,7 +26,11 @@ def put_owner_in_request_data(request):
     return request
 
 
-
+def put_sender_in_request_data(request):
+    request.data._mutable = True
+    request.data['sender'] = request.user.id
+    request.data._mutable = False
+    return request
 
 
 def moderator_required():

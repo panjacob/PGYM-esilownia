@@ -69,7 +69,7 @@ def training_group_join(request):
 
 
 @api_view(['POST'])
-@training_group_owner_required()
+# @training_group_owner_required()
 def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     participant = models.TrainingGroupParticipant.objects.get(user=request.user, training_group = training_group)
