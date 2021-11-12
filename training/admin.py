@@ -1,5 +1,5 @@
 from django.contrib import admin
-from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupParticipant
+from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupParticipant, TrainingGroupImage
 
 
 @admin.register(TrainingGroup)
@@ -26,5 +26,10 @@ class TrainingGroupParticipantsAdmin(admin.ModelAdmin):
     model = TrainingGroupParticipant
     list_display = ['id', 'user', 'training_group', 'subscription_end']
 
+
 # TrainingGroupParticipant
+@admin.register(TrainingGroupImage)
+class TrainingGroupImageAdmin(admin.ModelAdmin):
+    model = TrainingGroupImage
+    list_display = ['id', 'owner', 'image', 'training_group']
 # Image
