@@ -72,8 +72,7 @@ def training_group_join(request):
 # @training_group_owner_required()
 def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
-    participant = models.TrainingGroupParticipant.objects.get(user=request.user, training_group = training_group)
-    training_group.traininggroupparticipant_set.remove(participant)
+    models.TrainingGroupParticipant.objects.get(user=request.data['user'], training_group=training_group).delete()
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
