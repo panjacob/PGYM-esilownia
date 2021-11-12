@@ -1,14 +1,21 @@
 import os
 import shutil
 import sys
-
+import os
 from manage import main
+
+path = os.getcwd()
+print(path)
+if sys.platform == 'windows':
+    path = '.\\manage.py'
+else:
+    path = f"{os.getcwd()}/manage.py"
+
 
 
 def manage_py(command):
     command_arr = command.split(' ')
-    # print(command_arr)
-    sys.argv = ['.\\manage.py'] + command_arr
+    sys.argv = [path] + command_arr
     main()
     sys.argv = []
 

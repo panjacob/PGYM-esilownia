@@ -9,6 +9,7 @@ import users.serializers as serializers
 from users import utilis
 from users.models import UserExtended
 from users.utilis import superuser_required, moderator_required
+from training.models import TrainingGroupParticipant
 
 
 @api_view((['POST']))
@@ -64,7 +65,14 @@ def user_change_password(request):
 def user_info(request):
     user = request.user
     serializer = serializers.UserInfoSerializer(user)
-    return JsonResponse(serializer.data)
+    result = serializer.data
+    result['trainings'] = []
+    trainings_group_participant = TrainingGroupParticipant.objects.filter(user=user).all()
+    for training_group in trainings_group_participant:
+        result['trainings'].append(
+            {'training_group': training_group.training_group.id, 'subscription_end': training_group.subscription_end})
+
+    return JsonResponse(result, safe=False)
 
 
 @api_view(['POST'])

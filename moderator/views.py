@@ -41,11 +41,11 @@ def application_all(request):
 @api_view(['POST'])
 def application_accept(request):
     application = models.Application.objects.get(id=request.data['id'])
-    if application.trainer:
-        application.owner.is_coach = True
-    if application.dietician:
-        application.owner.is_dietician = True
-    application.owner.save()
+    # if application.trainer:
+    #     application.owner.is_coach = True
+    # if application.dietician:
+    #     application.owner.is_dietician = True
+    # application.owner.save()
     application.status = application.ACCEPTED
     application.save()
 
