@@ -6,7 +6,6 @@ import Button from "react-bootstrap/Button";
 
 function TrainingGroupCreate() {
 
-    const [date, setDate] = useState("");
     const [difficulity, setDifficulity] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -18,7 +17,7 @@ function TrainingGroupCreate() {
     const [typeSelected, setTypeSelected] = useState([]);
 
     function validateForm() {
-        return date.length > 0 && difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0 && pricePractice > 0 && priceWeek > 0 && priceMonth > 0;
+        return difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0 && pricePractice > 0 && priceWeek > 0 && priceMonth > 0;
     }
 
     const handleSubmit = (e) => {
@@ -27,7 +26,6 @@ function TrainingGroupCreate() {
         console.log(typeSelected)
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("date", date);
         urlencoded.append("difficulty", difficulity);
         urlencoded.append("title", title);
         urlencoded.append("description", description);
@@ -54,6 +52,7 @@ function TrainingGroupCreate() {
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
+    window.location.reload();
     };
 
     useEffect(() => {
@@ -103,15 +102,6 @@ function TrainingGroupCreate() {
                 </div>
 
                 <Form className="border p-4" onSubmit={handleSubmit}>
-                    <Form.Group size="lg" controlId="date">
-                        <Form.Label>Data</Form.Label>
-                        <Form.Control
-                            autoFocus
-                            type="date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                        />
-                    </Form.Group>
                     <Form.Group size="lg" controlId="text">
                         <Form.Label>Stopień Zaawansowania</Form.Label>
                         <div onChange={selectedDifficulty.bind(this)}>

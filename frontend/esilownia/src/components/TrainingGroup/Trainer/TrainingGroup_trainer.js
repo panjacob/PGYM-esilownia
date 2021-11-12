@@ -8,9 +8,9 @@ function TrainingGroupTrainer() {
     return (
         <div className="trainingGroupTrainer">
 
-            <TrainingGroupCreate></TrainingGroupCreate>
-
             <TrainingGroupShowTrainerTrainings></TrainingGroupShowTrainerTrainings>
+
+            <TrainingGroupCreate></TrainingGroupCreate>
 
             <div className='container text-center'>
                 Tutaj miejsce na edycje grupy / usuwanie paticipantów z grup treningowych

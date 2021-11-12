@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
 import Photo from "../../../imgs/gymcoin.png";
-import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 
 function TrainingGroupShowTrainerTrainings() {
@@ -60,10 +59,10 @@ function TrainingGroupShowTrainerTrainings() {
                     <hr></hr>
                 </div>
                 <div className="row">
-                    <div className="col-md-3 border text-center">
-                        Filtowanie
-                    </div>
-                    <div className="col-md-9 border text-center inline-block">
+                    {/*<div className="col-md-3 border text-center">*/}
+                    {/*    Filtowanie*/}
+                    {/*</div>*/}
+                    <div className="col-md-12 border text-center inline-block">
                         <div id="offer_container" className="row justify-content-center">
                             <div className="row">
                                 {trainingGroupAll.map((training, idx) => {

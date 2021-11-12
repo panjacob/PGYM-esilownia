@@ -8,7 +8,7 @@ function TrainingTrainer(props) {
     const [groupInfo, setGroupInfo] = useState([]);
     const [groupInfoParticipants, setGroupInfoParticipants] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
-    const [username, setUsername] = useState("")
+    const [usersData, setUsersData] = useState([])
 
 
     useEffect(() => {
@@ -25,16 +25,19 @@ function TrainingTrainer(props) {
                 setGroupInfoParticipants(res.data.participants)
             });
 
-        axiosInstance
-            .post(`users/info/`, {},{
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-            .then((res) => {
-                setUsername(res.data.username)
-            });
+        groupInfoParticipants.map((user) =>{
+            axiosInstance
+                .post(`/users/get/`, {id: user.user}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                    }
+                })
+                .then((res) => {
+                    setUsersData([...usersData, res.data]);
+                    console.log(usersData);
+                })
+        })
 
     }, [props.groupId]);
 
@@ -46,12 +49,9 @@ function TrainingTrainer(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(username)
-        console.log(typeSelected)
-
         var urlencoded = new URLSearchParams();
-        urlencoded.append("training_group_id", groupInfo.id);
-        urlencoded.append("user_id", typeSelected);
+        urlencoded.append("training_group", groupInfo.id);
+        urlencoded.append("user", typeSelected);
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
@@ -66,9 +66,8 @@ function TrainingTrainer(props) {
 
         fetch("http://127.0.0.1:8000/training/group/participant/remove", requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
+    window.location.reload();
     };
 
     function validateForm() {
@@ -80,12 +79,10 @@ function TrainingTrainer(props) {
             <div className="container">
                 <div className="container text-center">
                     <hr/>
-                    <h1>Usuń użytkownika z grupy</h1>
+                    <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Usuń użytkownika z grupy</h1>
                     <hr/>
-                    <p>{JSON.stringify(groupInfo.participants)}</p>
-                    <p>Owner: {JSON.stringify(groupInfo.owner)}</p>
-                    <p>Id grupy: {JSON.stringify(groupInfo.id)}</p>
-                    <div className="container border">
+                    <div className="row border justify-content-center">
+                        <div className="col-md-5">
                         <select className="m-4" size="lg" controlId="text" onChange={typesChecked}>
 
                             {groupInfoParticipants.map((participants, idx) => (
@@ -98,10 +95,13 @@ function TrainingTrainer(props) {
                             ))
                             }
                         </select>
+                        </div>
+                        <div className="col-md-3 my-auto">
                         <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
                                 disabled={!validateForm()}>
                             Usuń Użytkownika
                         </Button>
+                        </div>
                     </div>
                 </div>
 
