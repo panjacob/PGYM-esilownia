@@ -3347,7 +3347,7 @@ function XRegExp(pattern, flags) {
                 output += result.output;
                 pos += (result.matchLength || 1);
             } else {
-                // Get the native token at the current position
+                // Get_DoUsuniecia the native token at the current position
                 var token = XRegExp.exec(appliedPattern, nativeTokens[scope], pos, 'sticky')[0];
                 output += token;
                 pos += token.length;
@@ -3610,7 +3610,7 @@ XRegExp.exec = function(str, regex, pos, sticky) {
     // Fixed `exec` required for `lastIndex` fix, named backreferences, etc.
     match = fixed.exec.call(r2, str);
 
-    // Get rid of the capture added by the pseudo-sticky matcher if needed. An empty string means
+    // Get_DoUsuniecia rid of the capture added by the pseudo-sticky matcher if needed. An empty string means
     // the original regexp failed (see above).
     if (fakeY && match && match.pop() === '') {
         match = null;

@@ -6,7 +6,7 @@ import Home from "./Views/Home";
 import Login from "./Views/Login";
 import Register from "./Views/Register";
 import Cadre from "./Views/Cadre";
-import Trainings from "./Views/Trainings";
+import TrainingGroups from "./Views/TrainingGroups";
 import Diet from "./Views/Diet";
 import AboutUs from "./Views/About_us";
 import PriceList from "./Views/Price_list";
@@ -14,6 +14,8 @@ import Account from "./Views/Account";
 import Dashboard from "./Views/Dashboard";
 import AccountEdit from "./Views/Account_edit";
 import ModeratorPanel from "./Views/Moderator_panel";
+import TrainerSpace from "./Views/TrainingGroups_TrainerSpace";
+import TrainingsTrainerSpace from "./Views/Trainings_TrainerSpace";
 
 function App() {
     return (
@@ -25,7 +27,7 @@ function App() {
                     <Route path="/cennik" exact component={() => <PriceList/>}/>
                     <Route path="/" exact component={() => <Home/>}/>
                     <Route path="/kadra" exact component={() => <Cadre/>}/>
-                    <Route path="/treningi" exact component={() => <Trainings/>}/>
+                    <Route path="/treningi" exact component={() => <TrainingGroups/>}/>
                     <Route path="/dieta" exact component={() => <Diet/>}/>
                     <Route path="/login" exact component={() => <Login/>}/>
                     <Route path="/register" exact component={() => <Register/>}/>
@@ -33,6 +35,8 @@ function App() {
                     <Route path="/konto_edycja" exact component={() => <AccountEdit/>}/>
                     <Route path="/dashboard" exact component={() => <Dashboard/>}/>
                     <Route path="/cockpit" exact component={() => <ModeratorPanel/>}/>
+                    <Route path="/strefa_trenera" exact component={() => <TrainerSpace/>}/>
+                    <Route path="/strefa_trenera_treningi" exact component={() => <TrainingsTrainerSpace/>}/>
                 </Switch>
                 <Footer/>
             </Router>

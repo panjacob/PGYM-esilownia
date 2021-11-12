@@ -1,10 +1,10 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TrainingGet from "../components/Training/Get/TrainingGet";
-import TrainingJoin from "../components/Training/Get/TrainingJoin";
-import TrainingLeave from "../components/Training/Get/TrainingLeave";
-import TrainingCreate from "../components/Training/Post/TrainingCreate"
-import TrainingRemove from "../components/Training/Post/TrainingRemove";
+import TrainingGet from "../components/Training/Get_DoUsuniecia/TrainingGet";
+import TrainingJoin from "../components/Training/Get_DoUsuniecia/TrainingJoin";
+import TrainingLeave from "../components/Training/Get_DoUsuniecia/TrainingLeave";
+import TrainingCreate from "../components/Training/Post_DoUsuniecia/TrainingCreate"
+import TrainingRemove from "../components/Training/Post_DoUsuniecia/TrainingRemove";
 
 function Training() {
 
