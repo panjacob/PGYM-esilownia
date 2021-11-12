@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 function TrainingTrainer(props) {
 
     const [groupInfo, setGroupInfo] = useState([]);
+    const [groupInfoParticipants, setGroupInfoParticipants] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
 
 
@@ -21,9 +22,11 @@ function TrainingTrainer(props) {
             })
             .then((res) => {
                 setGroupInfo(res.data)
+                setGroupInfoParticipants(res.data.participants)
             });
 
     }, [props.groupId]);
+
 
     const typesChecked = (e) => {
 
@@ -81,33 +84,32 @@ function TrainingTrainer(props) {
                     <p>Owner: {JSON.stringify(groupInfo.owner)}</p>
                     <p>Id grupy: {JSON.stringify(groupInfo.id)}</p>
 
-                        <select className="mb-4" size="lg" controlId="text" onChange={typesChecked.bind(this)}>
-                                {(groupInfo !== undefined)?(
-                                    
-                                    // groupInfo.participants.map((participants, idx) => (
-                                    //     <option 
-                                    //     key={idx} 
-                                    //     value={participants.user}
-                                    //     >{participants.training_group_participant}
-                                    //     </option>
-                                    //     ))
-                                    <option>d</option>
-                                ):(
-                                    <div>
-                                        brak danych
-                                    </div>
-                                )
-                                }
-                        </select>
-                        <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
+
+
+                    <select className="mb-4" size="lg" controlId="text" onChange={typesChecked.bind(this)}>
+
+                        {groupInfoParticipants.map((participants, idx) => (
+                                    <option
+                                        key={idx}
+                                        value={participants.user}
+                                    >
+                                        {participants.training_group_participant}
+                                    </option>
+                                ))
+                        }
+
+
+                    </select>
+                    <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
                             disabled={!validateForm()}>
-                            Usuń Użytkownika
-                        </Button>
+                        Usuń Użytkownika
+                    </Button>
                 </div>
 
             </div>
         </div>
     );
+
 }
 
 export default TrainingTrainer;
