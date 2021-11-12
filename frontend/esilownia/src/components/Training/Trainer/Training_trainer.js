@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 function TrainingTrainer(props) {
@@ -9,6 +8,7 @@ function TrainingTrainer(props) {
     const [groupInfo, setGroupInfo] = useState([]);
     const [groupInfoParticipants, setGroupInfoParticipants] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
+    const [username, setUsername] = useState("")
 
 
     useEffect(() => {
@@ -25,31 +25,33 @@ function TrainingTrainer(props) {
                 setGroupInfoParticipants(res.data.participants)
             });
 
+        axiosInstance
+            .post(`users/info/`, {},{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setUsername(res.data.username)
+            });
+
     }, [props.groupId]);
 
 
     const typesChecked = (e) => {
-
-        if (typeSelected.indexOf(e.target.name) !== -1) {
-            let user = e.target.name;
-            setTypeSelected(typeSelected.filter((e) => (e !== user)))
-        } else {
-            let user = e.target.name;
-            setTypeSelected([...typeSelected, user]);
-        }
-
+    setTypeSelected(e.target.value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        console.log(username)
         console.log(typeSelected)
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("training_group_id", groupInfo.id);
-        for (let i = 0; i < typeSelected.length; i++) {
-            urlencoded.append("user_id", typeSelected[i]);
-        }
+        urlencoded.append("user_id", typeSelected);
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
@@ -83,27 +85,24 @@ function TrainingTrainer(props) {
                     <p>{JSON.stringify(groupInfo.participants)}</p>
                     <p>Owner: {JSON.stringify(groupInfo.owner)}</p>
                     <p>Id grupy: {JSON.stringify(groupInfo.id)}</p>
+                    <div className="container border">
+                        <select className="m-4" size="lg" controlId="text" onChange={typesChecked}>
 
-
-
-                    <select className="mb-4" size="lg" controlId="text" onChange={typesChecked.bind(this)}>
-
-                        {groupInfoParticipants.map((participants, idx) => (
-                                    <option
-                                        key={idx}
-                                        value={participants.user}
-                                    >
-                                        {participants.training_group_participant}
-                                    </option>
-                                ))
-                        }
-
-
-                    </select>
-                    <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
-                            disabled={!validateForm()}>
-                        Usuń Użytkownika
-                    </Button>
+                            {groupInfoParticipants.map((participants, idx) => (
+                                <option
+                                    key={idx}
+                                    value={participants.user}
+                                >
+                                    {participants.user}
+                                </option>
+                            ))
+                            }
+                        </select>
+                        <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
+                                disabled={!validateForm()}>
+                            Usuń Użytkownika
+                        </Button>
+                    </div>
                 </div>
 
             </div>
