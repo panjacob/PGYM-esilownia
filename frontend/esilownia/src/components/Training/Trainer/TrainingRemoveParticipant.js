@@ -49,7 +49,7 @@ function TrainingRemoveParticipant(props) {
     }, [groupInfoParticipants]);
 
 
-    const typesChecked = (e) => {
+    const userChosen = (e) => {
         setUserSelected(e.target.value)
     }
 
@@ -96,7 +96,7 @@ function TrainingRemoveParticipant(props) {
                     </div>
                     <div className='col-md-5 my-auto'>
                         <select className='text-center' style={{width: '100%', height: '30px'}}
-                                onChange={typesChecked}>
+                                onChange={userChosen}>
                             <option value='none'> - </option>
                             {groupInfoParticipants.map(function (participants, idx) {
                                 for (let i = 0; i < usersData.length; i++) {

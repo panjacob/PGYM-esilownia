@@ -62,7 +62,6 @@ function TrainingGroupShowAll() {
             })
             .then((res) => {
                 setTrainingGroup(res.data)
-                console.log(res.data)
                 axiosInstance
                     .post(`/users/get/`, {id: res.data.owner}, {
                         headers: {

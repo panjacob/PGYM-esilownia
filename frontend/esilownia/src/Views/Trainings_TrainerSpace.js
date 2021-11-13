@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useLocation} from 'react-router-dom'
 import TrainingRemoveParticipant from "../components/Training/Trainer/TrainingRemoveParticipant";
+import TrainingGroupAddImage from "../components/Training/Trainer/TrainingGroupAddImage";
 
 function TrainingsTrainerSpace() {
 
@@ -20,7 +21,7 @@ function TrainingsTrainerSpace() {
             <div className="container text-center">
 
                 <TrainingRemoveParticipant groupId={groupId}></TrainingRemoveParticipant>
-
+                {/*<TrainingGroupAddImage groupId={groupId}></TrainingGroupAddImage>*/}
                 Miejsce na operacje trenera na treningach znajdujacych sie w grupach treningowych
 
             </div>

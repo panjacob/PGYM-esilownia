@@ -43,7 +43,6 @@ function TrainingGroupShowUserTrainings() {
             })
             .then((res) => {
                 setUserTrainings(res.data.trainings)
-                console.log(res.data)
             });
 
     }, []);

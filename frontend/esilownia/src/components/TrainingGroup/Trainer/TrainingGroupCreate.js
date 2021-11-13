@@ -176,7 +176,7 @@ function TrainingGroupCreate() {
                                 />
                             </div>
                             <div className="col-md-3">
-                                <Form.Label>Miesiąć</Form.Label>
+                                <Form.Label>Miesiąc</Form.Label>
                                 <Form.Control
                                     type="number"
                                     value={priceMonth}
