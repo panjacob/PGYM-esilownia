@@ -11,9 +11,15 @@ function TrainingGroupTrainer() {
 
             <TrainingGroupShowTrainerTrainings></TrainingGroupShowTrainerTrainings>
 
+            <div className='row'>
+                <div className='col-md-6'>
             <TrainingGroupCreate></TrainingGroupCreate>
-
+                </div>
+                <div className='col-md-6'>
             <TrainingGroupEdit></TrainingGroupEdit>
+                </div>
+            </div>
+
 
             <div className='container text-center'>
                 Tutaj miejsce na edycje grupy / usuwanie paticipantów z grup treningowych

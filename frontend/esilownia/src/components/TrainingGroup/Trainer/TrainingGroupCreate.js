@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import useCollapse from "react-collapsed";
 
 function TrainingGroupCreate() {
 
@@ -19,6 +20,8 @@ function TrainingGroupCreate() {
     function validateForm() {
         return difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0 && pricePractice > 0 && priceWeek > 0 && priceMonth > 0;
     }
+
+    const {getCollapseProps, getToggleProps, isExpanded} = useCollapse()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -95,13 +98,30 @@ function TrainingGroupCreate() {
     return (
         <div className="createGroup">
             <div className="container">
+
                 <div className="text-center">
                     <hr></hr>
-                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Stwórz grupe
-                        treningową</h1>
+                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Stwórz Grupę</h1>
                     <hr></hr>
                 </div>
 
+
+                <div className='container'></div>
+
+                <div className='row mx-auto ml-0 mr-0 justify-content-center'>
+                    <div className='row border p-4'>
+
+                        <div className="col-md-5 text-center my-auto" style={{minWidth: '200px'}}>
+                            <button block size="lg" className="btn btn-lg" id="btn-login"
+                                    {...getToggleProps()}>
+                                {(isExpanded) ? 'Zamknij Panel' : 'Stwórz Grupę'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row mt-4">
+                    <div className="container" {...getCollapseProps()}>
                 <Form className="border p-4" onSubmit={handleSubmit}>
                     <Form.Group size="lg" controlId="text">
                         <Form.Label>Stopień Zaawansowania</Form.Label>
@@ -190,6 +210,9 @@ function TrainingGroupCreate() {
                         Utwórz Grupę
                     </Button>
                 </Form>
+                    </div>
+                </div>
+
             </div>
         </div>
     );

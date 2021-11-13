@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
 import Photo from "../../../imgs/gymcoin.png";
@@ -14,7 +14,8 @@ function TrainingGroupEdit() {
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
     const [userInfo, setUserInfo] = useState("");
     const [groupToEditId, setGroupToEditId] = useState('none')
-    const [difficulty, setDifficulty] = useState([]);
+    const [difficulty, setDifficulty] = useState('');
+    const [difficultyNew, setDifficultyNew] = useState('')
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [pricePractice, setPricePractice] = useState(0);
@@ -77,7 +78,6 @@ function TrainingGroupEdit() {
     }, []);
 
     const {getCollapseProps, getToggleProps, isExpanded} = useCollapse()
-    const titleRef = useRef()
 
 
     const groupChosen = (e) => {
@@ -117,7 +117,13 @@ function TrainingGroupEdit() {
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("id", groupToEditId);
-        urlencoded.append("difficulty", difficulty);
+
+        if(difficultyNew === '') {
+            urlencoded.append("difficulty", difficulty);
+        } else {
+            urlencoded.append("difficulty", difficultyNew);
+        }
+
         urlencoded.append("title", title);
         urlencoded.append("description", description);
 
@@ -156,7 +162,7 @@ function TrainingGroupEdit() {
     };
 
     const selectedDifficulty = (e) => {
-        setDifficulty(e.target.value)
+        setDifficultyNew(e.target.value)
     }
 
     const typesChecked = (e) => {
@@ -178,8 +184,7 @@ function TrainingGroupEdit() {
 
                 <div className="text-center">
                     <hr></hr>
-                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4"
-                        ref={titleRef}>Edytuj Grupę</h1>
+                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Edytuj Grupę</h1>
                     <hr></hr>
                 </div>
 
