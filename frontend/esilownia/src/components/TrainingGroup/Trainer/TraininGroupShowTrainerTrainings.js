@@ -58,58 +58,51 @@ function TrainingGroupShowTrainerTrainings() {
                         (Trener)</h1>
                     <hr></hr>
                 </div>
-                <div className="row">
-                    {/*<div className="col-md-3 border text-center">*/}
-                    {/*    Filtowanie*/}
-                    {/*</div>*/}
-                    <div className="col-md-12 border text-center inline-block">
-                        <div id="offer_container" className="row justify-content-center">
-                            <div className="row">
-                                {trainingGroupAll.map((training, idx) => {
-                                    if (training.owner === userInfo.id) {
-                                        return (
-                                            <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-2 flex">
-                                                <div className="h-100 card m-1">
-                                                    <img src={Photo} width="100%" height="width"
-                                                         className="card-img-top rounded-circle"
-                                                         alt="..."/>
-                                                    <div className="card-body">
-                                                        <div>
-                                                            <h5 className="card-title">{training.title}</h5>
-                                                            <div className="card-subtitle"
-                                                                 style={{overflow: 'auto', height: '100px'}}>
-                                                                {trainingGroupTypeAll.map(function (type, id) {
-                                                                    for (let i = 0; i < training.type.length; i++) {
-                                                                        if (training.type.includes(type.id)) {
-                                                                            return (<p className="m-0"
-                                                                                       key={id}>{type.type}</p>)
-                                                                        }
-                                                                    }
-                                                                })}
-                                                            </div>
-                                                            <p className="card-text"> Poziom: {training.difficulty}</p>
-                                                            <p className="card-text text-center"> Trener: </p>
-                                                            <p className="card-text"> Imie: {userInfo.first_name}</p>
-                                                            <p className="card-text"> Naziwsko: {userInfo.last_name}</p>
-                                                            <Link className='btn' to={{
-                                                                pathname: '/strefa_trenera_treningi',
-                                                                state: {
-                                                                    groupId: training.id
-                                                                }
-                                                            }}>Szczegóły Grupy {training.id}</Link>
-
-                                                        </div>
-                                                    </div>
+                <div className="row border justify-content-center text-center inline-block">
+                    {trainingGroupAll.map((training, idx) => {
+                        if (training.owner === userInfo.id) {
+                            return (
+                                <div key={idx} style={{minWidth: '250px'}} className="col-md-3 mb-3 mt-2 flex ">
+                                    <div className="h-100 card m-1 shadow">
+                                        <img src={Photo} width="100%" height="width"
+                                             className="card-img-top rounded-circle"
+                                             alt="..."/>
+                                        <div className="card-body">
+                                            <div>
+                                                <h5 className="card-title">{training.title}</h5>
+                                                <div className="card-subtitle"
+                                                     style={{overflow: 'auto', height: '100px'}}>
+                                                    {trainingGroupTypeAll.map(function (type, id) {
+                                                        for (let i = 0; i < training.type.length; i++) {
+                                                            if (training.type.includes(type.id)) {
+                                                                return (<p className="m-0"
+                                                                           key={id}>{type.type}</p>)
+                                                            }
+                                                        }
+                                                    })}
                                                 </div>
+                                                <p className="card-text"> Poziom: {training.difficulty}</p>
+                                                <p className="card-text text-center"> Trener: </p>
+                                                <p className="card-text"> Imie: {userInfo.first_name}</p>
+                                                <p className="card-text"> Naziwsko: {userInfo.last_name}</p>
+                                                <Link className='btn' to={{
+                                                    pathname: '/strefa_trenera_treningi',
+                                                    state: {
+                                                        groupId: training.id
+                                                    }
+                                                }}>Szczegóły Grupy {training.id}</Link>
+
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                        )
-                                    }
-                                })}
-                            </div>
-                        </div>
-                    </div>
-
+                            )
+                        }
+                    })}
+                    <div style={{minWidth: '250px'}} className="col-md-3"></div>
+                    <div style={{minWidth: '250px'}} className="col-md-3"></div>
+                    <div style={{minWidth: '250px'}} className="col-md-3"></div>
                 </div>
             </div>
         </div>

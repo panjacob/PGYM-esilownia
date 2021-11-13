@@ -52,7 +52,7 @@ function TrainingGroupCreate() {
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
-    window.location.reload();
+        window.location.reload()
     };
 
     useEffect(() => {
@@ -72,6 +72,7 @@ function TrainingGroupCreate() {
                     alert(error)
                     return Promise.reject(error)
                 });
+
     }, []);
 
     const typesChecked = (e) => {

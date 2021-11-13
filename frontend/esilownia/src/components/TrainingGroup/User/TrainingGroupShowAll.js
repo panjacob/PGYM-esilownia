@@ -185,8 +185,8 @@ function TrainingGroupShowAll() {
                             }
 
                             return (
-                                <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-2 flex">
-                                    <div className="h-100 card m-1" key={idx}>
+                                <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
+                                    <div className="h-100 card m-1 shadow" key={idx}>
                                         <img src={Photo} width="100%" height="width"
                                              className="card-img-top rounded-circle"
                                              alt="..."/>
@@ -290,26 +290,8 @@ function TrainingGroupShowAll() {
                                 </div>
                             )
                         })}
-                        {(trainingFilter.length % 3 === 0) ? (
-                            <div style={{minWidth: '250px'}} className="col-md-4"></div>
-                        ) : (
-                            ''
-                        )}
-                        {(trainingFilter.length % 3 === 1) ? (
-                            <div style={{minWidth: '250px'}} className="col-md-4"></div>
-                        ) : (
-                            ''
-                        )}
-                        {(trainingFilter.length % 3 === 1) ? (
-                            <div style={{minWidth: '250px'}} className="col-md-4"></div>
-                        ) : (
-                            ''
-                        )}
-                        {(trainingFilter.length % 3 === 2) ? (
-                            <div style={{minWidth: '250px'}} className="col-md-4"></div>
-                        ) : (
-                            ''
-                        )}
+                        <div style={{minWidth: '250px'}} className="col-md-4"></div>
+                        <div style={{minWidth: '250px'}} className="col-md-4"></div>
                     </div>
                 </div>
             </div>

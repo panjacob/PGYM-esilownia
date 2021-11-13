@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
 import Button from "react-bootstrap/Button";
 
-function TrainingTrainer(props) {
+function TrainingRemoveParticipant(props) {
 
     const [groupInfo, setGroupInfo] = useState([]);
     const [groupInfoParticipants, setGroupInfoParticipants] = useState([]);
@@ -25,7 +25,12 @@ function TrainingTrainer(props) {
                 setGroupInfoParticipants(res.data.participants)
             });
 
-        groupInfoParticipants.map((user) =>{
+    }, [props.groupId]);
+
+    useEffect(() => {
+
+        let list = []
+        groupInfoParticipants.map((user) => {
             axiosInstance
                 .post(`/users/get/`, {id: user.user}, {
                     headers: {
@@ -35,15 +40,17 @@ function TrainingTrainer(props) {
                 })
                 .then((res) => {
                     setUsersData([...usersData, res.data]);
-                    console.log(usersData);
+                    list.push(res.data)
+                    setUsersData(list)
+
                 })
         })
 
-    }, [props.groupId]);
+    }, [groupInfoParticipants]);
 
 
     const typesChecked = (e) => {
-    setTypeSelected(e.target.value)
+        setTypeSelected(e.target.value)
     }
 
     const handleSubmit = (e) => {
@@ -67,7 +74,7 @@ function TrainingTrainer(props) {
         fetch("http://127.0.0.1:8000/training/group/participant/remove", requestOptions)
             .then(response => response.text())
             .catch(error => console.log('error', error));
-    window.location.reload();
+        window.location.reload();
     };
 
     function validateForm() {
@@ -75,40 +82,53 @@ function TrainingTrainer(props) {
     }
 
     return (
-        <div className="trainingTrainer">
-            <div className="container">
-                <div className="container text-center">
-                    <hr/>
-                    <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Usuń użytkownika z grupy</h1>
-                    <hr/>
-                    <div className="row border justify-content-center">
-                        <div className="col-md-5">
-                        <select className="m-4" size="lg" controlId="text" onChange={typesChecked}>
+        <div className="trainingRemoveParticipant">
 
-                            {groupInfoParticipants.map((participants, idx) => (
-                                <option
-                                    key={idx}
-                                    value={participants.user}
-                                >
-                                    {participants.user}
-                                </option>
-                            ))
-                            }
+            <hr/>
+            <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Usuń użytkownika z
+                grupy</h1>
+            <hr/>
+
+            <div className="container justify-content-center border p-4">
+                <div className="row m-4 justify-content-center">
+                    <div className='col-md-5 my-auto'>
+                        <p className='m-0'><b>Wybierz użytkownika do usunięcia :</b></p>
+                    </div>
+                    <div className='col-md-5 my-auto'>
+                        <select className='text-center' style={{width: '100%', height: '30px'}}
+                                onChange={typesChecked}>
+
+                            {groupInfoParticipants.map(function (participants, idx) {
+                                for (let i = 0; i < usersData.length; i++) {
+                                    if (usersData[i].id === participants.user) {
+                                        return (
+                                            <option
+                                                key={idx}
+                                                value={participants.user}
+                                            >
+                                                {usersData[i].username}
+                                            </option>
+                                        )
+                                    }
+                                }
+                            })}
+
                         </select>
-                        </div>
-                        <div className="col-md-3 my-auto">
+                    </div>
+                </div>
+
+                <div className="row justify-content-center my-auto">
+                    <div className='col-md-3'>
                         <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
                                 disabled={!validateForm()}>
                             Usuń Użytkownika
                         </Button>
-                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );
 
 }
 
-export default TrainingTrainer;
+export default TrainingRemoveParticipant;
