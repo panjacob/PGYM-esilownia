@@ -16,6 +16,7 @@ import AccountEdit from "./Views/Account_edit";
 import ModeratorPanel from "./Views/Moderator_panel";
 import TrainerSpace from "./Views/TrainingGroups_TrainerSpace";
 import TrainingsTrainerSpace from "./Views/Trainings_TrainerSpace";
+import Training from "./Views/Training";
 
 function App() {
     return (
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/cockpit" exact component={() => <ModeratorPanel/>}/>
                     <Route path="/strefa_trenera" exact component={() => <TrainerSpace/>}/>
                     <Route path="/strefa_trenera_treningi" exact component={() => <TrainingsTrainerSpace/>}/>
+                    <Route path="/trening" exact component={() => <Training/>}/>
                 </Switch>
                 <Footer/>
             </Router>

@@ -15,4 +15,5 @@ export { default as Dashboard } from "./Dashboard";
 export { default as ModeratorPanel } from "./Cockpit";
 export { default as TrainerSpace } from "./TrainingGroups_TrainerSpace";
 export { default as TrainingsTrainerSpace } from "./Trainings_TrainerSpace";
+export { default as Training } from "./Training";
 

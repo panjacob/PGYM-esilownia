@@ -1,22 +1,25 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TrainingGet from "../components/Training/Get_DoUsuniecia/TrainingGet";
-import TrainingJoin from "../components/Training/Get_DoUsuniecia/TrainingJoin";
-import TrainingLeave from "../components/Training/Get_DoUsuniecia/TrainingLeave";
-import TrainingCreate from "../components/Training/Post_DoUsuniecia/TrainingCreate"
-import TrainingRemove from "../components/Training/Post_DoUsuniecia/TrainingRemove";
+import {useLocation} from "react-router-dom";
 
 function Training() {
 
+    const [groupId, setGroupId] = useState("")
+
+    const location = useLocation()
+
+    useEffect(() => {
+
+        setGroupId(location.state.groupId)
+
+    }, []);
 
     return (
         <div className="treningi">
             <div className="container">
-                <TrainingGet></TrainingGet>
-                <TrainingJoin></TrainingJoin>
-                <TrainingLeave></TrainingLeave>
-                <TrainingCreate></TrainingCreate>
-                <TrainingRemove></TrainingRemove>
+
+                ID grupy : {groupId}
+                Strona user training
 
             </div>
         </div>
