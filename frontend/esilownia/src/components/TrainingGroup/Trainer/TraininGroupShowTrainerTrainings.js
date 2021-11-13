@@ -216,7 +216,7 @@ function TrainingGroupShowTrainerTrainings() {
                         <hr></hr>
                     </div>
                     <div id="offer_container" className="row justify-content-center" >
-                        <div className="row border mt-4">
+                        <div className="row mt-4">
                             <div className="col-md-5 justify-content-center">
                                 <button block size="lg" className="btn btn-lg" id="btn-login" {...getToggleProps()} >
                                     {isExpanded ? 'Zamknij Edycję' : 'Edytuj Grupę'}
