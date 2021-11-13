@@ -81,7 +81,7 @@ function TrainingGroupShowTrainerTrainings() {
 
 
     const groupChosen = (e) => {
-        if(e.target.value !== "none") {
+        if (e.target.value !== "none") {
             axiosInstance
                 .post(`/training/group/get`, {id: e.target.value}, {
                     headers: {
@@ -145,7 +145,6 @@ function TrainingGroupShowTrainerTrainings() {
     }
 
 
-
     return (
         <div className="trainingGroupShowTrainerTrainings">
             <div className="container">
@@ -156,270 +155,50 @@ function TrainingGroupShowTrainerTrainings() {
                         (Trener)</h1>
                     <hr></hr>
                 </div>
-                <div className="row">
-                    {/*<div className="col-md-3 border text-center">*/}
-                    {/*    Filtowanie*/}
-                    {/*</div>*/}
-                    <div className="col-md-12 border text-center inline-block">
-                        <div id="offer_container" className="row justify-content-center">
-                            <div className="row">
-                                {trainingGroupAll.map((training, idx) => {
-                                    if (training.owner === userInfo.id) {
-                                        return (
-                                            <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-2 flex">
-                                                <div className="h-100 card m-1">
-                                                    <img src={Photo} width="100%" height="width"
-                                                         className="card-img-top rounded-circle"
-                                                         alt="..."/>
-                                                    <div className="card-body">
-                                                        <div>
-                                                            <h5 className="card-title">{training.title}</h5>
-                                                            <div className="card-subtitle"
-                                                                 style={{overflow: 'auto', height: '100px'}}>
-                                                                {trainingGroupTypeAll.map(function (type, id) {
-                                                                    for (let i = 0; i < training.type.length; i++) {
-                                                                        if (training.type.includes(type.id)) {
-                                                                            return (<p className="m-0"
-                                                                                       key={id}>{type.type}</p>)
-                                                                        }
-                                                                    }
-                                                                })}
-                                                            </div>
-                                                            <p className="card-text"> Poziom: {training.difficulty}</p>
-                                                            <p className="card-text text-center"> Trener: </p>
-                                                            <p className="card-text"> Imie: {userInfo.first_name}</p>
-                                                            <p className="card-text"> Naziwsko: {userInfo.last_name}</p>
-                                                            <Link className='btn' to={{
-                                                                pathname: '/strefa_trenera_treningi',
-                                                                state: {
-                                                                    groupId: training.id
-                                                                }
-                                                            }}>Szczegóły Grupy {training.id}</Link>
-                                                        </div>
-                                                    </div>
+
+                <div className="row border justify-content-center text-center inline-block">
+                    {trainingGroupAll.map((training, idx) => {
+                        if (training.owner === userInfo.id) {
+                            return (
+                                <div key={idx} style={{minWidth: '250px'}} className="col-md-3 mb-2 flex">
+                                    <div className="h-100 card m-1 shadow">
+                                        <img src={Photo} width="100%" height="width"
+                                             className="card-img-top rounded-circle"
+                                             alt="..."/>
+                                        <div className="card-body">
+                                            <div>
+                                                <h5 className="card-title">{training.title}</h5>
+                                                <div className="card-subtitle"
+                                                     style={{overflow: 'auto', height: '100px'}}>
+                                                    {trainingGroupTypeAll.map(function (type, id) {
+                                                        for (let i = 0; i < training.type.length; i++) {
+                                                            if (training.type.includes(type.id)) {
+                                                                return (<p className="m-0"
+                                                                           key={id}>{type.type}</p>)
+                                                            }
+                                                        }
+                                                    })}
                                                 </div>
-                                            </div>
-                                        )
-                                    }
-                                })}
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div className="container"  >
-                <div className="col-md-12 inline-block" >
-                    <div className="text-center">
-                        <hr></hr>
-                        <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4" ref={titleRef}>Edytuj Grupę</h1>
-                        <hr></hr>
-                    </div>
-                    <div id="offer_container" className="row justify-content-center" >
-                        <div className="row mt-4">
-                            <div className="col-md-5 justify-content-center">
-                                <button block size="lg" className="btn btn-lg" id="btn-login" {...getToggleProps()} >
-                                    {isExpanded ? 'Zamknij Edycję' : 'Edytuj Grupę'}
-                                </button>
-                            </div>
-                            <div className="col-md-5 my-auto">
-                                <label>Wybierz grupę</label>
-                                <select className='text-center' style={{width: '100%', height: '30px'}} onChange={groupChosen}>
-                                    <option value="none">-</option>
-                                    {trainingGroupAll.map((training, idx) => {
-                                        if (training.owner === userInfo.id) {
-                                            return (
-                                                <option key={idx} value={training.id}>{training.title}</option>
-
-                                            )
-                                        }
-                                    })}
-                                </select>
-                            </div>
-                            <div className="container" {...getCollapseProps()}>
-                                <Form className="border p-4" onSubmit={handleSubmit}>
-                                    <Form.Group size="lg" controlId="text">
-                                        <Form.Label>Stopień Zaawansowania</Form.Label>
-                                        <div onChange={selectedDifficulty.bind(this)}>
-                                            <div className="mx-2">
-                                                {(groupToEdit.difficulty === "0") ? (
-                                                    <input type="radio" value="0"
-                                                           name="application_role"
-                                                           defaultChecked
-                                                    />
-
-                                                ):(
-                                                    <input type="radio" value="0"
-                                                           name="application_role"
-                                                    />
-                                                )
-                                                }
-                                                <label>Łatwy</label>
-                                            </div>
-                                            <div className="mx-2">
-                                                {(groupToEdit.difficulty === "1") ? (
-                                                    <input type="radio" value="1"
-                                                           name="application_role"
-                                                           defaultChecked
-                                                    />
-
-                                                ):(
-                                                    <input type="radio" value="1"
-                                                           name="application_role"
-                                                    />
-                                                )
-                                                }
-                                                <label> Średni</label>
-                                            </div>
-                                            <div className="mx-2">
-                                                {(groupToEdit.difficulty === "2") ? (
-                                                    <input type="radio" value="2"
-                                                           name="application_role"
-                                                           defaultChecked
-                                                    />
-
-                                                ):(
-                                                    <input type="radio" value="2"
-                                                           name="application_role"
-                                                    />
-                                                )
-                                                }
-                                                <label> Zaawansowany</label>
-                                            </div>
-                                            <div className="mx-2">
-                                                {(groupToEdit.difficulty === "3") ? (
-                                                    <input type="radio" value="3"
-                                                           name="application_role"
-                                                           defaultChecked
-                                                    />
-
-                                                ):(
-                                                    <input type="radio" value="3"
-                                                           name="application_role"
-                                                    />
-                                                )
-                                                }
-                                                <label> Armagedon</label>
+                                                <p className="card-text"> Poziom: {training.difficulty}</p>
+                                                <p className="card-text text-center"> Trener: </p>
+                                                <p className="card-text"> Imie: {userInfo.first_name}</p>
+                                                <p className="card-text"> Naziwsko: {userInfo.last_name}</p>
+                                                <Link className='btn' to={{
+                                                    pathname: '/strefa_trenera_treningi',
+                                                    state: {
+                                                        groupId: training.id
+                                                    }
+                                                }}>Szczegóły Grupy {training.id}</Link>
                                             </div>
                                         </div>
-                                    </Form.Group>
-                                    <Form.Group size="lg" controlId="text">
-                                        <Form.Label>Tytuł</Form.Label>
-                                        <br/>
-                                        <label>Wpisz nowy tytuł:</label>
-                                        <Form.Control
-                                            type="text"
-                                            value={title}
-                                            placeholder={groupToEdit.title}
-                                            onChange={(e) => setTitle(e.target.value)}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group size="lg" controlId="text">
-                                        <Form.Label>Opis</Form.Label>
-                                        <br/>
-                                        <label>Wpisz nowy opis:</label>
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={3}
-                                            type="text"
-                                            value={description}
-                                            placeholder={groupToEdit.description}
-                                            onChange={(e) => setDescription(e.target.value)}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group size="lg" controlId="text">
-                                        {/*Do sprawdzenia jaki jest aktualnie zaznaczony*/}
-                                        <Form.Label>Typ</Form.Label>
-                                        {type.map((types) => (
-                                            <div key={`inline-checkbox-${types.id}`} className="mb-3">
-                                                <Form.Check
-                                                    inline
-                                                    name={types.id}
-                                                    type="checkbox"
-                                                    onChange={typesChecked.bind(this)}
-                                                    id={`inline-checkbox-${types.id}`}
-                                                /> {types.type}
-                                            </div>
-                                        ))}
-
-                                        {/*{(groupToEdit.type).includes(type) ? (*/}
-                                        {/*    {type.map((types) => (*/}
-                                        {/*            <div key={`inline-checkbox-${types.id}`} className="mb-3">*/}
-                                        {/*                <Form.Check*/}
-                                        {/*                    inline*/}
-                                        {/*                    name={types.id}*/}
-                                        {/*                    type="checkbox"*/}
-                                        {/*                    onChange={typesChecked.bind(this)}*/}
-                                        {/*                    id={`inline-checkbox-${types.id}`}*/}
-                                        {/*                    defaultChecked*/}
-                                        {/*                /> {types.type}*/}
-                                        {/*            </div>*/}
-                                        {/*        ))}*/}
-                                        {/*):(*/}
-                                        {/*    {type.map((types) => (*/}
-                                        {/*            <div key={`inline-checkbox-${types.id}`} className="mb-3">*/}
-                                        {/*                <Form.Check*/}
-                                        {/*                    inline*/}
-                                        {/*                    name={types.id}*/}
-                                        {/*                    type="checkbox"*/}
-                                        {/*                    onChange={typesChecked.bind(this)}*/}
-                                        {/*                    id={`inline-checkbox-${types.id}`}*/}
-                                        {/*                /> {types.type}*/}
-                                        {/*            </div>*/}
-                                        {/*        ))}*/}
-                                        {/*)}*/}
-                                    </Form.Group>
-                                    <Form.Group size="lg" controlId="text">
-                                        <Form.Label>Ceny</Form.Label>
-                                        <div className="row justify-content-center">
-                                            <div className="col-md-3">
-                                                <Form.Label>Jedne Zajecia</Form.Label>
-                                                <br/>
-                                                <label>Aktualna cena: {groupToEdit.price_day}</label>
-                                                <br/>
-                                                <label>Nowa cena:</label>
-                                                <Form.Control
-                                                    type="number"
-                                                    value={pricePractice}
-                                                    placeholder={groupToEdit.price_day}
-                                                    onChange={(e) => setPricePractice(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="col-md-3">
-                                                <Form.Label>Tydzień</Form.Label>
-                                                <br/>
-                                                <label>Aktualna cena: {groupToEdit.price_week}</label>
-                                                <br/>
-                                                <label>Nowa cena:</label>
-                                                <Form.Control
-                                                    type="number"
-                                                    value={priceWeek}
-                                                    placeholder={groupToEdit.price_week}
-                                                    onChange={(e) => setPriceWeek(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="col-md-3">
-                                                <Form.Label>Miesiąc</Form.Label>
-                                                <br/>
-                                                <label>Aktualna cena: {groupToEdit.price_month}</label>
-                                                <br/>
-                                                <label>Nowa cena:</label>
-                                                <Form.Control
-                                                    type="number"
-                                                    value={priceMonth}
-                                                    placeholder={groupToEdit.price_month}
-                                                    onChange={(e) => setPriceMonth(e.target.value)}
-                                                />
-                                            </div>
-                                        </div>
-                                    </Form.Group>
-                                    <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login">
-                                        Zatwierdź Edycję
-                                    </Button>
-                                </Form>
-                            </div>
-                        </div>
-                    </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    })}
+                    <div style={{minWidth: '250px'}} className="col-md-3"></div>
+                    <div style={{minWidth: '250px'}} className="col-md-3"></div>
+                    <div style={{minWidth: '250px'}} className="col-md-3"></div>
                 </div>
             </div>
 

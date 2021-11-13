@@ -108,19 +108,21 @@ function Account_Edit_photo_change() {
                                 <div className="custom-file">
                                     <input type="file" accept="image/png, image/gif, image/jpeg" className="custom-file-input" id="customFile" onChange={onFileChange}></input>
                                     <label className="custom-file-label" htmlFor="customFile">Wybierz plik</label>
+                                    <div className="text-center mt-1">
                                     {isFilePicked ? (
                                         <div>
-                                            <p>Filename: {fileToUpload.name}</p>
-                                            <p>Filetype: {fileToUpload.type}</p>
-                                            <p>Size in bytes: {fileToUpload.size}</p>
+                                            <p>Nazwa : {fileToUpload.name}</p>
+                                            <p>Typ : {fileToUpload.type}</p>
+                                            <p>Wielkość : {fileToUpload.size} bytes</p>
                                             <p>
-                                                lastModifiedDate:{' '}
+                                                Ostatnio modyfikowany :{' '}
                                                 {fileToUpload.lastModifiedDate.toLocaleDateString()}
                                             </p>
                                         </div>
                                     ) : (
                                         <p>Select a file to show details</p>
                                     )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

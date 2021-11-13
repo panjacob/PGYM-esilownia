@@ -6,6 +6,7 @@ import axiosInstance from "../Axios/Axios";
 function Dashboard_data_user() {
 
     const [username, setUsername] = useState("");
+    const [gymcoin, setGymcoin] = useState("")
     const [photo, setPhoto] = useState("");
 
     useEffect(() => {
@@ -19,6 +20,7 @@ function Dashboard_data_user() {
             })
             .then((res) => {
                 setUsername(res.data.username)
+                setGymcoin(res.data.money)
                 if(res.data.profile_photo === null){
                     setPhoto(profilePicture)
                 } else {
@@ -87,7 +89,7 @@ function Dashboard_data_user() {
                                 </div>
 
                                 <div className="col-sm-7 text-secondary ">
-                                    <h5 className="mb-0">0</h5>
+                                    <h5 className="mb-0">{gymcoin}</h5>
                                 </div>
 
                             </div>
