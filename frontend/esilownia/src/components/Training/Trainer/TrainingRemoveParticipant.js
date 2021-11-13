@@ -7,7 +7,7 @@ function TrainingRemoveParticipant(props) {
 
     const [groupInfo, setGroupInfo] = useState([]);
     const [groupInfoParticipants, setGroupInfoParticipants] = useState([]);
-    const [typeSelected, setTypeSelected] = useState([]);
+    const [userSelected, setUserSelected] = useState('none');
     const [usersData, setUsersData] = useState([])
 
 
@@ -50,7 +50,7 @@ function TrainingRemoveParticipant(props) {
 
 
     const typesChecked = (e) => {
-        setTypeSelected(e.target.value)
+        setUserSelected(e.target.value)
     }
 
     const handleSubmit = (e) => {
@@ -58,7 +58,7 @@ function TrainingRemoveParticipant(props) {
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("training_group", groupInfo.id);
-        urlencoded.append("user", typeSelected);
+        urlencoded.append("user", userSelected);
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
@@ -78,7 +78,7 @@ function TrainingRemoveParticipant(props) {
     };
 
     function validateForm() {
-        return typeSelected.length > 0;
+        return userSelected !== 'none';
     }
 
     return (
@@ -97,7 +97,7 @@ function TrainingRemoveParticipant(props) {
                     <div className='col-md-5 my-auto'>
                         <select className='text-center' style={{width: '100%', height: '30px'}}
                                 onChange={typesChecked}>
-
+                            <option value='none'> - </option>
                             {groupInfoParticipants.map(function (participants, idx) {
                                 for (let i = 0; i < usersData.length; i++) {
                                     if (usersData[i].id === participants.user) {
