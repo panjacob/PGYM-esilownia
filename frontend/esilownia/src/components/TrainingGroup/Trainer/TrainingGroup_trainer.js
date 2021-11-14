@@ -20,11 +20,6 @@ function TrainingGroupTrainer() {
                 </div>
             </div>
 
-
-            <div className='container text-center'>
-                Tutaj miejsce na edycje grupy / usuwanie paticipantów z grup treningowych
-            </div>
-
         </div>
     );
 }

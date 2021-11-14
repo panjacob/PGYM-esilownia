@@ -158,6 +158,20 @@ function TrainingGroupShowTrainerTrainings() {
 
                 <div className="row border justify-content-center text-center inline-block">
                     {trainingGroupAll.map((training, idx) => {
+
+                        if (training.difficulty === "0") {
+                            training.difficulty = "Łatwy"
+                        }
+                        if (training.difficulty === "1") {
+                            training.difficulty = "Średni"
+                        }
+                        if (training.difficulty === "2") {
+                            training.difficulty = "Trudny"
+                        }
+                        if (training.difficulty === "3") {
+                            training.difficulty = "Armagedon"
+                        }
+
                         if (training.owner === userInfo.id) {
                             return (
                                 <div key={idx} style={{minWidth: '250px'}} className="col-md-3 mb-2 flex">
@@ -174,15 +188,15 @@ function TrainingGroupShowTrainerTrainings() {
                                                         for (let i = 0; i < training.type.length; i++) {
                                                             if (training.type.includes(type.id)) {
                                                                 return (<p className="m-0"
+                                                                           style={{fontSize:'15px'}}
                                                                            key={id}>{type.type}</p>)
                                                             }
                                                         }
                                                     })}
                                                 </div>
                                                 <p className="card-text"> Poziom: {training.difficulty}</p>
-                                                <p className="card-text text-center"> Trener: </p>
-                                                <p className="card-text"> Imie: {userInfo.first_name}</p>
-                                                <p className="card-text"> Naziwsko: {userInfo.last_name}</p>
+                                                <p className="card-text text-center"> Trener:</p>
+                                                <p className="card-text text-center">{userInfo.first_name} {userInfo.last_name}</p>
                                                 <Link className='btn' to={{
                                                     pathname: '/strefa_trenera_treningi',
                                                     state: {

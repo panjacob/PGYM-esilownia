@@ -197,7 +197,7 @@ function TrainingGroupShowAll() {
                                                     {trainingGroupTypeAll.map(function (type, id) {
                                                         for (let i = 0; i < cValue.type.length; i++) {
                                                             if (cValue.type.includes(type.id)) {
-                                                                return (<p className="m-0" key={id}>{type.type}</p>)
+                                                                return (<p style={{fontSize:'15px'}} className="m-0" key={id}>{type.type}</p>)
                                                             }
                                                         }
                                                     })}
