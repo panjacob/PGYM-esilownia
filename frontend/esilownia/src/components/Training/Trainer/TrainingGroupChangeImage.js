@@ -72,6 +72,9 @@ function TrainingGroupChangeImage(props){
     }
     return(
             <div className="TrainingGroupChangeImage">
+                <hr/>
+                <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Zmień Zdjęcie grupy</h1>
+                <hr/>
                 <div className="col-md-8 mx-auto mt-3">
                     <div className="card mb-3">
                         <div className="card-body">
