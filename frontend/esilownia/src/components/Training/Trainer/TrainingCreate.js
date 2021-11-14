@@ -54,7 +54,7 @@ function TrainingCreate(props){
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
-        // window.location.reload()
+        window.location.reload()
     };
 
     function validateForm() {
@@ -104,7 +104,7 @@ function TrainingCreate(props){
                                 onChange={(e) => setDateEnd(e.target.value)}
                             />
                         </Form.Group>
-                        <Form.Label>Opis</Form.Label>
+                        <Form.Label>Kalorie</Form.Label>
                         <Form.Control
                             type="number"
                             value={calories}
