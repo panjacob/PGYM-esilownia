@@ -248,8 +248,6 @@ function TrainingGroupEdit() {
                                 </Form.Group>
                                 <Form.Group size="lg" controlId="text">
                                     <Form.Label>Tytuł</Form.Label>
-                                    <br/>
-                                    <label>Wpisz nowy tytuł:</label>
                                     <Form.Control
                                         type="text"
                                         value={title}
@@ -259,8 +257,6 @@ function TrainingGroupEdit() {
                                 </Form.Group>
                                 <Form.Group size="lg" controlId="text">
                                     <Form.Label>Opis</Form.Label>
-                                    <br/>
-                                    <label>Wpisz nowy opis:</label>
                                     <Form.Control
                                         as="textarea"
                                         rows={3}
