@@ -83,26 +83,20 @@ function Account_Edit_photo_change() {
 
     return (
         <div className="account_photo_change">
-
             <div className="col-md-8 mx-auto mt-3">
-
                 <div className="card mb-3">
-
                     <div className="card-body">
-
                         <div className="row">
                             <div className="mx-auto">
                                 <h6 className="mb-0">Zdjecie profilowe</h6>
                             </div>
                         </div>
-
                         <div className="row">
                             <div className="mx-auto">
                                 <img src={photo} alt="..." className="img-thumbnail" width='200px'
                                      height='200px'/>
                             </div>
                         </div>
-
                         <div className="row">
                             <div className="mx-auto pt-1">
                                 <div className="custom-file">
@@ -127,19 +121,14 @@ function Account_Edit_photo_change() {
                             </div>
                         </div>
                         <hr></hr>
-
                         <div className="row">
                             <div className="col-sm-3">
                                 <Button onClick={handleSubmitPic} variant="primary" size="sm">Zmien Zdjecie</Button>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     );
 }
