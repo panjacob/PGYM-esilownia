@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import Button from "react-bootstrap/Button";
+import axios_variebles from "../Axios/Axios_variebles";
 
 function DashboardApplication() {
 
@@ -50,10 +51,12 @@ function DashboardApplication() {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/moderator/application/send", requestOptions)
+        fetch(axios_variebles.baseURL + "moderator/application/send", requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
+
+        window.location.reload()
     }
 
     const ApplicationRole = (e) => {

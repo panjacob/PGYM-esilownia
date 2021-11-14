@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axiosInstance from "../../Axios/Axios";
 import Button from "react-bootstrap/Button";
+import axios_variebles from "../../Axios/Axios_variebles";
 
 function TrainingGroupChangeImage(props){
     const [groupInfo, setGroupInfo] = useState([]);
@@ -47,7 +48,7 @@ function TrainingGroupChangeImage(props){
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/training/group/image/remove", requestOptions2)
+        fetch(axios_variebles.baseURL + "training/group/image/remove", requestOptions2)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
@@ -62,7 +63,7 @@ function TrainingGroupChangeImage(props){
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/training/group/image/add", requestOptions)
+        fetch(axios_variebles.baseURL + "training/group/image/add", requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));

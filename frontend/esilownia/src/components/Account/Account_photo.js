@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import profilePicture from '../../imgs/basic_profile_photo.jpg'
 import axiosInstance from "../Axios/Axios";
+import axios_variebles from "../Axios/Axios_variebles";
 
 function Account_photo() {
 
@@ -20,7 +21,7 @@ function Account_photo() {
                 if(res.data.profile_photo === null){
                     setPhoto(profilePicture)
                 } else {
-                    setPhoto('http://localhost:8000' + res.data.profile_photo)
+                    setPhoto(axios_variebles.baseURL.slice(0, -1) + res.data.profile_photo)
                 }
             });
 

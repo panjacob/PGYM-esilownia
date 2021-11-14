@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axiosInstance from "../../Axios/Axios";
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import axios_variebles from "../../Axios/Axios_variebles";
 
 
 function TrainingCreate(props){
@@ -49,7 +50,7 @@ function TrainingCreate(props){
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/training/create", requestOptions)
+        fetch(axios_variebles.baseURL + "training/create", requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));

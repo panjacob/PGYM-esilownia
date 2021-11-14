@@ -6,7 +6,9 @@ const axios_variebles = {
     client_secret_google : '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',
 
     client_id_fb : '412879967053238',
-    client_secret_fb : '68a29697b18a588ee205b3170036be2a'
+    client_secret_fb : '68a29697b18a588ee205b3170036be2a',
+
+    baseURL : 'http://127.0.0.1:8000/'
 }
 
 export default axios_variebles

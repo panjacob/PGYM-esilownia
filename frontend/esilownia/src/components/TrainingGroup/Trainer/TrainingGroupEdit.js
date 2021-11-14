@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import useCollapse from "react-collapsed";
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import axios_variebles from "../../Axios/Axios_variebles";
 
 
 function TrainingGroupEdit() {
@@ -154,7 +155,7 @@ function TrainingGroupEdit() {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/training/group/edit", requestOptions)
+        fetch(axios_variebles.baseURL + "training/group/edit", requestOptions)
             .then(response => response.text())
             .catch(error => console.log('error', error));
 
@@ -190,7 +191,7 @@ function TrainingGroupEdit() {
 
                 <div className="container">
 
-                    <div className='row mx-auto ml-0 mr-0 justify-content-center'>
+                    <div className='row mx-auto ml-0 mr-0 justify-content-center' style={{minHeight: '120px'}}>
                         <div className='row border p-4'>
                             <div className="col-md-6 text-center my-auto" style={{minWidth: '230px'}}>
                                 <p>Wybierz grupę</p>
@@ -296,7 +297,7 @@ function TrainingGroupEdit() {
                                     <Form.Label>Ceny</Form.Label>
                                     <div className="row justify-content-center">
                                         <div className="col-md-3">
-                                            <Form.Label>Jedne Zajecia</Form.Label>
+                                            <Form.Label>Dzień</Form.Label>
 
                                             <Form.Control
                                                 type="number"

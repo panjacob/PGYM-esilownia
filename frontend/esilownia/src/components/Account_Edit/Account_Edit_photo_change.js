@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import profilePicture from '../../imgs/basic_profile_photo.jpg'
 import Button from "react-bootstrap/Button";
 import axiosInstance from "../Axios/Axios";
+import axios_variebles from "../Axios/Axios_variebles";
 
 function Account_Edit_photo_change() {
 
@@ -25,7 +26,7 @@ function Account_Edit_photo_change() {
                 if(res.data.profile_photo === null){
                     setPhoto(profilePicture)
                 } else {
-                    setPhoto('http://localhost:8000' + res.data.profile_photo)
+                    setPhoto(axios_variebles.baseURL.slice(0, -1) + res.data.profile_photo)
                 }
                 //console.log(res)
                 setUserId(res.data.id)
@@ -57,7 +58,7 @@ function Account_Edit_photo_change() {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/users/photo/remove", requestOptions2)
+        fetch(axios_variebles.baseURL + "users/photo/remove", requestOptions2)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
@@ -72,7 +73,7 @@ function Account_Edit_photo_change() {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/users/photo/add", requestOptions)
+        fetch(axios_variebles.baseURL + "users/photo/add", requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));

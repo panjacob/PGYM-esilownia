@@ -4,6 +4,7 @@ import axiosInstance from "../../Axios/Axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import useCollapse from "react-collapsed";
+import axios_variebles from "../../Axios/Axios_variebles";
 
 function TrainingGroupCreate() {
 
@@ -50,7 +51,7 @@ function TrainingGroupCreate() {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/training/group/create", requestOptions)
+        fetch(axios_variebles.baseURL + "training/group/create", requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
@@ -109,7 +110,7 @@ function TrainingGroupCreate() {
                 <div className='container'></div>
 
                 <div className='row mx-auto ml-0 mr-0 justify-content-center'>
-                    <div className='row border p-4'>
+                    <div className='row border p-4' style={{minHeight: '120px'}}>
 
                         <div className="col-md-5 text-center my-auto" style={{minWidth: '200px'}}>
                             <button block size="lg" className="btn btn-lg" id="btn-login"
@@ -172,7 +173,7 @@ function TrainingGroupCreate() {
                                     type="checkbox"
                                     onChange={typesChecked.bind(this)}
                                     id={`inline-checkbox-${types.id}`}
-                                /> {types.type}
+                                /> {types.type.charAt(0).toUpperCase() + types.type.slice(1)}
                             </div>
                         ))}
                     </Form.Group>
@@ -180,7 +181,7 @@ function TrainingGroupCreate() {
                         <Form.Label>Ceny</Form.Label>
                         <div className="row justify-content-center">
                             <div className="col-md-3">
-                                <Form.Label>Jedne Zajecia</Form.Label>
+                                <Form.Label>Dzień</Form.Label>
                                 <Form.Control
                                     type="number"
                                     value={pricePractice}

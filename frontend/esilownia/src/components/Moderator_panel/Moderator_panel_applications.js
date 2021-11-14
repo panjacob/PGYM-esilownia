@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
+import axios_variebles from "../Axios/Axios_variebles";
 
 function ModeratorPanelApplications(props) {
 
@@ -330,7 +331,7 @@ function ModeratorPanelApplications(props) {
 
                         <div className="col text-secondary">
                             {(id.file !== null) ? (
-                                <a href={'http://localhost:8000' + id.file}
+                                <a href={axios_variebles.baseURL.slice(0, -1) + id.file}
                                    download>{decodeURIComponent(id.file.substring(id.file.lastIndexOf('/') + 1))}</a>
                             ) : (
                                 'Brak Pliku'

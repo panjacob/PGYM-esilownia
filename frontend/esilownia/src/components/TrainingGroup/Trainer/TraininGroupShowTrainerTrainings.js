@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import useCollapse from "react-collapsed";
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import axios_variebles from "../../Axios/Axios_variebles";
 
 
 function TrainingGroupShowTrainerTrainings() {
@@ -121,7 +122,7 @@ function TrainingGroupShowTrainerTrainings() {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/training/group/edit", requestOptions)
+        fetch(axios_variebles.baseURL + "training/group/edit", requestOptions)
             .then(response => response.text())
             .catch(error => console.log('error', error));
 

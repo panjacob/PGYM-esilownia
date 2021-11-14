@@ -1,7 +1,7 @@
 import axios from 'axios';
 import axios_variebles from "./Axios_variebles";
 
-const baseURL = 'http://127.0.0.1:8000/';
+const baseURL = axios_variebles.baseURL;
 
 const axiosInstance = axios.create({
     baseURL: baseURL,

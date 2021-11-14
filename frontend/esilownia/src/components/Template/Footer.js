@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Footer() {
     return (
-        <div className="footer pt-5">
+        <div className="footer pt-5 ">
 
             <footer className="py-5 bg-secondary mt-auto">
 
