@@ -66,7 +66,9 @@ function TrainingCreate(props){
             <hr/>
             <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Utwórz trening</h1>
             <hr/>
-            <div className="container">
+            <div className="container text-left">
+                <div className="row">
+                    <div className="col-md-12">
                     <Form className="border p-4" onSubmit={handleSubmit}>
                         <Form.Group size="lg" controlId="text">
                             <Form.Label>Tytuł</Form.Label>
@@ -108,11 +110,13 @@ function TrainingCreate(props){
                             value={calories}
                             onChange={(e) => setCalories(e.target.value)}
                         />
-                        <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
+                        <Button onClick={handleSubmit} block size="lg" className="btn btn-lg mt-4" id="btn-login"
                                 disabled={!validateForm()}>
                             Utwórz Trening
                         </Button>
                     </Form>
+                    </div>
+                </div>
             </div>
         </div>
     );
