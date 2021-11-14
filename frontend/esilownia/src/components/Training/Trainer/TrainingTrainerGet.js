@@ -20,7 +20,7 @@ function TrainingTrainerGet(props){
             });
 
         axiosInstance
-            .post(`training/get`, {id:groupInfo.id}, {
+            .post(`training/get`, {id:groupInfo.training}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
