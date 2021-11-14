@@ -11,6 +11,7 @@ function TrainingGroupTrainer() {
 
             <TrainingGroupShowTrainerTrainings></TrainingGroupShowTrainerTrainings>
 
+            <div className='container'>
             <div className='row'>
                 <div className='col-md-6'>
             <TrainingGroupCreate></TrainingGroupCreate>
@@ -18,6 +19,7 @@ function TrainingGroupTrainer() {
                 <div className='col-md-6'>
             <TrainingGroupEdit></TrainingGroupEdit>
                 </div>
+            </div>
             </div>
 
         </div>
