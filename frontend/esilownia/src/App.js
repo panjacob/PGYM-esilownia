@@ -39,7 +39,7 @@ function App() {
                     <Route path="/cockpit" exact component={() => <ModeratorPanel/>}/>
                     <Route path="/strefa_trenera" exact component={() => <TrainerSpace/>}/>
                     <Route path="/strefa_trenera_treningi" exact component={() => <TrainingsTrainerSpace/>}/>
-                    <Route path="/trenings" exact component={() => <Training/>}/>
+                    <Route path="/grupa_treningi" exact component={() => <Training/>}/>
                     <Route path="/trening" exact component={() => <TreningJitsi/>}/>
                 </Switch>
                 <Footer/>
