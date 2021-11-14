@@ -4,6 +4,7 @@ import {useLocation} from 'react-router-dom'
 import TrainingRemoveParticipant from "../components/Training/Trainer/TrainingRemoveParticipant";
 import TrainingGroupChangeImage from "../components/Training/Trainer/TrainingGroupChangeImage";
 import TrainingCreate from "../components/Training/Trainer/TrainingCreate";
+import TrainingTrainerGet from "../components/Training/Trainer/TrainingTrainerGet";
 
 function TrainingsTrainerSpace() {
 
@@ -20,6 +21,7 @@ function TrainingsTrainerSpace() {
     return (
         <div className="trainingsTrainerSpace">
             <div className="container text-center">
+                <TrainingTrainerGet groupId={groupId}></TrainingTrainerGet>
                 <TrainingCreate groupId={groupId}></TrainingCreate>
                 <TrainingRemoveParticipant groupId={groupId}></TrainingRemoveParticipant>
                 <TrainingGroupChangeImage groupId={groupId}></TrainingGroupChangeImage>
