@@ -60,3 +60,11 @@ def notification_all(request):
         result.append(serializer.data)
 
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def notification_seen(request):
+    notification = Notification.objects.get(id=request.data['id'])
+    notification.seen = True
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
