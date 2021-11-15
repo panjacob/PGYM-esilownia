@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from message.models import Message
+from message.models import Message, Notification
 
 
 class MessageCreateSerializer(ModelSerializer):
@@ -18,3 +18,10 @@ class MessageGetSerializer(ModelSerializer):
         sender = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         receiver = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         fields = ['time', 'sender', 'receiver', 'message']
+
+
+class NotificationSerializer(ModelSerializer):
+    class Meta:
+        model = Notification
+        user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        fields = '__all__'
