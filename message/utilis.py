@@ -1,6 +1,7 @@
 from django.db.models import Q
 
 from message.models import Message, Notification
+import json
 
 
 def get_messages_all(user1, user2):
@@ -10,5 +11,7 @@ def get_messages_all(user1, user2):
 
 
 def notification_send(user, body, kind):
-    notification = Notification.objects.create(user=user, body=body, kind=kind)
+    body_json = json.dumps(body)
+    notification = Notification.objects.create(user=user, body=body_json, kind=kind)
+    notification.save()
     return notification

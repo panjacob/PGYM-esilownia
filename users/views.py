@@ -10,6 +10,7 @@ from users import utilis
 from users.models import UserExtended
 from users.utilis import superuser_required, moderator_required
 from training.models import TrainingGroupParticipant
+from message.utilis import notification_send
 
 
 @api_view((['POST']))
@@ -41,6 +42,8 @@ def user_register(request):
     if serializer.is_valid():
         new_user = serializer.save()
         if new_user:
+            notification_body = {'message': 'Tego stringa trzeba zamienić w JSONA'}
+            notification = notification_send(new_user, notification_body, 0)
             return Response({'id': new_user.id, 'username': new_user.username, 'email': new_user.email},
                             status=status.HTTP_200_OK)
     return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)

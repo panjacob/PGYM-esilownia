@@ -54,7 +54,7 @@ def notification_all(request):
         seen = False
 
     result = []
-    notifications = Notification.objects.filter(users=request.user, seen=seen)
+    notifications = Notification.objects.filter(user=request.user)
     for notification in notifications:
         serializer = NotificationSerializer(instance=notification)
         result.append(serializer.data)

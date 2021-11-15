@@ -17,6 +17,7 @@ class Message(models.Model):
 class Notification(models.Model):
     user = models.ForeignKey(UserExtended, on_delete=models.CASCADE)
 
+    USER_REGISTERED = '0'
     APPLICATION_ACCEPTED = '1'
     APPLICATION_REJECTED = '2'
     TYPE_CHOICES = [
