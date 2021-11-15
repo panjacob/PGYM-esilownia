@@ -18,3 +18,10 @@ class MessageGetSerializer(ModelSerializer):
         sender = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         receiver = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         fields = ['time', 'sender', 'receiver', 'message']
+
+
+class NotificationSerializer(ModelSerializer):
+    class Meta:
+        model = Message
+        user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        fields = '__all__'

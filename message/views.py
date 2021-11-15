@@ -4,7 +4,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from message.serializers import MessageCreateSerializer, MessageGetSerializer
+from message.models import Notification
+from message.serializers import MessageCreateSerializer, MessageGetSerializer, NotificationSerializer
 from message.utilis import get_messages_all
 from users.models import UserExtended
 from users.utilis import put_sender_in_request_data
@@ -41,4 +42,21 @@ def message_all(request):
     for message in messages[begin:end]:
         serializer = MessageGetSerializer(instance=message)
         result['messages'].append(serializer.data)
+    return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def notification_all(request):
+    seen_request = request.data.get('seen', 'False')
+    if seen_request.lower() in ['true', '1']:
+        seen = True
+    else:
+        seen = False
+
+    result = []
+    notifications = Notification.objects.filter(users=request.user, seen=seen)
+    for notification in notifications:
+        serializer = NotificationSerializer(instance=notification)
+        result.append(serializer.data)
+
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
