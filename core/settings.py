@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'dashboard',
     'training',
     'moderator',
+    'message',
     # Django
     'django.contrib.admin',
     'django.contrib.auth',
@@ -193,11 +194,9 @@ IMAGES_ROOT = MEDIA_ROOT + 'images/'
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-# print(STATIC_ROOT)
 
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-# print(STATIC_ROOT)
 CORS_ORIGIN_ALLOW_ALL = True
 
 # On production

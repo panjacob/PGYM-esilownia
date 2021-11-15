@@ -171,8 +171,8 @@ jQuery.fn = jQuery.prototype = {
 		return slice.call( this );
 	},
 
-	// Get the Nth element in the matched element set OR
-	// Get the whole matched element set as a clean array
+	// Get_DoUsuniecia the Nth element in the matched element set OR
+	// Get_DoUsuniecia the whole matched element set as a clean array
 	get: function( num ) {
 
 		// Return all the elements in a clean array
@@ -1836,7 +1836,7 @@ Expr = Sizzle.selectors = {
 			// Strip excess characters from unquoted arguments
 			} else if ( unquoted && rpseudo.test( unquoted ) &&
 
-				// Get excess from tokenize (recursively)
+				// Get_DoUsuniecia excess from tokenize (recursively)
 				( excess = tokenize( unquoted, true ) ) &&
 
 				// advance to the next closing parenthesis
@@ -2514,7 +2514,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			postMap = [],
 			preexisting = results.length,
 
-			// Get initial elements from seed or context
+			// Get_DoUsuniecia initial elements from seed or context
 			elems = seed || multipleContexts(
 				selector || "*",
 				context.nodeType ? [ context ] : context,
@@ -2561,7 +2561,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			if ( postFinder || preFilter ) {
 				if ( postFinder ) {
 
-					// Get the final matcherOut by condensing this intermediate into postFinder contexts
+					// Get_DoUsuniecia the final matcherOut by condensing this intermediate into postFinder contexts
 					temp = [];
 					i = matcherOut.length;
 					while ( i-- ) {
@@ -3908,7 +3908,7 @@ jQuery.extend( {
 					} ).promise();
 				},
 
-				// Get a promise for this deferred
+				// Get_DoUsuniecia a promise for this deferred
 				// If obj is provided, the promise aspect is added to the object
 				promise: function( obj ) {
 					return obj != null ? jQuery.extend( obj, promise ) : promise;
@@ -4656,7 +4656,7 @@ jQuery.fn.extend( {
 		return this.queue( type || "fx", [] );
 	},
 
-	// Get a promise resolved when queues of a certain type
+	// Get_DoUsuniecia a promise resolved when queues of a certain type
 	// are emptied (fx is the type by default)
 	promise: function( type, obj ) {
 		var tmp,
@@ -6888,7 +6888,7 @@ jQuery.extend( {
 	// setting or getting the value
 	cssProps: {},
 
-	// Get and set the style property on a DOM Node
+	// Get_DoUsuniecia and set the style property on a DOM Node
 	style: function( elem, name, value, extra ) {
 
 		// Don't set styles on text and comment nodes
@@ -7404,7 +7404,7 @@ function defaultPrefilter( elem, props, opts ) {
 				display = restoreDisplay;
 			} else {
 
-				// Get nonempty value(s) by temporarily forcing visibility
+				// Get_DoUsuniecia nonempty value(s) by temporarily forcing visibility
 				showHide( [ elem ], true );
 				restoreDisplay = elem.style.display || restoreDisplay;
 				display = jQuery.css( elem, "display" );
@@ -8544,7 +8544,7 @@ jQuery.extend( {
 							( !option.parentNode.disabled ||
 								!nodeName( option.parentNode, "optgroup" ) ) ) {
 
-						// Get the specific value for the option
+						// Get_DoUsuniecia the specific value for the option
 						value = jQuery( option ).val();
 
 						// We don't need an array for one selects
@@ -9651,7 +9651,7 @@ jQuery.extend( {
 		jqXHR.done( s.success );
 		jqXHR.fail( s.error );
 
-		// Get transport
+		// Get_DoUsuniecia transport
 		transport = inspectPrefiltersOrTransports( transports, s, options, jqXHR );
 
 		// If no transport, we auto-abort
@@ -9722,7 +9722,7 @@ jQuery.extend( {
 			// Determine if successful
 			isSuccess = status >= 200 && status < 300 || status === 304;
 
-			// Get response data
+			// Get_DoUsuniecia response data
 			if ( responses ) {
 				response = ajaxHandleResponses( s, jqXHR, responses );
 			}
@@ -10214,7 +10214,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 	// Handle iff the expected data type is "jsonp" or we have a parameter to set
 	if ( jsonProp || s.dataTypes[ 0 ] === "jsonp" ) {
 
-		// Get callback name, remembering preexisting value associated with it
+		// Get_DoUsuniecia callback name, remembering preexisting value associated with it
 		callbackName = s.jsonpCallback = isFunction( s.jsonpCallback ) ?
 			s.jsonpCallback() :
 			s.jsonpCallback;
@@ -10506,7 +10506,7 @@ jQuery.fn.extend( {
 			return { top: 0, left: 0 };
 		}
 
-		// Get document-relative position by adding viewport scroll to viewport-relative gBCR
+		// Get_DoUsuniecia document-relative position by adding viewport scroll to viewport-relative gBCR
 		rect = elem.getBoundingClientRect();
 		win = elem.ownerDocument.defaultView;
 		return {
@@ -10659,7 +10659,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 						elem.document.documentElement[ "client" + name ];
 				}
 
-				// Get document width or height
+				// Get_DoUsuniecia document width or height
 				if ( elem.nodeType === 9 ) {
 					doc = elem.documentElement;
 
@@ -10674,7 +10674,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 
 				return value === undefined ?
 
-					// Get width or height on the element, requesting but not forcing parseFloat
+					// Get_DoUsuniecia width or height on the element, requesting but not forcing parseFloat
 					jQuery.css( elem, type, extra ) :
 
 					// Set width or height on the element

@@ -36,3 +36,26 @@ def application_all(request):
         result.append(serializer.data)
 
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def application_accept(request):
+    application = models.Application.objects.get(id=request.data['id'])
+    # if application.trainer:
+    #     application.owner.is_coach = True
+    # if application.dietician:
+    #     application.owner.is_dietician = True
+    # application.owner.save()
+    application.status = application.ACCEPTED
+    application.save()
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def application_reject(request):
+    application = models.Application.objects.get(id=request.data['id'])
+    application.status = application.REJECTED
+    application.save()
+
+    return Response({'OK'}, status=status.HTTP_200_OK)

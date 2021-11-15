@@ -1,23 +1,23 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleLogin from 'react-google-login';
-import axiosInstance from '../Axios/axios';
-import { useHistory } from 'react-router-dom';
-import axiosZmienne from "../Axios/axiosZmienne";
+import axiosInstance from '../Axios/Axios';
+import {useHistory} from 'react-router-dom';
+import axios_variebles from "../Axios/Axios_variebles";
 
 function Google_login() {
 
     const history = useHistory();
 
     const googleLogin = (accesstoken) => {
-        console.log(accesstoken);
+
         axiosInstance
             .post('auth/convert-token', {
                 token: accesstoken,
-                backend: 'google',
+                backend: 'google-oauth2',
                 grant_type: 'convert_token',
-                client_id: axiosZmienne.client_id,
-                client_secret: axiosZmienne.client_secret,
+                client_id: axios_variebles.client_id_google,
+                client_secret: axios_variebles.client_secret_google,
             })
             .then((res) => {
                 localStorage.setItem('access_token', res.data.access_token);
@@ -30,19 +30,20 @@ function Google_login() {
     };
 
     const responseGoogle = (response) => {
-        console.log(response);
-        //googleLogin(response.accessToken);
+        googleLogin(response.accessToken);
     }
 
     return (
         <div className="google_login">
+
             <GoogleLogin
-                clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                clientId="184998521093-72jv3431tpjsrgfb1icl3qftpqda7e8j.apps.googleusercontent.com"
                 buttonText="Login"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
             />
+
         </div>
     );
 }

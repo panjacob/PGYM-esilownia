@@ -2,7 +2,6 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupImage
-from users.models import UserExtended
 
 
 class TrainingGroupTypesSerializer(ModelSerializer):
@@ -25,13 +24,18 @@ class TrainingGroupSerializerCreate(ModelSerializer):
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
 
-        fields = ['owner', 'date', 'difficulty', 'title', 'description', 'type']
+        fields = ['owner', 'difficulty', 'title', 'description', 'type', 'price_day',
+                  'price_week', 'price_month']
 
 
-class ParticipantsSerializerGet(ModelSerializer):
-    class Meta:
-        model = UserExtended
-        fields = ['id', 'username', 'first_name', 'last_name']
+def participantsSerializerGet(participant):
+    # participant = TrainingGroupParticipant.objects.get()
+    result = {
+        'training_group_participant': participant.id,
+        'user': participant.user.id,
+        'subscription_end': participant.subscription_end
+    }
+    return result
 
 
 class TrainingGroupSerializerGet(ModelSerializer):
@@ -39,9 +43,10 @@ class TrainingGroupSerializerGet(ModelSerializer):
         model = TrainingGroup
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
-        participants = ParticipantsSerializerGet(read_only=True, many=True)
+        # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
-        fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'participants']
+        fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'price_day',
+                  'price_week', 'price_month']
 
 
 class TrainingGroupSerializerGetAll(ModelSerializer):
@@ -49,9 +54,9 @@ class TrainingGroupSerializerGetAll(ModelSerializer):
         model = TrainingGroup
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
-        participants = ParticipantsSerializerGet(read_only=True, many=True)
+        # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
-        fields = ['id', 'difficulty', 'title', 'type']
+        fields = ['id', 'owner', 'difficulty', 'title', 'type']
 
 
 class TrainingSerializerCreate(ModelSerializer):
@@ -61,10 +66,26 @@ class TrainingSerializerCreate(ModelSerializer):
         fields = ['id', 'training_group', 'title', 'description', 'date_start', 'date_end', 'calories']
 
 
+class TrainingSerializerEdit(ModelSerializer):
+    class Meta:
+        model = Training
+        training_group = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        fields = ['id', 'title', 'description', 'date_start', 'date_end', 'calories']
+
+
 class TrainingSerializerGet(ModelSerializer):
     class Meta:
         model = Training
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-        participants = ParticipantsSerializerGet(read_only=True, many=True)
+        # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
         fields = '__all__'
+
+
+class TrainingSerializerFile(ModelSerializer):
+    class Meta:
+        model = Training
+        fields = ['file']
+
+
+

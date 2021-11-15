@@ -777,7 +777,7 @@ S2.define('select2/utils',[
 
   var id = 0;
   Utils.GetUniqueElementId = function (element) {
-    // Get a unique element Id. If element has no id,
+    // Get_DoUsuniecia a unique element Id. If element has no id,
     // creates a new unique number, stores it in the id
     // attribute and returns the new id.
     // If an id already exists, it simply returns it.
@@ -5304,10 +5304,10 @@ S2.define('select2/options',[
       var prefix = 'data-';
 
       if (attributeName.substr(0, prefix.length) == prefix) {
-        // Get the contents of the attribute after `data-`
+        // Get_DoUsuniecia the contents of the attribute after `data-`
         var dataName = attributeName.substring(prefix.length);
 
-        // Get the data contents from the consistent source
+        // Get_DoUsuniecia the data contents from the consistent source
         // This is more than likely the jQuery data helper
         var dataValue = Utils.GetData($e[0], dataName);
 
@@ -6687,7 +6687,7 @@ S2.define('select2/selection/stopPropagation',[
             deltaY /= 40;
         }
 
-        // Get a whole, normalized value for the deltas
+        // Get_DoUsuniecia a whole, normalized value for the deltas
         delta  = Math[ delta  >= 1 ? 'floor' : 'ceil' ](delta  / lowestDelta);
         deltaX = Math[ deltaX >= 1 ? 'floor' : 'ceil' ](deltaX / lowestDelta);
         deltaY = Math[ deltaY >= 1 ? 'floor' : 'ceil' ](deltaY / lowestDelta);
