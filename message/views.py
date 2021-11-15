@@ -47,7 +47,7 @@ def message_all(request):
 
 @api_view(['POST'])
 def notification_all(request):
-    seen_request = request.data.get('seen', 'False')
+    seen_request = request.data.get('show_seen', 'False')
     if seen_request.lower() in ['true', '1']:
         seen = True
     else:
@@ -55,6 +55,13 @@ def notification_all(request):
 
     result = []
     notifications = Notification.objects.filter(user=request.user)
+    print(seen)
+    if not seen:
+        not_seen = not seen
+        print(notifications)
+        notifications = notifications.filter(seen=seen)
+        print(notifications)
+
     for notification in notifications:
         serializer = NotificationSerializer(instance=notification)
         result.append(serializer.data)
@@ -66,5 +73,6 @@ def notification_all(request):
 def notification_seen(request):
     notification = Notification.objects.get(id=request.data['id'])
     notification.seen = True
+    notification.save()
 
     return Response({'OK'}, status=status.HTTP_200_OK)
