@@ -29,8 +29,8 @@ def message_all(request):
 
     messages = get_messages_all(user1, user2)
 
-    begin = int(request.data['begin'])
-    end = int(request.data['end'])
+    begin = int(request.data.get('begin', '0'))
+    end = int(request.data.get('end', '0'))
 
     total = len(messages)
     if begin > total:
