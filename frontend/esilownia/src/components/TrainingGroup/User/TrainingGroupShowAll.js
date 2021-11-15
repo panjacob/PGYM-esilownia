@@ -12,6 +12,7 @@ function TrainingGroupShowAll() {
     const [trainingGroupAll, setTrainingGroupAll] = useState([]);
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
+    const [difficultySelected, setDifficultySelected] = useState([]);
     const [trainingFilter, setTrainingFilter] = useState([]);
     const [trainersInfo, setTrainersInfo] = useState([]);
 
@@ -22,6 +23,22 @@ function TrainingGroupShowAll() {
             return seen.hasOwnProperty(k) ? false : (seen[k] = true);
         })
     }
+
+    const difficultiesAll = [
+        {
+            id: '0',
+            name: 'Łatwy'
+        }, {
+            id: '1',
+            name: 'Średni'
+        }, {
+            id: '2',
+            name: 'Trudny'
+        }, {
+            id: '3',
+            name: 'Armagedon'
+        }
+    ]
 
     const handleChange = (e) => {
         let cleanArray = []
@@ -46,7 +63,29 @@ function TrainingGroupShowAll() {
             })
         }
 
-        setTrainingFilter(uniqBy(cleanArray, JSON.stringify));
+        let cleanArray2 = []
+        if (difficultySelected.length === 0) {
+
+            cleanArray2 = trainingGroupAll;
+        } else {
+
+            trainingGroupAll.map(function (training) {
+
+                for (let i = 0; i < difficultySelected.length; i++) {
+
+                    if (training.difficulty.toString() === difficultySelected[i]) {
+
+                        cleanArray2.push(training)
+
+                    }
+                }
+
+            })
+        }
+
+        let result = uniqBy(cleanArray, JSON.stringify).filter(o1 => uniqBy(cleanArray2, JSON.stringify).some(o2 => o1.id === o2.id));
+
+        setTrainingFilter(uniqBy(result, JSON.stringify));
 
     }
 
@@ -62,6 +101,17 @@ function TrainingGroupShowAll() {
 
     }
 
+    const difficultiesChecked = (e) => {
+
+        if (difficultySelected.indexOf(e.target.name) !== -1) {
+            let name = e.target.name;
+            setDifficultySelected(difficultySelected.filter((e) => (e !== name)))
+        } else {
+            let name = e.target.name;
+            setDifficultySelected([...difficultySelected, name]);
+        }
+
+    }
 
 
     useEffect(() => {
@@ -78,16 +128,16 @@ function TrainingGroupShowAll() {
                 setTrainingFilter(res.data)
 
                 res.data.map((group) => {
-                axiosInstance
-                    .post(`/users/get/`, {id: group.owner}, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                        }
-                    })
-                    .then((res2) => {
-                        setTrainersInfo(trainersInfo => [...trainersInfo, res2.data])
-                    });
+                    axiosInstance
+                        .post(`/users/get/`, {id: group.owner}, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                            }
+                        })
+                        .then((res2) => {
+                            setTrainersInfo(trainersInfo => [...trainersInfo, res2.data])
+                        });
                 })
             });
 
@@ -110,19 +160,6 @@ function TrainingGroupShowAll() {
             <div id="offer_container" className="row justify-content-center">
                 {currentItems && currentItems.map(function (cValue, idx) {
 
-                    if (cValue.difficulty === "0") {
-                        cValue.difficulty = "Łatwy"
-                    }
-                    if (cValue.difficulty === "1") {
-                        cValue.difficulty = "Średni"
-                    }
-                    if (cValue.difficulty === "2") {
-                        cValue.difficulty = "Trudny"
-                    }
-                    if (cValue.difficulty === "3") {
-                        cValue.difficulty = "Armagedon"
-                    }
-
                     return (
                         <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
                             <div className="h-100 card m-1 shadow" key={idx}>
@@ -144,12 +181,17 @@ function TrainingGroupShowAll() {
                                             })}
                                         </div>
                                         <p className="card-text"> Trener: </p>
-                                        {uniqBy(trainersInfo, JSON.stringify).map((trainer,idx) =>{
-                                            if(trainer.id === cValue.owner)
-                                        return (<p key={idx} className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
+                                        {uniqBy(trainersInfo, JSON.stringify).map((trainer, idx) => {
+                                            if (trainer.id === cValue.owner)
+                                                return (<p key={idx}
+                                                           className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
 
                                         })}
-                                        <p className="card-text"> Poziom: {cValue.difficulty}</p>
+                                        {difficultiesAll.map((difficulty)=>{
+                                            if(difficulty.id === cValue.difficulty) {
+                                                return (<p className="card-text"> Poziom: {difficulty.name}</p>)
+                                            }
+                                        })}
                                         <Link className='btn' to={{
                                             pathname: '/grupa_szczegóły',
                                             state: {
@@ -246,6 +288,35 @@ function TrainingGroupShowAll() {
                                             <label className="form-check-label ml-4 align-text-bottom"
                                                    htmlFor="defaultCheck1">
                                                 <b>{types.type.charAt(0).toUpperCase() + types.type.slice(1)}</b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr color={'black'} className="m-1"/>
+                                </li>
+                            ))}
+                        </ul>
+                        <hr width={'90%'} color={'black'}/>
+                    </Form>
+
+                    <h5 className="font-weight-light mt-1">Poziomy Treningu:</h5>
+
+                    <Form>
+                        <hr width={'90%'} color={'black'}/>
+                        <ul className="list-inline" style={{display: 'table', margin: '0 auto'}}>
+                            {difficultiesAll.map((difficulties) => (
+                                <li className="m-1" key={`inline-checkbox-${difficulties.id}`}>
+                                    <div className="row">
+                                        <div className="form-check">
+                                            <input
+                                                className="form-check-input switch_1 align-text-bottom"
+                                                type="checkbox"
+                                                onChange={difficultiesChecked.bind(this)}
+                                                name={difficulties.id}
+                                                id={`inline-checkbox-${difficulties.id}`}
+                                            />
+                                            <label className="form-check-label ml-4 align-text-bottom"
+                                                   htmlFor="defaultCheck1">
+                                                <b>{difficulties.name}</b>
                                             </label>
                                         </div>
                                     </div>
