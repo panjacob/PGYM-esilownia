@@ -24,7 +24,7 @@ class Notification(models.Model):
         (APPLICATION_REJECTED, 'APPLICATION REJECTED'),
     ]
 
-    type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=None)
+    kind = models.CharField(max_length=1, choices=TYPE_CHOICES, default=None)
 
     body = models.CharField(max_length=10000)
     time = models.IntegerField(default=current_milli_time)
