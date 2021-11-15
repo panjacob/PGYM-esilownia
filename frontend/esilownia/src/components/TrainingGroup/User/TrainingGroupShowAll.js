@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Photo from "../../../imgs/gymcoin.png";
-import Modal from "react-bootstrap/Modal";
 import axiosInstance from "../../Axios/Axios";
+import ReactPaginate from 'react-paginate'
+import {Link} from "react-router-dom";
 
 function TrainingGroupShowAll() {
 
@@ -12,9 +13,15 @@ function TrainingGroupShowAll() {
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
     const [trainingFilter, setTrainingFilter] = useState([]);
-    const [trainingGroup, setTrainingGroup] = useState([]);
-    const [show, setShow] = useState(false);
-    const [treinerInfo, setTreinerInfo] = useState([]);
+    const [trainersInfo, setTrainersInfo] = useState([]);
+
+    function uniqBy(a, key) {
+        var seen = {};
+        return a.filter(function (item) {
+            var k = key(item);
+            return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+        })
+    }
 
     const handleChange = (e) => {
         let cleanArray = []
@@ -39,45 +46,9 @@ function TrainingGroupShowAll() {
             })
         }
 
-        function uniqBy(a, key) {
-            var seen = {};
-            return a.filter(function (item) {
-                var k = key(item);
-                return seen.hasOwnProperty(k) ? false : (seen[k] = true);
-            })
-        }
-
         setTrainingFilter(uniqBy(cleanArray, JSON.stringify));
 
     }
-
-    const handleShowMore = (groupId) => (e) => {
-        e.preventDefault();
-        axiosInstance
-            .post(`training/group/get`, {id: groupId}, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-            .then((res) => {
-                setTrainingGroup(res.data)
-                axiosInstance
-                    .post(`/users/get/`, {id: res.data.owner}, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                        }
-                    })
-                    .then((res2) => {
-                        setTreinerInfo(res2.data)
-
-                    });
-            });
-        handleShow();
-    }
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const typesChecked = (e) => {
 
@@ -91,6 +62,8 @@ function TrainingGroupShowAll() {
 
     }
 
+
+
     useEffect(() => {
 
         axiosInstance
@@ -103,6 +76,19 @@ function TrainingGroupShowAll() {
             .then((res) => {
                 setTrainingGroupAll(res.data)
                 setTrainingFilter(res.data)
+
+                res.data.map((group) => {
+                axiosInstance
+                    .post(`/users/get/`, {id: group.owner}, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                        }
+                    })
+                    .then((res2) => {
+                        setTrainersInfo(trainersInfo => [...trainersInfo, res2.data])
+                    });
+                })
             });
 
         axiosInstance
@@ -117,6 +103,115 @@ function TrainingGroupShowAll() {
             });
 
     }, []);
+
+
+    function Items({currentItems}) {
+        return (
+            <div id="offer_container" className="row justify-content-center">
+                {currentItems && currentItems.map(function (cValue, idx) {
+
+                    if (cValue.difficulty === "0") {
+                        cValue.difficulty = "Łatwy"
+                    }
+                    if (cValue.difficulty === "1") {
+                        cValue.difficulty = "Średni"
+                    }
+                    if (cValue.difficulty === "2") {
+                        cValue.difficulty = "Trudny"
+                    }
+                    if (cValue.difficulty === "3") {
+                        cValue.difficulty = "Armagedon"
+                    }
+
+                    return (
+                        <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
+                            <div className="h-100 card m-1 shadow" key={idx}>
+                                <img src={Photo} width="100%" height="width"
+                                     className="card-img-top rounded-circle"
+                                     alt="..."/>
+                                <div className="card-body">
+                                    <div>
+                                        <h5 className="card-title">{cValue.title}</h5>
+                                        <div className="card-subtitle"
+                                             style={{overflow: 'auto', height: '100px'}}>
+                                            {trainingGroupTypeAll.map(function (type, id) {
+                                                for (let i = 0; i < cValue.type.length; i++) {
+                                                    if (cValue.type.includes(type.id)) {
+                                                        return (<p style={{fontSize: '15px'}} className="m-0"
+                                                                   key={id}>{type.type}</p>)
+                                                    }
+                                                }
+                                            })}
+                                        </div>
+                                        <p className="card-text"> Trener: </p>
+                                        {uniqBy(trainersInfo, JSON.stringify).map((trainer,idx) =>{
+                                            if(trainer.id === cValue.owner)
+                                        return (<p key={idx} className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
+
+                                        })}
+                                        <p className="card-text"> Poziom: {cValue.difficulty}</p>
+                                        <Link className='btn' to={{
+                                            pathname: '/grupa_szczegóły',
+                                            state: {
+                                                groupId: cValue.id
+                                            }
+                                        }}>Pokaż Wiecej</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+                <div style={{minWidth: '250px'}} className="col-md-4"></div>
+                <div style={{minWidth: '250px'}} className="col-md-4"></div>
+            </div>
+        );
+    }
+
+    function PaginatedItems({itemsPerPage}) {
+
+        const [currentItems, setCurrentItems] = useState(null);
+        const [pageCount, setPageCount] = useState(0);
+        const [itemOffset, setItemOffset] = useState(0);
+
+        useEffect(() => {
+            const endOffset = itemOffset + itemsPerPage;
+            setCurrentItems(trainingFilter.slice(itemOffset, endOffset));
+            setPageCount(Math.ceil(trainingFilter.length / itemsPerPage));
+        }, [itemOffset, itemsPerPage]);
+
+        const handlePageClick = (event) => {
+            const newOffset = event.selected * itemsPerPage % trainingFilter.length;
+            setItemOffset(newOffset);
+        };
+
+        return (
+            <>
+                <Items currentItems={currentItems}/>
+                <div className='row justify-content-center'>
+                    <ReactPaginate
+                        nextLabel="Następna"
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={5}
+                        pageCount={pageCount}
+                        previousLabel="Poprzednia"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        breakLabel="..."
+                        breakClassName="page-item"
+                        breakLinkClassName="page-link"
+                        containerClassName="pagination"
+                        activeClassName="active"
+                        renderOnZeroPageCount={null}
+                    />
+                </div>
+            </>
+        );
+    }
 
 
     return (
@@ -167,131 +262,9 @@ function TrainingGroupShowAll() {
                 </div>
 
                 <div className="col-md-9 border text-center inline-block">
-                    <div id="offer_container" className="row justify-content-center">
-                        {trainingFilter.map(function (cValue, idx) {
 
-                            if (cValue.difficulty === "0") {
-                                cValue.difficulty = "Łatwy"
-                            }
-                            if (cValue.difficulty === "1") {
-                                cValue.difficulty = "Średni"
-                            }
-                            if (cValue.difficulty === "2") {
-                                cValue.difficulty = "Trudny"
-                            }
-                            if (cValue.difficulty === "3") {
-                                cValue.difficulty = "Armagedon"
-                            }
+                    <PaginatedItems itemsPerPage={6}/>
 
-                            return (
-                                <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
-                                    <div className="h-100 card m-1 shadow" key={idx}>
-                                        <img src={Photo} width="100%" height="width"
-                                             className="card-img-top rounded-circle"
-                                             alt="..."/>
-                                        <div className="card-body">
-                                            <div>
-                                                <h5 className="card-title">{cValue.title}</h5>
-                                                <div className="card-subtitle"
-                                                     style={{overflow: 'auto', height: '100px'}}>
-                                                    {trainingGroupTypeAll.map(function (type, id) {
-                                                        for (let i = 0; i < cValue.type.length; i++) {
-                                                            if (cValue.type.includes(type.id)) {
-                                                                return (<p style={{fontSize:'15px'}} className="m-0" key={id}>{type.type}</p>)
-                                                            }
-                                                        }
-                                                    })}
-                                                </div>
-                                                <p className="card-text"> Poziom: {cValue.difficulty}</p>
-                                                <button className="btn btn-lg mb-4" data-toggle="modal"
-                                                        data-target="#popupModal"
-                                                        onClick={handleShowMore(cValue.id)}>Pokaż
-                                                    więcej
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Modal size="lg"
-                                               aria-labelledby="contained-modal-title-vcenter"
-                                               centered
-                                               show={show}
-                                               onHide={handleClose}
-                                        >
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>{trainingGroup.title}</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-
-                                                <p>Trener : {treinerInfo.first_name + " " + treinerInfo.last_name}</p>
-                                                <p>Opis : {trainingGroup.description}</p>
-
-                                                <div className="row justify-content-center">
-                                                    <div className="col-2 justify-content-center">
-                                                        <p>Typ treningu :</p>
-                                                    </div>
-                                                    <div className="col-10">
-                                                        <div className="row">
-                                                            {/*{trainingGroupTypeAll.map(function (type, id) {*/}
-                                                            {/*    for (let i = 0; i < trainingGroup.type.length; i++) {*/}
-                                                            {/*        if (trainingGroup.type.includes(type.id)) {*/}
-                                                            {/*            return (<p className="ml-1 mr-1" key={id}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</p>)*/}
-                                                            {/*        }*/}
-                                                            {/*    }*/}
-                                                            {/*})}*/}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <p>Data utworzenia : {trainingGroup.date}</p>
-
-                                                <div className="row justify-content-center text-center">
-                                                    <div className="col-4">
-                                                        <div className="row justify-content-center text-center">
-                                                            <p className="m-0">Jedne zajęcia :</p>
-                                                            <p className="m-0 pl-1 pr-1">{trainingGroup.price_day}</p>
-                                                            <p className="m-0">Gym-coinów</p>
-                                                        </div>
-                                                        <div className="row justify-content-center text-center">
-                                                            <a href="#" className="btn btn-primary btn-sm">Kup
-                                                                dostęp</a>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <div className="row justify-content-center text-center">
-                                                            <p className="m-0">Tydzień :</p>
-                                                            <p className="m-0 pl-1 pr-1">{trainingGroup.price_week}</p>
-                                                            <p className="m-0">Gym-coinów</p>
-                                                        </div>
-                                                        <div className="row justify-content-center text-center">
-                                                            <a href="#" className="btn btn-primary btn-sm">Kup
-                                                                dostęp</a>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <div className="row justify-content-center text-center">
-                                                            <p className="m-0">Miesiąc :</p>
-                                                            <p className="m-0 pl-1 pr-1">{trainingGroup.price_month}</p>
-                                                            <p className="m-0">Gym-coinów</p>
-                                                        </div>
-                                                        <div className="row justify-content-center text-center">
-                                                            <a href="#" className="btn btn-primary btn-sm">Kup
-                                                                dostęp</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                            </Modal.Footer>
-                                        </Modal>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                        <div style={{minWidth: '250px'}} className="col-md-4"></div>
-                        <div style={{minWidth: '250px'}} className="col-md-4"></div>
-                    </div>
                 </div>
             </div>
 
