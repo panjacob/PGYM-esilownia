@@ -9,7 +9,8 @@ from message.serializers import MessageCreateSerializer, MessageGetSerializer, N
 from message.utilis import get_messages_all
 from users.models import UserExtended
 from users.utilis import put_sender_in_request_data
-from message.utilis import notification_send
+from message import utilis
+
 
 @api_view(['POST'])
 def message_send(request):
@@ -77,10 +78,13 @@ def notification_seen(request):
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
 def notification_send(request):
     user_id = request.data['user']
+    body = {'message': f"{request.data['message']}"}
+    kind = request.data['kind']
     user = UserExtended.objects.get(id=user_id)
-    notification_send(user, )
+    utilis.notification_send(user, body, kind)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
