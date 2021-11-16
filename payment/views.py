@@ -1,4 +1,4 @@
-import transaction as transaction
+from django.db import transaction
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -17,4 +17,5 @@ def transaction_create(request):
     user.save()
     transaction.save()
 
-    return Response({'OK'}, status=status.HTTP_200_OK)
+    return Response({'message': f"Transakcja zakończona poprawnie", 'transaction_id': transaction.transaction_id},
+                    status=status.HTTP_200_OK)
