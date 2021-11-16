@@ -9,6 +9,7 @@ from message.serializers import MessageCreateSerializer, MessageGetSerializer, N
 from message.utilis import get_messages_all
 from users.models import UserExtended
 from users.utilis import put_sender_in_request_data
+from message import utilis
 
 
 @api_view(['POST'])
@@ -29,8 +30,8 @@ def message_all(request):
 
     messages = get_messages_all(user1, user2)
 
-    begin = int(request.data['begin'])
-    end = int(request.data['end'])
+    begin = int(request.data.get('begin', '0'))
+    end = int(request.data.get('end', '0'))
 
     total = len(messages)
     if begin > total:
@@ -74,5 +75,16 @@ def notification_seen(request):
     notification = Notification.objects.get(id=request.data['id'])
     notification.seen = True
     notification.save()
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def notification_send(request):
+    user_id = request.data['user']
+    body = {'message': f"{request.data['message']}"}
+    kind = request.data['kind']
+    user = UserExtended.objects.get(id=user_id)
+    utilis.notification_send(user, body, kind)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
