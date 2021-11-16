@@ -7,6 +7,26 @@ function Training() {
 
     const [groupInfo, setGroupInfo] = useState([])
     const [trainingsInfo, setTrainingsInfo] = useState([])
+    const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
+    const [groupTypes, setGroupTypes] = useState([])
+    const [groupTrainings, setGroupTrainings] = useState([])
+    const [trainerInfo, setTraninerInfo] = useState([])
+
+    const difficultiesAll = [
+        {
+            id: '0',
+            name: 'Łatwy'
+        }, {
+            id: '1',
+            name: 'Średni'
+        }, {
+            id: '2',
+            name: 'Trudny'
+        }, {
+            id: '3',
+            name: 'Armagedon'
+        }
+    ]
 
     const location = useLocation()
 
@@ -21,6 +41,8 @@ function Training() {
             })
             .then((res) => {
                 setGroupInfo(res.data)
+                setGroupTypes(res.data.type)
+                setGroupTrainings(res.data.trainings)
 
                 setTrainingsInfo(trainingsInfo => [])
 
@@ -36,7 +58,30 @@ function Training() {
                             setTrainingsInfo(trainingsInfo => [...trainingsInfo, res.data])
                         })
                 });
+
+                axiosInstance
+                    .post(`/users/get/`, {id: res.data.owner}, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                        }
+                    })
+                    .then((res) => {
+                        setTraninerInfo(res.data)
+                    })
             });
+
+        axiosInstance
+            .post(`training/group/type/all`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setTrainingGroupTypeAll(res.data)
+            });
+
 
     }, []);
 
@@ -45,11 +90,12 @@ function Training() {
             <div className="container">
 
                 <div className='row'>
-                    <div className="col-md-8 mx-auto mt-3">
+                    <div className="col-md-10 mx-auto mt-3">
 
                         <div className="text-center">
                             <hr></hr>
-                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Informacje Grupy
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Informacje
+                                Grupy
                             </h1>
                             <hr></hr>
                         </div>
@@ -63,7 +109,7 @@ function Training() {
                                         <h6 className="mb-0">Trener</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {groupInfo.owner}
+                                        <p>{trainerInfo.first_name} {trainerInfo.last_name}</p>
                                     </div>
                                 </div>
                                 <hr></hr>
@@ -73,7 +119,11 @@ function Training() {
                                         <h6 className="mb-0">Poziom</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {groupInfo.difficulty}
+                                        {difficultiesAll.map((difficulty, idx) => {
+                                            if (difficulty.id === groupInfo.difficulty) {
+                                                return (<p key={idx}>{difficulty.name}</p>)
+                                            }
+                                        })}
                                     </div>
                                 </div>
                                 <hr></hr>
@@ -100,20 +150,33 @@ function Training() {
 
                                 <div className="row">
                                     <div className="col-sm-5">
-                                        <h6 className="mb-0">Typ</h6>
+                                        <h6 className="mb-0">Typy :</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {JSON.stringify(groupInfo.type)}
+                                        {trainingGroupTypeAll.map((type,idx) => {
+                                            for (let i = 0; i < groupTypes.length; i++) {
+                                                if (type.id === groupTypes[i]) {
+                                                    return (
+                                                        <p key={idx}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</p>)
+                                                }
+                                            }
+                                        })}
                                     </div>
                                 </div>
                                 <hr></hr>
 
                                 <div className="row">
                                     <div className="col-sm-5">
-                                        <h6 className="mb-0">Treningi</h6>
+                                        <h6 className="mb-0">Treningi :</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {JSON.stringify(groupInfo.trainings)}
+                                        {trainingsInfo.map((training,idx) => {
+                                            for (let i = 0; i < groupTrainings.length; i++) {
+                                                if (training.id === groupTrainings[i]) {
+                                                    return (<p key={idx}>{training.title} - {training.date_start.replace('T', " ").replace('Z', '')}</p>)
+                                                }
+                                            }
+                                        })}
                                     </div>
                                 </div>
 
@@ -126,7 +189,7 @@ function Training() {
                 </div>
 
                 <div className='row'>
-                    <div className="col-md-8 mx-auto mt-3">
+                    <div className="col-md-10 mx-auto mt-3">
 
                         <div className="text-center">
                             <hr></hr>
@@ -139,16 +202,6 @@ function Training() {
                             return (
                                 <div className="card mb-3">
                                     <div className="card-body">
-
-                                        <div className="row">
-                                            <div className="col-sm-5">
-                                                <h6 className="mb-0">ID</h6>
-                                            </div>
-                                            <div className="col-sm-7 text-secondary">
-                                                {training.id}
-                                            </div>
-                                        </div>
-                                        <hr/>
 
                                         <div className="row">
                                             <div className="col-sm-5">
@@ -175,7 +228,7 @@ function Training() {
                                                 <h6 className="mb-0">Data Startu</h6>
                                             </div>
                                             <div className="col-sm-7 text-secondary">
-                                                {training.date_start}
+                                                {training.date_start.replace('T', " ").replace('Z', '')}
                                             </div>
                                         </div>
                                         <hr/>
@@ -185,7 +238,7 @@ function Training() {
                                                 <h6 className="mb-0">Data Konca</h6>
                                             </div>
                                             <div className="col-sm-7 text-secondary">
-                                                {training.date_end}
+                                                {training.date_end.replace('T', " ").replace('Z', '')}
                                             </div>
                                         </div>
                                         <hr/>
