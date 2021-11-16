@@ -21,11 +21,12 @@ class TrainingGroupSerializerImageAdd(ModelSerializer):
 class TrainingGroupSerializerCreate(ModelSerializer):
     class Meta:
         model = TrainingGroup
+        optional_fields = ['image']
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
 
         fields = ['owner', 'difficulty', 'title', 'description', 'type', 'price_day',
-                  'price_week', 'price_month']
+                  'price_week', 'price_month', 'image']
 
 
 def participantsSerializerGet(participant):
@@ -46,7 +47,7 @@ class TrainingGroupSerializerGet(ModelSerializer):
         # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
         fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'price_day',
-                  'price_week', 'price_month']
+                  'price_week', 'price_month', 'image']
 
 
 class TrainingGroupSerializerGetAll(ModelSerializer):
@@ -56,7 +57,7 @@ class TrainingGroupSerializerGetAll(ModelSerializer):
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
         # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
-        fields = ['id', 'owner', 'difficulty', 'title', 'type']
+        fields = ['id', 'owner', 'difficulty', 'title', 'type', 'image']
 
 
 class TrainingSerializerCreate(ModelSerializer):
@@ -86,6 +87,3 @@ class TrainingSerializerFile(ModelSerializer):
     class Meta:
         model = Training
         fields = ['file']
-
-
-
