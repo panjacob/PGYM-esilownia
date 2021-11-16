@@ -24,7 +24,7 @@ function TrainingsTrainerSpace() {
                 <TrainingTrainerGet groupId={groupId}></TrainingTrainerGet>
                 <TrainingCreate groupId={groupId}></TrainingCreate>
                 <TrainingRemoveParticipant groupId={groupId}></TrainingRemoveParticipant>
-                {/*<TrainingGroupChangeImage groupId={groupId}></TrainingGroupChangeImage>*/}
+                <TrainingGroupChangeImage groupId={groupId}></TrainingGroupChangeImage>
                 Miejsce na operacje trenera na treningach znajdujacych sie w grupach treningowych
 
             </div>
