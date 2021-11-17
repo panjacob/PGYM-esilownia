@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Photo from "../../../imgs/gymcoin.png";
 import axiosInstance from "../../Axios/Axios";
 import {Link} from "react-router-dom";
+import axios_variebles from "../../Axios/Axios_variebles";
 
 function TrainingGroupShowUserTrainings() {
 
@@ -21,6 +22,15 @@ function TrainingGroupShowUserTrainings() {
             })
             .then((res) => {
                 setTrainingGroupAll(res.data)
+
+                res.data.map((group) => {
+                    if(group.image === null){
+                        group.image = Photo
+                    } else {
+                        let p = group.image
+                        group.image = axios_variebles.baseURL.slice(0, -1) + p
+                    }
+                })
             });
 
         axiosInstance
@@ -61,6 +71,7 @@ function TrainingGroupShowUserTrainings() {
                 <div className="row border justify-content-center text-center inline-block">
                     {trainingGroupAll.map((training, idx) => {
 
+
                         if (training.difficulty === "0") {
                             training.difficulty = "Łatwy"
                         }
@@ -79,9 +90,15 @@ function TrainingGroupShowUserTrainings() {
                                 return (
                                     <div key={idx} style={{minWidth: '250px'}} className="col-md-3 mb-3 mt-2 flex ">
                                         <div className="h-100 card m-1 shadow">
-                                            <img src={Photo} width="100%" height="width"
-                                                 className="card-img-top rounded-circle"
-                                                 alt="..."/>
+                                            {(training.image === null) ? (
+                                                <img src={Photo} width="100%" height="width"
+                                                     className="card-img-top rounded-circle"
+                                                     alt="..."/>
+                                            ):(
+                                                <img src={training.image} width="100%" height="width"
+                                                     className="card-img-top rounded-circle"
+                                                     alt="..."/>
+                                            )}
                                             <div className="card-body">
                                                 <div>
                                                     <h5 className="card-title">{training.title}</h5>

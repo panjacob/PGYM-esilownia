@@ -93,14 +93,14 @@ function Register_form() {
     }
 
     // DLA TESTOW BY NIE WYMYSLAC INPUTOW
-    function validateForm() {
-        return email.length > 0 && password.length > 0 && login.length > 0 && firstname.length > 0 && lastname.length > 0 && rep_password.length > 0 && password === rep_password && zxcvbn(password).score >= 2;
-    }
+    // function validateForm() {
+    //     return email.length > 0 && password.length > 0 && login.length > 0 && firstname.length > 0 && lastname.length > 0 && rep_password.length > 0 && password === rep_password && zxcvbn(password).score >= 2;
+    // }
 
     // POPRWANA WALIDACJA DLA WERSJI KONCOWEJ
-    // function validateForm() {
-    //     return loginWarnign()===true && firstnameWarnign()===true && lastnameWarnign()===true && emailWarnign()===true && passWarning()===true && rep_pasWarning()===true && firstname.length > 0 && lastname.length > 0;
-    // }
+    function validateForm() {
+        return loginWarnign()===true && firstnameWarnign()===true && lastnameWarnign()===true && emailWarnign()===true && passWarning()===true && rep_pasWarning()===true && firstname.length > 0 && lastname.length > 0;
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();

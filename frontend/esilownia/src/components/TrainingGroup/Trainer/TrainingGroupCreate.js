@@ -18,6 +18,10 @@ function TrainingGroupCreate() {
     const [type, setType] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
 
+    const [photo, setPhoto] = useState();
+    const [fileToUpload, setFileToUpload] = useState();
+    const [isFilePicked, setIsFilePicked] = useState(false);
+
     function validateForm() {
         return difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0 && pricePractice > 0 && priceWeek > 0 && priceMonth > 0;
     }
@@ -40,6 +44,13 @@ function TrainingGroupCreate() {
         urlencoded.append("price_week", priceWeek);
         urlencoded.append("price_month", priceMonth);
 
+        if(fileToUpload !== undefined) {
+            urlencoded.append("image", fileToUpload);
+            setPhoto()
+            setFileToUpload()
+            setIsFilePicked(false)
+        }
+
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -56,7 +67,7 @@ function TrainingGroupCreate() {
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
-        window.location.reload()
+        //window.location.reload()
     };
 
     useEffect(() => {
@@ -96,6 +107,12 @@ function TrainingGroupCreate() {
         setDifficulity(e.target.value)
     }
 
+    const onFileChange = (event) => {
+        setFileToUpload(event.target.files[0]);
+        setPhoto(URL.createObjectURL(event.target.files[0]));
+        setIsFilePicked(true);
+    };
+
     return (
         <div className="createGroup">
             <div className="container">
@@ -123,6 +140,46 @@ function TrainingGroupCreate() {
 
                 <div className="row mt-4">
                     <div className="container" {...getCollapseProps()}>
+
+                        <div className="border p-4 mb-1">
+                            <div className="row">
+                                <div className="mx-auto">
+                                    <h6 className="mb-0">Profilowe Grupy</h6>
+                                </div>
+                            </div>
+
+                        <div className="row">
+                            <div className="mx-auto">
+                                <img src={photo} alt="..." className="img-thumbnail" width='200px'
+                                     height='200px'/>
+                            </div>
+                        </div>
+
+                        <div className="mx-auto pt-1">
+                            <div className="custom-file">
+                                <input type="file" accept="image/png, image/gif, image/jpeg" className="custom-file-input" id="customFile" onChange={onFileChange}></input>
+                                <label className="custom-file-label" htmlFor="customFile">Wybierz plik</label>
+                                <div className="text-center mt-1">
+                                    <hr/>
+                                    {isFilePicked ? (
+                                        <div>
+                                            <p>Nazwa : {fileToUpload.name}</p>
+                                            <p>Typ : {fileToUpload.type}</p>
+                                            <p>Wielkość : {fileToUpload.size} bytes</p>
+                                            <p>
+                                                Ostatnio modyfikowany :{' '}
+                                                {fileToUpload.lastModifiedDate.toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <p>Select a file to show details</p>
+                                    )}
+                                    <hr/>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
                 <Form className="border p-4" onSubmit={handleSubmit}>
                     <Form.Group size="lg" controlId="text">
                         <Form.Label>Stopień Zaawansowania</Form.Label>

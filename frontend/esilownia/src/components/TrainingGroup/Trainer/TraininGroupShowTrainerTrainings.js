@@ -3,9 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../../Axios/Axios";
 import Photo from "../../../imgs/gymcoin.png";
 import {Link} from "react-router-dom";
-import useCollapse from "react-collapsed";
-import {Form} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import axios_variebles from "../../Axios/Axios_variebles";
 
 
@@ -14,15 +11,6 @@ function TrainingGroupShowTrainerTrainings() {
     const [trainingGroupAll, setTrainingGroupAll] = useState([]);
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
     const [userInfo, setUserInfo] = useState("");
-    const [groupToEdit, setGroupToEdit] = useState([])
-    const [difficulity, setDifficulity] = useState([]);
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [pricePractice, setPricePractice] = useState(0);
-    const [priceWeek, setPriceWeek] = useState(0);
-    const [priceMonth, setPriceMonth] = useState(0);
-    const [type, setType] = useState([]);
-    const [typeSelected, setTypeSelected] = useState([]);
 
     useEffect(() => {
 
@@ -35,6 +23,16 @@ function TrainingGroupShowTrainerTrainings() {
             })
             .then((res) => {
                 setTrainingGroupAll(res.data)
+
+                res.data.map((group) => {
+                    if(group.image === null){
+                        group.image = Photo
+                    } else {
+                        let p = group.image
+                        group.image = axios_variebles.baseURL.slice(0, -1) + p
+                    }
+                })
+
             });
 
         axiosInstance
@@ -59,91 +57,7 @@ function TrainingGroupShowTrainerTrainings() {
                 setUserInfo(res.data)
             });
 
-        axiosInstance
-            .post(`training/group/type/all`, {}, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-            .then((res) => {
-                setType(res.data)
-            })
-            .catch(
-                function (error) {
-                    alert(error)
-                    return Promise.reject(error)
-                });
-
     }, []);
-
-    const {getCollapseProps, getToggleProps, isExpanded} = useCollapse()
-    const titleRef = useRef()
-
-
-    const groupChosen = (e) => {
-        if (e.target.value !== "none") {
-            axiosInstance
-                .post(`/training/group/get`, {id: e.target.value}, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                    }
-                })
-                .then((res) => {
-                    setGroupToEdit(res.data)
-                });
-        }
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("id", groupToEdit.id);
-        urlencoded.append("difficulty", difficulity);
-        urlencoded.append("title", title);
-        urlencoded.append("description", description);
-        for (let i = 0; i < typeSelected.length; i++) {
-            urlencoded.append("type", typeSelected[i]);
-        }
-        urlencoded.append("price_day", pricePractice);
-        urlencoded.append("price_week", priceWeek);
-        urlencoded.append("price_month", priceMonth);
-
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
-        };
-
-        fetch(axios_variebles.baseURL + "training/group/edit", requestOptions)
-            .then(response => response.text())
-            .catch(error => console.log('error', error));
-
-        window.location.reload()
-    };
-
-    const selectedDifficulty = (e) => {
-        setDifficulity(e.target.value)
-    }
-
-    const typesChecked = (e) => {
-
-        if (typeSelected.indexOf(e.target.name) !== -1) {
-            let name = e.target.name;
-            setTypeSelected(typeSelected.filter((e) => (e !== name)))
-        } else {
-            let name = e.target.name;
-            setTypeSelected([...typeSelected, name]);
-        }
-
-    }
 
 
     return (
@@ -177,9 +91,15 @@ function TrainingGroupShowTrainerTrainings() {
                             return (
                                 <div key={idx} style={{minWidth: '250px'}} className="col-md-3 mb-2 flex">
                                     <div className="h-100 card m-1 shadow">
-                                        <img src={Photo} width="100%" height="width"
-                                             className="card-img-top rounded-circle"
-                                             alt="..."/>
+                                        {(training.image === null) ? (
+                                            <img src={Photo} width="100%" height="width"
+                                                 className="card-img-top rounded-circle"
+                                                 alt="..."/>
+                                        ):(
+                                            <img src={training.image} width="100%" height="width"
+                                                 className="card-img-top rounded-circle"
+                                                 alt="..."/>
+                                        )}
                                         <div className="card-body">
                                             <div>
                                                 <h5 className="card-title">{training.title}</h5>
