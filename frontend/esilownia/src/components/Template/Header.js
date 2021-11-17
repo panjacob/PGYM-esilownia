@@ -65,13 +65,13 @@ function Header(props) {
             });
 
 
-        let y = document.createElement('span')
-        y.innerHTML = 'Zobacz wszystkie';
-        y.onclick = function () {
-            window.location.href = '/konto'
-        };
-        let x = document.getElementsByClassName('see-all')
-        x[0].appendChild(y);
+        // let y = document.createElement('span')
+        // y.innerHTML = 'Zobacz wszystkie';
+        // y.onclick = function () {
+        //     window.location.href = '/konto'
+        // };
+        // let x = document.getElementsByClassName('see-all')
+        //x[0].appendChild(y);
 
     }, []);
 

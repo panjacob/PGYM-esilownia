@@ -15,6 +15,7 @@ function TrainingGroupShowAllPrivate() {
     const [typeSelected, setTypeSelected] = useState([]);
     const [difficultySelected, setDifficultySelected] = useState([]);
     const [trainingFilter, setTrainingFilter] = useState([]);
+    const [trainingFilterP, setTrainingFilterP] = useState([]);
     const [trainersInfo, setTrainersInfo] = useState([]);
 
     function uniqBy(a, key) {
@@ -45,7 +46,8 @@ function TrainingGroupShowAllPrivate() {
         let cleanArray = []
         if (typeSelected.length === 0) {
 
-            cleanArray = trainingGroupAll;
+            cleanArray = trainingFilterP;
+
         } else {
 
             trainingGroupAll.map(function (training) {
@@ -67,7 +69,7 @@ function TrainingGroupShowAllPrivate() {
         let cleanArray2 = []
         if (difficultySelected.length === 0) {
 
-            cleanArray2 = trainingGroupAll;
+            cleanArray2 = trainingFilterP;
         } else {
 
             trainingGroupAll.map(function (training) {
@@ -126,19 +128,9 @@ function TrainingGroupShowAllPrivate() {
             })
             .then((res) => {
                 setTrainingGroupAll(res.data)
-                setTrainingFilter(res.data)
-                //console.log(res.data)
+                //setTrainingFilter(res.data)
+
                 res.data.map((group) => {
-                    axiosInstance
-                        .post(`/users/get/`, {id: group.owner}, {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                            }
-                        })
-                        .then((res2) => {
-                            setTrainersInfo(trainersInfo => [...trainersInfo, res2.data])
-                        });
 
                     axiosInstance
                         .post(`/training/group/get`, {id: group.id}, {
@@ -148,9 +140,22 @@ function TrainingGroupShowAllPrivate() {
                             }
                         })
                         .then((res3) => {
-                            if(res3.data.participants.length !== 0) {
-                                setTrainingFilter(trainingFilter => trainingFilter.filter(item => item.id !== res3.data.id));
+                            if(res3.data.participants.length === 0) {
+                                //setTrainingFilter(trainingFilter => trainingFilter.filter(item => item.id !== res3.data.id));
+                                setTrainingFilter(trainingFilter => [...trainingFilter, group]);
+                                setTrainingFilterP( trainingFilterP => [...trainingFilterP,group])
                             }
+                        });
+
+                    axiosInstance
+                        .post(`/users/get/`, {id: group.owner}, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                            }
+                        })
+                        .then((res2) => {
+                            setTrainersInfo(trainersInfo => [...trainersInfo, res2.data])
                         });
                 })
             });
@@ -168,7 +173,7 @@ function TrainingGroupShowAllPrivate() {
 
     }, []);
 
-    function Items({currentItems}) {
+    function Items2({currentItems}) {
         return (
             <div id="offer_container" className="row justify-content-center">
                 {currentItems && currentItems.map(function (cValue, idx) {
@@ -256,7 +261,7 @@ function TrainingGroupShowAllPrivate() {
 
         return (
             <>
-                <Items currentItems={currentItems}/>
+                <Items2 currentItems={currentItems}/>
                 <div className='row justify-content-center'>
                     <ReactPaginate
                         nextLabel="Następna"
