@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'moderator',
     'message',
     'payment',
+    'diet',
     # Django
     'django.contrib.admin',
     'django.contrib.auth',

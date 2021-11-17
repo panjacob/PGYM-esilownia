@@ -26,6 +26,7 @@ class TrainingGroupType(models.Model):
 class TrainingGroup(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, default=None, related_name='owner')
     date = models.DateField(default=timezone.now)
+    is_private = models.BooleanField(default=False)
 
     EASY = '0'
     MEDIUM = '1'

@@ -11,6 +11,7 @@ urlpatterns = [
     path('moderator/', include('moderator.urls')),
     path('message/', include('message.urls')),
     path('payment/', include('payment.urls')),
+    path('diet/', include('diet.urls')),
     path('admin/', admin.site.urls),
 ]
 
