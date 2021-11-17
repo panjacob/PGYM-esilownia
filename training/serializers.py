@@ -21,12 +21,12 @@ class TrainingGroupSerializerImageAdd(ModelSerializer):
 class TrainingGroupSerializerCreate(ModelSerializer):
     class Meta:
         model = TrainingGroup
-        optional_fields = ['image']
+        optional_fields = ['image', 'is_private']
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
 
         fields = ['owner', 'difficulty', 'title', 'description', 'type', 'price_day',
-                  'price_week', 'price_month', 'image']
+                  'price_week', 'price_month', 'image', 'is_private']
 
 
 def participantsSerializerGet(participant):
@@ -47,7 +47,7 @@ class TrainingGroupSerializerGet(ModelSerializer):
         # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
         fields = ['id', 'owner', 'date', 'difficulty', 'title', 'description', 'type', 'price_day',
-                  'price_week', 'price_month', 'image']
+                  'price_week', 'price_month', 'image', 'is_private']
 
 
 class TrainingGroupSerializerGetAll(ModelSerializer):
@@ -57,7 +57,7 @@ class TrainingGroupSerializerGetAll(ModelSerializer):
         type = TrainingGroupTypesSerializer(read_only=True, many=True)
         # participants = ParticipantsSerializerGet(read_only=True, many=True)
 
-        fields = ['id', 'owner', 'difficulty', 'title', 'type', 'image']
+        fields = ['id', 'owner', 'difficulty', 'title', 'type', 'image', 'is_private']
 
 
 class TrainingSerializerCreate(ModelSerializer):
