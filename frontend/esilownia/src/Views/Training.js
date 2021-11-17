@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
+import profilePicture from "../imgs/basic_profile_photo.jpg";
+import axios_variebles from "../components/Axios/Axios_variebles";
 
 function Training() {
 
@@ -11,6 +13,7 @@ function Training() {
     const [groupTypes, setGroupTypes] = useState([])
     const [groupTrainings, setGroupTrainings] = useState([])
     const [trainerInfo, setTraninerInfo] = useState([])
+    const [photo, setPhoto] = useState([])
 
     const difficultiesAll = [
         {
@@ -43,6 +46,12 @@ function Training() {
                 setGroupInfo(res.data)
                 setGroupTypes(res.data.type)
                 setGroupTrainings(res.data.trainings)
+
+                if(res.data.image === null){
+                    setPhoto(profilePicture)
+                } else {
+                    setPhoto(axios_variebles.baseURL.slice(0, -1) + res.data.image)
+                }
 
                 setTrainingsInfo(trainingsInfo => [])
 
@@ -98,6 +107,24 @@ function Training() {
                                 Grupy
                             </h1>
                             <hr></hr>
+                        </div>
+
+                        <div className="card mb-3">
+
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="mx-auto">
+                                        <h6 className="mb-0">Profilowe grupy</h6>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="mx-auto">
+                                        <img src={photo} alt="..." className="img-thumbnail" width='200px'
+                                             height='200px'/>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div className="card mb-3">
