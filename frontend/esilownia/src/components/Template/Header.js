@@ -1,43 +1,163 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Logout from "../Logout/Logout";
 import {Container, Navbar, Nav, NavDropdown, NavItem} from 'react-bootstrap'
 import logo from '../../imgs/coin_img.png'
 import Notifications from "react-notifications-menu";
+import axiosInstance from "../Axios/Axios";
 
 function Header(props) {
 
-    const data = [
-        {
-            // zdjecie
-            image: logo,
-            // opis ktory sie wyswietla
-            message: 'Lorem ipsum dolor sit amet1.',
-            // opcjonalny href po kliknieciu w powiadomienie
-            detailPage: '/events',
-            // wyswietlany czas dostania
-            receivedTime: '12h ago',
-        },
-        {
-            image: logo,
-            message: 'Lorem ipsum dolor sit amet2.',
-            detailPage: '/events',
-            receivedTime: '12h ago'
-        }, {
-            image: logo,
-            message: 'Lorem ipsum dolor sit amet3.',
-            detailPage: '/events',
-            receivedTime: '12h ago'
-        },
-        {
-            image: logo,
-            message: 'Lorem ipsum dolor sit amet4.',
-            detailPage: '/events',
-            receivedTime: '12h ago'
-        }
-    ]
+    const [notificationsToShow, setNotificationsToShow] = useState([])
 
+    function msToTime(duration) {
+        var seconds = Math.floor((duration / 1000) % 60),
+            minutes = Math.floor((duration / (1000 * 60)) % 60),
+            hours = Math.floor((duration / (1000 * 60 * 60)) % 24),
+            days = Math.floor((duration / (1000 * 60 * 60 * 24)));
+
+        if (hours === 0 && minutes === 0) {
+            return seconds + " sec. temu";
+        }
+        if (hours === 0) {
+            return minutes + " min. temu";
+        }
+        if (days === 0) {
+            return hours + " godz. temu";
+        }
+        if (hours > 24) {
+            if (days === 1) {
+                return days + " dzień temu"
+            } else {
+                return days + " dni temu"
+            }
+        }
+    }
+
+    useEffect(() => {
+
+        axiosInstance
+            .post(`/message/notification/all`, {show_seen: 'False'}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                    setNotificationsToShow([])
+                    res.data.map((notification) => {
+                        let time_send = new Date()
+                        time_send.setTime(notification.time)
+                        let time_now = Date.now()
+                        let time = time_now - time_send;
+
+                        let obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: logo,
+                            message: JSON.parse(notification.body).message,
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                        setNotificationsToShow(notificationsToShow => [...notificationsToShow, obj])
+                    })
+            });
+
+
+        let y = document.createElement('span')
+        y.innerHTML = 'Zobacz wszystkie';
+        y.onclick = function () {
+            window.location.href = '/konto'
+        };
+        let x = document.getElementsByClassName('see-all')
+        x[0].appendChild(y);
+
+    }, []);
+
+    function markSeen(data){
+        console.log(data)
+        axiosInstance
+            .post(`/message/notification/seen`, {id: data.id}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+            });
+
+        axiosInstance
+            .post(`/message/notification/all`, {show_seen: 'False'}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setNotificationsToShow([])
+                res.data.map((notification) => {
+                    let time_send = new Date()
+                    time_send.setTime(notification.time)
+                    let time_now = Date.now()
+                    let time = time_now - time_send;
+
+                    let obj = {
+                        key: notification.id,
+                        id: notification.id,
+                        kind: notification.kind,
+                        image: logo,
+                        message: JSON.parse(notification.body).message,
+                        detailPage: '#',
+                        receivedTime: msToTime(time)
+                    }
+                    setNotificationsToShow(notificationsToShow => [...notificationsToShow, obj])
+                })
+            });
+    }
+
+    function markAllSeen(data){
+        data.map((notification)=>{
+            console.log(data)
+            console.log(notification)
+            axiosInstance
+                .post(`/message/notification/seen`, {id: notification.id}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                    }
+                })
+                .then((res) => {
+                });
+        })
+        axiosInstance
+            .post(`/message/notification/all`, {show_seen: 'False'}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setNotificationsToShow([])
+                res.data.map((notification) => {
+                    let time_send = new Date()
+                    time_send.setTime(notification.time)
+                    let time_now = Date.now()
+                    let time = time_now - time_send;
+
+                    let obj = {
+                        key: notification.id,
+                        id: notification.id,
+                        kind: notification.kind,
+                        image: logo,
+                        message: JSON.parse(notification.body).message,
+                        detailPage: '#',
+                        receivedTime: msToTime(time)
+                    }
+                    setNotificationsToShow(notificationsToShow => [...notificationsToShow, obj])
+                })
+            });
+    }
 
     let isModerator = false;
     if (localStorage.getItem('role') !== null) {
@@ -91,15 +211,21 @@ function Header(props) {
                                     </NavDropdown>
                                     <Nav.Link>
                                         <Notifications
-                                            data={data}
-                                            cardOption={data => console.log(data)}
-                                            markAsRead={data => {console.log('mar')}}
-                                            viewAllBtn={{text:'Pokaż wszystkie',onClick: ()=>{}}}
+                                            data={notificationsToShow}
+                                            cardOption={data => markSeen(data)}
+                                            markAsRead={data => {
+                                                console.log('mar')
+                                            }}
+                                            viewAllBtn={{
+                                                text: '', linkTo: '/konto'
+                                            }}
                                             header={
                                                 {
                                                     title: 'Notifications',
                                                     option: {
-                                                        text: 'Zaznacz wszystkie jako przeczytane', onClick: () => {console.log(data)}
+                                                        text: 'Zaznacz wszystkie jako przeczytane', onClick: () => {
+                                                            markAllSeen(notificationsToShow);
+                                                        }
                                                     }
                                                 }
                                             }

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
+import AccountNotificationsAll from "./Account_notifications_all";
 
 function Account_data() {
 
@@ -26,6 +27,7 @@ function Account_data() {
                 setLastname(res.data.last_name)
                 setJoindate(res.data.start_date.slice(0, 10))
             });
+
 
     }, []);
 
@@ -92,6 +94,7 @@ function Account_data() {
                 </div>
 
             </div>
+            <AccountNotificationsAll></AccountNotificationsAll>
 
         </div>
     );
