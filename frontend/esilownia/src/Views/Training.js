@@ -140,7 +140,7 @@ function Training() {
 
                                 <div className="row">
                                     <div className="col-sm-5">
-                                        <h6 className="mb-0">Description</h6>
+                                        <h6 className="mb-0">Opis</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
                                         {groupInfo.description}
