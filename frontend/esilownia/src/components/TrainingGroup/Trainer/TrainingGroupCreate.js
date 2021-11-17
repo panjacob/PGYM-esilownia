@@ -20,6 +20,7 @@ function TrainingGroupCreate() {
 
     const [photo, setPhoto] = useState();
     const [fileToUpload, setFileToUpload] = useState();
+    const [fileToUploadName, setFileToUploadName] = useState("");
     const [isFilePicked, setIsFilePicked] = useState(false);
 
     function validateForm() {
@@ -31,34 +32,28 @@ function TrainingGroupCreate() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(typeSelected)
-
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("difficulty", difficulity);
-        urlencoded.append("title", title);
-        urlencoded.append("description", description);
+        var formdata = new FormData();
+        formdata.append("difficulty", difficulity);
+        formdata.append("title", title);
+        formdata.append("description", description);
         for (let i = 0; i < typeSelected.length; i++) {
-            urlencoded.append("type", typeSelected[i]);
+            formdata.append("type", typeSelected[i]);
         }
-        urlencoded.append("price_day", pricePractice);
-        urlencoded.append("price_week", priceWeek);
-        urlencoded.append("price_month", priceMonth);
+        formdata.append("price_day", pricePractice);
+        formdata.append("price_week", priceWeek);
+        formdata.append("price_month", priceMonth);
 
-        if(fileToUpload !== undefined) {
-            urlencoded.append("image", fileToUpload);
-            setPhoto()
-            setFileToUpload()
-            setIsFilePicked(false)
-        }
+        formdata.append("image", fileToUpload, fileToUploadName);
+
+        formdata.append("is_private", "False");
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
-            body: urlencoded,
+            body: formdata,
             redirect: 'follow'
         };
 
@@ -67,7 +62,7 @@ function TrainingGroupCreate() {
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
-        //window.location.reload()
+        window.location.reload()
     };
 
     useEffect(() => {
@@ -109,6 +104,7 @@ function TrainingGroupCreate() {
 
     const onFileChange = (event) => {
         setFileToUpload(event.target.files[0]);
+        setFileToUploadName(event.target.files[0].name)
         setPhoto(URL.createObjectURL(event.target.files[0]));
         setIsFilePicked(true);
     };

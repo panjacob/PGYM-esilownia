@@ -22,15 +22,6 @@ function TrainingGroupShowUserTrainings() {
             })
             .then((res) => {
                 setTrainingGroupAll(res.data)
-
-                res.data.map((group) => {
-                    if(group.image === null){
-                        group.image = Photo
-                    } else {
-                        let p = group.image
-                        group.image = axios_variebles.baseURL.slice(0, -1) + p
-                    }
-                })
             });
 
         axiosInstance
@@ -95,7 +86,7 @@ function TrainingGroupShowUserTrainings() {
                                                      className="card-img-top rounded-circle"
                                                      alt="..."/>
                                             ):(
-                                                <img src={training.image} width="100%" height="width"
+                                                <img src={axios_variebles.baseURL.slice(0, -1) + training.image} width="100%" height="width"
                                                      className="card-img-top rounded-circle"
                                                      alt="..."/>
                                             )}

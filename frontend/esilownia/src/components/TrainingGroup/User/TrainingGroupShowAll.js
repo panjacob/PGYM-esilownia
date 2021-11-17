@@ -140,15 +140,6 @@ function TrainingGroupShowAll() {
                             setTrainersInfo(trainersInfo => [...trainersInfo, res2.data])
                         });
                 })
-
-                res.data.map((group) => {
-                    if(group.image === null){
-                        group.image = Photo
-                    } else {
-                        let p = group.image
-                        group.image = axios_variebles.baseURL.slice(0, -1) + p
-                    }
-                })
             });
 
         axiosInstance
@@ -173,9 +164,15 @@ function TrainingGroupShowAll() {
                     return (
                         <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
                             <div className="h-100 card m-1 shadow" key={idx}>
-                                <img src={cValue.image} width="100%" height="width"
-                                     className="card-img-top rounded-circle"
-                                     alt="..."/>
+                                {(cValue.image === null) ? (
+                                    <img src={Photo} width="100%" height="width"
+                                         className="card-img-top rounded-circle"
+                                         alt="..."/>
+                                ):(
+                                    <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="100%" height="width"
+                                         className="card-img-top rounded-circle"
+                                         alt="..."/>
+                                )}
                                 <div className="card-body">
                                     <div>
                                         <h5 className="card-title">{cValue.title}</h5>
@@ -240,7 +237,7 @@ function TrainingGroupShowAll() {
         return (
             <>
                 <Items currentItems={currentItems}/>
-                <div className='row justify-content-center' style={{position:'absolute', bottom:'0' ,width:'100%'}}>
+                <div className='row justify-content-center'>
                     <ReactPaginate
                         nextLabel="Następna"
                         onPageChange={handlePageClick}
@@ -276,9 +273,9 @@ function TrainingGroupShowAll() {
             </div>
 
 
-            <div className="row" style={{minHeight:'830px'}}>
+            <div className="row" >
 
-                <div className="col-md-3 border text-center">
+                <div className="col-md-3 border text-center pt-3 pb-3">
                     <h5 className="font-weight-light mt-1">Typ Treningu:</h5>
 
                     <Form>
