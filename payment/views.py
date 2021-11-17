@@ -18,9 +18,19 @@ def transaction_create(request):
 
 @api_view(['POST'])
 def transaction_all(request):
-    transactions = models.Transaction.objects.get(user=request.user)
+    transactions = models.Transaction.objects.filter(user=request.user)
     result = []
     for transaction in transactions:
         serializer = serializers.TransactionSerializer(instance=transaction)
         result.append(serializer.data)
-    return JsonResponse(result)
+    return JsonResponse(result, safe=False)
+
+
+@api_view(['POST'])
+def offer_all(request):
+    offers = models.Offer.objects.all()
+    result = []
+    for offer in offers:
+        serializer = serializers.TransactionSerializer(instance=offer)
+        result.append(serializer.data)
+    return JsonResponse(result, safe=False)
