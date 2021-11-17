@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'training',
     'moderator',
     'message',
+    'payment',
     # Django
     'django.contrib.admin',
     'django.contrib.auth',
@@ -192,7 +193,6 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 IMAGES_ROOT = MEDIA_ROOT + 'images/'
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-
 
 
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
