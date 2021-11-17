@@ -14,6 +14,7 @@ function TrainingGroupCreate() {
     const [pricePractice, setPricePractice] = useState(0);
     const [priceWeek, setPriceWeek] = useState(0);
     const [priceMonth, setPriceMonth] = useState(0);
+    const [isPrivate, setIsPrivate] = useState('');
 
     const [type, setType] = useState([]);
     const [typeSelected, setTypeSelected] = useState([]);
@@ -45,7 +46,7 @@ function TrainingGroupCreate() {
 
         formdata.append("image", fileToUpload, fileToUploadName);
 
-        formdata.append("is_private", "False");
+        formdata.append("is_private", isPrivate);
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
@@ -98,8 +99,13 @@ function TrainingGroupCreate() {
     }
 
     const selectedDifficulty = (e) => {
-        console.log(e.target.value);
+        //console.log(e.target.value);
         setDifficulity(e.target.value)
+    }
+
+    const selectedGroupType = (e) => {
+        //console.log(e.target.value);
+        setIsPrivate(e.target.value)
     }
 
     const onFileChange = (event) => {
@@ -229,6 +235,19 @@ function TrainingGroupCreate() {
                                 /> {types.type.charAt(0).toUpperCase() + types.type.slice(1)}
                             </div>
                         ))}
+                    </Form.Group>
+                    <Form.Group size="lg" controlId="text">
+                        <Form.Label>Rodzaj grupy</Form.Label>
+                        <div onChange={selectedGroupType.bind(this)}>
+                            <div className="mx-2">
+                                <input type="radio" value="true"
+                                       name="application_role"/> Prywatny
+                            </div>
+                            <div className="mx-2">
+                                <input type="radio" value="false"
+                                       name="application_role"/> Grupowy
+                            </div>
+                        </div>
                     </Form.Group>
                     <Form.Group size="lg" controlId="text">
                         <Form.Label>Ceny</Form.Label>

@@ -1,14 +1,16 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TrainingGroupShowAll from "./TrainingGroupShowAll";
+import TrainingGroupShowAllGroup from "./TrainingGroupShowAllGroup";
 import TrainingGroupShowUserTrainings from "./TrainingGroupShowUserTrainings";
+import TrainingGroupShowAllPrivate from "./TrainingGroupShowAllPrivate";
 
 function TrainingGroup_user() {
 
     return (
         <div className="trainingGroupGetAll">
 
-            <TrainingGroupShowAll></TrainingGroupShowAll>
+            <TrainingGroupShowAllGroup></TrainingGroupShowAllGroup>
+            <TrainingGroupShowAllPrivate></TrainingGroupShowAllPrivate>
 
             <TrainingGroupShowUserTrainings></TrainingGroupShowUserTrainings>
 

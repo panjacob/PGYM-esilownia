@@ -8,7 +8,7 @@ import ReactPaginate from 'react-paginate'
 import {Link} from "react-router-dom";
 import axios_variebles from "../../Axios/Axios_variebles";
 
-function TrainingGroupShowAll() {
+function TrainingGroupShowAllGroup() {
 
     const [trainingGroupAll, setTrainingGroupAll] = useState([]);
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
@@ -127,7 +127,7 @@ function TrainingGroupShowAll() {
             .then((res) => {
                 setTrainingGroupAll(res.data)
                 setTrainingFilter(res.data)
-                console.log(res.data)
+
                 res.data.map((group) => {
                     axiosInstance
                         .post(`/users/get/`, {id: group.owner}, {
@@ -160,56 +160,63 @@ function TrainingGroupShowAll() {
         return (
             <div id="offer_container" className="row justify-content-center">
                 {currentItems && currentItems.map(function (cValue, idx) {
-
-                    return (
-                        <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
-                            <div className="h-100 card m-1 shadow" key={idx}>
-                                {(cValue.image === null) ? (
-                                    <img src={Photo} width="100%" height="width"
-                                         className="card-img-top rounded-circle"
-                                         alt="..."/>
-                                ):(
-                                    <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="100%" height="width"
-                                         className="card-img-top rounded-circle"
-                                         alt="..."/>
-                                )}
-                                <div className="card-body">
-                                    <div>
-                                        <h5 className="card-title">{cValue.title}</h5>
-                                        <div className="card-subtitle"
-                                             style={{overflow: 'auto', height: '100px'}}>
-                                            {trainingGroupTypeAll.map(function (type, id) {
-                                                for (let i = 0; i < cValue.type.length; i++) {
-                                                    if (cValue.type.includes(type.id)) {
-                                                        return (<p style={{fontSize: '15px'}} className="m-0"
-                                                                   key={id}>{type.type}</p>)
+                    if(cValue.is_private === false) {
+                        return (
+                            <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
+                                <div className="h-100 card m-1 shadow" key={idx}>
+                                    {(cValue.image === null) ? (
+                                        <img src={Photo} width="100%" height="width"
+                                             className="card-img-top rounded-circle"
+                                             alt="..."/>
+                                    ) : (
+                                        <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="100%"
+                                             height="width"
+                                             className="card-img-top rounded-circle"
+                                             alt="..."/>
+                                    )}
+                                    <div className="card-body">
+                                        <div>
+                                            <h5 className="card-title">{cValue.title}</h5>
+                                            <div className="card-subtitle"
+                                                 style={{overflow: 'auto', height: '100px'}}>
+                                                {trainingGroupTypeAll.map(function (type, id) {
+                                                    for (let i = 0; i < cValue.type.length; i++) {
+                                                        if (cValue.type.includes(type.id)) {
+                                                            return (<p style={{fontSize: '15px'}} className="m-0"
+                                                                       key={id}>{type.type}</p>)
+                                                        }
                                                     }
+                                                })}
+                                            </div>
+                                            <p className="card-text"> Trener: </p>
+                                            {uniqBy(trainersInfo, JSON.stringify).map((trainer, idx) => {
+                                                if (trainer.id === cValue.owner)
+                                                    return (<p key={idx}
+                                                               className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
+
+                                            })}
+                                            {difficultiesAll.map((difficulty) => {
+                                                if (difficulty.id === cValue.difficulty) {
+                                                    return (<p className="card-text"> Poziom: {difficulty.name}</p>)
                                                 }
                                             })}
+                                            {(cValue.is_private === true) ? (
+                                                <p className="card-text">Trening Personalny</p>
+                                            ) : (
+                                                <p className="card-text">Trening Grupowy</p>
+                                            )}
+                                            <Link className='btn' to={{
+                                                pathname: '/grupa_szczegóły',
+                                                state: {
+                                                    groupId: cValue.id
+                                                }
+                                            }}>Pokaż Wiecej</Link>
                                         </div>
-                                        <p className="card-text"> Trener: </p>
-                                        {uniqBy(trainersInfo, JSON.stringify).map((trainer, idx) => {
-                                            if (trainer.id === cValue.owner)
-                                                return (<p key={idx}
-                                                           className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
-
-                                        })}
-                                        {difficultiesAll.map((difficulty)=>{
-                                            if(difficulty.id === cValue.difficulty) {
-                                                return (<p className="card-text"> Poziom: {difficulty.name}</p>)
-                                            }
-                                        })}
-                                        <Link className='btn' to={{
-                                            pathname: '/grupa_szczegóły',
-                                            state: {
-                                                groupId: cValue.id
-                                            }
-                                        }}>Pokaż Wiecej</Link>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
+                    }
                 })}
                 <div style={{minWidth: '250px'}} className="col-md-4"></div>
                 <div style={{minWidth: '250px'}} className="col-md-4"></div>
@@ -268,7 +275,7 @@ function TrainingGroupShowAll() {
 
             <div className="text-center">
                 <hr></hr>
-                <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Wszystkie grupy</h1>
+                <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Treningi Grupowe</h1>
                 <hr></hr>
             </div>
 
@@ -350,4 +357,4 @@ function TrainingGroupShowAll() {
     );
 }
 
-export default TrainingGroupShowAll;
+export default TrainingGroupShowAllGroup;
