@@ -122,7 +122,7 @@ function GroupOfferDetails() {
                     <div className="col-md-6">
                         <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 mt-4">Trener: </h1>
                         <hr></hr>
-                        <Card style={{width: '18rem'}}>
+                        <Card style={{width: '18rem'}} className="bg-light">
                             <Card.Img variant="top" className="img-thumbnail" width='200px' height='200px' alt={trainerInfo.first_name + " " + trainerInfo.last_name} src={photo}/>
                             <Card.Title className="font-weight-light">{trainerInfo.first_name + " " + trainerInfo.last_name}</Card.Title>
                         </Card>
