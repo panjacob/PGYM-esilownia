@@ -9,7 +9,9 @@ import axiosInstance from "../Axios/Axios";
 
 function Header(props) {
 
-    const [notificationsToShow, setNotificationsToShow] = useState([])
+    const [data, setData] = useState([])
+
+    const data2 = [{x:1},{x:1}]
 
     function msToTime(duration) {
         var seconds = Math.floor((duration / 1000) % 60),
@@ -37,6 +39,8 @@ function Header(props) {
 
     useEffect(() => {
 
+        if(localStorage.getItem('access_token') !== null) {
+
         axiosInstance
             .post(`/message/notification/all`, {show_seen: 'False'}, {
                 headers: {
@@ -45,7 +49,7 @@ function Header(props) {
                 }
             })
             .then((res) => {
-                    setNotificationsToShow([])
+                    setData([])
                     res.data.map((notification) => {
                         let time_send = new Date()
                         time_send.setTime(notification.time)
@@ -60,18 +64,18 @@ function Header(props) {
                             detailPage: '#',
                             receivedTime: msToTime(time)
                         }
-                        setNotificationsToShow(notificationsToShow => [...notificationsToShow, obj])
+                        setData(data => [...data, obj])
                     })
             });
 
-
-        // let y = document.createElement('span')
-        // y.innerHTML = 'Zobacz wszystkie';
-        // y.onclick = function () {
-        //     window.location.href = '/konto'
-        // };
-        // let x = document.getElementsByClassName('see-all')
-        //x[0].appendChild(y);
+        let y = document.createElement('span')
+        y.innerHTML = 'Zobacz wszystkie';
+        y.onclick = function () {
+            window.location.href = '/konto'
+        };
+        let x = document.getElementsByClassName('see-all')
+            x[0].appendChild(y);
+        }
 
     }, []);
 
@@ -95,7 +99,7 @@ function Header(props) {
                 }
             })
             .then((res) => {
-                setNotificationsToShow([])
+                setData([])
                 res.data.map((notification) => {
                     let time_send = new Date()
                     time_send.setTime(notification.time)
@@ -111,7 +115,7 @@ function Header(props) {
                         detailPage: '#',
                         receivedTime: msToTime(time)
                     }
-                    setNotificationsToShow(notificationsToShow => [...notificationsToShow, obj])
+                    setData(data => [...data, obj])
                 })
             });
     }
@@ -138,7 +142,7 @@ function Header(props) {
                 }
             })
             .then((res) => {
-                setNotificationsToShow([])
+                setData([])
                 res.data.map((notification) => {
                     let time_send = new Date()
                     time_send.setTime(notification.time)
@@ -154,7 +158,7 @@ function Header(props) {
                         detailPage: '#',
                         receivedTime: msToTime(time)
                     }
-                    setNotificationsToShow(notificationsToShow => [...notificationsToShow, obj])
+                    setData(data => [...data, obj])
                 })
             });
     }
@@ -206,16 +210,14 @@ function Header(props) {
                                             (isModerator === true) ? (
 
                                                 < NavDropdown.Item href="/cockpit">Kokpit</NavDropdown.Item>
+
                                             ) : ("")
                                         }
                                     </NavDropdown>
                                     <Nav.Link>
                                         <Notifications
-                                            data={notificationsToShow}
+                                            data={data}
                                             cardOption={data => markSeen(data)}
-                                            markAsRead={data => {
-                                                console.log('mar')
-                                            }}
                                             viewAllBtn={{
                                                 text: '', linkTo: '/konto'
                                             }}
@@ -224,7 +226,7 @@ function Header(props) {
                                                     title: 'Notifications',
                                                     option: {
                                                         text: 'Zaznacz wszystkie jako przeczytane', onClick: () => {
-                                                            markAllSeen(notificationsToShow);
+                                                            markAllSeen(data);
                                                         }
                                                     }
                                                 }

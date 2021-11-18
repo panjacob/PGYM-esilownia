@@ -128,8 +128,8 @@ function TrainingGroupShowAllPrivate() {
             })
             .then((res) => {
                 setTrainingGroupAll(res.data)
-                //setTrainingFilter(res.data)
-
+                setTrainingFilter([])
+                setTrainingFilterP([])
                 res.data.map((group) => {
 
                     axiosInstance
@@ -140,10 +140,9 @@ function TrainingGroupShowAllPrivate() {
                             }
                         })
                         .then((res3) => {
-                            if(res3.data.participants.length === 0) {
-                                //setTrainingFilter(trainingFilter => trainingFilter.filter(item => item.id !== res3.data.id));
+                            if (res3.data.participants.length === 0) {
                                 setTrainingFilter(trainingFilter => [...trainingFilter, group]);
-                                setTrainingFilterP( trainingFilterP => [...trainingFilterP,group])
+                                setTrainingFilterP(trainingFilterP => [...trainingFilterP, group])
                             }
                         });
 

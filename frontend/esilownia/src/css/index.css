@@ -232,10 +232,11 @@ div.notifications div.container div.items div.card{
     border-radius: 0;
     border: 1px solid gray;
     display: grid;
-    grid-template-columns: 85% 15%;
-    grid-template-rows: auto;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 12px;
     grid-template-areas:
-    "main sidebar"
+    "main"
+    "sidebar"
 }
 
 div.notifications div.container div.items div.card div.content{
@@ -245,11 +246,10 @@ div.notifications div.container div.items div.card div.options{
     grid-area: sidebar;
 }
 div.notifications div.container div.items div.card div.options div.option{
-    height: 100%;
-    line-height: 2.0;
-    display: inline-block;
-    vertical-align: middle;
+    visibility: visible;
     color: black;
+    content: 'Zazancz jako przeczytane' !important;
+    line-height: 5px;
 }
 
 @media screen and (max-width: 976px) {
@@ -264,14 +264,15 @@ div.notifications div.container div.items div.card div.options div.option{
         width : 90vw;
     }
 }
+
+.count{
+    height: 12px !important;
+    width: 12px !important;
+    max-width: 12px !important;
+    min-height: 12px !important;
+    background: orange !important;
+    color: orange !important;
+    right: 4px !important;
+    top: 0px !important;
+}
 /*Notification Menu-End*/
-
-/*ul.pagination li.page-item a.page-link{*/
-/*    background: white !important;*/
-/*    color: black;*/
-/*}*/
-
-/*ul.pagination li.active a.page-link{*/
-/*    background: orange !important;*/
-/*    color: black;*/
-/*}*/
