@@ -9,13 +9,20 @@ class UserInfoSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
         fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
-                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo']
+                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money']
 
 
 class UserGetSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
         fields = ['id', 'username', 'first_name', 'last_name', 'profile_photo']
+
+
+class UserGetModeratorSerializer(ModelSerializer):
+    class Meta:
+        model = UserExtended
+        fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
+                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money']
 
 
 class UserEditSerializer(ModelSerializer):
@@ -59,3 +66,8 @@ class UserAddProfilePhotoSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
         fields = ['profile_photo']
+
+        def update(self, instance, validated_data):
+            instance.profile_photo = validated_data.get('profile_photo', instance.profile_photo)
+            print(instance.profile_photo)
+            return instance

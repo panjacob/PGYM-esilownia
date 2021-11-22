@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from core import settings
 from users.models import UserExtended
 
 init_data_TrainingGroupTypes = [
@@ -26,8 +25,8 @@ class TrainingGroupType(models.Model):
 
 class TrainingGroup(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, default=None, related_name='owner')
-    participants = models.ManyToManyField(UserExtended)
     date = models.DateField(default=timezone.now)
+    is_private = models.BooleanField(default=False)
 
     EASY = '0'
     MEDIUM = '1'
@@ -43,8 +42,17 @@ class TrainingGroup(models.Model):
     type = models.ManyToManyField(TrainingGroupType)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
-    # image = models.ImageField(null=True, blank=True)
-    # cost
+    price_day = models.IntegerField(default=None, null=True)
+    price_week = models.IntegerField(default=None, null=True)
+    price_month = models.IntegerField(default=None, null=True)
+
+    image = models.ImageField(null=True, blank=True)
+
+
+class TrainingGroupParticipant(models.Model):
+    user = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    training_group = models.ForeignKey(TrainingGroup, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    subscription_end = models.DateField(default=timezone.now)
 
 
 class Training(models.Model):
@@ -56,6 +64,7 @@ class Training(models.Model):
     participants = models.ManyToManyField(UserExtended)  # Participants which were on particular training
     calories = models.IntegerField(default=0)
     ping = models.IntegerField(default=0)
+    file = models.FileField(null=True, blank=True)
 
 
 class TrainingGroupImage(models.Model):

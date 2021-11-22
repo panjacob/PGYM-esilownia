@@ -28,14 +28,8 @@ code {
  #home_start{
 	background-image: linear-gradient(100deg, orange, yellow);
   text-align: center;
-  transform: skewY(-11deg);
+  transform: skewY(-7deg);
   height: 20rem;
-} 
-.content {
-	max-width: 50em;;
-	margin: 0 auto;
-	transform: skewY(11deg);
-  
 }
 
 #btn-login{
@@ -54,10 +48,6 @@ code {
     font-family: Nunito,sans-serif;
 }
 
-#trener_col{
-  height: 100%;
-}
-
 .carousel-item{
   height: 32rem;
   background: #777;
@@ -69,9 +59,10 @@ code {
   border-radius: 0.5rem;
 }
 
-#opis-cennik{
+#zawartosc_opis_cennik{
   background-color: #f1f1f1;
 }
+
 
 #linia_nas{
 	background-image: linear-gradient(100deg, orange, #f1f1f1);
@@ -82,3 +73,206 @@ button:disabled {
     cursor: not-allowed;
     pointer-events: all !important;
 }
+
+
+p:empty {
+    display: none;
+}
+
+#tren_col {
+  background-color: orange;
+  border-radius: 0.5rem;
+}
+
+#react-collapsed-panel-1{
+    height: 100% !important;
+}
+
+#tren_container {
+  height: auto;
+  background: orange;
+  border-radius: 2rem;
+  min-height: 50rem;
+}
+
+/*Home-Start*/
+#home_tabs nav a {
+    color: gray !important;
+}
+
+#home_tabs nav a:hover {
+    color: orange !important;
+}
+
+#home_tabs nav .active {
+    color: black !important;
+}
+/*Home-End*/
+
+/*Cennik-Start*/
+.container-t {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.container-t:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 150px 150px 0;
+    border-color: transparent #608A32 transparent transparent;
+    right: 0;
+    top: 0;
+    position: absolute;
+}
+
+.container-t2:before {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    color: white;
+    content: "Najpopularniejsza";
+    transform: rotate(45deg) translate(20%,-100%);
+    transform-origin: left top;
+}
+/*Cennik-End*/
+
+/*Modal-Start*/
+.modal-backdrop.fade {
+    background: rgba(0,0,0,2) !important;
+    opacity: 0.1 !important;
+}
+/*Modal-End*/
+
+
+/* Switch 1 Specific Styles Start */
+input[type="checkbox"].switch_1{
+    font-size: 15px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 2.5em;
+    height: 1.5em;
+    background: #ddd;
+    border-radius: 2em;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+input[type="checkbox"].switch_1:checked{
+    background: orange;
+}
+
+input[type="checkbox"].switch_1:after{
+    position: absolute;
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background: #fff;
+    -webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
+    box-shadow: 0 0 .25em rgba(0,0,0,.3);
+    -webkit-transform: scale(.7);
+    transform: scale(.7);
+    left: 0;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+input[type="checkbox"].switch_1:checked:after{
+    left: calc(100% - 1.5em);
+}
+/* Switch 1 Specific Style End */
+
+/*Notification Menu-Start*/
+.empty-notifications{
+    color:white;
+    font-size: 20px;
+}
+
+div.notifications div.container{
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px black;
+    background-color: rgba(100, 100, 100, 0.7);
+}
+
+div.notifications div.container div.header{
+    width:100%;
+    background: orange;
+    border: 1px solid gray;
+}
+
+div.notifications div.container div.header div.header-option{
+    color: black !important;
+    text-decoration: none;
+}
+
+div.notifications div.container div.items{
+    width:100%;
+    color: black;
+}
+div.notifications div.container div.footer{
+    width:100%;
+    background: orange;
+    border: 1px solid gray;
+}
+
+div.notifications div.container div.footer div.see-all{
+    color:black !important;
+}
+
+div.notifications div.container div.items div.card{
+    border-radius: 0;
+    border: 1px solid gray;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 12px;
+    grid-template-areas:
+    "main"
+    "sidebar"
+}
+
+div.notifications div.container div.items div.card div.content{
+    grid-area: main;
+}
+div.notifications div.container div.items div.card div.options{
+    grid-area: sidebar;
+}
+div.notifications div.container div.items div.card div.options div.option{
+    visibility: visible;
+    color: black;
+    content: 'Zazancz jako przeczytane' !important;
+    line-height: 5px;
+}
+
+@media screen and (max-width: 976px) {
+    /* UNDER 976px CSS here */
+    div.notifications div.container{
+        transform: translateX(0px) !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    div.notifications div.container{
+        width : 90vw;
+    }
+}
+
+.count{
+    height: 12px !important;
+    width: 12px !important;
+    max-width: 12px !important;
+    min-height: 12px !important;
+    background: orange !important;
+    color: orange !important;
+    right: 4px !important;
+    top: 0px !important;
+}
+/*Notification Menu-End*/

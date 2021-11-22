@@ -13,3 +13,14 @@ class UserDay(models.Model):
     sleep_start = models.DateTimeField(default=timezone.now)
     sleep_end = models.DateTimeField(default=timezone.now)
     steps = models.IntegerField(default=0)
+
+
+class Achievement(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.CharField(max_length=150)
+    image = models.ImageField(null=True, blank=True)
+
+
+class AchievementtUser(models.Model):
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    achievment = models.ForeignKey(Achievement, on_delete=models.CASCADE, null=True, blank=True, default=None)

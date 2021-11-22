@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -9,6 +11,8 @@ from training.serializers import *
 from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required, \
     training_owner_required
 from users.utilis import put_owner_in_request_data
+from message.utilis import notification_send
+from users.models import UserExtended
 
 
 @api_view(['POST'])
@@ -24,22 +28,53 @@ def training_group_create(request):
 
 
 @api_view(['POST'])
-@training_group_owner_required()
-def training_group_participant_add(request):
+# Trainer required
+def training_group_edit(request):
+    request = put_owner_in_request_data(request)
+    instance = TrainingGroup.objects.get(id=request.data['id'])
+    serializer = TrainingGroupSerializerCreate(instance=instance, data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def training_group_join(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
-    if request.user.id is not training_group.owner_id:
-        return Response('Current user is not owner of a group', status=status.HTTP_400_BAD_REQUEST)
-    training_group.participants.add(request.data['participant'])
+    payment_type = request.data['payment_type']
+    if payment_type == '0':
+        price = training_group.price_day
+        days_to_add = 1
+    elif payment_type == '1':
+        price = training_group.price_week
+        days_to_add = 7
+    elif payment_type == '2':
+        price = training_group.price_month
+        days_to_add = 30
+    else:
+        return Response({'payment_type is not specified'}, status=status.HTTP_400_BAD_REQUEST)
+
+    user = request.user
+    if user.money < price:
+        return Response({'User does not have enough money'}, status=status.HTTP_400_BAD_REQUEST)
+
+    training_group_participant, _ = models.TrainingGroupParticipant.objects.get_or_create(user=user,
+                                                                                          training_group=training_group)
+    training_group_participant.subscription_end += timedelta(days_to_add)
+    training_group_participant.save()
+    user.money -= price
+    user.save()
+
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
-@training_group_owner_required()
+# @training_group_owner_required()
 def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
-    if request.user.id is not training_group.owner_id:
-        return Response('Current user is not owner of a group', status=status.HTTP_400_BAD_REQUEST)
-    training_group.participants.remove(request.data['participant'])
+    models.TrainingGroupParticipant.objects.get(user=request.data['user'], training_group=training_group).delete()
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
@@ -50,12 +85,14 @@ def training_group_get(request):
     result = serializer.data
     result['images'] = []
     result['trainings'] = []
+    result['participants'] = []
 
     for training_group_image in training_group.traininggroupimage_set.all():
         result['images'] += {training_group_image.image.url}
     for training in training_group.training_set.all():
         result['trainings'] += {training.id}
-
+    for participant in training_group.traininggroupparticipant_set.all():
+        result['participants'].append(participantsSerializerGet(participant))
     return JsonResponse(result)
 
 
@@ -69,12 +106,21 @@ def training_group_remove(request):
 
 
 @api_view(['POST'])
-def training_group_get_all(request):
+def training_group_all(request):
     result = []
     training_groups = TrainingGroup.objects.all()
     for training_group in training_groups:
         serializer = TrainingGroupSerializerGetAll(training_group)
-        result.append(serializer.data)
+        images = TrainingGroupImage.objects.filter(training_group=training_group)
+        res = serializer.data
+        if len(images) > 0:
+            image = images[0]
+            try:
+                res['image'] = image.image.url
+            except:
+                res['image'] = 'Error'
+
+        result.append(res)
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
@@ -123,6 +169,19 @@ def training_group_image_remove(request):
 def training_create(request):
     request = put_owner_in_request_data(request)
     serializer = TrainingSerializerCreate(data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@training_group_owner_required()
+def training_edit(request):
+    request = put_owner_in_request_data(request)
+    instance = Training.objects.get(id=request.data['id'])
+    serializer = TrainingSerializerEdit(instance=instance, data=request.data)
 
     if serializer.is_valid():
         if serializer.save():
@@ -181,3 +240,34 @@ def training_ping_get(request):
     active = last_ping_time < 60 * 1000
     return Response({'last_ping_time_ms': last_ping_time, 'active': active},
                     status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+# @training_group_owner_required()
+def training_file_add(request):
+    instance = Training.objects.get(id=request.data['id'])
+    serializer = TrainingSerializerFile(instance=instance, data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def training_file_remove(request):
+    instance = Training.objects.get(id=request.data['id'])
+    instance.file.delete()
+    return Response('OK', status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def training_group_invite(request):
+    user_receiver = UserExtended.objects.get(id=request.data['user'])
+    body = {
+        'user_sender': request.user.id,
+        'training_group': request.data['training_group']
+    }
+    notification_send(user=user_receiver, body=body, kind=3)
+
+    return Response({'OK'}, status=status.HTTP_200_OK)

@@ -44,6 +44,8 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
 
     is_moderator = models.BooleanField(default=False)
     profile_photo = models.ImageField(null=True, blank=True)
+
+    money = models.IntegerField(default=1000)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
@@ -59,7 +61,6 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
 # tresc
 # zalacznik wiele plikow
 # dietetyk czy trener czy moderator
-
 
 
 # @receiver(post_save, sender=User)
