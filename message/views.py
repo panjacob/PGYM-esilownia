@@ -1,10 +1,11 @@
 # Create your views here.
+from django.db.models import Q
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from message.models import Notification
+from message.models import Notification, Message
 from message.serializers import MessageCreateSerializer, MessageGetSerializer, NotificationSerializer
 from message.utilis import get_messages_all
 from users.models import UserExtended
@@ -43,6 +44,21 @@ def message_all(request):
     for message in messages[begin:end]:
         serializer = MessageGetSerializer(instance=message)
         result['messages'].append(serializer.data)
+    return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def message_users(request):
+    user = request.user
+    messages = Message.objects.filter((Q(sender=user) | Q(receiver=user))).order_by('time')
+
+    result = []
+    for message in messages:
+        if message.receiver.id not in result:
+            result.append(message.receiver.id)
+        if message.sender.id not in result:
+            result.append(message.sender.id)
+
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
