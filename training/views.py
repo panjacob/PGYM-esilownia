@@ -11,6 +11,8 @@ from training.serializers import *
 from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required, \
     training_owner_required
 from users.utilis import put_owner_in_request_data
+from message.utilis import notification_send
+from users.models import UserExtended
 
 
 @api_view(['POST'])
@@ -257,3 +259,15 @@ def training_file_remove(request):
     instance = Training.objects.get(id=request.data['id'])
     instance.file.delete()
     return Response('OK', status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def training_group_invite(request):
+    user_receiver = UserExtended.objects.get(id=request.data['user'])
+    body = {
+        'user_sender': request.user.id,
+        'training_group': request.data['training_group']
+    }
+    notification_send(user=user_receiver, body=body, kind=3)
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
