@@ -354,7 +354,7 @@ function TrainingGroupShowAllGroup() {
 
             <div className="text-center">
                 <hr></hr>
-                <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Treningi Grupowe</h1>
+                <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Dostępne Treningi</h1>
                 <hr></hr>
             </div>
 
@@ -420,7 +420,7 @@ function TrainingGroupShowAllGroup() {
                         <hr width={'90%'} color={'black'}/>
                     </Form>
 
-                    <h5 className="font-weight-light mt-1">Rodzaje grup:</h5>
+                    <h5 className="font-weight-light mt-1">Rodzaje treningu:</h5>
 
                     <Form>
                         <hr width={'90%'} color={'black'}/>
