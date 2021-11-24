@@ -19,6 +19,7 @@ import TrainingsTrainerSpace from "./Views/Trainings_TrainerSpace";
 import Training from "./Views/Training";
 import TreningJitsi from "./Views/Trening_Jitsi";
 import GroupOfferDetails from "./Views/Group_offer_details";
+import Chat from "./Views/Chat";
 
 function App() {
     return (
@@ -43,6 +44,7 @@ function App() {
                     <Route path="/grupa_treningi" exact component={() => <Training/>}/>
                     <Route path="/trening" exact component={() => <TreningJitsi/>}/>
                     <Route path="/grupa_szczegóły" exact component={() => <GroupOfferDetails/>}/>
+                    <Route path="/wiadomości" exact component={() => <Chat/>}/>
                 </Switch>
                 <Footer/>
             </Router>

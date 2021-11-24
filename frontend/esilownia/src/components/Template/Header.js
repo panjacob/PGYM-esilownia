@@ -202,6 +202,7 @@ function Header(props) {
                                 <Nav className="ml-auto">
                                     <NavDropdown title="Konto" id="collasible-nav-dropdown">
                                         <NavDropdown.Item href="/konto">Moje konto</NavDropdown.Item>
+                                        <NavDropdown.Item href="/wiadomości">Wiadomości</NavDropdown.Item>
                                         <NavDropdown.Divider/>
                                         <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
                                         <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>

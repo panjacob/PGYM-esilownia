@@ -8,9 +8,11 @@ function TrainingGroup_user() {
     return (
         <div className="trainingGroupGetAll">
 
+            <TrainingGroupShowUserTrainings></TrainingGroupShowUserTrainings>
+
             <TrainingGroupShowAllGroup></TrainingGroupShowAllGroup>
 
-            <TrainingGroupShowUserTrainings></TrainingGroupShowUserTrainings>
+
 
         </div>
     );
