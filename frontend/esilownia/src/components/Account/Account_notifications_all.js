@@ -91,7 +91,7 @@ function AccountNotificationsAll() {
                             </div>
 
                         )
-                    })};
+                    })}
 
 
                 </div>
