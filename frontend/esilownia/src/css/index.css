@@ -276,3 +276,30 @@ div.notifications div.container div.items div.card div.options div.option{
     top: 0px !important;
 }
 /*Notification Menu-End*/
+
+/*Chat-Start*/
+#chat-user-wrapper{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas:
+    "photo name"
+    "photo lastMsg"
+}
+
+#chat-user-photo{
+    grid-area: photo;
+}
+
+#chat-user-name{
+    grid-area: name;
+    margin: 12px;
+}
+
+#chat-user-lastMsg{
+    grid-area: lastMsg;
+    margin: 12px;
+    color: grey;
+}
+
+/*Char-End*/
