@@ -293,12 +293,12 @@ div.notifications div.container div.items div.card div.options div.option{
 
 #chat-user-name{
     grid-area: name;
-    margin: 12px;
+    margin: 11px;
 }
 
 #chat-user-lastMsg{
     grid-area: lastMsg;
-    margin: 12px;
+    margin: 11px;
     color: grey;
 }
 

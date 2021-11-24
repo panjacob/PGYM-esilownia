@@ -108,7 +108,12 @@ function ChatContent() {
                 })
             });
 
-
+        var divItems = document.getElementsByClassName("user-wrapper");
+        for(var i=0; i < divItems.length; i++) {
+            var item = divItems[i];
+           item.style.backgroundColor = 'white';
+        }
+        e.currentTarget.style.backgroundColor = 'orange';
 
     }
 
@@ -161,8 +166,8 @@ function ChatContent() {
                     <div className='col-lg-4 border' style={{overflowY: 'scroll', minHeight: '750px'}}>
                         {users.map((user, idx) => {
                             return (
-                                <div key={idx} className='m-1 p-2 border'>
-                                    <div id={user.id} onClick={getMsgs.bind(this)}>
+                                <div key={idx} className='m-1 border'>
+                                    <div className='p-2 user-wrapper' id={user.id} onClick={getMsgs.bind(this)}>
                                         <div id='chat-user-wrapper'>
                                             <div id='chat-user-photo'>
                                                 {(user.profile_photo === null) ? (
@@ -176,8 +181,7 @@ function ChatContent() {
                                             </div>
                                             <div className='align-middle align-self-auto'
                                                  id='chat-user-name'>{user.first_name} {user.last_name} {user.id}</div>
-                                            <div className='align-middle align-self-auto' id='chat-user-lastMsg'> lorem
-                                                ipsum
+                                            <div className='align-middle align-self-auto' id='chat-user-lastMsg'>{user.username}
                                             </div>
                                         </div>
                                     </div>
@@ -190,14 +194,40 @@ function ChatContent() {
                         <div id='msgBox' style={{overflowY: 'scroll', minHeight: '675px', maxHeight:'675px'}}>
                             <div id='innerMsgBox'>
                             {msgs.map((msg, idx) => {
-                                return (
-                                    <div key={idx} className='m-1 p-1 border'>
-                                        <p style={{margin: '0'}}>time : {msToTime(msg.time)}</p>
-                                        <p style={{margin: '0'}}>sender : {msg.sender}</p>
-                                        <p style={{margin: '0'}}>receiver : {msg.receiver}</p>
-                                        <p style={{margin: '0'}}>message : {msg.message}</p>
-                                    </div>
-                                )
+                                if(msg.sender.toString() === myId.toString() && msg.receiver.toString() === userId.toString()) {
+                                    return (
+                                        <div key={idx} className='m-1 p-1' style={{width:'75%', float:'right'}}>
+                                            {/*<p style={{margin: '0'}}>sender : {msg.sender}</p>*/}
+                                            {/*<p style={{margin: '0'}}>receiver : {msg.receiver}</p>*/}
+                                            <div className='mx-auto mb-1 p-1 pr-3 border rounded-pill' style={{color:'white', backgroundColor:'Orange'}}>
+                                            <p style={{margin: '0', float:'right'}}>{msg.message}</p>
+                                            <br/>
+                                            <p style={{margin: '0', float:'right', color:'grey'}}>{msToTime(msg.time)}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                if(msg.receiver.toString() === myId.toString() && msg.sender.toString() === userId.toString()) {
+                                    return (
+                                        <div key={idx} className='m-1 p-1' style={{width:'75%', float:'left'}}>
+                                            {/*<p style={{margin: '0'}}>sender : {msg.sender}</p>*/}
+                                            {/*<p style={{margin: '0'}}>receiver : {msg.receiver}</p>*/}
+                                            <div className='mx-auto mb-1 p-1 pl-3 border rounded-pill' style={{color:'white', backgroundColor:'Gray'}}>
+                                            <p style={{margin: '0', float:'left'}}>{msg.message}</p>
+                                            <br/>
+                                            <p style={{margin: '0', float:'left', color:'grey'}}>{msToTime(msg.time)}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                // return (
+                                //     <div key={idx} className='m-1 p-1 border'>
+                                //         <p style={{margin: '0'}}>time : {msToTime(msg.time)}</p>
+                                //         <p style={{margin: '0'}}>sender : {msg.sender}</p>
+                                //         <p style={{margin: '0'}}>receiver : {msg.receiver}</p>
+                                //         <p style={{margin: '0'}}>message : {msg.message}</p>
+                                //     </div>
+                                // )
                             })}
                             </div>
                         </div>
