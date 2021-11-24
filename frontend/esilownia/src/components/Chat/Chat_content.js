@@ -68,13 +68,12 @@ function ChatContent() {
         let time_now = Date.now()
         let duration = time_now - time_send;
 
-        var seconds = Math.floor((duration / 1000) % 60),
-            minutes = Math.floor((duration / (1000 * 60)) % 60),
+        var minutes = Math.floor((duration / (1000 * 60)) % 60),
             hours = Math.floor((duration / (1000 * 60 * 60)) % 24),
             days = Math.floor((duration / (1000 * 60 * 60 * 24)));
 
         if (hours === 0 && minutes === 0) {
-            return seconds + " sec. temu";
+            return 'Chwilę temu';
         }
         if (hours === 0) {
             return minutes + " min. temu";
@@ -100,9 +99,9 @@ function ChatContent() {
     });
 
     function update(){
-        setMsgsNew([]);
 
         if(userId !== "") {
+            setMsgsNew([]);
             axiosInstance
                 .post(`/message/get`, {user: userId, begin: 0, end: 1000}, {
                     headers: {
@@ -114,8 +113,9 @@ function ChatContent() {
                     res.data.messages.map((message) => {
                         setMsgsNew(msgsNew => [...msgsNew, message])
                     })
-                    if (msgsNew !== [] && JSON.stringify(msgsNew) !== JSON.stringify(msgs) ) {
+                    if (msgsNew.length > 0 && JSON.stringify(msgsNew) !== JSON.stringify(msgs) ) {
                         setMsgs(msgsNew)
+                        console.log('test')
                     }
                 });
         }
@@ -183,7 +183,7 @@ function ChatContent() {
                     <div className='col-lg-4 border' style={{overflowY: 'scroll', minHeight: '750px'}}>
                         {users.map((user, idx) => {
                             return (
-                                <div key={idx} className='m-1 border'>
+                                <div key={idx} className='m-1 border border-dark'>
                                     <div className='p-2 user-wrapper' id={user.id} onClick={getMsgs.bind(this)}>
                                         <div id='chat-user-wrapper'>
                                             <div id='chat-user-photo'>
