@@ -323,7 +323,7 @@ function TrainingGroupShowAllGroup() {
         return (
             <>
                 <Items currentItems={currentItems}/>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center text-center' style={{position:'absolute',bottom:'0',width:'100%'}}>
                     <ReactPaginate
                         nextLabel="Następna"
                         onPageChange={handlePageClick}
@@ -454,7 +454,7 @@ function TrainingGroupShowAllGroup() {
 
                 </div>
 
-                <div className="col-md-9 border text-center inline-block">
+                <div className="col-md-9 border text-center inline-block" style={{minHeight:'1400px'}}>
 
                     <PaginatedItems itemsPerPage={6}/>
 
