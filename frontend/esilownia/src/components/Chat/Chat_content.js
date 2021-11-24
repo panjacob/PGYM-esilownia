@@ -10,9 +10,12 @@ function ChatContent() {
 
     const [users, setUsers] = useState([])
     const [msgs, setMsgs] = useState([])
+    const [msgsNew, setMsgsNew] = useState([])
     const [msgToSend, setMsgToSend] = useState('')
     const [myId, setMyId] = useState('')
     const [userId, setUserId] = useState('')
+
+    const [time, setTime] = useState('')
 
     useEffect(() => {
 
@@ -88,6 +91,36 @@ function ChatContent() {
         }
     }
 
+    useEffect(()=>{
+        var handle=setInterval(update,1000);
+
+        return ()=>{
+            clearInterval(handle);
+        }
+    });
+
+    function update(){
+        setMsgsNew([]);
+
+        if(userId !== "") {
+            axiosInstance
+                .post(`/message/get`, {user: userId, begin: 0, end: 1000}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                    }
+                })
+                .then((res) => {
+                    res.data.messages.map((message) => {
+                        setMsgsNew(msgsNew => [...msgsNew, message])
+                    })
+                    if (msgsNew !== [] && JSON.stringify(msgsNew) !== JSON.stringify(msgs) ) {
+                        setMsgs(msgsNew)
+                    }
+                });
+        }
+    }
+
     function getMsgs(e) {
         console.log(e.currentTarget.id)
 
@@ -136,26 +169,10 @@ function ChatContent() {
 
         fetch(axios_variebles.baseURL +  "message/send", requestOptions)
             .then(response => response.text())
-            .then((result) => {
-                setMsgs([]);
-
-                setMsgToSend('')
-
-                axiosInstance
-                    .post(`/message/get`, {user: userId, begin: 0, end: 1000}, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                        }
-                    })
-                    .then((res) => {
-                        res.data.messages.map((message) => {
-                            setMsgs(msgs => [...msgs, message])
-                        })
-                    })
-            })
+            .then((result) => {})
             .catch(error => console.log('error', error));
 
+        setMsgToSend('')
     }
 
     return (
