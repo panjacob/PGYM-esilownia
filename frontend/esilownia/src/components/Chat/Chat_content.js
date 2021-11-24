@@ -214,26 +214,20 @@ function ChatContent() {
                                 if(msg.sender.toString() === myId.toString() && msg.receiver.toString() === userId.toString()) {
                                     return (
                                         <div key={idx} className='m-1 p-1' style={{width:'75%', float:'right'}}>
-                                            {/*<p style={{margin: '0'}}>sender : {msg.sender}</p>*/}
-                                            {/*<p style={{margin: '0'}}>receiver : {msg.receiver}</p>*/}
-                                            <div className='mx-auto mb-1 p-1 pr-3 border rounded-pill' style={{color:'white', backgroundColor:'Orange'}}>
-                                            <p style={{margin: '0', float:'right'}}>{msg.message}</p>
+                                            <p className='mb-1 p-2 pl-4 pr-4 border rounded' style={{margin: '0', float:'right', color:'white', backgroundColor:'Orange'}}>{msg.message}</p>
+                                            <br/>
                                             <br/>
                                             <p style={{margin: '0', float:'right', color:'grey'}}>{msToTime(msg.time)}</p>
-                                            </div>
                                         </div>
                                     )
                                 }
                                 if(msg.receiver.toString() === myId.toString() && msg.sender.toString() === userId.toString()) {
                                     return (
                                         <div key={idx} className='m-1 p-1' style={{width:'75%', float:'left'}}>
-                                            {/*<p style={{margin: '0'}}>sender : {msg.sender}</p>*/}
-                                            {/*<p style={{margin: '0'}}>receiver : {msg.receiver}</p>*/}
-                                            <div className='mx-auto mb-1 p-1 pl-3 border rounded-pill' style={{color:'white', backgroundColor:'Gray'}}>
-                                            <p style={{margin: '0', float:'left'}}>{msg.message}</p>
+                                            <p className='mb-1 p-2 pl-4 pr-4 border rounded' style={{margin: '0', float:'left', color:'white', backgroundColor:'Gray'}}>{msg.message}</p>
+                                            <br/>
                                             <br/>
                                             <p style={{margin: '0', float:'left', color:'grey'}}>{msToTime(msg.time)}</p>
-                                            </div>
                                         </div>
                                     )
                                 }
