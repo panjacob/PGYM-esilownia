@@ -16,6 +16,7 @@ function TrainingGroupShowAllGroup() {
     const [difficultySelected, setDifficultySelected] = useState([]);
     const [trainingFilter, setTrainingFilter] = useState([]);
     const [trainersInfo, setTrainersInfo] = useState([]);
+    const [selectedGroupsType, setSelectedGroupsType] = useState([]);
 
     function uniqBy(a, key) {
         var seen = {};
@@ -38,6 +39,20 @@ function TrainingGroupShowAllGroup() {
         }, {
             id: '3',
             name: 'Armagedon'
+        }
+    ]
+
+    const groupType = [
+        {
+            id: 1,
+            is_private: true,
+            name: 'personal',
+            type: 'Personalny'
+        },{
+            id: 2,
+            is_private: false,
+            name: 'group',
+            type: 'Grupowy'
         }
     ]
 
@@ -84,9 +99,37 @@ function TrainingGroupShowAllGroup() {
             })
         }
 
-        let result = uniqBy(cleanArray, JSON.stringify).filter(o1 => uniqBy(cleanArray2, JSON.stringify).some(o2 => o1.id === o2.id));
+        let cleanArray3 = []
+        let is_p = ''
+        if (selectedGroupsType.length === 0) {
 
-        setTrainingFilter(uniqBy(result, JSON.stringify));
+            cleanArray3 = trainingGroupAll;
+        } else {
+
+            trainingGroupAll.map(function (training) {
+
+                for (let i = 0; i < selectedGroupsType.length; i++) {
+
+                    if(selectedGroupsType[i] === 'personal'){
+                        is_p = 'true'
+                    }
+                    if(selectedGroupsType[i] === 'group'){
+                        is_p = 'false'
+                    }
+                    if (training.is_private.toString() === is_p) {
+
+                        cleanArray3.push(training)
+
+                    }
+                }
+
+            })
+        }
+
+        let result = uniqBy(cleanArray, JSON.stringify).filter(o1 => uniqBy(cleanArray2, JSON.stringify).some(o2 => o1.id === o2.id));
+        let result2 = uniqBy(result, JSON.stringify).filter(o1 => uniqBy(cleanArray3, JSON.stringify).some(o2 => o1.id === o2.id));
+
+        setTrainingFilter(uniqBy(result2, JSON.stringify));
 
     }
 
@@ -114,6 +157,18 @@ function TrainingGroupShowAllGroup() {
 
     }
 
+    const groupTypeChecked = (e) => {
+
+        if (selectedGroupsType.indexOf(e.target.name) !== -1) {
+            let name = e.target.name;
+            setSelectedGroupsType(selectedGroupsType.filter((e) => (e !== name)))
+        } else {
+            let name = e.target.name;
+            setSelectedGroupsType([...selectedGroupsType, name]);
+        }
+    }
+
+
 
     useEffect(() => {
 
@@ -125,10 +180,34 @@ function TrainingGroupShowAllGroup() {
                 }
             })
             .then((res) => {
-                setTrainingGroupAll(res.data)
-                setTrainingFilter(res.data)
+                setTrainingGroupAll([])
+                setTrainingFilter([])
 
                 res.data.map((group) => {
+
+                    axiosInstance
+                        .post(`/training/group/get`, {id: group.id}, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                            }
+                        })
+                        .then((res3) => {
+                            if (res3.data.participants.length === 0 && res3.data.is_private === true ) {
+                                setTrainingFilter(trainingFilter => [...trainingFilter, group])
+                            }
+                            if(res3.data.is_private === false){
+                                setTrainingFilter(trainingFilter => [...trainingFilter, group])
+                            }
+
+                            if (res3.data.participants.length === 0 && res3.data.is_private === true ) {
+                                setTrainingGroupAll(trainingGroupAll => [...trainingGroupAll, group])
+                            }
+                            if(res3.data.is_private === false){
+                                setTrainingGroupAll(trainingGroupAll => [...trainingGroupAll, group])
+                            }
+                        });
+
                     axiosInstance
                         .post(`/users/get/`, {id: group.owner}, {
                             headers: {
@@ -160,7 +239,7 @@ function TrainingGroupShowAllGroup() {
         return (
             <div id="offer_container" className="row justify-content-center">
                 {currentItems && currentItems.map(function (cValue, idx) {
-                    if(cValue.is_private === false) {
+
                         return (
                             <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
                                 <div className="h-100 card m-1 shadow" key={idx}>
@@ -216,7 +295,7 @@ function TrainingGroupShowAllGroup() {
                                 </div>
                             </div>
                         )
-                    }
+
                 })}
                 <div style={{minWidth: '250px'}} className="col-md-4"></div>
                 <div style={{minWidth: '250px'}} className="col-md-4"></div>
@@ -331,6 +410,35 @@ function TrainingGroupShowAllGroup() {
                                             <label className="form-check-label ml-4 align-text-bottom"
                                                    htmlFor="defaultCheck1">
                                                 <b>{difficulties.name}</b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr color={'black'} className="m-1"/>
+                                </li>
+                            ))}
+                        </ul>
+                        <hr width={'90%'} color={'black'}/>
+                    </Form>
+
+                    <h5 className="font-weight-light mt-1">Rodzaje grup:</h5>
+
+                    <Form>
+                        <hr width={'90%'} color={'black'}/>
+                        <ul className="list-inline" style={{display: 'table', margin: '0 auto'}}>
+                            {groupType.map((type) => (
+                                <li className="m-1" key={`inline-checkbox-${type.id}`}>
+                                    <div className="row">
+                                        <div className="form-check">
+                                            <input
+                                                className="form-check-input switch_1 align-text-bottom"
+                                                type="checkbox"
+                                                onChange={groupTypeChecked.bind(this)}
+                                                name={type.name}
+                                                id={`inline-checkbox-${type.id}`}
+                                            />
+                                            <label className="form-check-label ml-4 align-text-bottom"
+                                                   htmlFor="defaultCheck1">
+                                                <b>{type.type}</b>
                                             </label>
                                         </div>
                                     </div>

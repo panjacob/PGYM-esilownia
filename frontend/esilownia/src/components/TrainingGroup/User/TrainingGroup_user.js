@@ -10,7 +10,7 @@ function TrainingGroup_user() {
         <div className="trainingGroupGetAll">
 
             <TrainingGroupShowAllGroup></TrainingGroupShowAllGroup>
-            <TrainingGroupShowAllPrivate></TrainingGroupShowAllPrivate>
+            {/*<TrainingGroupShowAllPrivate></TrainingGroupShowAllPrivate>*/}
 
             <TrainingGroupShowUserTrainings></TrainingGroupShowUserTrainings>
 
