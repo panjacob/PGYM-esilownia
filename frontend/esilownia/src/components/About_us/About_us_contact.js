@@ -51,8 +51,8 @@ function Kontakt() {
                             <h6 className="text-uppercase fw-bold mb-4">
                                 <FaGem className="mr-1"/>Nazwa Firmy
                             </h6>
-                            <p>E-Gym Spk. z.o.o.</p>
-                            <p>Grupa E-Siłownia</p>
+                            <p>PGYM Spk. z.o.o.</p>
+                            <p>Grupa PGYM</p>
                             <p>PJWSTK 2021</p>
 
                         </div>

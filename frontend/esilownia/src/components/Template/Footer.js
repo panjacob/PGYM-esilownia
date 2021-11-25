@@ -9,7 +9,7 @@ function Footer() {
 
                 <div className="container">
                     <p className="m-0 text-center text-white">
-                        Copyright &copy; E-Silownia 2021
+                        Copyright &copy; PGYM 2021
                     </p>
                 </div>
 

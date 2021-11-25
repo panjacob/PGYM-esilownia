@@ -48,7 +48,7 @@ function Dashboard_data_user() {
     return (
         <div className="dashboard_data_user">
 
-            <div className="card mb-3 mt-3 shadow">
+            <div className="card mb-3 mt-3 shadow bg-light">
                 <div className="card-body">
                     <div className="row">
                         <div className="col-sm-5 justify-content-center">

@@ -19,7 +19,7 @@ function HomeWelcome() {
                         <h1 style={{
                             "fontSize": "8vw",
                             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-                        }} className="display-1">E-siłownia</h1>
+                        }} className="display-1">PGYM</h1>
                         <h1 style={{
                             "fontSize": "3vw",
                             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'

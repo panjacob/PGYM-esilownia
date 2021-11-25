@@ -173,7 +173,7 @@ function Header(props) {
             <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
                 <Container>
 
-                    <Navbar.Brand href="/">E-Siłownia</Navbar.Brand>
+                    <Navbar.Brand href="/">PGYM</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
 
                     <Navbar.Collapse id="responsive-navbar-nav">

@@ -19,7 +19,7 @@ function HomeOffer() {
                         <p className="font-weight-light">Szukasz miejsca do ćwiczen bez wychodzenia z domu ? Nie
                             masz czasu na dojazdy na siłownie ?</p>
 
-                        <p className="font-weight-light">Jeśli tak to E-siłownia jest idealnym miejscem dla
+                        <p className="font-weight-light">Jeśli tak to PGYM jest idealnym miejscem dla
                             Ciebie!</p>
 
                         <Link className="align-self-center btn btn-lg mt-2 align-self-end" to="/register">Załóż darmowe
