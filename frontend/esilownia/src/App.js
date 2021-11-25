@@ -15,11 +15,11 @@ import Dashboard from "./Views/Dashboard";
 import AccountEdit from "./Views/Account_edit";
 import ModeratorPanel from "./Views/Moderator_panel";
 import TrainerSpace from "./Views/TrainingGroups_TrainerSpace";
-import TrainingsTrainerSpace from "./Views/Trainings_TrainerSpace";
 import Training from "./Views/Training";
 import TreningJitsi from "./Views/Trening_Jitsi";
 import GroupOfferDetails from "./Views/Group_offer_details";
 import Chat from "./Views/Chat";
+import Training_trainer from "./Views/Training_trainer";
 
 function App() {
     return (
@@ -40,7 +40,7 @@ function App() {
                     <Route path="/dashboard" exact component={() => <Dashboard/>}/>
                     <Route path="/cockpit" exact component={() => <ModeratorPanel/>}/>
                     <Route path="/strefa_trenera" exact component={() => <TrainerSpace/>}/>
-                    <Route path="/strefa_trenera_treningi" exact component={() => <TrainingsTrainerSpace/>}/>
+                    <Route path="/strefa_trenera_treningi" exact component={() => <Training_trainer/>}/>
                     <Route path="/grupa_treningi" exact component={() => <Training/>}/>
                     <Route path="/trening" exact component={() => <TreningJitsi/>}/>
                     <Route path="/grupa_szczegóły" exact component={() => <GroupOfferDetails/>}/>

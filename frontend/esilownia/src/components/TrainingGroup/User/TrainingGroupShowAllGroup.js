@@ -242,7 +242,7 @@ function TrainingGroupShowAllGroup() {
 
                         return (
                             <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
-                                <div className="h-100 card m-1 shadow" key={idx}>
+                                <div className="h-100 card m-1 shadow bg-light" key={idx}>
                                     {(cValue.image === null) ? (
                                         <img src={Photo} width="100%" height="width"
                                              className="card-img-top rounded-circle"
