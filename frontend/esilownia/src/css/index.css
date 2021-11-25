@@ -13,6 +13,14 @@ code {
     monospace;
 }
 
+#navbar_home{
+    background-color: black!important;
+}
+
+#footer_home{
+    background-color: black!important;
+}
+
 .nav-link:hover{
   color: orange !important;
 }

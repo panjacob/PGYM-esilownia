@@ -5,7 +5,8 @@ import Logout from "../Logout/Logout";
 import {Container, Navbar, Nav, NavDropdown, NavItem} from 'react-bootstrap'
 import logo from '../../imgs/coin_img.png'
 import Notifications from "react-notifications-menu";
-import axiosInstance from "../Axios/Axios";
+import axiosInstance from "../Axios/Axios"
+import bell from "../../imgs/bell-2-24.png";
 
 function Header(props) {
 
@@ -170,7 +171,7 @@ function Header(props) {
 
     return (
         <div className="navigation">
-            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
+            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" id="navbar_home">
                 <Container>
 
                     <Navbar.Brand href="/">PGYM</Navbar.Brand>
@@ -232,6 +233,7 @@ function Header(props) {
                                                     }
                                                 }
                                             }
+                                            icon={bell}
                                         />
                                     </Nav.Link>
                                     <Nav.Link><Logout></Logout></Nav.Link>

@@ -23,7 +23,7 @@ function Price_list_offer() {
                     <div className="row text-center">
                         <div className="col-md-4">
 
-                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg mt-1 mb-1" >
+                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg mt-1 mb-1 bg-light" >
                                 <Card.Header><Card.Img variant="top" src={gymcoin}/></Card.Header>
                                 <Card.Body>
                                     <Card.Title as={"h3"}>Starter</Card.Title>
@@ -42,7 +42,7 @@ function Price_list_offer() {
                         </div>
                         <div className="col-md-4">
 
-                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg container-t container-t2 mt-1 mb-1">
+                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg container-t container-t2 mt-1 mb-1 bg-light">
                                 <Card.Header><Card.Img variant="top" src={gymcoin2}/></Card.Header>
                                 <Card.Body>
                                     <Card.Title as={"h3"}>Classic</Card.Title>
@@ -61,7 +61,7 @@ function Price_list_offer() {
                         </div>
                         <div className="col-md-4">
 
-                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg mt-1 mb-1">
+                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg mt-1 mb-1 bg-light">
                                 <Card.Header><Card.Img variant="top" src={gymcoin3}/></Card.Header>
                                 <Card.Body>
                                     <Card.Title as={"h3"}>Premium</Card.Title>

@@ -5,9 +5,9 @@ import background from '../../imgs/homeholder2.jpg'
 function HomeWelcome() {
 
     return (
-        <div className="homeWelcome container-fluid">
+        <div className="homeWelcome">
 
-            <div className="mt-3" style={{
+            <div className="" style={{
                 backgroundImage: `url(${background})`,
                 backgroundSize: 'cover',
                 width: 'calc(100vw - (100vw - 100%))',
