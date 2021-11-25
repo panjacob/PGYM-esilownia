@@ -25,6 +25,7 @@ function Home() {
 
             <div id={"home_tabs"} className="container">
                 <HomeTabs></HomeTabs>
+                <hr/>
             </div>
 
             <div className="container text-center">
@@ -40,15 +41,7 @@ function Home() {
 
             </div>
 
-            <div className="container">
 
-                <div className="row">
-                    <div className="col m-5 text-center font-weight-light">
-                        Lorem ipsum pipsum
-                    </div>
-                </div>
-
-            </div>
 
             <CookieCon></CookieCon>
 
