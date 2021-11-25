@@ -50,7 +50,7 @@ function TrainingJitsi() {
 
     return (
         <div className="treningJitsi">
-            <div className="container">
+            <div className="container mt-4">
                 <div id='meet'></div>
             </div>
         </div>
