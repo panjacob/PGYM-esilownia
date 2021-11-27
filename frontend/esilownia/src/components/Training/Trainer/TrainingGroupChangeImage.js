@@ -115,7 +115,7 @@ function TrainingGroupChangeImage(props){
 
                             <div className="row">
                                 <div className="col-sm-3">
-                                    <Button onClick={handleSubmitPic} variant="primary" size="sm">Zmien Zdjecie</Button>
+                                    <Button onClick={handleSubmitPic} variant="btn" size="sm">Zmien Zdjecie</Button>
                                 </div>
                             </div>
                         </div>

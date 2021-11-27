@@ -7,6 +7,7 @@ import axios_variebles from "../components/Axios/Axios_variebles";
 import TrainingCreate from "../components/Training/Trainer/TrainingCreate";
 import TrainingRemoveParticipant from "../components/Training/Trainer/TrainingRemoveParticipant";
 import TrainingGroupChangeImage from "../components/Training/Trainer/TrainingGroupChangeImage";
+import TrainingGroupChangeVideo from "../components/Training/Trainer/TrainingGroupChangeVideo";
 
 function Training() {
 
@@ -293,6 +294,7 @@ function Training() {
                         <TrainingCreate groupId={groupId}></TrainingCreate>
                         <TrainingRemoveParticipant groupId={groupId}></TrainingRemoveParticipant>
                         <TrainingGroupChangeImage groupId={groupId}></TrainingGroupChangeImage>
+                        <TrainingGroupChangeVideo groupId={groupId}></TrainingGroupChangeVideo>
                     </div>
                 </div>
             </div>
