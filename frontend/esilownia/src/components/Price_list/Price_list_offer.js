@@ -87,12 +87,12 @@ function Price_list_offer() {
                 </Modal.Header>
                 <Modal.Body>
                     <h4>Starter</h4>
-                    <p>Coins : {offerDataCoins1}</p>
-                    <p>Price : ${offerDataPrice1}</p>
+                    <p>GymCoiny : {offerDataCoins1}</p>
+                    <p>Cena : ${offerDataPrice1}</p>
                     <Button variant="primary" name='1' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={props.onHide}>Close</Button>
+                    <Button onClick={props.onHide}>Zamknij</Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -113,12 +113,12 @@ function Price_list_offer() {
                 </Modal.Header>
                 <Modal.Body>
                     <h4>Classic</h4>
-                    <p>Coins : {offerDataCoins2}</p>
-                    <p>Price : ${offerDataPrice2}</p>
+                    <p>GymCoiny : {offerDataCoins2}</p>
+                    <p>Cena : ${offerDataPrice2}</p>
                     <Button variant="primary" name='2' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={props.onHide}>Close</Button>
+                    <Button onClick={props.onHide}>Zamknij</Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -139,12 +139,12 @@ function Price_list_offer() {
                 </Modal.Header>
                 <Modal.Body>
                     <h4>Premium</h4>
-                    <p>Coins : {offerDataCoins3}</p>
-                    <p>Price : ${offerDataPrice3}</p>
+                    <p>GymCoiny : {offerDataCoins3}</p>
+                    <p>Cena : ${offerDataPrice3}</p>
                     <Button variant="primary" name='3' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={props.onHide}>Close</Button>
+                    <Button onClick={props.onHide}>Zamknij</Button>
                 </Modal.Footer>
             </Modal>
         );
