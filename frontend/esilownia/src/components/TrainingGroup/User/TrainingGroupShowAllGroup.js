@@ -448,7 +448,7 @@ function TrainingGroupShowAllGroup() {
                         </ul>
                         <hr width={'90%'} color={'black'}/>
                         <div className="col">
-                            <Button onClick={handleChange}>Filtruj</Button>
+                            <Button className="btn btn-lg border-0 " style={{'color': 'black'}} onClick={handleChange}>Filtruj</Button>
                         </div>
                     </Form>
 

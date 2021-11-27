@@ -33,8 +33,8 @@ function TrainingGroupTrainer() {
                     </div>
                 </div>
 
-                <div className="row border p-5 justify-content-center">
-                    <Button href='/treningi'>Przejdz do strefy Użytkownika</Button>
+                <div className="row p-5 justify-content-center">
+                    <Button className="btn btn-lg border-0 " style={{'color': 'black'}} href='/treningi'>Przejdz do strefy Użytkownika</Button>
                 </div>
             </div>
 
