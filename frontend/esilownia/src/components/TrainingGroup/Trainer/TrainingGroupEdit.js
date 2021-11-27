@@ -360,6 +360,7 @@ function TrainingGroupEdit() {
 
                                             <Form.Control
                                                 type="number"
+                                                min="0"
                                                 value={pricePractice}
                                                 onChange={(e) => setPricePractice(e.target.value)}
                                             />
@@ -369,6 +370,7 @@ function TrainingGroupEdit() {
 
                                             <Form.Control
                                                 type="number"
+                                                min="0"
                                                 value={priceWeek}
                                                 onChange={(e) => setPriceWeek(e.target.value)}
                                             />
@@ -378,6 +380,7 @@ function TrainingGroupEdit() {
 
                                             <Form.Control
                                                 type="number"
+                                                min="0"
                                                 value={priceMonth}
                                                 onChange={(e) => setPriceMonth(e.target.value)}
                                             />

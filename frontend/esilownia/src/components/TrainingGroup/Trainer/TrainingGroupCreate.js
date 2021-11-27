@@ -256,6 +256,7 @@ function TrainingGroupCreate() {
                                 <Form.Label>Dzień</Form.Label>
                                 <Form.Control
                                     type="number"
+                                    min="0"
                                     value={pricePractice}
                                     onChange={(e) => setPricePractice(e.target.value)}
                                 />
@@ -264,6 +265,7 @@ function TrainingGroupCreate() {
                                 <Form.Label>Tydzień</Form.Label>
                                 <Form.Control
                                     type="number"
+                                    min="0"
                                     value={priceWeek}
                                     onChange={(e) => setPriceWeek(e.target.value)}
                                 />
@@ -272,6 +274,7 @@ function TrainingGroupCreate() {
                                 <Form.Label>Miesiąc</Form.Label>
                                 <Form.Control
                                     type="number"
+                                    min="0"
                                     value={priceMonth}
                                     onChange={(e) => setPriceMonth(e.target.value)}
                                 />
