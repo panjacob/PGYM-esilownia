@@ -1,11 +1,13 @@
 import functools
+import threading
 import time
 
 import jwt
+from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework import status
 
-from training.models import TrainingGroup, Training
+from training.models import TrainingGroup, Training, TrainingGroupParticipant
 
 
 def current_milli_time():
@@ -94,3 +96,22 @@ def training_owner_required():
         return wrapper
 
     return decorator
+
+
+def remove_participant_from_training_group_when_subscription_end():
+    training_group_participants = TrainingGroupParticipant.objects.all()
+    for x in training_group_participants:
+        if x.subscription_end < timezone.now().date():
+            print(f"Removed {x.user} from {x.training_group.id} - end of subscription")
+            x.delete()
+
+
+def do_job_every_x_seconds(f, interval):
+    def repeat():
+        while True:
+            f()
+            time.sleep(interval)
+
+    t = threading.Thread(target=repeat, args=(), kwargs={}, daemon=True)
+    t.start()
+    return True

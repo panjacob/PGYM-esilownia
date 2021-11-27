@@ -62,6 +62,7 @@ def training_group_join(request):
 
     training_group_participant, _ = models.TrainingGroupParticipant.objects.get_or_create(user=user,
                                                                                           training_group=training_group)
+
     training_group_participant.subscription_end += timedelta(days_to_add)
     training_group_participant.save()
     user.money -= price
