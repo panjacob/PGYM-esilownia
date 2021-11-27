@@ -56,8 +56,7 @@ function TrainingGroupShowTrainerTrainings() {
 
                 <div className="text-center">
                     <hr></hr>
-                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Twoje Grupy
-                        (Trener)</h1>
+                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Twoje Grupy</h1>
                     <hr></hr>
                 </div>
 
