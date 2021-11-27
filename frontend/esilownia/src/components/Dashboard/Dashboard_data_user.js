@@ -86,7 +86,7 @@ function Dashboard_data_user() {
                             <div className="row justify-content-center border p-2 my-5">
 
                                 <div className="col-sm-5 ">
-                                    <h5 className="mb-0">Gym-coin</h5>
+                                    <h5 className="mb-0">GymCoin</h5>
                                 </div>
 
                                 <div className="col-sm-7 text-secondary ">
