@@ -168,6 +168,11 @@ function Header(props) {
     if (localStorage.getItem('role') !== null) {
         isModerator = JSON.parse(localStorage.getItem('role')).includes('moderator')
     }
+    console.log(JSON.parse(localStorage.getItem('role')))
+    let isTrainer = false;
+    if (localStorage.getItem('role') !== null) {
+        isTrainer = JSON.parse(localStorage.getItem('role')).includes('trainer')
+    }
 
     return (
         <div className="navigation">
@@ -189,7 +194,11 @@ function Header(props) {
                             <Nav.Link href="/kadra">Kadra</Nav.Link>
                             {
                                 localStorage.getItem('access_token') ?
-                                    <Nav.Link href="/treningi">Treningi</Nav.Link>
+                                    <>{(isTrainer === true) ? (
+                                        <Nav.Link href="/strefa_trenera">Treningi</Nav.Link> )
+                                        : (
+                                            <Nav.Link href="/treningi">Treningi</Nav.Link>
+                                        )}</>
                                     : ""
                             }
                             {

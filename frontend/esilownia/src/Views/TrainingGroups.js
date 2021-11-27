@@ -14,14 +14,14 @@ function TrainingGroups() {
         <div className="treningi">
             <div className="container font-weight-light mt-4">
 
+                {/*strefa user*/}
+                <TrainingGroupUser></TrainingGroupUser>
+
                 {/*strefa trainer*/}
                 {(isTrainer === true) ? (
                     <TrainingGroupTrainer></TrainingGroupTrainer>
                 ) : ("")
                 }
-
-                {/*strefa user*/}
-                <TrainingGroupUser></TrainingGroupUser>
 
             </div>
         </div>
