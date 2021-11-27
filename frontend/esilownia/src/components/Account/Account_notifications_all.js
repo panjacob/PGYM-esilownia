@@ -73,7 +73,7 @@ function AccountNotificationsAll() {
                     <hr></hr>
                 </div>
 
-                <div className="col-md-5 mx-auto mt-3 border pl-5 pr-5" style={{overflowY:'scroll', maxHeight:'500px'}}>
+                <div className="col-md-5 mx-auto mt-3 border pl-5 pr-5" style={{overflowY:'scroll', maxHeight:'500px', minHeight:'250px'}}>
 
                     {notificationsToShow.reverse().map((notification) => {
                         return (
