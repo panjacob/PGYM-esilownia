@@ -78,7 +78,7 @@ function AccountNotificationsAll() {
                     {notificationsToShow.reverse().map((notification) => {
                         return (
 
-                            <div className="card">
+                            <div className="card bg-light">
                                 <a href={notification.detailPage} className="card-link">
                                     <div className="content">
                                         <div className="image"><img src={notification.image} alt="Person"/></div>

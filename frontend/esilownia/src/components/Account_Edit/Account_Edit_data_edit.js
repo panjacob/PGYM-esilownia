@@ -53,7 +53,7 @@ function Account_Edit_data_edit() {
 
             <div className="col-md-8 mx-auto mt-3">
 
-                <div className="card mb-3">
+                <div className="card mb-3 bg-light">
                     <div className="card-body">
 
                         <div className="row">
@@ -102,7 +102,7 @@ function Account_Edit_data_edit() {
 
                         <div className="row">
                             <div className="col-sm-3">
-                                <Button onClick={handleSubmitData} variant="primary" size="sm">Zapisz</Button>
+                                <Button onClick={handleSubmitData} variant="btn" size="sm">Zapisz</Button>
                             </div>
                         </div>
 
