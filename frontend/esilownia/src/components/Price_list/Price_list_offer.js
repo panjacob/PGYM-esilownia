@@ -88,7 +88,7 @@ function Price_list_offer() {
                 <Modal.Body>
                     <h4>Starter</h4>
                     <p>Coins : {offerDataCoins1}</p>
-                    <p>Price : {offerDataPrice1}</p>
+                    <p>Price : ${offerDataPrice1}</p>
                     <Button variant="primary" name='1' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
@@ -114,7 +114,7 @@ function Price_list_offer() {
                 <Modal.Body>
                     <h4>Classic</h4>
                     <p>Coins : {offerDataCoins2}</p>
-                    <p>Price : {offerDataPrice2}</p>
+                    <p>Price : ${offerDataPrice2}</p>
                     <Button variant="primary" name='2' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
@@ -140,7 +140,7 @@ function Price_list_offer() {
                 <Modal.Body>
                     <h4>Premium</h4>
                     <p>Coins : {offerDataCoins3}</p>
-                    <p>Price : {offerDataPrice3}</p>
+                    <p>Price : ${offerDataPrice3}</p>
                     <Button variant="primary" name='3' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
@@ -175,10 +175,10 @@ function Price_list_offer() {
                                     </Card.Text>
                                     <hr width="35%" color="black"/>
                                     <Card.Text as={"h2"}>
-                                        <b><i>{offerDataPrice1}$</i></b>
+                                        <b><i>${offerDataPrice1}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="primary" onClick={() => setModal1Show(true)}>
+                                    <Button variant="btn" onClick={() => setModal1Show(true)}>
                                         Kup
                                     </Button>
 
@@ -202,10 +202,10 @@ function Price_list_offer() {
                                     </Card.Text>
                                     <hr width="35%" color="black"/>
                                     <Card.Text as={"h2"}>
-                                        <b><i>{offerDataPrice2}$</i></b>
+                                        <b><i>${offerDataPrice2}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="primary" onClick={() => setModal2Show(true)}>
+                                    <Button variant="btn" onClick={() => setModal2Show(true)}>
                                         Kup
                                     </Button>
 
@@ -229,10 +229,10 @@ function Price_list_offer() {
                                     </Card.Text>
                                     <hr width="35%" color="black"/>
                                     <Card.Text as={"h2"}>
-                                        <b><i>{offerDataPrice3}$</i></b>
+                                        <b><i>${offerDataPrice3}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="primary" onClick={() => setModal3Show(true)}>
+                                    <Button variant="btn" onClick={() => setModal3Show(true)}>
                                         Kup
                                     </Button>
 
