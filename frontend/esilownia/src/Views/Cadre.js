@@ -10,16 +10,16 @@ function Cadre() {
         <div className="cadre">
             <div className="container pt-4 align-items-center text-center">
 
-                <h1 style={{"fontSize": "5vw"}} className="display-1"><i>Poznaj naszą kadrę !</i></h1>
+                <h1 style={{"fontSize": "5vw"}} className="display-1">Poznaj naszą kadrę !</h1>
 
                 <CadreTrainers></CadreTrainers>
 
-                <h1 style={{"fontSize": "2vw"}} className="font-weight-light pt-4 pb-4">Wybierz z kim chcesz trenowac !</h1>
+                <h1 style={{"fontSize": "2vw"}} className="font-weight-light pt-4 pb-4">Wybierz z kim chcesz trenować !</h1>
                 <KaruzelaTrenerzy></KaruzelaTrenerzy>
 
                 <CadreNutritionists></CadreNutritionists>
 
-                <h1 style={{"fontSize": "2vw"}} className="font-weight-light pt-4 pb-4">Wybierz diete dostosowana do twojego treningu !</h1>
+                <h1 style={{"fontSize": "2vw"}} className="font-weight-light pt-4 pb-4">Wybierz kto ustali twoją indywidualną dietę !</h1>
                 <KaruzelaDietetycy></KaruzelaDietetycy>
 
             </div>
