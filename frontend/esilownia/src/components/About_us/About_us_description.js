@@ -9,7 +9,7 @@ function About_us_description() {
                 <h1 className="font-weight-light mt-4">O nas</h1>
                 <hr width="15%" color="black"/>
 
-                <div className="row text-center mx-auto" style={{padding: "2% 10% 5% 10%"}}>
+                <div className="row text-center mx-auto font-weight-light" style={{padding: "2% 10% 5% 10%"}}>
                     <b>
                         <p>
                             PGYM serwis z innowacyjnymi rozwiązaniami pozwalającymi na trening z wybranego przez siebie

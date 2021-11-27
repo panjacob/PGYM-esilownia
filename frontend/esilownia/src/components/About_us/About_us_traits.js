@@ -8,7 +8,7 @@ import {BsFillDisplayFill, BsFillPlayCircleFill} from "react-icons/bs";
 function About_us_traits() {
     return (
 
-        <div className="about_us_traits">
+        <div className="about_us_traits font-weight-light">
 
             <div className="row">
                 <div className="col-md border rounded shadow m-1">
@@ -45,7 +45,7 @@ function About_us_traits() {
                     </div>
                     <div className="row text-center mx-auto" style={{padding: "5% 15% 5% 15%"}}>
                         <p><b>
-                            Plan i czas treningów jest w zupełności zależny od ciebie. Wybierasz z kim lub kiedy chcesz
+                            Plan i czas treningów jest w zupełności zależny od ciebie. Wybierasz z kim i kiedy chcesz
                             ćwiczyć.
                         </b></p>
                     </div>
@@ -81,8 +81,7 @@ function About_us_traits() {
                     </div>
                     <div className="row text-center mx-auto" style={{padding: "5% 15% 5% 15%"}}>
                         <p><b>
-                            Chcesz wypróbować inne ćwiczenia bez wykupywania treningu ? Mamy dla ciebie także filmy
-                            instruktażowe.
+                            Po wykupieniu treningu będą dla Ciebie również dostępne filmy instruktażowe.
                         </b></p>
                     </div>
 

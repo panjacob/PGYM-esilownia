@@ -52,17 +52,7 @@ function Dashboard_data_user() {
                 <div className="card-body">
                     <div className="row">
                         <div className="col-sm-5 justify-content-center">
-
                             <div className="row justify-content-center">
-
-                                <div className="mx-1">
-                                    <h6 className="mb-0">Zdjecie profilowe</h6>
-                                </div>
-
-                            </div>
-
-                            <div className="row justify-content-center">
-
                                 <div className="mx-1">
                                     <img src={photo} alt="..." className="img-thumbnail" width='200px'
                                          height='200px'/>
@@ -75,7 +65,7 @@ function Dashboard_data_user() {
                             <div className="row justify-content-center border p-2 my-5">
 
                                 <div className="col-sm-5 ">
-                                    <h5 className="mb-0">Username</h5>
+                                    <h5 className="mb-0">Użytkownik</h5>
                                 </div>
 
                                 <div className="col-sm-7 text-secondary ">
