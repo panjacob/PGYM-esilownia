@@ -5,7 +5,7 @@ import json
 
 
 def get_messages_all(user1, user2):
-    messages = Message.objects.filter((Q(sender=user1) | Q(sender=user2) | Q(receiver=user1) | Q(receiver=user2)))
+    messages = Message.objects.filter((Q(sender=user1, receiver=user2) | Q(sender=user2, receiver=user1)))
     messages = messages.order_by('time')
     return messages
 

@@ -12,14 +12,14 @@ function About_us_description() {
                 <div className="row text-center mx-auto" style={{padding: "2% 10% 5% 10%"}}>
                     <b>
                         <p>
-                            E-Gym serwis z innowacyjnymi rozwiązaniami pozwalającymi na trening z wybranego przez siebie
+                            PGYM serwis z innowacyjnymi rozwiązaniami pozwalającymi na trening z wybranego przez siebie
                             miejsca w czasie rzeczywistym. Trening personalny , grupowy czy moze osobisty z użyciem
                             naszych filmów instruktażowych ? Ty wybierasz jak, kiedy lub z kim ćwiczysz. Możesz także
                             współtworzyć nasza społeczność i komunikować sie innymi użytkownikami poprzez Forum. Teraz
                             nie musisz już tracić czasu na dojazdy na siłownie z rana lub po pracy.
                         </p>
                         <p>
-                            Pamiętaj w zdrowym ciele zdrowy duch więc nie trać czasu i zacznij ćwiczyć z E-Gym już
+                            Pamiętaj w zdrowym ciele zdrowy duch więc nie trać czasu i zacznij ćwiczyć z PGYM już
                             dziś !
                         </p>
                     </b>

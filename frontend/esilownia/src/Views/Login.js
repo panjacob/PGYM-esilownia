@@ -8,7 +8,7 @@ function Login() {
 
     return (
         <div className="Login">
-            <div className="container">
+            <div className="container pb-5">
 
                 <div className="row d-flex justify-content-center my-5">
                     <LoginForm></LoginForm>
@@ -20,6 +20,18 @@ function Login() {
 
                 <div className="row d-flex justify-content-center my-5">
                     <GoogleLogin></GoogleLogin>
+                </div>
+                {/*lOWER Footer hardmode*/}
+                <div className="row d-flex justify-content-center pb-5">
+
+                </div>
+
+                <div className="row d-flex justify-content-center pb-5">
+
+                </div>
+
+                <div className="row d-flex justify-content-center pb-4">
+
                 </div>
 
             </div>

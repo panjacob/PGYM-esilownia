@@ -5,7 +5,8 @@ import Logout from "../Logout/Logout";
 import {Container, Navbar, Nav, NavDropdown, NavItem} from 'react-bootstrap'
 import logo from '../../imgs/coin_img.png'
 import Notifications from "react-notifications-menu";
-import axiosInstance from "../Axios/Axios";
+import axiosInstance from "../Axios/Axios"
+import bell from "../../imgs/bell-2-24.png";
 
 function Header(props) {
 
@@ -170,10 +171,10 @@ function Header(props) {
 
     return (
         <div className="navigation">
-            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
+            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" id="navbar_home">
                 <Container>
 
-                    <Navbar.Brand href="/">E-Siłownia</Navbar.Brand>
+                    <Navbar.Brand href="/">PGYM</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
 
                     <Navbar.Collapse id="responsive-navbar-nav">
@@ -202,6 +203,7 @@ function Header(props) {
                                 <Nav className="ml-auto">
                                     <NavDropdown title="Konto" id="collasible-nav-dropdown">
                                         <NavDropdown.Item href="/konto">Moje konto</NavDropdown.Item>
+                                        <NavDropdown.Item href="/wiadomości">Wiadomości</NavDropdown.Item>
                                         <NavDropdown.Divider/>
                                         <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
                                         <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
@@ -231,6 +233,7 @@ function Header(props) {
                                                     }
                                                 }
                                             }
+                                            icon={bell}
                                         />
                                     </Nav.Link>
                                     <Nav.Link><Logout></Logout></Nav.Link>

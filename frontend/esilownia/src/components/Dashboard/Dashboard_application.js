@@ -88,7 +88,7 @@ function DashboardApplication() {
 
             <div className="col-md-8 mx-auto mt-3">
 
-                <div className="card mb-3">
+                <div className="card mb-3 bg-light">
                     <div className="card-body">
                         <div className="row">
                             <div className="col-sm-12 text-secondary">

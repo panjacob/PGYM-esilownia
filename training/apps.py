@@ -6,7 +6,12 @@ class TrainingsConfig(AppConfig):
     name = 'training'
 
     def ready(self):
-        init_TrainingGroupTypes()
+        import os
+        if os.environ.get('RUN_MAIN', None) != 'true':
+            init_TrainingGroupTypes()
+            from training.utilis import remove_participant_from_training_group_when_subscription_end, \
+                do_job_every_x_seconds
+            do_job_every_x_seconds(remove_participant_from_training_group_when_subscription_end, 1 * 60 * 60)
 
 
 def init_TrainingGroupTypes():

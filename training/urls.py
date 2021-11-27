@@ -13,6 +13,8 @@ urlpatterns = [
     path('group/participant/remove', views.training_group_participant_remove, name='training_group_participant_remove'),
     path('group/image/add', views.training_group_image_add, name='training_group_image_add'),
     path('group/image/remove', views.training_group_image_remove, name='training_group_image_remove'),
+    path('group/video/add', views.training_group_video_add, name='training_group_viedo_add'),
+    path('group/video/remove', views.training_group_video_remove, name='training_group_viedo_remove'),
     path('group/remove', views.training_group_remove, name='training_group_remove'),
     path('group/invite', views.training_group_invite, name='training_group_invite'),
 

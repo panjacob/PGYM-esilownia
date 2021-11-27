@@ -71,3 +71,9 @@ class TrainingGroupImage(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
     image = models.ImageField(null=True, blank=True)
     training_group = models.ForeignKey(TrainingGroup, on_delete=models.CASCADE)
+
+
+class TrainingGroupVideo(models.Model):
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    video = models.FileField(null=True, blank=True)
+    training_group = models.ForeignKey(TrainingGroup, on_delete=models.CASCADE)

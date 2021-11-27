@@ -4,9 +4,13 @@ import {Link, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 import axios_variebles from "../components/Axios/Axios_variebles";
+import TrainingCreate from "../components/Training/Trainer/TrainingCreate";
+import TrainingRemoveParticipant from "../components/Training/Trainer/TrainingRemoveParticipant";
+import TrainingGroupChangeImage from "../components/Training/Trainer/TrainingGroupChangeImage";
 
 function Training() {
 
+    const [groupId, setGroupId] = useState("")
     const [groupInfo, setGroupInfo] = useState([])
     const [trainingsInfo, setTrainingsInfo] = useState([])
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
@@ -34,6 +38,7 @@ function Training() {
     const location = useLocation()
 
     useEffect(() => {
+        setGroupId(location.state.groupId)
 
         axiosInstance
             .post(`/training/group/get`, {id: location.state.groupId}, {
@@ -282,9 +287,14 @@ function Training() {
                             )
                         })}
                     </div>
-
                 </div>
-
+                <div className='row'>
+                    <div className="col-md-10 mx-auto mt-3 text-center">
+                        <TrainingCreate groupId={groupId}></TrainingCreate>
+                        <TrainingRemoveParticipant groupId={groupId}></TrainingRemoveParticipant>
+                        <TrainingGroupChangeImage groupId={groupId}></TrainingGroupChangeImage>
+                    </div>
+                </div>
             </div>
         </div>
     );
