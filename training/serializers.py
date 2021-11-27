@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupImage
+from training.models import TrainingGroup, TrainingGroupType, Training, TrainingGroupImage, TrainingGroupVideo
 
 
 class TrainingGroupTypesSerializer(ModelSerializer):
@@ -16,6 +16,14 @@ class TrainingGroupSerializerImageAdd(ModelSerializer):
         training_group = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         fields = ['image', 'owner', 'training_group']
+
+
+class TrainingGroupSerializerVideoAdd(ModelSerializer):
+    class Meta:
+        model = TrainingGroupVideo
+        training_group = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        fields = ['video', 'owner', 'training_group']
 
 
 class TrainingGroupSerializerCreate(ModelSerializer):

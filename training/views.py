@@ -62,6 +62,7 @@ def training_group_join(request):
 
     training_group_participant, _ = models.TrainingGroupParticipant.objects.get_or_create(user=user,
                                                                                           training_group=training_group)
+
     training_group_participant.subscription_end += timedelta(days_to_add)
     training_group_participant.save()
     user.money -= price
@@ -84,11 +85,20 @@ def training_group_get(request):
     serializer = TrainingGroupSerializerGet(training_group)
     result = serializer.data
     result['images'] = []
+    result['videos'] = []
     result['trainings'] = []
     result['participants'] = []
 
     for training_group_image in training_group.traininggroupimage_set.all():
-        result['images'] += {training_group_image.image.url}
+        try:
+            result['images'] += {training_group_image.image.url}
+        except Exception as e:
+            print(e)
+    for training_group_video in training_group.traininggroupvideo_set.all():
+        try:
+            result['videos'] += {training_group_video.video.url}
+        except Exception as e:
+            print(e)
     for training in training_group.training_set.all():
         result['trainings'] += {training.id}
     for participant in training_group.traininggroupparticipant_set.all():
@@ -111,16 +121,16 @@ def training_group_all(request):
     training_groups = TrainingGroup.objects.all()
     for training_group in training_groups:
         serializer = TrainingGroupSerializerGetAll(training_group)
-        images = TrainingGroupImage.objects.filter(training_group=training_group)
-        res = serializer.data
-        if len(images) > 0:
-            image = images[0]
-            try:
-                res['image'] = image.image.url
-            except:
-                res['image'] = 'Error'
-
-        result.append(res)
+        # images = TrainingGroupImage.objects.filter(training_group=training_group)
+        # res = serializer.data
+        # if len(images) > 0:
+        #     image = images[0]
+        #     try:
+        #         res['image'] = image.image.url
+        #     except:
+        #         res['image'] = 'Error'
+        #
+        result.append(serializer.data)
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
@@ -154,14 +164,33 @@ def training_group_image_add(request):
 
 
 @api_view(['POST'])
-# Tu musi być cos innego
-# @training_group_owner_required()
 def training_group_image_remove(request):
     image_id = request.data['id']
     if TrainingGroupImage.objects.filter(id=image_id).exists():
         TrainingGroupImage.objects.get(id=image_id).delete()
         return Response({'OK'}, status=status.HTTP_200_OK)
     return Response({'error': 'Image doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@training_group_owner_required()
+def training_group_video_add(request):
+    request = put_owner_in_request_data(request)
+    serializer = TrainingGroupSerializerVideoAdd(data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def training_group_video_remove(request):
+    video_id = request.data['id']
+    if TrainingGroupImage.objects.filter(id=video_id).exists():
+        TrainingGroupImage.objects.get(id=video_id).delete()
+        return Response({'OK'}, status=status.HTTP_200_OK)
+    return Response({'error': 'Video doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
