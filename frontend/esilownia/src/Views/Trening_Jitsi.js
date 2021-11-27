@@ -3,8 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 
-import Button from "react-bootstrap/Button";
-
 function TrainingJitsi() {
 
     const [trainingInfo, setTrainingInfo] = useState([])
