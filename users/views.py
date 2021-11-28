@@ -31,7 +31,7 @@ def user_edit(request):
     if serializer.is_valid():
         serializer.save(pk=request.user.id)
         return Response({'message': 'OK'}, status=status.HTTP_200_OK)
-    print(serializer.error_messages)
+    print(serializer.errors)
     return Response({'message': 'Data is not valid'}, status.HTTP_400_BAD_REQUEST)
 
 
@@ -46,7 +46,7 @@ def user_register(request):
             notification = notification_send(new_user, notification_body, 0)
             return Response({'id': new_user.id, 'username': new_user.username, 'email': new_user.email},
                             status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -115,7 +115,7 @@ def user_photo_add(request):
         if serializer.save(pk=request.user.id):
             print(serializer.instance.profile_photo)
             return Response({'OK': str(serializer.instance.profile_photo)}, status=status.HTTP_200_OK)
-    return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
