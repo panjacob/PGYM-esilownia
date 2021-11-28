@@ -121,15 +121,6 @@ def training_group_all(request):
     training_groups = TrainingGroup.objects.all()
     for training_group in training_groups:
         serializer = TrainingGroupSerializerGetAll(training_group)
-        # images = TrainingGroupImage.objects.filter(training_group=training_group)
-        # res = serializer.data
-        # if len(images) > 0:
-        #     image = images[0]
-        #     try:
-        #         res['image'] = image.image.url
-        #     except:
-        #         res['image'] = 'Error'
-        #
         result.append(serializer.data)
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
