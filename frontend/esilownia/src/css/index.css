@@ -12,38 +12,53 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+/*Navbar*/
 #navbar_home{
     background-color: black!important;
     border-bottom: 1px solid white!important;
 }
 
+.nav-link:hover{
+    color: orange !important;
+}
+
+.navbar-brand:hover{
+    color: orange !important;
+}
+
+/*Navbar-end*/
 #footer_home{
     background-color: black!important;
 }
 
-.nav-link:hover{
-  color: orange !important;
-}
-
-.navbar-brand:hover{
-  color: orange !important;
-}
+/*Button*/
 
 .btn{
   background-color: orange !important;
 }
+
+#btn-login{
+    width: 100%;
+    border-color: orange !important;
+}
+
+#btn-danger{
+    background-color: red!important;
+    color: black;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
+
+ /*Button -end*/
 
  #home_start{
 	background-image: linear-gradient(100deg, orange, yellow);
   text-align: center;
   transform: skewY(-7deg);
   height: 20rem;
-}
-
-#btn-login{
-  width: 100%;
-  border-color: orange !important;
 }
 
 .card-text{
@@ -63,44 +78,11 @@ code {
   position: relative;
 }
 
-#linia{
-	background-image: linear-gradient(100deg, orange, yellow);
-  border-radius: 0.5rem;
-}
-
-#zawartosc_opis_cennik{
-  background-color: #f1f1f1;
-}
-
-
-#linia_nas{
-	background-image: linear-gradient(100deg, orange, #f1f1f1);
-  border-radius: 0.5rem;
-}
-
-button:disabled {
-    cursor: not-allowed;
-    pointer-events: all !important;
-}
-
 
 p:empty {
     display: none;
 }
 
-#tren_col {
-  background-color: orange;
-  border-radius: 0.5rem;
-}
-
-
-
-#tren_container {
-  height: auto;
-  background: orange;
-  border-radius: 2rem;
-  min-height: 50rem;
-}
 
 /*Home-Start*/
 #home_tabs nav a {
@@ -310,3 +292,10 @@ div.notifications div.container div.items div.card div.options div.option{
 }
 
 /*Char-End*/
+
+/*Pagination*/
+.page-item.active .page-link {
+    background-color: orange!important;
+    border-color: orange!important;
+}
+/*Pagination-End*/
