@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, Modal} from "react-bootstrap";
+import {Card, FormControl, InputGroup, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import gymcoin from "../../imgs/gymcoin.png";
 import gymcoin2 from "../../imgs/gymcoin2.png";
 import gymcoin3 from "../../imgs/gymcoin3.png";
 import axiosInstance from "../Axios/Axios";
 import axios_variebles from "../Axios/Axios_variebles";
+import Form from "react-bootstrap/Form";
+import { AiFillLock, AiFillCreditCard } from "react-icons/ai";
+import { BsFillPersonFill, BsCalendarFill } from "react-icons/bs";
+
 
 function Price_list_offer() {
 
@@ -21,6 +25,14 @@ function Price_list_offer() {
     const [modal1Show, setModal1Show] = React.useState(false);
     const [modal2Show, setModal2Show] = React.useState(false);
     const [modal3Show, setModal3Show] = React.useState(false);
+
+    const [cardNumber, setCardNumber] = useState('**** **** **** ****')
+    const [cardHolderName, setCardHolderName] = useState('Imie')
+    const [cardHolderSurname, setCardHolderSurname] = useState('Nazwisko')
+    const [cardExpireMonth, setCardExpireMonth] = useState('MM')
+    const [cardExpireYear, setCardExpireYear] = useState('RR')
+    const [cardCCV, setCardCCV] = useState('***')
+
 
     useEffect(() => {
 
@@ -51,6 +63,14 @@ function Price_list_offer() {
         var urlencoded = new URLSearchParams();
         urlencoded.append("offer", e.target.name);
 
+        urlencoded.append("cardNumber", document.getElementById('cardNumberInput').value);
+        urlencoded.append("cardHolderName", document.getElementById('cardHolderNameInput').value);
+        urlencoded.append("cardHolderSurname", document.getElementById('cardHolderSurnameInput').value);
+        urlencoded.append("cardExpireMonth", document.getElementById('cardExpireMonthInput').value);
+        urlencoded.append("cardExpireYear", document.getElementById('cardExpireYearInput').value);
+        urlencoded.append("cardCCV", document.getElementById('cardCCVInput').value);
+
+
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -65,7 +85,11 @@ function Price_list_offer() {
         fetch(axios_variebles.baseURL + "payment/transaction/create", requestOptions)
             .then(response => response.text())
             .then(result => {
-                window.location.href="/cennik";
+                if(JSON.parse( result ).message === 'Transakcja zakończona poprawnie') {
+                    //window.location.href = "/cennik";
+                } else {
+                    alert('Transakcja nieudana')
+                }
             })
             .catch(error => console.log('error', error));
 
@@ -89,13 +113,80 @@ function Price_list_offer() {
                     <h4>Starter</h4>
                     <p>GymCoiny : {offerDataCoins1}</p>
                     <p>Cena : ${offerDataPrice1}</p>
+
+                    <div className='row justify-content-center'>
+                        <div className='border p-2 m-1' style={{width:'70%'}}>
+                        <div className='row'>
+                            <div className='col'>
+                                <Form.Label htmlFor="cardNumberInput" visuallyHidden>
+                                    Numer Karty
+                                </Form.Label>
+                                <InputGroup className="mb-2">
+                                    <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
+                                    <FormControl id="cardNumberInput" placeholder={cardNumber}/>
+                                </InputGroup>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div className='col'>
+                                <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
+                                    Imie
+                                </Form.Label>
+                                <InputGroup className="mb-2">
+                                    <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+                                    <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
+                                </InputGroup>
+                            </div>
+                            <div className='col'>
+                                <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
+                                    Nazwisko
+                                </Form.Label>
+                                <InputGroup className="mb-2">
+                                    <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+                                    <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
+                                </InputGroup>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div className='col'>
+                                <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
+                                    MM
+                                </Form.Label>
+                                <InputGroup className="mb-2">
+                                    <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+                                    <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
+                                </InputGroup>
+                            </div>
+                            <div className='col'>
+                                <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
+                                    YY
+                                </Form.Label>
+                                <InputGroup className="mb-2">
+                                    <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+                                    <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
+                                </InputGroup>
+                            </div>
+                            <div className='col'>
+                                <Form.Label htmlFor="cardCCVInput" visuallyHidden>
+                                    Kod CCV
+                                </Form.Label>
+                                <InputGroup className="mb-2">
+                                    <InputGroup.Text><AiFillLock/></InputGroup.Text>
+                                    <FormControl id="cardCCVInput" placeholder={cardCCV}/>
+                                </InputGroup>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
                     <Button variant="primary" name='1' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={props.onHide}>Zamknij</Button>
                 </Modal.Footer>
             </Modal>
-        );
+        )
+            ;
     }
 
     function Offer2(props) {
@@ -115,6 +206,72 @@ function Price_list_offer() {
                     <h4>Classic</h4>
                     <p>GymCoiny : {offerDataCoins2}</p>
                     <p>Cena : ${offerDataPrice2}</p>
+
+                    <div className='row justify-content-center'>
+                        <div className='border p-2 m-1' style={{width:'70%'}}>
+                            <div className='row'>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardNumberInput" visuallyHidden>
+                                        Numer Karty
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
+                                        <FormControl maxLength='16' id="cardNumberInput" placeholder={cardNumber}/>
+                                    </InputGroup>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
+                                        Imie
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+                                        <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
+                                    </InputGroup>
+                                </div>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
+                                        Nazwisko
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+                                        <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
+                                    </InputGroup>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
+                                        MM
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+                                        <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
+                                    </InputGroup>
+                                </div>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
+                                        YY
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+                                        <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
+                                    </InputGroup>
+                                </div>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardCCVInput" visuallyHidden>
+                                        Kod CCV
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><AiFillLock/></InputGroup.Text>
+                                        <FormControl id="cardCCVInput" placeholder={cardCCV}/>
+                                    </InputGroup>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <Button variant="primary" name='2' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
@@ -141,6 +298,72 @@ function Price_list_offer() {
                     <h4>Premium</h4>
                     <p>GymCoiny : {offerDataCoins3}</p>
                     <p>Cena : ${offerDataPrice3}</p>
+
+                    <div className='row justify-content-center'>
+                        <div className='border p-2 m-1' style={{width:'70%'}}>
+                            <div className='row'>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardNumberInput" visuallyHidden>
+                                        Numer Karty
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
+                                        <FormControl id="cardNumberInput" placeholder={cardNumber}/>
+                                    </InputGroup>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
+                                        Imie
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+                                        <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
+                                    </InputGroup>
+                                </div>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
+                                        Nazwisko
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+                                        <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
+                                    </InputGroup>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
+                                        MM
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+                                        <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
+                                    </InputGroup>
+                                </div>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
+                                        YY
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+                                        <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
+                                    </InputGroup>
+                                </div>
+                                <div className='col'>
+                                    <Form.Label htmlFor="cardCCVInput" visuallyHidden>
+                                        Kod CCV
+                                    </Form.Label>
+                                    <InputGroup className="mb-2">
+                                        <InputGroup.Text><AiFillLock/></InputGroup.Text>
+                                        <FormControl id="cardCCVInput" placeholder={cardCCV}/>
+                                    </InputGroup>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <Button variant="primary" name='3' id="btn-login" onClick={handlePayment}>Kup</Button>
                 </Modal.Body>
                 <Modal.Footer>
@@ -165,7 +388,7 @@ function Price_list_offer() {
                     <div className="row text-center">
                         <div className="col-md-4">
 
-                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg mt-1 mb-1 bg-light" >
+                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg mt-1 mb-1 bg-light">
                                 <Card.Header><Card.Img variant="top" src={gymcoin}/></Card.Header>
                                 <Card.Body>
                                     <Card.Title as={"h3"}>Starter</Card.Title>
@@ -192,7 +415,8 @@ function Price_list_offer() {
                         </div>
                         <div className="col-md-4">
 
-                            <Card border="dark" style={{width: '90%'}} className="mx-auto shadow-lg container-t container-t2 mt-1 mb-1 bg-light">
+                            <Card border="dark" style={{width: '90%'}}
+                                  className="mx-auto shadow-lg container-t container-t2 mt-1 mb-1 bg-light">
                                 <Card.Header><Card.Img variant="top" src={gymcoin2}/></Card.Header>
                                 <Card.Body>
                                     <Card.Title as={"h3"}>Classic</Card.Title>
