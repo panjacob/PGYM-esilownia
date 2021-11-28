@@ -187,8 +187,9 @@ def training_group_video_add(request):
 @api_view(['POST'])
 def training_group_video_remove(request):
     video_id = request.data['id']
-    if TrainingGroupImage.objects.filter(id=video_id).exists():
-        TrainingGroupImage.objects.get(id=video_id).delete()
+    print(video_id)
+    if TrainingGroupVideo.objects.filter(id=video_id).exists():
+        TrainingGroupVideo.objects.get(id=video_id).delete()
         return Response({'OK'}, status=status.HTTP_200_OK)
     return Response({'error': 'Video doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
 
