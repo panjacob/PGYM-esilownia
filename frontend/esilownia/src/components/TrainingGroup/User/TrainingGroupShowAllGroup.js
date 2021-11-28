@@ -248,8 +248,8 @@ function TrainingGroupShowAllGroup() {
                                              className="card-img-top rounded-circle"
                                              alt="..."/>
                                     ) : (
-                                        <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="100%"
-                                             height="width"
+                                        <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="233px"
+                                             height="233px"
                                              className="card-img-top rounded-circle"
                                              alt="..."/>
                                     )}
