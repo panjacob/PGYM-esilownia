@@ -46,6 +46,11 @@ code {
   border-color: orange !important;
 }
 
+#btn-danger{
+    background-color: red!important;
+    color: black;
+}
+
 .card-text{
     font-size:19px;
     text-overflow: ellipsis;
