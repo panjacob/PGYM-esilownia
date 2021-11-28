@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 import axios_variebles from "../components/Axios/Axios_variebles";
-import {Card} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 import placeholderImg from "../imgs/placeholder.jpg";
 
@@ -31,6 +31,7 @@ function GroupOfferDetails() {
         }
     ]
 
+    const history = useHistory()
     const location = useLocation()
 
     useEffect(() => {
@@ -113,6 +114,7 @@ function GroupOfferDetails() {
     return (
         <div className="groupOfferDetails">
             <div className="container font-weight-light">
+                <Button className="btn btn-lg mt-4 border-0" style={{'color':'black'}} onClick={() => history.goBack()}>Wstecz</Button>
                 <div className="text-center">
                     <hr></hr>
                     <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">{trainingGroup.title}</h1>

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 import axios_variebles from "../components/Axios/Axios_variebles";
+import {Button} from "react-bootstrap";
 
 function Training() {
 
@@ -30,7 +31,7 @@ function Training() {
             name: 'Armagedon'
         }
     ]
-
+    const history = useHistory();
     const location = useLocation()
 
     useEffect(() => {
@@ -97,7 +98,7 @@ function Training() {
     return (
         <div className="treningi">
             <div className="container">
-
+                <Button className="btn btn-lg mt-4 border-0" style={{'color':'black'}} onClick={() => history.goBack()}>Wstecz</Button>
                 <div className='row'>
                     <div className="col-md-10 mx-auto mt-3">
 
