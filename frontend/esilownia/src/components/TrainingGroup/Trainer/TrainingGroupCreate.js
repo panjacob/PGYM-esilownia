@@ -43,9 +43,9 @@ function TrainingGroupCreate() {
         formdata.append("price_day", pricePractice);
         formdata.append("price_week", priceWeek);
         formdata.append("price_month", priceMonth);
-
-        formdata.append("image", fileToUpload, fileToUploadName);
-
+        if(isFilePicked===true){
+            formdata.append("image", fileToUpload, fileToUploadName);
+        }
         formdata.append("is_private", isPrivate);
 
         var myHeaders = new Headers();
