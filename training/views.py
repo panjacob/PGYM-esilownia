@@ -24,7 +24,7 @@ def training_group_create(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -37,7 +37,7 @@ def training_group_edit(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -160,7 +160,7 @@ def training_group_image_add(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -181,7 +181,7 @@ def training_group_video_add(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -203,7 +203,7 @@ def training_create(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -216,7 +216,7 @@ def training_edit(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -281,7 +281,7 @@ def training_file_add(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])

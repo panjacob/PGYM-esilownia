@@ -21,7 +21,7 @@ def message_send(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -31,7 +31,7 @@ def message_send_admin(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
