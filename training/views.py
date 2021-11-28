@@ -14,6 +14,8 @@ from users.utilis import put_owner_in_request_data
 from message.utilis import notification_send
 from users.models import UserExtended
 
+MAX_PING_ACTIVE_SECONDS = 30
+
 
 @api_view(['POST'])
 # Trainer required
@@ -258,7 +260,7 @@ def training_ping(request):
 def training_ping_get(request):
     training = models.Training.objects.get(id=request.data['id'])
     last_ping_time = current_milli_time() - training.ping
-    active = last_ping_time < 60 * 1000
+    active = last_ping_time < MAX_PING_ACTIVE_SECONDS * 1000
     return Response({'last_ping_time_ms': last_ping_time, 'active': active},
                     status=status.HTTP_200_OK)
 
@@ -292,3 +294,20 @@ def training_group_invite(request):
     notification_send(user=user_receiver, body=body, kind=3)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def training_active_user(request):
+    training_group_participant = models.TrainingGroupParticipant.objects.all().filter(user=request.user)
+    training_groups = [x.training_group for x in training_group_participant]
+    training_group_owner = TrainingGroup.objects.all().filter(owner=request.user).all()
+    training_groups += training_group_owner
+    trainings = []
+    for x in training_groups:
+        trainings += x.training_set.all()
+    # trainings.filter(ping__gt=current_milli_time() - MAX_PING_ACTIVE_SECONDS * 1000)
+    ping_val = current_milli_time() - MAX_PING_ACTIVE_SECONDS * 1000
+    trainings_active = [x for x in trainings if x.ping > ping_val]
+    result = [training.id for training in trainings_active]
+    result_no_duplicates = list(dict.fromkeys(result))
+    return JsonResponse(result_no_duplicates, safe=False, json_dumps_params={'ensure_ascii': False})
