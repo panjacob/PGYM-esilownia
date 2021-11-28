@@ -20,7 +20,7 @@ def user_day_create(request):
     if serializer.is_valid():
         created = serializer.update_or_create(request.user.id, serializer.data)
         return Response(f"{'CREATED' if created else 'UPDATED'}", status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -37,7 +37,7 @@ def achievment_create(request):
     if serializer.is_valid():
         serializer.save()
         return JsonResponse({'id': serializer.instance.id}, safe=False)
-    return Response({'message': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
