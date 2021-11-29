@@ -7,5 +7,6 @@ urlpatterns = [
     path('topic/get', views.topic_get, name='topic_get'),
     path('topic/all', views.topic_all, name='topic_all'),
     path('topic/remove', views.topic_remove, name='topic_remove'),
+    path('post/create', views.post_create, name='post_create'),
 
 ]
