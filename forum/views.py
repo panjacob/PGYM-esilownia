@@ -32,3 +32,14 @@ def topic_all(request):
     result = [TopicSerializerAll(instance=x).data for x in topics]
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
+
+@api_view(['POST'])
+def topic_remove(request):
+    topic = Topic.objects.get(id=request.data['id'])
+    topic.delete()
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def post_create(request):
+    pass
