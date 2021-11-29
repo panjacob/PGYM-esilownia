@@ -5,6 +5,10 @@ import axiosInstance from "../Axios/Axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import pl from 'date-fns/locale/pl';
+registerLocale('pl', pl)
+
 function Dashboard_data_userday() {
 
     const [startDate, setStartDate] = useState(new Date());
@@ -74,7 +78,7 @@ function Dashboard_data_userday() {
 
             <div className='row justify-content-center' style={{minHeight:'200px'}}>
                 <div className='col-4 justify-content-center text-center'>
-                <DatePicker className='text-center justify-content-center' dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => selectedDate(date)} inline showPopperArrow={false} />
+                <DatePicker locale="pl" className='text-center justify-content-center' dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => selectedDate(date)} inline showPopperArrow={false} />
                 </div>
             </div>
 
