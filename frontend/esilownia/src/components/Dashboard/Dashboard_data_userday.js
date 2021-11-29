@@ -2,12 +2,16 @@ import React, {useEffect, useState} from "react";
 import {Carousel} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Dashboard_data_userday() {
 
     const [UserDays, setUserDays] = useState([]);
 
     const [index, setIndex] = useState(0);
+
+    const [startDate, setStartDate] = useState(new Date());
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
@@ -124,6 +128,29 @@ function Dashboard_data_userday() {
         </Carousel.Item>
     );
 
+    function convert(str) {
+        var date = new Date(str),
+            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2);
+        return [date.getFullYear(), mnth, day].join("-");
+    }
+
+    function selectedDate(date) {
+        console.log(convert( date ))
+        setStartDate(date)
+
+        axiosInstance
+            .post(`/dashboard/user_day/get`, { date: convert( date )},{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                console.log(res.data);
+            });
+    }
+
     return (
         <div className="dashboard_data_userday">
 
@@ -131,6 +158,12 @@ function Dashboard_data_userday() {
                 <hr></hr>
                 <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Dane twoich treningów</h1>
                 <hr></hr>
+            </div>
+
+            <div className='row justify-content-center' style={{minHeight:'200px'}}>
+                <div className='col-4 justify-content-center text-center'>
+                <DatePicker className='text-center justify-content-center' dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => selectedDate(date)} inline showPopperArrow={false} />
+                </div>
             </div>
 
             {

@@ -61,7 +61,7 @@ function PaymentHistory() {
                     <hr></hr>
                 </div>
 
-                <div className="container" style={{overflowY: 'scroll', flex: '1', height: '500px'}}>
+                <div className="container border pt-1" style={{overflowY: 'scroll', flex: '1', height: '500px'}}>
                     {(JSON.stringify( transactionInfo ) !== '[]') ? (
 
                         <>{transactionInfo.map((transaction) => {
