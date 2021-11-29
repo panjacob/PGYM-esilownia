@@ -57,3 +57,20 @@ def post_get(request):
     post = Post.objects.get(id=request.data['id'])
     serializer = PostSerializer(instance=post)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def post_remove(request):
+    post = Post.objects.get(id=request.data['id'])
+    post.delete()
+    return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def post_edit(request):
+    post = Post.objects.get(id=request.data['id'])
+    serializer = PostSerializer(instance=post, data=request.data)
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
