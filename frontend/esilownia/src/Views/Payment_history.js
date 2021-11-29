@@ -62,54 +62,73 @@ function PaymentHistory() {
                 </div>
 
                 <div className="container" style={{overflowY: 'scroll', flex: '1', height: '500px'}}>
-                    {transactionInfo.map((transaction) => {
-                        return (
-                            <div className="card mb-3 bg-light">
-                                <div className="card-body">
+                    {(JSON.stringify( transactionInfo ) !== '[]') ? (
 
-                                    <div className="row">
-                                        <div className="col-sm-5">
-                                            <h6 className="mb-0">Id transakcji</h6>
-                                        </div>
-                                        <div className="col-sm-7 text-secondary">
-                                            {transaction.transaction_id}
+                        <>{transactionInfo.map((transaction) => {
+                                return (
+                                    <div className="card mb-3 bg-light">
+                                        <div className="card-body">
+
+                                            <div className="row">
+                                                <div className="col-sm-5">
+                                                    <h6 className="mb-0">Id transakcji</h6>
+                                                </div>
+                                                <div className="col-sm-7 text-secondary">
+                                                    {transaction.transaction_id}
+                                                </div>
+                                            </div>
+                                            <hr/>
+
+                                            <div className="row">
+                                                <div className="col-sm-5">
+                                                    <h6 className="mb-0">Kwota</h6>
+                                                </div>
+                                                <div className="col-sm-7 text-secondary">
+                                                    {transaction.payed} $
+                                                </div>
+                                            </div>
+                                            <hr/>
+
+                                            <div className="row">
+                                                <div className="col-sm-5">
+                                                    <h6 className="mb-0">Zakup</h6>
+                                                </div>
+                                                <div className="col-sm-7 text-secondary">
+                                                    {transaction.purchased} GymCoin
+                                                </div>
+                                            </div>
+                                            <hr/>
+
+                                            <div className="row">
+                                                <div className="col-sm-5">
+                                                    <h6 className="mb-0">Czas</h6>
+                                                </div>
+                                                <div className="col-sm-7 text-secondary">
+                                                    {msToTime(transaction.time)}
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <hr/>
+                                )
+                            })}</>
 
-                                    <div className="row">
-                                        <div className="col-sm-5">
-                                            <h6 className="mb-0">Kwota</h6>
-                                        </div>
-                                        <div className="col-sm-7 text-secondary">
-                                            {transaction.payed} $
-                                        </div>
+                    ) : (
+
+                        <div className="card mb-3 bg-light">
+                            <div className="card-body">
+
+                                <div className="row">
+                                    <div className="col text-center">
+                                        <h6 className="mb-0">Brak transakcji</h6>
                                     </div>
-                                    <hr/>
-
-                                    <div className="row">
-                                        <div className="col-sm-5">
-                                            <h6 className="mb-0">Zakup</h6>
-                                        </div>
-                                        <div className="col-sm-7 text-secondary">
-                                            {transaction.purchased} GymCoin
-                                        </div>
-                                    </div>
-                                    <hr/>
-
-                                    <div className="row">
-                                        <div className="col-sm-5">
-                                            <h6 className="mb-0">Czas</h6>
-                                        </div>
-                                        <div className="col-sm-7 text-secondary">
-                                            {msToTime(transaction.time)}
-                                        </div>
-                                    </div>
-
                                 </div>
+
                             </div>
-                        )
-                    })}
+                        </div>
+
+                    )}
+
                 </div>
             </div>
         </div>
