@@ -7,126 +7,31 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function Dashboard_data_userday() {
 
-    const [UserDays, setUserDays] = useState([]);
-
-    const [index, setIndex] = useState(0);
-
     const [startDate, setStartDate] = useState(new Date());
 
-    const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
-    };
+    const [userDayData, setUserDayData] = useState([])
 
     useEffect(() => {
 
         axiosInstance
-            .post(`/dashboard/user_day/get_all`, {},{
+            .post(`/dashboard/user_day/get`, { date: convert( startDate )},{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
-                setUserDays(res.data);
+                setUserDayData(res.data)
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    if(error.response.status === 400) {
+                        setUserDayData([])
+                    }
+                }
             });
 
     }, []);
-
-    const listItems = UserDays.map((id) =>
-        <Carousel.Item key={id.id}>
-            <div className="col-md-8 mx-auto mt-3">
-
-                <div className="card mb-3">
-                    <div className="card-body">
-                        <div className="row">
-
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Data</h6>
-                            </div>
-
-                            <div className="col-sm-9 text-secondary">
-                                {id.date}
-                            </div>
-
-                        </div>
-                        <hr></hr>
-                        <div className="row">
-
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Waga</h6>
-                            </div>
-
-                            <div className="col-sm-9 text-secondary">
-                                {id.weight}
-                            </div>
-
-                        </div>
-                        <hr></hr>
-                        <div className="row">
-
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Spalone Kalorie</h6>
-                            </div>
-
-                            <div className="col-sm-9 text-secondary">
-                                {id.calories_burned}
-                            </div>
-
-                        </div>
-                        <hr></hr>
-                        <div className="row">
-
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Spożyte Kalorie</h6>
-                            </div>
-
-                            <div className="col-sm-9 text-secondary">
-                                {id.calories_eaten}
-                            </div>
-
-                        </div>
-                        <hr></hr>
-                        <div className="row">
-
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Początek Snu</h6>
-                            </div>
-
-                            <div className="col-sm-9 text-secondary">
-                                {id.sleep_start}
-                            </div>
-
-                        </div>
-                        <hr></hr>
-                        <div className="row">
-
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Koniec Snu</h6>
-                            </div>
-
-                            <div className="col-sm-9 text-secondary">
-                                {id.sleep_end}
-                            </div>
-
-                        </div>
-                        <hr></hr>
-                        <div className="row">
-
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Kroki</h6>
-                            </div>
-
-                            <div className="col-sm-9 text-secondary">
-                                {id.steps}
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </Carousel.Item>
-    );
 
     function convert(str) {
         var date = new Date(str),
@@ -136,7 +41,7 @@ function Dashboard_data_userday() {
     }
 
     function selectedDate(date) {
-        console.log(convert( date ))
+        //console.log(convert( date ))
         setStartDate(date)
 
         axiosInstance
@@ -147,8 +52,15 @@ function Dashboard_data_userday() {
                 }
             })
             .then((res) => {
-                console.log(res.data);
-            });
+                setUserDayData(res.data)
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    if(error.response.status === 400) {
+                        setUserDayData([])
+                    }
+                }
+            });;
     }
 
     return (
@@ -166,37 +78,193 @@ function Dashboard_data_userday() {
                 </div>
             </div>
 
-            {
-                UserDays.length === 0 ?
-                    <Carousel className="m-3" activeIndex={index} onSelect={handleSelect}>
-                        <Carousel.Item>
-                            <div className="row h-100">
-                                <div className="col-md-8 mx-auto my-auto">
-                                    <div className="card mb-3">
-                                        <div className="card-body">
-                                            <div className="row justify-content-center">
-                                                <p>Nie brałeś jeszcze udziału w treningach.</p>
-                                            </div>
-                                            <div className="row justify-content-center">
-                                                <p>Brak danych do wyświetlenia.</p>
-                                            </div>
-                                            <div className="row justify-content-center text-center">
-                                                <p>Wykup i bierz udzial w trenigach by uzyskać podglad do
-                                                    podsumowania.</p>
-                                            </div>
-                                        </div>
-                                    </div>
+            <div>
+            {(userDayData.length === 0) ? (
+                <div className="col-md-8 mx-auto mt-3">
+
+                    <div className="card mb-3">
+                        <div className="card-body">
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Data</h6>
                                 </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                   0
+                                </div>
+
                             </div>
-                        </Carousel.Item>
-                    </Carousel>
+                            <hr></hr>
+                            <div className="row">
 
-                    : ""
-            }
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Waga</h6>
+                                </div>
 
-            <Carousel className="m-3" activeIndex={index} onSelect={handleSelect}>
-                {listItems}
-            </Carousel>
+                                <div className="col-sm-9 text-secondary">
+                                    0
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Spalone Kalorie</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    0
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Spożyte Kalorie</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    0
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Początek Snu</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    0
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Koniec Snu</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    0
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Kroki</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    0
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            ) : (
+                <div className="col-md-8 mx-auto mt-3">
+
+                    <div className="card mb-3">
+                        <div className="card-body">
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Data</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    {userDayData.date}
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Waga</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    {userDayData.weight}
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Spalone Kalorie</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    {userDayData.calories_burned}
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Spożyte Kalorie</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    {userDayData.calories_eaten}
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Początek Snu</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    {userDayData.sleep_start}
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Koniec Snu</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    {userDayData.sleep_end}
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <div className="row">
+
+                                <div className="col-sm-3">
+                                    <h6 className="mb-0">Kroki</h6>
+                                </div>
+
+                                <div className="col-sm-9 text-secondary">
+                                    {userDayData.steps}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            )}
+            </div>
 
         </div>
     );
