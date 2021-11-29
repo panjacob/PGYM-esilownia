@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from forum.serializers import TopicSerializerCreate, TopicSerializerGet, TopicSerializerAll, PostSerializer
 from users.utilis import put_owner_in_request_data
-from forum.models import Topic
+from forum.models import Topic, Post
 
 
 @api_view(['POST'])
@@ -48,6 +48,12 @@ def post_create(request):
         if serializer.save():
             topic = Topic.objects.get(id=request.data['topic_id'])
             topic.posts.add(serializer.instance.id)
-            return Response({'OK'}, status=status.HTTP_200_OK)
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['POST'])
+def post_get(request):
+    post = Post.objects.get(id=request.data['id'])
+    serializer = PostSerializer(instance=post)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})

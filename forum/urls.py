@@ -8,5 +8,6 @@ urlpatterns = [
     path('topic/all', views.topic_all, name='topic_all'),
     path('topic/remove', views.topic_remove, name='topic_remove'),
     path('post/create', views.post_create, name='post_create'),
+    path('post/get', views.post_get, name='post_get'),
 
 ]
