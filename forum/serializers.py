@@ -20,6 +20,14 @@ class TopicSerializerCreate(ModelSerializer):
         fields = ['owner', 'date', 'title', 'body']
 
 
+class TopicSerializerAll(ModelSerializer):
+    class Meta:
+        model = Topic
+        owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+
+        fields = ['owner', 'date', 'title']
+
+
 class TopicSerializerGet(ModelSerializer):
     class Meta:
         model = Topic
