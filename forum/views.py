@@ -3,8 +3,9 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from forum.serializers import TopicSerializerCreate
+from forum.serializers import TopicSerializerCreate, TopicSerializerGet
 from users.utilis import put_owner_in_request_data
+from forum.models import Topic
 
 
 @api_view(['POST'])
@@ -18,3 +19,8 @@ def topic_create(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+def topic_get(request):
+    topic = Topic.objects.get(id=request.data['id'])
+    serializer = TopicSerializerGet(instance=topic)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
