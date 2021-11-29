@@ -20,6 +20,7 @@ import TreningJitsi from "./Views/Trening_Jitsi";
 import GroupOfferDetails from "./Views/Group_offer_details";
 import Chat from "./Views/Chat";
 import Training_trainer from "./Views/Training_trainer";
+import Payment_history from "./Views/Payment_history";
 
 function App() {
     return (
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/trening" exact component={() => <TreningJitsi/>}/>
                     <Route path="/grupa_szczegóły" exact component={() => <GroupOfferDetails/>}/>
                     <Route path="/wiadomości" exact component={() => <Chat/>}/>
+                    <Route path="/historia_płatności" exact component={() => <Payment_history/>}/>
                 </Switch>
                 <Footer/>
             </Router>
