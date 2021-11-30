@@ -6,6 +6,8 @@ import axios_variebles from "../../Axios/Axios_variebles";
 function TrainingGroupChangeImage(props){
     const [groupInfo, setGroupInfo] = useState([]);
     const [photo, setPhoto] = useState();
+    const [groupInfoPhotos, setGroupInfoPhotos] = useState([]);
+    const [photoSelected, setPhotoSelected] = useState('none');
     const [fileToUpload, setFileToUpload] = useState();
     const [fileToUploadName, setFileToUploadName] = useState("");
     const [isFilePicked, setIsFilePicked] = useState(false);
@@ -21,6 +23,9 @@ function TrainingGroupChangeImage(props){
             })
             .then((res) => {
                 setGroupInfo(res.data)
+                setGroupInfoPhotos(res.data.images)
+                console.log(groupInfoPhotos)
+                console.log(res.data)
             });
 
     }, [props.groupId]);
@@ -38,23 +43,12 @@ function TrainingGroupChangeImage(props){
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
 
-        var formdata2 = new FormData();
-        formdata2.append("id", groupInfo.id);
-
-        var requestOptions2 = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata2,
-            redirect: 'follow'
-        };
-
-        fetch(axios_variebles.baseURL + "training/group/image/remove", requestOptions2)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
 
         var formdata = new FormData();
-        formdata.append("image", fileToUpload, fileToUploadName);
+        if(isFilePicked===true){
+            formdata.append("image", fileToUpload, fileToUploadName);
+        }
+        formdata.append("training_group", groupInfo.id )
 
         var requestOptions = {
             method: 'POST',
@@ -71,25 +65,51 @@ function TrainingGroupChangeImage(props){
         window.location.reload()
 
     }
+
+    const photoChosen = (e) => {
+        setPhotoSelected(e.target.value)
+    }
+
+    function validateForm() {
+        return photoSelected !== 'none';
+    }
+
+    const handleRemovePic = (e) => {
+        e.preventDefault();
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+
+        var formdata2 = new FormData();
+            formdata2.append("training_group_image_id", photoSelected);
+
+
+        var requestOptions2 = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata2,
+            redirect: 'follow'
+        };
+
+        fetch(axios_variebles.baseURL + "training/group/image/remove", requestOptions2)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+        window.location.reload()
+
+    }
+
+
     return(
             <div className="TrainingGroupChangeImage">
                 <hr/>
-                <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Zmień Zdjęcie grupy</h1>
+                <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Zmień Zdjęcia grupy</h1>
                 <hr/>
                 <div className="col-md-8 mx-auto mt-3">
                     <div className="card mb-3 bg-light">
                         <div className="card-body">
-                            <div className="row">
-                                <div className="mx-auto">
-                                    <h6 className="mb-0">Zdjecie Grupy</h6>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="mx-auto">
-                                    <img src={photo} alt="..." className="img-thumbnail" width='200px'
-                                         height='200px'/>
-                                </div>
-                            </div>
                             <div className="row">
                                 <div className="mx-auto pt-1">
                                     <div className="custom-file">
@@ -97,16 +117,16 @@ function TrainingGroupChangeImage(props){
                                         <label className="custom-file-label" htmlFor="customFile">Wybierz plik</label>
                                         {isFilePicked ? (
                                             <div>
-                                                <p>Filename: {fileToUpload.name}</p>
-                                                <p>Filetype: {fileToUpload.type}</p>
-                                                <p>Size in bytes: {fileToUpload.size}</p>
+                                                <p>Nazwa: {fileToUpload.name}</p>
+                                                <p>Typ: {fileToUpload.type}</p>
+                                                <p>Rozmiar: {fileToUpload.size}</p>
                                                 <p>
-                                                    lastModifiedDate:{' '}
+                                                    Ostatnia modyfikacja:{' '}
                                                     {fileToUpload.lastModifiedDate.toLocaleDateString()}
                                                 </p>
                                             </div>
                                         ) : (
-                                            <p>Select a file to show details</p>
+                                            <p>Wybierz plik aby zobaczyć szczegóły</p>
                                         )}
                                     </div>
                                 </div>
@@ -115,11 +135,36 @@ function TrainingGroupChangeImage(props){
 
                             <div className="row">
                                 <div className="col-sm-3">
-                                    <Button onClick={handleSubmitPic} variant="btn" size="sm">Zmien Zdjecie</Button>
+                                    <Button onClick={handleSubmitPic} variant="btn" size="sm">Dodaj Zdjęcie</Button>
                                 </div>
+                                <div className="col-sm-3">
+                                    <p className="font-weight-bold">wybierz zdjęcie do usunięcia</p>
+                                </div>
+                                <div className='col-sm-3'>
+                                    <select className='text-center' style={{width: '100%', height: '30px'}}
+                                            onChange={photoChosen}>
+                                        <option value='none'> - </option>
+                                        {groupInfoPhotos.map(function (photos, idx) {
+                                                    return (
+                                                        <option
+                                                            key={idx}
+                                                            value={photos.id}
+                                                        >
+                                                            {photos.id}
+                                                        </option>
+                                                    )
+                                        })}
+                                    </select>
+                                </div>
+                                <div className="col-sm-3">
+                                    <Button onClick={handleRemovePic} variant="btn" size="sm" disabled={!validateForm()}>Usuń Zdjęcie</Button>
+                                </div>
+
                             </div>
                         </div>
+
                     </div>
+
                 </div>
             </div>
     );

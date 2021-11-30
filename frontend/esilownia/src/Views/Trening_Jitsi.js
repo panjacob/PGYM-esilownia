@@ -14,7 +14,7 @@ function TrainingJitsi(props) {
         setGroupId(location.state.trainingId)
 
         axiosInstance
-            .post(`training/get`, {id: groupId}, {
+            .post(`training/get`, {id: location.state.trainingId}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
