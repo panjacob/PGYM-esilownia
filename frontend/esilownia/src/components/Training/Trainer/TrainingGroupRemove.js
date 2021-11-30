@@ -27,6 +27,9 @@ function TrainingGroupRemove(props) {
                         Czy na pewno chcesz usunąć grupę ?
                     </Modal.Title>
                 </Modal.Header>
+                <Modal.Body>
+                    <p>Spowoduje to usunięcie wszystkich danych związanych z grupą oraz treningami zawartymi w grupie treningowej.</p>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="btn" id="btn-danger" onClick={handleSubmit}>Tak</Button>
                     <Button onClick={props.onHide}>Nie</Button>
