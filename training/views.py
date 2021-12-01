@@ -93,12 +93,12 @@ def training_group_get(request):
 
     for training_group_image in training_group.traininggroupimage_set.all():
         try:
-            result['images'] += {training_group_image.image.url}
+            result['images'].append({'id': training_group_image.id, 'url': training_group_image.image.url})
         except Exception as e:
             print(e)
     for training_group_video in training_group.traininggroupvideo_set.all():
         try:
-            result['videos'] += {training_group_video.video.url}
+            result['videos'].append({'id': training_group_video.id, 'url': training_group_video.video.url})
         except Exception as e:
             print(e)
     for training in training_group.training_set.all():
