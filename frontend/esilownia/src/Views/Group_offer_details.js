@@ -62,7 +62,6 @@ function GroupOfferDetails() {
                     })
                     .then((res2) => {
                         setTrainerInfo(res2.data)
-                        console.log(res2.data.profile_photo)
                         if(res2.data.profile_photo === null){
                             setPhoto(profilePicture)
                         } else {
