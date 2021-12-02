@@ -93,7 +93,7 @@ function Price_list_offer() {
             })
             .catch(error => console.log('error', error));
 
-
+        window.location.reload()
     };
 
     function Offer1(props) {
