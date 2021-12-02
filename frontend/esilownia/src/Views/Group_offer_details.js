@@ -52,6 +52,7 @@ function GroupOfferDetails() {
                 } else {
                     setImagesPh(res.data.images)
                 }
+                //console.log(res.data)
                 axiosInstance
                     .post(`/users/get/`, {id: res.data.owner}, {
                         headers: {
@@ -65,7 +66,7 @@ function GroupOfferDetails() {
                         if(res2.data.profile_photo === null){
                             setPhoto(profilePicture)
                         } else {
-                            setPhoto(axios_variebles.baseURL.slice(0, -1) + res.data.profile_photo)
+                            setPhoto(axios_variebles.baseURL.slice(0, -1) + res2.data.profile_photo)
                         }
 
                     });
