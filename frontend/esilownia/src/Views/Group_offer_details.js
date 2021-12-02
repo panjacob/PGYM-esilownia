@@ -15,6 +15,7 @@ function GroupOfferDetails() {
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([])
     const [photo, setPhoto] = useState("")
     const [imagesPh, setImagesPh] = useState([])
+    const [userInfo, setUserInfo] = useState([])
     const difficultiesAll = [
         {
             id: '0',
@@ -80,6 +81,17 @@ function GroupOfferDetails() {
                 setTrainingGroupTypeAll(res.data)
             });
 
+        axiosInstance
+            .post(`/users/info/`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setUserInfo(res.data)
+            });
+
     }, []);
 
 
@@ -105,10 +117,23 @@ function GroupOfferDetails() {
 
         fetch(axios_variebles.baseURL + "training/group/join", requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+            .then(result => {
 
-        window.location.href="/treningi";
+                let msg = 'Zakupiono trening '+ trainingGroup.title + '. Możesz sie teraz tutaj porozumiec z trenerem ' + trainerInfo.first_name + ' ' + trainerInfo.last_name + ' odpowiedzialnym za tą grupe.'
+
+                axiosInstance
+                    .post(`/message/send_admin`, { receiver:userInfo.id , message:msg , sender: trainerInfo.id }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                        }
+                    })
+                    .then((res) => {
+                        window.location.href="/treningi";
+                    });
+
+            })
+            .catch(error => console.log('error', error));
     };
 
     return (
