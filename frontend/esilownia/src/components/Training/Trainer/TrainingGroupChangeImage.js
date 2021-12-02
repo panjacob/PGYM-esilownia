@@ -11,6 +11,7 @@ function TrainingGroupChangeImage(props){
     const [fileToUpload, setFileToUpload] = useState();
     const [fileToUploadName, setFileToUploadName] = useState("");
     const [isFilePicked, setIsFilePicked] = useState(false);
+    const [photoSelectedName, setPhotoSelectedName] = useState("");
 
     useEffect(() => {
 
@@ -67,8 +68,19 @@ function TrainingGroupChangeImage(props){
     }
 
     const photoChosen = (e) => {
-        setPhotoSelected(e.target.value)
+        if(e.target.value !=='none'){
+            setPhotoSelected(e.target.value)
+            groupInfoPhotos.map((photo)=>{
+                if(photo.id.toString() === e.target.value){
+                    setPhotoSelectedName(photo.url)
+                }
+            })
+        }else{
+            setPhotoSelectedName( 'none')
+            setPhotoSelected('none')
+        }
     }
+
 
     function validateForm() {
         return photoSelected !== 'none';
@@ -82,7 +94,7 @@ function TrainingGroupChangeImage(props){
 
 
         var formdata2 = new FormData();
-            formdata2.append("training_group_image_id", photoSelected);
+            formdata2.append("id", photoSelected);
 
 
         var requestOptions2 = {
@@ -113,7 +125,9 @@ function TrainingGroupChangeImage(props){
                             <div className="row">
                                 <div className="mx-auto pt-1">
                                     <div className="custom-file">
-                                        <input type="file" accept="image/png, image/gif, image/jpeg" className="custom-file-input" id="customFile" onChange={onFileChange}></input>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg"
+                                               className="custom-file-input" id="customFile" onChange={onFileChange}>
+                                        </input>
                                         <label className="custom-file-label" htmlFor="customFile">Wybierz plik</label>
                                         {isFilePicked ? (
                                             <div>
@@ -149,8 +163,9 @@ function TrainingGroupChangeImage(props){
                                                         <option
                                                             key={idx}
                                                             value={photos.id}
+                                                            name={(photos.url).toString()}
                                                         >
-                                                            {photos.id}
+                                                            {(photos.url).split("/").pop()}
                                                         </option>
                                                     )
                                         })}
@@ -163,6 +178,11 @@ function TrainingGroupChangeImage(props){
                             </div>
                         </div>
 
+                    </div>
+                    <div className="container mt-4 mb-4">
+                        <img src={axios_variebles.baseURL.slice(0, -1) + photoSelectedName}
+                             alt="..." className="img-thumbnail"
+                             />
                     </div>
 
                 </div>
