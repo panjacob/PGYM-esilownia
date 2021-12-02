@@ -67,6 +67,11 @@ function ForumTopicsList() {
             .catch(error => console.log('error', error));
     }
 
+    const handleDeleteTopic = (e) => {
+        e.preventDefault();
+        console.log(e.target.id)
+    }
+
     return (
         <div className="forumTopicsList">
             <div className="container">
@@ -138,6 +143,15 @@ function ForumTopicsList() {
                                             <p className='col-sm-3 align-self-end text-center'>Data : {topic.date}</p>
                                         </div>
                                     </div>
+                                    {userList.map((user)=>{
+                                    if(user.id === topic.owner){
+                                        return (
+                                            <div>
+                                                <Button id={'x'} onClick={handleDeleteTopic.bind(this)} variant="btn" size="sm">Usuń temat</Button>
+                                            </div>
+                                        )
+                                    }
+                                    })}
                                 </div>
                             )
                         })}
