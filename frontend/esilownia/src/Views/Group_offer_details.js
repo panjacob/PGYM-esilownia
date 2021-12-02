@@ -50,7 +50,7 @@ function GroupOfferDetails() {
                 if(res.data.images === null){
                     setImagesPh((placeholderImg))
                 } else {
-                    setImagesPh(axios_variebles.baseURL.slice(0, -1) + res.data.images)
+                    setImagesPh(res.data.images)
                 }
                 axiosInstance
                     .post(`/users/get/`, {id: res.data.owner}, {
@@ -61,6 +61,7 @@ function GroupOfferDetails() {
                     })
                     .then((res2) => {
                         setTrainerInfo(res2.data)
+                        console.log(res2.data.profile_photo)
                         if(res2.data.profile_photo === null){
                             setPhoto(profilePicture)
                         } else {
@@ -150,7 +151,8 @@ function GroupOfferDetails() {
                         <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 mt-4">Trener: </h1>
                         <hr></hr>
                         <Card style={{width: '18rem'}} className="bg-light">
-                            <Card.Img variant="top" className="img-thumbnail" width='200px' height='200px' alt={trainerInfo.first_name + " " + trainerInfo.last_name} src={photo}/>
+                            <Card.Img variant="top" src={photo} alt="..." className="img-thumbnail" width='200px'
+                                           height='200px'/>
                             <Card.Title className="font-weight-light">{trainerInfo.first_name + " " + trainerInfo.last_name}</Card.Title>
                         </Card>
                         <hr></hr>
@@ -220,7 +222,7 @@ function GroupOfferDetails() {
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
-                                    <a href="#" className="btn btn-primary btn-sm" name="0"
+                                    <a href="#" className="btn btn-sm mt-1" name="0"
                                        onClick={handlePayment}>Kup
                                         dostęp</a>
                                 </div>
@@ -232,7 +234,7 @@ function GroupOfferDetails() {
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
-                                    <a href="#" className="btn btn-primary btn-sm" name="1"
+                                    <a href="#" className="btn btn-sm mt-1" name="1"
                                        onClick={handlePayment}>Kup
                                         dostęp</a>
                                 </div>
@@ -244,16 +246,25 @@ function GroupOfferDetails() {
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
-                                    <a href="#" className="btn btn-primary btn-sm" name="2"
+                                    <a href="#" className="btn btn-sm mt-1" name="2"
                                        onClick={handlePayment}>Kup
                                         dostęp</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6" style={{backgroundColor:'#f2f2f2', overflowY:'scroll', maxHeight:'1000px'}}>
                         <div className="text-center">
-                            <img src={imagesPh} alt="Zdjęcia pokazowe" className="img-fluid mx-auto"/>
+                            {imagesPh.map(function (photos, idx) {
+                                return (
+                                    <img src={axios_variebles.baseURL.slice(0, -1) + photos.url}
+                                         key={idx}
+                                         value={photos.id}
+                                         alt="Zdjęcia pokazowe"
+                                         className="img-fluid m-1"
+                                    />
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
