@@ -206,6 +206,11 @@ function Header(props) {
                                     <Nav.Link href="/dieta">Dieta</Nav.Link>
                                     : ""
                             }
+                            {
+                                localStorage.getItem('access_token') ?
+                                    <Nav.Link href="/forum">Forum</Nav.Link>
+                                    : ""
+                            }
                         </Nav>
                         {
                             localStorage.getItem('access_token') ? (
