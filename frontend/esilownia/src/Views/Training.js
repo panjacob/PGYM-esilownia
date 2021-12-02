@@ -4,7 +4,7 @@ import {Link, useHistory, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 import axios_variebles from "../components/Axios/Axios_variebles";
-import {Button} from "react-bootstrap";
+import {Button, Carousel} from "react-bootstrap";
 
 function Training() {
 
@@ -15,6 +15,13 @@ function Training() {
     const [groupTrainings, setGroupTrainings] = useState([])
     const [trainerInfo, setTraninerInfo] = useState([])
     const [photo, setPhoto] = useState([])
+    const [video, setVideo] = useState([])
+    const [index, setIndex] = useState(0);
+
+
+    const handleSelect = (selectedIndex, e) => {
+        setIndex(selectedIndex);
+    };
 
     const difficultiesAll = [
         {
@@ -47,6 +54,7 @@ function Training() {
                 setGroupInfo(res.data)
                 setGroupTypes(res.data.type)
                 setGroupTrainings(res.data.trainings)
+                setVideo(res.data.videos)
 
                 if(res.data.image === null){
                     setPhoto(profilePicture)
@@ -113,11 +121,6 @@ function Training() {
                         <div className="card mb-3 bg-light">
 
                             <div className="card-body">
-                                <div className="row">
-                                    <div className="mx-auto">
-                                        <h6 className="mb-0">Profilowe grupy</h6>
-                                    </div>
-                                </div>
                                 <div className="row">
                                     <div className="mx-auto">
                                         <img src={photo} alt="..." className="img-thumbnail" width='200px'
@@ -284,6 +287,29 @@ function Training() {
                         })}
                     </div>
 
+                </div>
+                <div className='row'>
+                    <div className="col-md-10 mx-auto mt-3">
+                        <div className="text-center">
+                            <hr></hr>
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Filmy
+                                Instruktażowe
+                            </h1>
+                            <hr></hr>
+                        </div>
+                        <Carousel variant="dark" activeIndex={index} onSelect={handleSelect} interval={null}>
+                            {video.map(function (videos, idx) {
+                                return (
+                                    <Carousel.Item>
+                                        <div className="container text-center">
+                                            <video src={axios_variebles.baseURL.slice(0, -1) + videos.url} width="600px" height="500px" controls/>
+                                        </div>
+                                    </Carousel.Item>
+                                )
+                            })}
+                        </Carousel>
+                        <hr/>
+                    </div>
                 </div>
 
             </div>
