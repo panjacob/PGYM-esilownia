@@ -35,7 +35,7 @@ def remove_file(path):
 
 
 if __name__ == '__main__':
-    apps = ['dashboard', 'diet', 'forum', 'message', 'moderator', 'payment', 'training' 'users']
+    apps = ['dashboard', 'diet', 'forum', 'message', 'moderator', 'payment', 'training', 'users']
     remove_file('db.sqlite3')
     remove_path('__pycache__')
     remove_path("core/__pycache__")
