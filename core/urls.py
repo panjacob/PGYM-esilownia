@@ -12,6 +12,7 @@ urlpatterns = [
     path('message/', include('message.urls')),
     path('payment/', include('payment.urls')),
     path('diet/', include('diet.urls')),
+    path('forum/', include('forum.urls')),
     path('admin/', admin.site.urls),
 ]
 

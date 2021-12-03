@@ -28,4 +28,5 @@ urlpatterns = [
     path('ping/get', views.training_ping_get, name='training_ping_get'),
     path('video/add', views.training_file_add, name='training_video_add'),
     path('video/remove', views.training_file_remove, name='training_video_remove'),
+    path('active', views.training_active_user, name='training_active')
 ]

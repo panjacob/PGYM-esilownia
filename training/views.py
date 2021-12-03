@@ -14,6 +14,8 @@ from users.utilis import put_owner_in_request_data
 from message.utilis import notification_send
 from users.models import UserExtended
 
+MAX_PING_ACTIVE_SECONDS = 30
+
 
 @api_view(['POST'])
 # Trainer required
@@ -24,7 +26,7 @@ def training_group_create(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -37,7 +39,7 @@ def training_group_edit(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -91,12 +93,12 @@ def training_group_get(request):
 
     for training_group_image in training_group.traininggroupimage_set.all():
         try:
-            result['images'] += {training_group_image.image.url}
+            result['images'].append({'id': training_group_image.id, 'url': training_group_image.image.url})
         except Exception as e:
             print(e)
     for training_group_video in training_group.traininggroupvideo_set.all():
         try:
-            result['videos'] += {training_group_video.video.url}
+            result['videos'].append({'id': training_group_video.id, 'url': training_group_video.video.url})
         except Exception as e:
             print(e)
     for training in training_group.training_set.all():
@@ -121,15 +123,6 @@ def training_group_all(request):
     training_groups = TrainingGroup.objects.all()
     for training_group in training_groups:
         serializer = TrainingGroupSerializerGetAll(training_group)
-        # images = TrainingGroupImage.objects.filter(training_group=training_group)
-        # res = serializer.data
-        # if len(images) > 0:
-        #     image = images[0]
-        #     try:
-        #         res['image'] = image.image.url
-        #     except:
-        #         res['image'] = 'Error'
-        #
         result.append(serializer.data)
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
@@ -160,7 +153,7 @@ def training_group_image_add(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -181,14 +174,15 @@ def training_group_video_add(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response({'error': serializer.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
 def training_group_video_remove(request):
     video_id = request.data['id']
-    if TrainingGroupImage.objects.filter(id=video_id).exists():
-        TrainingGroupImage.objects.get(id=video_id).delete()
+    print(video_id)
+    if TrainingGroupVideo.objects.filter(id=video_id).exists():
+        TrainingGroupVideo.objects.get(id=video_id).delete()
         return Response({'OK'}, status=status.HTTP_200_OK)
     return Response({'error': 'Video doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -202,11 +196,11 @@ def training_create(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
-@training_group_owner_required()
+@training_owner_required()
 def training_edit(request):
     request = put_owner_in_request_data(request)
     instance = Training.objects.get(id=request.data['id'])
@@ -215,7 +209,7 @@ def training_edit(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -266,7 +260,7 @@ def training_ping(request):
 def training_ping_get(request):
     training = models.Training.objects.get(id=request.data['id'])
     last_ping_time = current_milli_time() - training.ping
-    active = last_ping_time < 60 * 1000
+    active = last_ping_time < MAX_PING_ACTIVE_SECONDS * 1000
     return Response({'last_ping_time_ms': last_ping_time, 'active': active},
                     status=status.HTTP_200_OK)
 
@@ -280,7 +274,7 @@ def training_file_add(request):
     if serializer.is_valid():
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-    return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -300,3 +294,20 @@ def training_group_invite(request):
     notification_send(user=user_receiver, body=body, kind=3)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def training_active_user(request):
+    training_group_participant = models.TrainingGroupParticipant.objects.all().filter(user=request.user)
+    training_groups = [x.training_group for x in training_group_participant]
+    training_group_owner = TrainingGroup.objects.all().filter(owner=request.user).all()
+    training_groups += training_group_owner
+    trainings = []
+    for x in training_groups:
+        trainings += x.training_set.all()
+    # trainings.filter(ping__gt=current_milli_time() - MAX_PING_ACTIVE_SECONDS * 1000)
+    ping_val = current_milli_time() - MAX_PING_ACTIVE_SECONDS * 1000
+    trainings_active = [x for x in trainings if x.ping > ping_val]
+    result = [training.id for training in trainings_active]
+    result_no_duplicates = list(dict.fromkeys(result))
+    return JsonResponse(result_no_duplicates, safe=False, json_dumps_params={'ensure_ascii': False})

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'message',
     'payment',
     'diet',
+    'forum',
     # Django
     'django.contrib.admin',
     'django.contrib.auth',
