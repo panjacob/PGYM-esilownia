@@ -12,7 +12,6 @@ else:
     path = f"{os.getcwd()}/manage.py"
 
 
-
 def manage_py(command):
     command_arr = command.split(' ')
     sys.argv = [path] + command_arr
@@ -36,7 +35,7 @@ def remove_file(path):
 
 
 if __name__ == '__main__':
-    apps = ['dashboard', 'moderator', 'users', 'training']
+    apps = ['dashboard', 'diet', 'forum', 'message', 'moderator', 'payment', 'training' 'users']
     remove_file('db.sqlite3')
     remove_path('__pycache__')
     remove_path("core/__pycache__")
