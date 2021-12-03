@@ -25,7 +25,7 @@ class TopicSerializerAll(ModelSerializer):
         model = Topic
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
-        fields = ['owner', 'date', 'title']
+        fields = ['id', 'owner', 'date', 'title']
 
 
 class TopicSerializerGet(ModelSerializer):
