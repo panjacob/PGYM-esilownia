@@ -313,3 +313,62 @@ div.notifications div.container div.items div.card div.options div.option{
     border-color: orange!important;
 }
 /*Pagination-End*/
+
+/*Forum-Start*/
+.mid-icon {
+    font-size: 50px;
+}
+.forum-item {
+    margin: 10px 0;
+    padding: 10px 20px 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+.views-number {
+    font-size: 25px;
+    line-height: 30px;
+    font-weight: 400;
+}
+.forum-item small {
+    color: #999;
+}
+.forum-item .forum-sub-title {
+    color: #999;
+    margin-left: 10px;
+}
+.forum-title {
+    margin: 15px 0 15px 0;
+    padding: 0px 20px;
+}
+.forum-info {
+    vertical-align: middle;
+    text-align: center;
+}
+.forum-icon {
+    float: left;
+    width: 30px;
+    margin-right: 20px;
+    text-align: center;
+}
+a.forum-item-title {
+    color: inherit;
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+}
+a.forum-item-title:hover {
+    color: inherit;
+}
+.forum-icon .fa {
+    font-size: 30px;
+    margin-top: 8px;
+    color: #9b9b9b;
+}
+
+@media (max-width: 992px) {
+    .forum-info {
+        margin: 15px 0 10px 0;
+        /* Comment this is you want to show forum info in small devices */
+        display: none;
+    }
+}
+/*Forum-End*/
