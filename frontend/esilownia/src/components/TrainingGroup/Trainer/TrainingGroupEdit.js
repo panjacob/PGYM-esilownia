@@ -211,7 +211,7 @@ function TrainingGroupEdit() {
                 <div className="container">
 
                     <div className='row mx-auto ml-0 mr-0 justify-content-center' style={{minHeight: '120px'}}>
-                        <div className='row border p-4'>
+                        <div className='row border p-4 justify-content-center'>
                             <div className="col-md-6 text-center my-auto" style={{minWidth: '230px'}}>
                                 <p>Wybierz grupę</p>
                                 <select className='text-center mx-auto' style={{width: '200px', height: '30px'}}
@@ -227,8 +227,8 @@ function TrainingGroupEdit() {
                                     })}
                                 </select>
                             </div>
-                            <div className="col-md-5 text-center my-auto" style={{minWidth: '200px'}}>
-                                <button block size="lg" className="btn btn-lg" id="btn-login"
+                            <div className="col-md-5 text-center my-auto pt-4" style={{minWidth: '200px'}}>
+                                <button block size="lg" className="btn btn-lg my-1" id="btn-login"
                                         {...getToggleProps()}
                                         disabled={groupToEditId === 'none'}>
                                     {(isExpanded) ? 'Zamknij Edycję' : 'Edytuj Grupę'}
@@ -360,6 +360,7 @@ function TrainingGroupEdit() {
 
                                             <Form.Control
                                                 type="number"
+                                                min="0"
                                                 value={pricePractice}
                                                 onChange={(e) => setPricePractice(e.target.value)}
                                             />
@@ -369,6 +370,7 @@ function TrainingGroupEdit() {
 
                                             <Form.Control
                                                 type="number"
+                                                min="0"
                                                 value={priceWeek}
                                                 onChange={(e) => setPriceWeek(e.target.value)}
                                             />
@@ -378,6 +380,7 @@ function TrainingGroupEdit() {
 
                                             <Form.Control
                                                 type="number"
+                                                min="0"
                                                 value={priceMonth}
                                                 onChange={(e) => setPriceMonth(e.target.value)}
                                             />

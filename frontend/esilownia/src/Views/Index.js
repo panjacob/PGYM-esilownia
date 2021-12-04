@@ -18,4 +18,7 @@ export { default as TrainingsTrainerSpace } from "./Trainings_TrainerSpace";
 export { default as Training } from "./Training";
 export { default as TrainingJisti } from "./Trening_Jitsi";
 export { default as GroupOfferDetails } from "./Group_offer_details";
+export { default as Chat } from "./Chat";
+export { default as PaymentHistory } from "./Payment_history";
+export { default as Forum } from "./Forum";
 

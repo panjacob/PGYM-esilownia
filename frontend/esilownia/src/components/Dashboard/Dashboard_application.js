@@ -88,7 +88,7 @@ function DashboardApplication() {
 
             <div className="col-md-8 mx-auto mt-3">
 
-                <div className="card mb-3">
+                <div className="card mb-3 bg-light">
                     <div className="card-body">
                         <div className="row">
                             <div className="col-sm-12 text-secondary">
@@ -135,7 +135,7 @@ function DashboardApplication() {
 
                         <div className="row mt-1">
                             <div className="col-sm-3">
-                                <Button disabled={!validateForm()} onClick={handleSubmitData} variant="primary" size="sm">Wyślij aplikacje</Button>
+                                <Button disabled={!validateForm()} onClick={handleSubmitData} variant="btn" size="sm">Wyślij aplikacje</Button>
                             </div>
                         </div>
 

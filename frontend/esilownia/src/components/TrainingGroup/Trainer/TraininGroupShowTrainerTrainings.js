@@ -56,8 +56,7 @@ function TrainingGroupShowTrainerTrainings() {
 
                 <div className="text-center">
                     <hr></hr>
-                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Twoje Grupy
-                        (Trener)</h1>
+                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Twoje Grupy</h1>
                     <hr></hr>
                 </div>
 
@@ -80,13 +79,17 @@ function TrainingGroupShowTrainerTrainings() {
                         if (training.owner === userInfo.id) {
                             return (
                                 <div key={idx} style={{minWidth: '250px'}} className="col-md-3 mb-2 flex">
-                                    <div className="h-100 card m-1 shadow">
+                                    <div className="h-100 card m-1 shadow bg-light">
                                         {(training.image === null) ? (
-                                            <img src={Photo} width="100%" height="width"
+                                            <img src={Photo}
+                                                 width="100%"
+                                                 height="width"
                                                  className="card-img-top rounded-circle"
                                                  alt="..."/>
                                         ):(
-                                            <img src={axios_variebles.baseURL.slice(0, -1) + training.image} width="100%" height="width"
+                                            <img src={axios_variebles.baseURL.slice(0, -1) + training.image}
+                                                 width="233px"
+                                                 height="233px"
                                                  className="card-img-top rounded-circle"
                                                  alt="..."/>
                                         )}

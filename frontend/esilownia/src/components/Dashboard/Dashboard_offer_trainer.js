@@ -19,7 +19,7 @@ function Dashboard_offer_trainer() {
                             <hr/>
                             <p className="font-weight-light">Masz uprawnienia trenera fitness, trenera personalnego czy
                                 po prostu jesteś sportowcem ?</p>
-                            <p className="font-weight-light">Jeśli tak to E-siłownia jest idealnym miejscem dla Ciebie
+                            <p className="font-weight-light">Jeśli tak to PGYM jest idealnym miejscem dla Ciebie
                                 !</p>
 
                         </div>

@@ -5,11 +5,11 @@ function Footer() {
     return (
         <div className="footer pt-5 ">
 
-            <footer className="py-5 bg-secondary mt-auto">
+            <footer className="py-5 bg-secondary mt-auto" id="footer_home">
 
                 <div className="container">
                     <p className="m-0 text-center text-white">
-                        Copyright &copy; E-Silownia 2021
+                        Copyright &copy; PGYM 2021
                     </p>
                 </div>
 

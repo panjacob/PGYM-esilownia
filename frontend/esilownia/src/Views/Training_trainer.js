@@ -4,10 +4,16 @@ import {Link, useHistory, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 import axios_variebles from "../components/Axios/Axios_variebles";
-import {Button, Carousel} from "react-bootstrap";
+import TrainingCreate from "../components/Training/Trainer/TrainingCreate";
+import TrainingRemoveParticipant from "../components/Training/Trainer/TrainingRemoveParticipant";
+import TrainingGroupChangeImage from "../components/Training/Trainer/TrainingGroupChangeImage";
+import TrainingGroupChangeVideo from "../components/Training/Trainer/TrainingGroupChangeVideo";
+import {Button} from "react-bootstrap";
+import TrainingGroupRemove from "../components/Training/Trainer/TrainingGroupRemove";
 
 function Training() {
 
+    const [groupId, setGroupId] = useState("")
     const [groupInfo, setGroupInfo] = useState([])
     const [trainingsInfo, setTrainingsInfo] = useState([])
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
@@ -15,13 +21,6 @@ function Training() {
     const [groupTrainings, setGroupTrainings] = useState([])
     const [trainerInfo, setTraninerInfo] = useState([])
     const [photo, setPhoto] = useState([])
-    const [video, setVideo] = useState([])
-    const [index, setIndex] = useState(0);
-
-
-    const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
-    };
 
     const difficultiesAll = [
         {
@@ -38,10 +37,12 @@ function Training() {
             name: 'Armagedon'
         }
     ]
-    const history = useHistory();
+
+    const history = useHistory()
     const location = useLocation()
 
     useEffect(() => {
+        setGroupId(location.state.groupId)
 
         axiosInstance
             .post(`/training/group/get`, {id: location.state.groupId}, {
@@ -54,7 +55,6 @@ function Training() {
                 setGroupInfo(res.data)
                 setGroupTypes(res.data.type)
                 setGroupTrainings(res.data.trainings)
-                setVideo(res.data.videos)
 
                 if(res.data.image === null){
                     setPhoto(profilePicture)
@@ -121,6 +121,11 @@ function Training() {
                         <div className="card mb-3 bg-light">
 
                             <div className="card-body">
+                                <div className="row">
+                                    <div className="mx-auto">
+                                        <h6 className="mb-0">Profilowe grupy</h6>
+                                    </div>
+                                </div>
                                 <div className="row">
                                     <div className="mx-auto">
                                         <img src={photo} alt="..." className="img-thumbnail" width='200px'
@@ -286,32 +291,16 @@ function Training() {
                             )
                         })}
                     </div>
-
                 </div>
                 <div className='row'>
-                    <div className="col-md-10 mx-auto mt-3">
-                        <div className="text-center">
-                            <hr></hr>
-                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Filmy
-                                Instruktażowe
-                            </h1>
-                            <hr></hr>
-                        </div>
-                        <Carousel variant="dark" activeIndex={index} onSelect={handleSelect} interval={null}>
-                            {video.map(function (videos, idx) {
-                                return (
-                                    <Carousel.Item>
-                                        <div className="container text-center">
-                                            <video src={axios_variebles.baseURL.slice(0, -1) + videos.url} width="600px" height="500px" controls/>
-                                        </div>
-                                    </Carousel.Item>
-                                )
-                            })}
-                        </Carousel>
-                        <hr/>
+                    <div className="col-md-10 mx-auto mt-3 text-center">
+                        <TrainingCreate groupId={groupId}></TrainingCreate>
+                        <TrainingRemoveParticipant groupId={groupId}></TrainingRemoveParticipant>
+                        <TrainingGroupChangeImage groupId={groupId}></TrainingGroupChangeImage>
+                        <TrainingGroupChangeVideo groupId={groupId}></TrainingGroupChangeVideo>
+                        <TrainingGroupRemove groupId={groupId}></TrainingGroupRemove>
                     </div>
                 </div>
-
             </div>
         </div>
     );
