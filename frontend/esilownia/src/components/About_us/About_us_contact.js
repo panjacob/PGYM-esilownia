@@ -34,7 +34,7 @@ function Kontakt() {
                     <a href="/o_nas" className="mx-4 text-reset">
                         <FaLinkedinIn/>
                     </a>
-                    <a href="/o_nas" className="mx-4 text-reset">
+                    <a href="https://github.com/panjacob/esilownia" className="mx-4 text-reset">
                         <FaGithub/>
                     </a>
 
@@ -51,7 +51,7 @@ function Kontakt() {
                             <h6 className="text-uppercase fw-bold mb-4">
                                 <FaGem className="mr-1"/>Nazwa Firmy
                             </h6>
-                            <p>PGYM Spk. z.o.o.</p>
+                            <p>PGYM Sp. z.o.o.</p>
                             <p>Grupa PGYM</p>
                             <p>PJWSTK 2021</p>
 

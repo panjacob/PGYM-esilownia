@@ -25,7 +25,7 @@ function TrainingGroupCreate() {
     const [isFilePicked, setIsFilePicked] = useState(false);
 
     function validateForm() {
-        return difficulity.length > 0 && title.length > 0 && description.length > 0 && type.length > 0 && pricePractice > 0 && priceWeek > 0 && priceMonth > 0;
+        return difficulity.length > 0 && title.length > 0 && description.length > 0 && typeSelected.length > 0 && pricePractice > 0 && priceWeek > 0 && priceMonth > 0;
     }
 
     const {getCollapseProps, getToggleProps, isExpanded} = useCollapse()
@@ -43,9 +43,9 @@ function TrainingGroupCreate() {
         formdata.append("price_day", pricePractice);
         formdata.append("price_week", priceWeek);
         formdata.append("price_month", priceMonth);
-
-        formdata.append("image", fileToUpload, fileToUploadName);
-
+        if(isFilePicked===true){
+            formdata.append("image", fileToUpload, fileToUploadName);
+        }
         formdata.append("is_private", isPrivate);
 
         var myHeaders = new Headers();
@@ -188,19 +188,19 @@ function TrainingGroupCreate() {
                         <div onChange={selectedDifficulty.bind(this)}>
                             <div className="mx-2">
                                 <input type="radio" value="0"
-                                       name="application_role"/> Łatwy
+                                       name="group_difficulty"/> Łatwy
                             </div>
                             <div className="mx-2">
                                 <input type="radio" value="1"
-                                       name="application_role"/> Średni
+                                       name="group_difficulty"/> Średni
                             </div>
                             <div className="mx-2">
                                 <input type="radio" value="2"
-                                       name="application_role"/> Zaawansowany
+                                       name="group_difficulty"/> Zaawansowany
                             </div>
                             <div className="mx-2">
                                 <input type="radio" value="3"
-                                       name="application_role"/> Armagedon
+                                       name="group_difficulty"/> Armagedon
                             </div>
                         </div>
                     </Form.Group>
@@ -241,11 +241,11 @@ function TrainingGroupCreate() {
                         <div onChange={selectedGroupType.bind(this)}>
                             <div className="mx-2">
                                 <input type="radio" value="true"
-                                       name="application_role"/> Prywatny
+                                       name="group_type"/> Prywatny
                             </div>
                             <div className="mx-2">
                                 <input type="radio" value="false"
-                                       name="application_role"/> Grupowy
+                                       name="group_type"/> Grupowy
                             </div>
                         </div>
                     </Form.Group>
@@ -256,6 +256,7 @@ function TrainingGroupCreate() {
                                 <Form.Label>Dzień</Form.Label>
                                 <Form.Control
                                     type="number"
+                                    min="0"
                                     value={pricePractice}
                                     onChange={(e) => setPricePractice(e.target.value)}
                                 />
@@ -264,6 +265,7 @@ function TrainingGroupCreate() {
                                 <Form.Label>Tydzień</Form.Label>
                                 <Form.Control
                                     type="number"
+                                    min="0"
                                     value={priceWeek}
                                     onChange={(e) => setPriceWeek(e.target.value)}
                                 />
@@ -272,6 +274,7 @@ function TrainingGroupCreate() {
                                 <Form.Label>Miesiąc</Form.Label>
                                 <Form.Control
                                     type="number"
+                                    min="0"
                                     value={priceMonth}
                                     onChange={(e) => setPriceMonth(e.target.value)}
                                 />

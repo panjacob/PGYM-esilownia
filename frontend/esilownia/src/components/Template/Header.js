@@ -168,6 +168,11 @@ function Header(props) {
     if (localStorage.getItem('role') !== null) {
         isModerator = JSON.parse(localStorage.getItem('role')).includes('moderator')
     }
+    console.log(JSON.parse(localStorage.getItem('role')))
+    let isTrainer = false;
+    if (localStorage.getItem('role') !== null) {
+        isTrainer = JSON.parse(localStorage.getItem('role')).includes('trainer')
+    }
 
     return (
         <div className="navigation">
@@ -189,12 +194,21 @@ function Header(props) {
                             <Nav.Link href="/kadra">Kadra</Nav.Link>
                             {
                                 localStorage.getItem('access_token') ?
-                                    <Nav.Link href="/treningi">Treningi</Nav.Link>
+                                    <>{(isTrainer === true) ? (
+                                        <Nav.Link href="/strefa_trenera">Treningi</Nav.Link> )
+                                        : (
+                                            <Nav.Link href="/treningi">Treningi</Nav.Link>
+                                        )}</>
                                     : ""
                             }
                             {
                                 localStorage.getItem('access_token') ?
                                     <Nav.Link href="/dieta">Dieta</Nav.Link>
+                                    : ""
+                            }
+                            {
+                                localStorage.getItem('access_token') ?
+                                    <Nav.Link href="/forum">Forum</Nav.Link>
                                     : ""
                             }
                         </Nav>
@@ -206,7 +220,7 @@ function Header(props) {
                                         <NavDropdown.Item href="/wiadomości">Wiadomości</NavDropdown.Item>
                                         <NavDropdown.Divider/>
                                         <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
-                                        <NavDropdown.Item href="/">Dane płatnicze</NavDropdown.Item>
+                                        <NavDropdown.Item href="/historia_płatności">Historia Płatności</NavDropdown.Item>
                                         <NavDropdown.Divider/>
                                         {
                                             (isModerator === true) ? (

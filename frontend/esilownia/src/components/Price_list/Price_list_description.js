@@ -9,16 +9,16 @@ function Price_list_description() {
 
                 <div className="container text-center">
                     <hr></hr>
-                    <h1 style={{"fontSize": "5vw"}} className="display-3 font-weight-light"><i>Co to Gymcoin ?</i></h1>
+                    <h1 style={{"fontSize": "5vw"}} className="display-3 font-weight-light"><i>Co to GymCoin ?</i></h1>
                     <hr></hr>
                 </div>
 
-                <div id="zawartosc_opis_cennik" className="container p-5 font-weight-light border rounded border-3 border-dark mt-2">
+                <div id="zawartosc_opis_cennik" className="container p-5 font-weight-light border rounded border-3 border-dark mt-2" style={{'background':'white'}}>
                     <div className="row text-center">
 
                         <div className="col-md my-auto">
                             <hr width="80%"/>
-                            Gym-coin to nasza wirtualna waluta.
+                            GymCoin to nasza wirtualna waluta.
                             <hr width="80%"/>
                         </div>
 
@@ -30,7 +30,7 @@ function Price_list_description() {
 
                         <div className="col-md my-auto">
                             <hr width="80%"/>
-                            Każda oferta w serwisie kosztuje Gym-coiny.
+                            Każda oferta w serwisie kosztuje GymCoiny.
                             <hr width="80%"/>
                         </div>
 
@@ -40,13 +40,13 @@ function Price_list_description() {
 
                         <div className="col-md my-auto">
                             <hr width="80%"/>
-                            Wykupujesz treningi i diety bez potrzeby płatności przy każdej transakcji.
+                            Wykupujesz treningi i diety bez potrzeby wyciągania portfela przy każdej transakcji.
                             <hr width="80%"/>
                         </div>
 
                         <div className="col-md my-auto">
                             <hr width="80%"/>
-                            Na start dostajesz 20 darmowych Gym-coinów.
+                            Przy pierwszym zakupie dostajesz 20 darmowych GymCoinów.
                             <hr width="80%"/>
                         </div>
 

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 import axios_variebles from "../components/Axios/Axios_variebles";
-import {Card} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 import placeholderImg from "../imgs/placeholder.jpg";
 
@@ -15,6 +15,7 @@ function GroupOfferDetails() {
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([])
     const [photo, setPhoto] = useState("")
     const [imagesPh, setImagesPh] = useState([])
+    const [userInfo, setUserInfo] = useState([])
     const difficultiesAll = [
         {
             id: '0',
@@ -31,6 +32,7 @@ function GroupOfferDetails() {
         }
     ]
 
+    const history = useHistory()
     const location = useLocation()
 
     useEffect(() => {
@@ -48,8 +50,9 @@ function GroupOfferDetails() {
                 if(res.data.images === null){
                     setImagesPh((placeholderImg))
                 } else {
-                    setImagesPh(axios_variebles.baseURL.slice(0, -1) + res.data.images)
+                    setImagesPh(res.data.images)
                 }
+                //console.log(res.data)
                 axiosInstance
                     .post(`/users/get/`, {id: res.data.owner}, {
                         headers: {
@@ -62,7 +65,7 @@ function GroupOfferDetails() {
                         if(res2.data.profile_photo === null){
                             setPhoto(profilePicture)
                         } else {
-                            setPhoto(axios_variebles.baseURL.slice(0, -1) + res.data.profile_photo)
+                            setPhoto(axios_variebles.baseURL.slice(0, -1) + res2.data.profile_photo)
                         }
 
                     });
@@ -77,6 +80,17 @@ function GroupOfferDetails() {
             })
             .then((res) => {
                 setTrainingGroupTypeAll(res.data)
+            });
+
+        axiosInstance
+            .post(`/users/info/`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setUserInfo(res.data)
             });
 
     }, []);
@@ -104,15 +118,29 @@ function GroupOfferDetails() {
 
         fetch(axios_variebles.baseURL + "training/group/join", requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+            .then(result => {
 
-        window.location.href="/treningi";
+                let msg = 'Zakupiono trening '+ trainingGroup.title + '. Możesz sie teraz tutaj porozumiec z trenerem ' + trainerInfo.first_name + ' ' + trainerInfo.last_name + ' odpowiedzialnym za tą grupe.'
+
+                axiosInstance
+                    .post(`/message/send_admin`, { receiver:userInfo.id , message:msg , sender: trainerInfo.id }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                        }
+                    })
+                    .then((res) => {
+                        window.location.href="/treningi";
+                    });
+
+            })
+            .catch(error => console.log('error', error));
     };
 
     return (
         <div className="groupOfferDetails">
             <div className="container font-weight-light">
+                <Button className="btn btn-lg mt-4 border-0" style={{'color':'black'}} onClick={() => history.goBack()}>Wstecz</Button>
                 <div className="text-center">
                     <hr></hr>
                     <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">{trainingGroup.title}</h1>
@@ -123,7 +151,8 @@ function GroupOfferDetails() {
                         <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 mt-4">Trener: </h1>
                         <hr></hr>
                         <Card style={{width: '18rem'}} className="bg-light">
-                            <Card.Img variant="top" className="img-thumbnail" width='200px' height='200px' alt={trainerInfo.first_name + " " + trainerInfo.last_name} src={photo}/>
+                            <Card.Img variant="top" src={photo} alt="..." className="img-thumbnail" width='200px'
+                                           height='200px'/>
                             <Card.Title className="font-weight-light">{trainerInfo.first_name + " " + trainerInfo.last_name}</Card.Title>
                         </Card>
                         <hr></hr>
@@ -193,7 +222,7 @@ function GroupOfferDetails() {
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
-                                    <a href="#" className="btn btn-primary btn-sm" name="0"
+                                    <a href="#" className="btn btn-sm mt-1" name="0"
                                        onClick={handlePayment}>Kup
                                         dostęp</a>
                                 </div>
@@ -205,7 +234,7 @@ function GroupOfferDetails() {
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
-                                    <a href="#" className="btn btn-primary btn-sm" name="1"
+                                    <a href="#" className="btn btn-sm mt-1" name="1"
                                        onClick={handlePayment}>Kup
                                         dostęp</a>
                                 </div>
@@ -217,16 +246,25 @@ function GroupOfferDetails() {
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
-                                    <a href="#" className="btn btn-primary btn-sm" name="2"
+                                    <a href="#" className="btn btn-sm mt-1" name="2"
                                        onClick={handlePayment}>Kup
                                         dostęp</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6" style={{backgroundColor:'#f2f2f2', overflowY:'scroll', maxHeight:'1000px'}}>
                         <div className="text-center">
-                            <img src={imagesPh} alt="Zdjęcia pokazowe" className="img-fluid mx-auto"/>
+                            {imagesPh.map(function (photos, idx) {
+                                return (
+                                    <img src={axios_variebles.baseURL.slice(0, -1) + photos.url}
+                                         key={idx}
+                                         value={photos.id}
+                                         alt="Zdjęcia pokazowe"
+                                         className="img-fluid m-1"
+                                    />
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

@@ -85,7 +85,7 @@ function Account_Edit_photo_change() {
     return (
         <div className="account_photo_change">
             <div className="col-md-8 mx-auto mt-3">
-                <div className="card mb-3">
+                <div className="card mb-3 bg-light">
                     <div className="card-body">
                         <div className="row">
                             <div className="mx-auto">
@@ -124,7 +124,7 @@ function Account_Edit_photo_change() {
                         <hr></hr>
                         <div className="row">
                             <div className="col-sm-3">
-                                <Button onClick={handleSubmitPic} variant="primary" size="sm">Zmien Zdjecie</Button>
+                                <Button onClick={handleSubmitPic} variant="btn" size="sm">Zmien Zdjecie</Button>
                             </div>
                         </div>
                     </div>

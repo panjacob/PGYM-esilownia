@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 import axios_variebles from "../components/Axios/Axios_variebles";
 import TrainingCreate from "../components/Training/Trainer/TrainingCreate";
 import TrainingRemoveParticipant from "../components/Training/Trainer/TrainingRemoveParticipant";
 import TrainingGroupChangeImage from "../components/Training/Trainer/TrainingGroupChangeImage";
+import TrainingGroupChangeVideo from "../components/Training/Trainer/TrainingGroupChangeVideo";
+import {Button} from "react-bootstrap";
+import TrainingGroupRemove from "../components/Training/Trainer/TrainingGroupRemove";
 
 function Training() {
 
@@ -35,6 +38,7 @@ function Training() {
         }
     ]
 
+    const history = useHistory()
     const location = useLocation()
 
     useEffect(() => {
@@ -102,7 +106,7 @@ function Training() {
     return (
         <div className="treningi">
             <div className="container">
-
+                <Button className="btn btn-lg mt-4 border-0" style={{'color':'black'}} onClick={() => history.goBack()}>Wstecz</Button>
                 <div className='row'>
                     <div className="col-md-10 mx-auto mt-3">
 
@@ -293,6 +297,8 @@ function Training() {
                         <TrainingCreate groupId={groupId}></TrainingCreate>
                         <TrainingRemoveParticipant groupId={groupId}></TrainingRemoveParticipant>
                         <TrainingGroupChangeImage groupId={groupId}></TrainingGroupChangeImage>
+                        <TrainingGroupChangeVideo groupId={groupId}></TrainingGroupChangeVideo>
+                        <TrainingGroupRemove groupId={groupId}></TrainingGroupRemove>
                     </div>
                 </div>
             </div>

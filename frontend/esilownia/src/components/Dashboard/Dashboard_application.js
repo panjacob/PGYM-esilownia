@@ -135,7 +135,7 @@ function DashboardApplication() {
 
                         <div className="row mt-1">
                             <div className="col-sm-3">
-                                <Button disabled={!validateForm()} onClick={handleSubmitData} variant="primary" size="sm">Wyślij aplikacje</Button>
+                                <Button disabled={!validateForm()} onClick={handleSubmitData} variant="btn" size="sm">Wyślij aplikacje</Button>
                             </div>
                         </div>
 

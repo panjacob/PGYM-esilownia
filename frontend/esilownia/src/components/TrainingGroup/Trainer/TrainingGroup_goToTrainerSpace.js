@@ -16,8 +16,8 @@ function TrainingGroupGoToTrainerSpace() {
                     </div>
                 </div>
 
-                <div className="row border p-5 justify-content-center">
-                    <Button href='/strefa_trenera'>Przejdz do strefy Trenera</Button>
+                <div className="row p-5 justify-content-center">
+                    <Button className="btn btn-lg border-0 " style={{'color': 'black'}} href='/strefa_trenera'>Przejdz do strefy Trenera</Button>
                 </div>
 
             </div>
