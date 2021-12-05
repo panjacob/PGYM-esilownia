@@ -51,6 +51,8 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', ]
 
+    stripe_customer_id = models.CharField(max_length=150, null=True)
+
     # password is required by default ?
 
     def __str__(self):
