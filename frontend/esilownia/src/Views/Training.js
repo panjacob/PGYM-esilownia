@@ -240,7 +240,7 @@ function Training() {
                                 }}>
                                     <div className="container my-auto" id='trainingCardBody'>
                                         <div className="container font-weight-light">
-                                            <div className="text-center mt-1">
+                                            <div className="text-center">
                                                 <h6 className="mb-0">{training.title}</h6>
                                             </div>
                                             <hr/>

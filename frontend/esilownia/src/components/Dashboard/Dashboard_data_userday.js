@@ -95,7 +95,7 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-9 text-secondary">
-                                   0
+                                    {convert(startDate)}
                                 </div>
 
                             </div>

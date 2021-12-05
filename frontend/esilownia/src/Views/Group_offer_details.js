@@ -139,41 +139,43 @@ function GroupOfferDetails() {
 
     return (
         <div className="groupOfferDetails">
-            <div className="container font-weight-light">
+            <div className="container font-weight-light text-center">
                 <Button className="btn btn-lg mt-4 border-0" style={{'color':'black'}} onClick={() => history.goBack()}>Wstecz</Button>
                 <div className="text-center">
                     <hr></hr>
                     <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">{trainingGroup.title}</h1>
                     <hr></hr>
                 </div>
-                <div className="row border mt-4">
+                <div className="row border rounded mt-4 shadow">
                     <div className="col-md-6">
-                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 mt-4">Trener: </h1>
+                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 mt-4 text-center">Trener </h1>
                         <hr></hr>
-                        <Card style={{width: '18rem'}} className="bg-light">
-                            <Card.Img variant="top" src={photo} alt="..." className="img-thumbnail" width='200px'
-                                           height='200px'/>
-                            <Card.Title className="font-weight-light">{trainerInfo.first_name + " " + trainerInfo.last_name}</Card.Title>
-                        </Card>
+                        <div className="row justify-content-center">
+                            <Card style={{width: '18rem'}} className="bg-light text-center center">
+                                <Card.Img variant="top" src={photo} alt="..." className="img-thumbnail" width='200px'
+                                          height='200px'/>
+                                <Card.Title className="font-weight-light">{trainerInfo.first_name + " " + trainerInfo.last_name}</Card.Title>
+                            </Card>
+                        </div>
                         <hr></hr>
-                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4">Dane o grupie:</h1>
+                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 text-center">Dane o grupie</h1>
                         <hr></hr>
 
                         <div className="row justify-content-center">
-                            <div className="col-2 justify-content-center">
+                            <div className="col-6 justify-content-center">
                                 <p>Opis:</p>
                             </div>
-                            <div className="col-10 text-secondary">
-
+                            <div className="col-6 justify-content-center text-secondary">
+                                <div className="col-sm-7 text-secondary">
                                     <p>{trainingGroup.description}</p>
-
+                                </div>
                             </div>
                         </div>
                         <div className="row justify-content-center">
-                            <div className="col-2 justify-content-center">
+                            <div className="col-6 justify-content-center">
                                 <p>Poziom trudności:</p>
                             </div>
-                            <div className="col-10">
+                            <div className="col-6 justify-content-center">
                                 <div className="col-sm-7 text-secondary">
                                     {difficultiesAll.map((difficulty, idx) => {
                                         if (difficulty.id === trainingGroup.difficulty) {
@@ -185,10 +187,10 @@ function GroupOfferDetails() {
                         </div>
 
                         <div className="row justify-content-center">
-                            <div className="col-2 justify-content-center">
+                            <div className="col-6 justify-content-center">
                                 <p>Typ: </p>
                             </div>
-                            <div className="col-10">
+                            <div className="col-6 justify-content-center">
                                 <div className="col-sm-7 text-secondary">
                                     {trainingGroupTypeAll.map((type,idx) => {
                                         for (let i = 0; i < groupTypes.length; i++) {
@@ -202,17 +204,17 @@ function GroupOfferDetails() {
                             </div>
                         </div>
                         <div className="row justify-content-center">
-                            <div className="col-2 justify-content-center">
+                            <div className="col-6 justify-content-center">
                                 <p>Data utworzenia:</p>
                             </div>
-                            <div className="col-10">
+                            <div className="col-6">
                                 <div className="col-sm-7 text-secondary">
                                     <p>{trainingGroup.date}</p>
                                 </div>
                             </div>
                         </div>
                         <hr></hr>
-                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4">Opcje dostępu: </h1>
+                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 text-center">Opcje dostępu</h1>
                         <hr></hr>
                         <div className="row justify-content-center text-center mb-4">
                             <div className="col-4">

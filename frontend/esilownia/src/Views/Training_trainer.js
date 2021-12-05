@@ -231,7 +231,7 @@ function Training() {
                         <div className="container text-center" id='trainingCardCon'>
                         {trainingsInfo.map((training) => {
                             return (
-                                <Link className='btn m-1 shadow' id='trainingCard' to={{
+                                <Link className='btn m-4 shadow border' id='trainingCard' to={{
                                     pathname: '/trening',
                                     state: {
                                         trainingId: training.id
@@ -240,7 +240,7 @@ function Training() {
                                 }}>
                                     <div className="container my-auto" id='trainingCardBody'>
                                         <div className="container font-weight-light">
-                                            <div className="text-center mt-1">
+                                            <div className="text-center">
                                                 <h6 className="mb-0">{training.title}</h6>
                                             </div>
                                             <hr/>
