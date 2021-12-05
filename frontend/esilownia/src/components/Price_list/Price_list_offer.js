@@ -90,10 +90,10 @@ function Price_list_offer() {
                 } else {
                     alert('Transakcja nieudana')
                 }
+                window.location.reload()
             })
             .catch(error => console.log('error', error));
 
-        window.location.reload()
     };
 
     function Offer1(props) {

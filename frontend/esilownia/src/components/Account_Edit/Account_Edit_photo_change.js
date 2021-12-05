@@ -74,11 +74,12 @@ function Account_Edit_photo_change() {
         };
 
         fetch(axios_variebles.baseURL + "users/photo/add", requestOptions)
-            .then(response => response.text())
+            .then(response => {
+                response.text();
+                window.location.reload();
+            })
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
-        window.location.reload()
 
     }
 

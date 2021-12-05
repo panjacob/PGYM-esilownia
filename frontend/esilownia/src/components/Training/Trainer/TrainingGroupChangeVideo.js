@@ -57,11 +57,12 @@ function TrainingGroupChangeVideo(props){
         };
 
         fetch(axios_variebles.baseURL + "training/group/video/add", requestOptions)
-            .then(response => response.text())
+            .then(response => {
+                response.text();
+                window.location.reload();
+            })
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
-        window.location.reload()
 
     }
 
@@ -103,11 +104,12 @@ function TrainingGroupChangeVideo(props){
         };
 
         fetch(axios_variebles.baseURL + "training/group/video/remove", requestOptions2)
-            .then(response => response.text())
+            .then(response => {
+                response.text();
+                window.location.reload();
+            })
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
-        window.location.reload()
 
     }
 
