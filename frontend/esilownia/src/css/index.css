@@ -382,6 +382,7 @@ a.forum-item-title:hover {
 
 #trainingCard:hover{
     background-color: orange!important;
+    transform: scale(1.1);
 }
 
 #trainingCardCon{
