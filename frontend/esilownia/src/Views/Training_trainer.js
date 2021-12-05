@@ -244,13 +244,8 @@ function Training() {
                                                 <h6 className="mb-0">{training.title}</h6>
                                             </div>
                                             <hr/>
-                                            <div className="row">
-                                                <div className="col-sm-5">
-                                                    <h6 className="mb-0">Opis</h6>
-                                                </div>
-                                                <div className="col-sm-7 text-secondary">
-                                                    {training.description}
-                                                </div>
+                                            <div className="text-center" style={{height:'2.5rem'}}>
+                                                <p className="mb-0">{training.description}</p>
                                             </div>
                                             <hr/>
                                             <div className="row">
@@ -266,8 +261,17 @@ function Training() {
                                                 <div className="col-sm-5">
                                                     <h6 className="mb-0">Koniec</h6>
                                                 </div>
-                                                <div className="col-sm-7 text-secondary">
+                                                <div className="col-sm-7 text-secondary mb-4">
                                                     {training.date_end.replace('T', " ").replace('Z', '')}
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div className="row">
+                                                <div className="col-sm-5">
+                                                    <h6 className="mb-0">Kalorie</h6>
+                                                </div>
+                                                <div className="col-sm-7 text-secondary mb-4">
+                                                    {training.calories}
                                                 </div>
                                             </div>
                                         </div>

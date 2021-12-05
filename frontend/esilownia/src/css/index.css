@@ -374,10 +374,16 @@ a.forum-item-title:hover {
 /*Forum-End*/
 
 /*TrainingCard-Start*/
+@media only screen and (max-width: 375px){
+    #trainingCard{
+        background-color: white!important;
+        width: 40%;
+    }
+}
 
 #trainingCard{
     background-color: white!important;
-    width: 40%;
+    width: 330px;
 }
 
 #trainingCard:hover{
