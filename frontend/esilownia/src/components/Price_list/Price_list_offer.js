@@ -53,11 +53,10 @@ function Price_list_offer() {
             });
     }, []);
 
-    const createStripeCheckoutSession = (stripepk, stripeprice, userEmail) => {
+    const createStripeCheckoutSession = (stripeprice) => {
         axiosInstance
             .post(`/payment/create_checkout_session`, {
-                'stripeprice': stripeprice,
-                'userEmail': userEmail
+                'stripeprice': stripeprice
             }, {
                 headers: {
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -68,23 +67,14 @@ function Price_list_offer() {
             })
     };
 
-    const getStripePK = () => {
-        return axiosInstance
-            .post(`/payment/stripepk`, {}, {
-                headers: {
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-    }
-
-    const getUserEmail = () => {
-        return axiosInstance
-            .post(`users/info/`, {},{
-                headers: {
-                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-    }
+    // const getStripePK = () => {
+    //     return axiosInstance
+    //         .post(`/payment/stripepk`, {}, {
+    //             headers: {
+    //                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+    //             }
+    //         })
+    // }
 
     const buyCoins = (amount) => {
         let stripeprice;
@@ -107,21 +97,7 @@ function Price_list_offer() {
             return;
         }
 
-        let stripepk;
-        let userEmail;
-        Promise.all([getStripePK(), getUserEmail()])
-        .then((results) => {
-            if (results[0].status == 200) {
-                stripepk = results[0].data.stripepk;
-            }
-            else return;
-            if (results[1].status == 200) {
-                userEmail = results[1].data.email;
-            }
-            else return;
-
-            createStripeCheckoutSession(stripepk, stripeprice, userEmail);
-        })
+        createStripeCheckoutSession(stripeprice);
     };
 
     // const handlePayment = (e) => {
