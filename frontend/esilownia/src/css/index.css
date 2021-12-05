@@ -372,3 +372,26 @@ a.forum-item-title:hover {
     }
 }
 /*Forum-End*/
+
+/*TrainingCard-Start*/
+
+#trainingCard{
+    background-color: white!important;
+    width: 40%;
+}
+
+#trainingCard:hover{
+    background-color: orange!important;
+}
+
+#trainingCardCon{
+    height: auto;
+}
+
+#trainingCardBody{
+    background-color: white!important;
+
+}
+
+/*TrainingCard-End*/
+

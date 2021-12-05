@@ -228,25 +228,27 @@ function Training() {
                             </h1>
                             <hr></hr>
                         </div>
-
+                        <div className="container text-center" id='trainingCardCon'>
                         {trainingsInfo.map((training) => {
                             return (
-                                <div className="card mb-3 bg-light">
-                                    <div className="card-body">
+                                <Link className='btn m-1 shadow' id='trainingCard' to={{
+                                    pathname: '/trening',
+                                    state: {
+                                        trainingId: training.id
+                                    }
 
-                                        <div className="row">
-                                            <div className="col-sm-5">
-                                                <h6 className="mb-0">Tytuł</h6>
-                                            </div>
-                                            <div className="col-sm-7 text-secondary">
-                                                {training.title}
-                                            </div>
+                                }}>
+                                <div className="container my-auto" id='trainingCardBody'>
+                                    <div className="container">
+
+                                        <div className="text-center mt-1">
+                                                <h6 className="mb-0">{training.title}</h6>
                                         </div>
                                         <hr/>
 
                                         <div className="row">
                                             <div className="col-sm-5">
-                                                <h6 className="mb-0">Description</h6>
+                                                <h6 className="mb-0">Opis</h6>
                                             </div>
                                             <div className="col-sm-7 text-secondary">
                                                 {training.description}
@@ -256,7 +258,7 @@ function Training() {
 
                                         <div className="row">
                                             <div className="col-sm-5">
-                                                <h6 className="mb-0">Data Startu</h6>
+                                                <h6 className="mb-0">Start</h6>
                                             </div>
                                             <div className="col-sm-7 text-secondary">
                                                 {training.date_start.replace('T', " ").replace('Z', '')}
@@ -266,25 +268,18 @@ function Training() {
 
                                         <div className="row">
                                             <div className="col-sm-5">
-                                                <h6 className="mb-0">Data Konca</h6>
+                                                <h6 className="mb-0">Koniec</h6>
                                             </div>
                                             <div className="col-sm-7 text-secondary">
                                                 {training.date_end.replace('T', " ").replace('Z', '')}
                                             </div>
                                         </div>
-                                        <hr/>
-
-                                        <Link className='btn' to={{
-                                            pathname: '/trening',
-                                            state: {
-                                                trainingId: training.id
-                                            }
-                                        }}>Przejdz do Treningu</Link>
-
                                     </div>
                                 </div>
+                                </Link>
                             )
                         })}
+                        </div>
                     </div>
 
                 </div>
