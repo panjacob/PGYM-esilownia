@@ -7,6 +7,9 @@ from rest_framework.response import Response
 from payment import utilis
 from payment import models
 from payment import serializers
+from django.conf import settings
+import stripe
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 @api_view(['POST'])
@@ -36,3 +39,31 @@ def offer_all(request):
         serializer = serializers.OfferSerializer(instance=offer)
         result.append(serializer.data)
     return JsonResponse(result, safe=False)
+
+
+@api_view(['POST'])
+def stripepk(request):
+    stripepk = {'stripepk': settings.STRIPE_PUBLISHABLE_KEY}
+    return JsonResponse(stripepk, safe=False)
+
+
+@api_view(['POST'])
+def create_checkout_session(request):
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                    'price': request.data['stripeprice'],
+                    'quantity': 1,
+                },
+            ],
+            customer_email=request.data['userEmail'],
+            mode='payment',
+            success_url='https://pgym.xyz/',
+            cancel_url='https://pgym.xyz/',
+        )
+    except Exception as e:
+        print(e)
+        return Response(status=400)
+
+    return JsonResponse({'url': checkout_session.url}, safe=False)
