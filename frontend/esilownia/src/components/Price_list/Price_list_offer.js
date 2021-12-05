@@ -35,7 +35,6 @@ function Price_list_offer() {
 
 
     useEffect(() => {
-
         axiosInstance
             .post(`/payment/offer/all`, {}, {
                 headers: {
@@ -52,326 +51,396 @@ function Price_list_offer() {
                 setOfferDataCoins2(res.data[1].coins)
                 setOfferDataCoins3(res.data[2].coins)
             });
-
     }, []);
 
-    const handlePayment = (e) => {
-        e.preventDefault();
-
-        console.log(e.target.name)
-
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("offer", e.target.name);
-
-        urlencoded.append("cardNumber", document.getElementById('cardNumberInput').value);
-        urlencoded.append("cardHolderName", document.getElementById('cardHolderNameInput').value);
-        urlencoded.append("cardHolderSurname", document.getElementById('cardHolderSurnameInput').value);
-        urlencoded.append("cardExpireMonth", document.getElementById('cardExpireMonthInput').value);
-        urlencoded.append("cardExpireYear", document.getElementById('cardExpireYearInput').value);
-        urlencoded.append("cardCCV", document.getElementById('cardCCVInput').value);
-
-
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
-        };
-
-        fetch(axios_variebles.baseURL + "payment/transaction/create", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                if(JSON.parse( result ).message === 'Transakcja zakończona poprawnie') {
-                    //window.location.href = "/cennik";
-                } else {
-                    alert('Transakcja nieudana')
+    const createStripeCheckoutSession = (stripepk, stripeprice, userEmail) => {
+        axiosInstance
+            .post(`/payment/create_checkout_session`, {
+                'stripeprice': stripeprice,
+                'userEmail': userEmail
+            }, {
+                headers: {
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
-                window.location.reload()
             })
-            .catch(error => console.log('error', error));
-
+            .then((res) => {
+                window.open(res.data.url);
+            })
     };
 
-    function Offer1(props) {
-        return (
-            <Modal
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Panel Płatności
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h4>Starter</h4>
-                    <p>GymCoiny : {offerDataCoins1}</p>
-                    <p>Cena : ${offerDataPrice1}</p>
-
-                    <div className='row justify-content-center'>
-                        <div className='border p-2 m-1' style={{width:'70%'}}>
-                        <div className='row'>
-                            <div className='col'>
-                                <Form.Label htmlFor="cardNumberInput" visuallyHidden>
-                                    Numer Karty
-                                </Form.Label>
-                                <InputGroup className="mb-2">
-                                    <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
-                                    <FormControl id="cardNumberInput" placeholder={cardNumber}/>
-                                </InputGroup>
-                            </div>
-                        </div>
-                        <div className='row'>
-                            <div className='col'>
-                                <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
-                                    Imie
-                                </Form.Label>
-                                <InputGroup className="mb-2">
-                                    <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
-                                    <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
-                                </InputGroup>
-                            </div>
-                            <div className='col'>
-                                <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
-                                    Nazwisko
-                                </Form.Label>
-                                <InputGroup className="mb-2">
-                                    <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
-                                    <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
-                                </InputGroup>
-                            </div>
-                        </div>
-                        <div className='row'>
-                            <div className='col'>
-                                <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
-                                    MM
-                                </Form.Label>
-                                <InputGroup className="mb-2">
-                                    <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
-                                    <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
-                                </InputGroup>
-                            </div>
-                            <div className='col'>
-                                <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
-                                    YY
-                                </Form.Label>
-                                <InputGroup className="mb-2">
-                                    <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
-                                    <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
-                                </InputGroup>
-                            </div>
-                            <div className='col'>
-                                <Form.Label htmlFor="cardCCVInput" visuallyHidden>
-                                    Kod CCV
-                                </Form.Label>
-                                <InputGroup className="mb-2">
-                                    <InputGroup.Text><AiFillLock/></InputGroup.Text>
-                                    <FormControl id="cardCCVInput" placeholder={cardCCV}/>
-                                </InputGroup>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-
-                    <Button variant="primary" name='1' id="btn-login" onClick={handlePayment}>Kup</Button>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={props.onHide}>Zamknij</Button>
-                </Modal.Footer>
-            </Modal>
-        )
-            ;
+    const getStripePK = () => {
+        return axiosInstance
+            .post(`/payment/stripepk`, {}, {
+                headers: {
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
     }
 
-    function Offer2(props) {
-        return (
-            <Modal
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Panel Płatności
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h4>Classic</h4>
-                    <p>GymCoiny : {offerDataCoins2}</p>
-                    <p>Cena : ${offerDataPrice2}</p>
-
-                    <div className='row justify-content-center'>
-                        <div className='border p-2 m-1' style={{width:'70%'}}>
-                            <div className='row'>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardNumberInput" visuallyHidden>
-                                        Numer Karty
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
-                                        <FormControl maxLength='16' id="cardNumberInput" placeholder={cardNumber}/>
-                                    </InputGroup>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
-                                        Imie
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
-                                        <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
-                                    </InputGroup>
-                                </div>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
-                                        Nazwisko
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
-                                        <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
-                                    </InputGroup>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
-                                        MM
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
-                                        <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
-                                    </InputGroup>
-                                </div>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
-                                        YY
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
-                                        <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
-                                    </InputGroup>
-                                </div>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardCCVInput" visuallyHidden>
-                                        Kod CCV
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><AiFillLock/></InputGroup.Text>
-                                        <FormControl id="cardCCVInput" placeholder={cardCCV}/>
-                                    </InputGroup>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <Button variant="primary" name='2' id="btn-login" onClick={handlePayment}>Kup</Button>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={props.onHide}>Zamknij</Button>
-                </Modal.Footer>
-            </Modal>
-        );
+    const getUserEmail = () => {
+        return axiosInstance
+            .post(`users/info/`, {},{
+                headers: {
+                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
     }
 
-    function Offer3(props) {
-        return (
-            <Modal
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Panel Płatności
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h4>Premium</h4>
-                    <p>GymCoiny : {offerDataCoins3}</p>
-                    <p>Cena : ${offerDataPrice3}</p>
+    const buyCoins = (amount) => {
+        let stripeprice;
+        if (amount == 20) {
+            stripeprice = "price_1K3OTcLydeVK0fA9M1RVokYU";
+        }
+        else if (amount == 60) {
+            stripeprice = "price_1K3OTcLydeVK0fA9ZsK0aDa8";
+        }
+        else if (amount == 250) {
+            stripeprice = "price_1K3OTcLydeVK0fA9OLgLsELK";
+        }
+        else {
+            alert("Something happened");
+            return;
+        }
 
-                    <div className='row justify-content-center'>
-                        <div className='border p-2 m-1' style={{width:'70%'}}>
-                            <div className='row'>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardNumberInput" visuallyHidden>
-                                        Numer Karty
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
-                                        <FormControl id="cardNumberInput" placeholder={cardNumber}/>
-                                    </InputGroup>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
-                                        Imie
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
-                                        <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
-                                    </InputGroup>
-                                </div>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
-                                        Nazwisko
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
-                                        <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
-                                    </InputGroup>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
-                                        MM
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
-                                        <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
-                                    </InputGroup>
-                                </div>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
-                                        YY
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
-                                        <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
-                                    </InputGroup>
-                                </div>
-                                <div className='col'>
-                                    <Form.Label htmlFor="cardCCVInput" visuallyHidden>
-                                        Kod CCV
-                                    </Form.Label>
-                                    <InputGroup className="mb-2">
-                                        <InputGroup.Text><AiFillLock/></InputGroup.Text>
-                                        <FormControl id="cardCCVInput" placeholder={cardCCV}/>
-                                    </InputGroup>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        if (localStorage.getItem('token_type') == null || localStorage.getItem('access_token') == null) {
+            alert("Musisz być zalogowany, aby dokonać zakupu.");
+            return;
+        }
 
-                    <Button variant="primary" name='3' id="btn-login" onClick={handlePayment}>Kup</Button>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={props.onHide}>Zamknij</Button>
-                </Modal.Footer>
-            </Modal>
-        );
-    }
+        let stripepk;
+        let userEmail;
+        Promise.all([getStripePK(), getUserEmail()])
+        .then((results) => {
+            if (results[0].status == 200) {
+                stripepk = results[0].data.stripepk;
+            }
+            else return;
+            if (results[1].status == 200) {
+                userEmail = results[1].data.email;
+            }
+            else return;
+
+            createStripeCheckoutSession(stripepk, stripeprice, userEmail);
+        })
+    };
+
+    // const handlePayment = (e) => {
+    //     e.preventDefault();
+
+    //     console.log(e.target.name)
+
+    //     var urlencoded = new URLSearchParams();
+    //     urlencoded.append("offer", e.target.name);
+
+    //     urlencoded.append("cardNumber", document.getElementById('cardNumberInput').value);
+    //     urlencoded.append("cardHolderName", document.getElementById('cardHolderNameInput').value);
+    //     urlencoded.append("cardHolderSurname", document.getElementById('cardHolderSurnameInput').value);
+    //     urlencoded.append("cardExpireMonth", document.getElementById('cardExpireMonthInput').value);
+    //     urlencoded.append("cardExpireYear", document.getElementById('cardExpireYearInput').value);
+    //     urlencoded.append("cardCCV", document.getElementById('cardCCVInput').value);
+
+
+    //     var myHeaders = new Headers();
+    //     myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+    //     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    //     var requestOptions = {
+    //         method: 'POST',
+    //         headers: myHeaders,
+    //         body: urlencoded,
+    //         redirect: 'follow'
+    //     };
+
+    //     fetch(axios_variebles.baseURL + "payment/transaction/create", requestOptions)
+    //         .then(response => response.text())
+    //         .then(result => {
+    //             if(JSON.parse( result ).message === 'Transakcja zakończona poprawnie') {
+    //                 //window.location.href = "/cennik";
+    //             } else {
+    //                 alert('Transakcja nieudana')
+    //             }
+    //             window.location.reload()
+    //         })
+    //         .catch(error => console.log('error', error));
+
+    // };
+
+    // function Offer1(props) {
+    //     return (
+    //         <Modal
+    //             {...props}
+    //             size="lg"
+    //             aria-labelledby="contained-modal-title-vcenter"
+    //             centered
+    //         >
+    //             <Modal.Header closeButton>
+    //                 <Modal.Title id="contained-modal-title-vcenter">
+    //                     Panel Płatności
+    //                 </Modal.Title>
+    //             </Modal.Header>
+    //             <Modal.Body>
+    //                 <h4>Starter</h4>
+    //                 <p>GymCoiny : {offerDataCoins1}</p>
+    //                 <p>Cena : ${offerDataPrice1}</p>
+
+    //                 <div className='row justify-content-center'>
+    //                     <div className='border p-2 m-1' style={{width:'70%'}}>
+    //                     <div className='row'>
+    //                         <div className='col'>
+    //                             <Form.Label htmlFor="cardNumberInput" visuallyHidden>
+    //                                 Numer Karty
+    //                             </Form.Label>
+    //                             <InputGroup className="mb-2">
+    //                                 <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
+    //                                 <FormControl id="cardNumberInput" placeholder={cardNumber}/>
+    //                             </InputGroup>
+    //                         </div>
+    //                     </div>
+    //                     <div className='row'>
+    //                         <div className='col'>
+    //                             <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
+    //                                 Imie
+    //                             </Form.Label>
+    //                             <InputGroup className="mb-2">
+    //                                 <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+    //                                 <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
+    //                             </InputGroup>
+    //                         </div>
+    //                         <div className='col'>
+    //                             <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
+    //                                 Nazwisko
+    //                             </Form.Label>
+    //                             <InputGroup className="mb-2">
+    //                                 <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+    //                                 <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
+    //                             </InputGroup>
+    //                         </div>
+    //                     </div>
+    //                     <div className='row'>
+    //                         <div className='col'>
+    //                             <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
+    //                                 MM
+    //                             </Form.Label>
+    //                             <InputGroup className="mb-2">
+    //                                 <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+    //                                 <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
+    //                             </InputGroup>
+    //                         </div>
+    //                         <div className='col'>
+    //                             <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
+    //                                 YY
+    //                             </Form.Label>
+    //                             <InputGroup className="mb-2">
+    //                                 <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+    //                                 <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
+    //                             </InputGroup>
+    //                         </div>
+    //                         <div className='col'>
+    //                             <Form.Label htmlFor="cardCCVInput" visuallyHidden>
+    //                                 Kod CCV
+    //                             </Form.Label>
+    //                             <InputGroup className="mb-2">
+    //                                 <InputGroup.Text><AiFillLock/></InputGroup.Text>
+    //                                 <FormControl id="cardCCVInput" placeholder={cardCCV}/>
+    //                             </InputGroup>
+    //                         </div>
+    //                     </div>
+    //                     </div>
+    //                 </div>
+
+    //                 <Button variant="primary" name='1' id="btn-login" onClick={handlePayment}>Kup</Button>
+    //             </Modal.Body>
+    //             <Modal.Footer>
+    //                 <Button onClick={props.onHide}>Zamknij</Button>
+    //             </Modal.Footer>
+    //         </Modal>
+    //     )
+    //         ;
+    // }
+
+    // function Offer2(props) {
+    //     return (
+    //         <Modal
+    //             {...props}
+    //             size="lg"
+    //             aria-labelledby="contained-modal-title-vcenter"
+    //             centered
+    //         >
+    //             <Modal.Header closeButton>
+    //                 <Modal.Title id="contained-modal-title-vcenter">
+    //                     Panel Płatności
+    //                 </Modal.Title>
+    //             </Modal.Header>
+    //             <Modal.Body>
+    //                 <h4>Classic</h4>
+    //                 <p>GymCoiny : {offerDataCoins2}</p>
+    //                 <p>Cena : ${offerDataPrice2}</p>
+
+    //                 <div className='row justify-content-center'>
+    //                     <div className='border p-2 m-1' style={{width:'70%'}}>
+    //                         <div className='row'>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardNumberInput" visuallyHidden>
+    //                                     Numer Karty
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
+    //                                     <FormControl maxLength='16' id="cardNumberInput" placeholder={cardNumber}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                         </div>
+    //                         <div className='row'>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
+    //                                     Imie
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+    //                                     <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
+    //                                     Nazwisko
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+    //                                     <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                         </div>
+    //                         <div className='row'>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
+    //                                     MM
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+    //                                     <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
+    //                                     YY
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+    //                                     <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardCCVInput" visuallyHidden>
+    //                                     Kod CCV
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><AiFillLock/></InputGroup.Text>
+    //                                     <FormControl id="cardCCVInput" placeholder={cardCCV}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+
+    //                 <Button variant="primary" name='2' id="btn-login" onClick={handlePayment}>Kup</Button>
+    //             </Modal.Body>
+    //             <Modal.Footer>
+    //                 <Button onClick={props.onHide}>Zamknij</Button>
+    //             </Modal.Footer>
+    //         </Modal>
+    //     );
+    // }
+
+    // function Offer3(props) {
+    //     return (
+    //         <Modal
+    //             {...props}
+    //             size="lg"
+    //             aria-labelledby="contained-modal-title-vcenter"
+    //             centered
+    //         >
+    //             <Modal.Header closeButton>
+    //                 <Modal.Title id="contained-modal-title-vcenter">
+    //                     Panel Płatności
+    //                 </Modal.Title>
+    //             </Modal.Header>
+    //             <Modal.Body>
+    //                 <h4>Premium</h4>
+    //                 <p>GymCoiny : {offerDataCoins3}</p>
+    //                 <p>Cena : ${offerDataPrice3}</p>
+
+    //                 <div className='row justify-content-center'>
+    //                     <div className='border p-2 m-1' style={{width:'70%'}}>
+    //                         <div className='row'>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardNumberInput" visuallyHidden>
+    //                                     Numer Karty
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><AiFillCreditCard/></InputGroup.Text>
+    //                                     <FormControl id="cardNumberInput" placeholder={cardNumber}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                         </div>
+    //                         <div className='row'>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardHolderNameInput" visuallyHidden>
+    //                                     Imie
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+    //                                     <FormControl id="cardHolderNameInput" placeholder={cardHolderName}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardHolderSurnameInput" visuallyHidden>
+    //                                     Nazwisko
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><BsFillPersonFill/></InputGroup.Text>
+    //                                     <FormControl id="cardHolderSurnameInput" placeholder={cardHolderSurname}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                         </div>
+    //                         <div className='row'>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardExpireMonthInput" visuallyHidden>
+    //                                     MM
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+    //                                     <FormControl id="cardExpireMonthInput" placeholder={cardExpireMonth}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardExpireYearInput" visuallyHidden>
+    //                                     YY
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><BsCalendarFill/></InputGroup.Text>
+    //                                     <FormControl id="cardExpireYearInput" placeholder={cardExpireYear}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                             <div className='col'>
+    //                                 <Form.Label htmlFor="cardCCVInput" visuallyHidden>
+    //                                     Kod CCV
+    //                                 </Form.Label>
+    //                                 <InputGroup className="mb-2">
+    //                                     <InputGroup.Text><AiFillLock/></InputGroup.Text>
+    //                                     <FormControl id="cardCCVInput" placeholder={cardCCV}/>
+    //                                 </InputGroup>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+
+    //                 <Button variant="primary" name='3' id="btn-login" onClick={handlePayment}>Kup</Button>
+    //             </Modal.Body>
+    //             <Modal.Footer>
+    //                 <Button onClick={props.onHide}>Zamknij</Button>
+    //             </Modal.Footer>
+    //         </Modal>
+    //     );
+    // }
 
     return (
         <div id="price_list_offer">
@@ -401,14 +470,14 @@ function Price_list_offer() {
                                         <b><i>${offerDataPrice1}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="btn" onClick={() => setModal1Show(true)}>
+                                    <Button variant="btn" onClick={() => buyCoins(offerDataCoins1)}>
                                         Kup
                                     </Button>
 
-                                    <Offer1
+                                    {/* <Offer1
                                         show={modal1Show}
                                         onHide={() => setModal1Show(false)}
-                                    />
+                                    /> */}
                                 </Card.Body>
                             </Card>
 
@@ -429,14 +498,14 @@ function Price_list_offer() {
                                         <b><i>${offerDataPrice2}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="btn" onClick={() => setModal2Show(true)}>
+                                    <Button variant="btn" onClick={() => buyCoins(offerDataCoins2)}>
                                         Kup
                                     </Button>
 
-                                    <Offer2
+                                    {/* <Offer2
                                         show={modal2Show}
                                         onHide={() => setModal2Show(false)}
-                                    />
+                                    /> */}
                                 </Card.Body>
                             </Card>
 
@@ -456,14 +525,14 @@ function Price_list_offer() {
                                         <b><i>${offerDataPrice3}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="btn" onClick={() => setModal3Show(true)}>
+                                    <Button variant="btn" onClick={() => buyCoins(offerDataCoins3)}>
                                         Kup
                                     </Button>
 
-                                    <Offer3
+                                    {/* <Offer3
                                         show={modal3Show}
                                         onHide={() => setModal3Show(false)}
-                                    />
+                                    /> */}
                                 </Card.Body>
                             </Card>
 
