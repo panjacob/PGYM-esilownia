@@ -5,7 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from moderator import models
-from moderator.serializers import ApplicationCreateSerializer, ApplicationGetSerializer
+from moderator.serializers import ApplicationCreateSerializer, ApplicationGetSerializer, ReportCreateSerializer, \
+    ReportGetSerializer, ReportEditSerializer
 from users.utilis import put_owner_in_request_data
 
 
@@ -41,11 +42,6 @@ def application_all(request):
 @api_view(['POST'])
 def application_accept(request):
     application = models.Application.objects.get(id=request.data['id'])
-    # if application.trainer:
-    #     application.owner.is_coach = True
-    # if application.dietician:
-    #     application.owner.is_dietician = True
-    # application.owner.save()
     application.status = application.ACCEPTED
     application.save()
 
@@ -59,3 +55,37 @@ def application_reject(request):
     application.save()
 
     return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def report_create(request):
+    request = put_owner_in_request_data(request)
+    serializer = ReportCreateSerializer(data=request.data)
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def report_get(request):
+    report = models.Report.objects.get(id=request.data['id'])
+    serializer = ReportGetSerializer(instance=report)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def report_all(request):
+    reports = models.Report.objects.all().order_by('-date')
+    result = [ReportGetSerializer(instance=x).data for x in reports]
+    return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def report_edit(request):
+    report = models.Report.objects.get(id=request.data['id'])
+    serializer = ReportEditSerializer(instance=report, data=request.data)
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
