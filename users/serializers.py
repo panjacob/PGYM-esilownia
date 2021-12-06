@@ -10,7 +10,7 @@ class UserInfoSerializer(ModelSerializer):
         model = UserExtended
         fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
                   'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money',
-                  'bank_account']
+                  'bank_account', 'ban_date_expiration']
 
 
 class UserGetSerializer(ModelSerializer):
@@ -24,7 +24,7 @@ class UserGetModeratorSerializer(ModelSerializer):
         model = UserExtended
         fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
                   'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money',
-                  'bank_account']
+                  'bank_account', 'ban_date_expiration']
 
 
 class UserEditSerializer(ModelSerializer):
@@ -38,6 +38,7 @@ class UserEditSerializer(ModelSerializer):
             instance.first_name = validated_data.get('first_name', instance.first_name)
             instance.last_name = validated_data.get('last_name', instance.last_name)
             instance.bank_account = validated_data.get('bank_account', instance.bank_account)
+            instance.ban_date_expiration = validated_data.get('ban_date_expiration', instance.ban_date_expiration)
             instance.save()
             return instance
 
