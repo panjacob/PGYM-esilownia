@@ -5,6 +5,8 @@ import {Link, useLocation} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import {BsShield, BsShieldFill} from "react-icons/bs";
 import axios_variebles from "../components/Axios/Axios_variebles";
+import { BsFillTrashFill } from "react-icons/bs";
+import { AiFillEdit } from "react-icons/ai";
 
 function ForumTopicPosts() {
 
@@ -12,6 +14,7 @@ function ForumTopicPosts() {
     const [topicDate, setTopicDate] = useState('')
     const [postList, setPostList] = useState([])
     const [userList, setUserList] = useState([])
+    const [currentUser, setCurrentUser] = useState({})
 
     const [newPostDescription, setNewPostDescription] = useState('')
 
@@ -57,6 +60,17 @@ function ForumTopicPosts() {
                         });
                 });
 
+        axiosInstance
+            .post(`/users/info/`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setCurrentUser(res.data)
+            });
+
     },[]);
 
     function uniqBy(a, key) {
@@ -91,6 +105,15 @@ function ForumTopicPosts() {
                 window.location.reload();
             })
             .catch(error => console.log('error', error));
+    }
+
+    const handleDeletePost = (e) => {
+        e.preventDefault();
+        console.log(e.target.id)
+    }
+    const handleEditPost = (e) => {
+        e.preventDefault();
+        console.log(e.target.id)
     }
 
     return (
@@ -168,6 +191,13 @@ function ForumTopicPosts() {
 
                                                 </div>
 
+                                                {(currentUser.id === post.owner) ? (
+                                                    <div>
+                                                        <Button className='m-1' id={post.id} onClick={handleEditPost} variant="btn" size="md"><AiFillEdit/></Button>
+                                                        <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><BsFillTrashFill/></Button>
+                                                    </div>
+                                                ) : ('')}
+
                                             </div>
                                         )
                                     })}
@@ -186,7 +216,7 @@ function ForumTopicPosts() {
 
                                                         <div className="col-sm-12 p-1">
                                                             <div className="col-sm-12">
-                                                                <h6 className="mb-0">Opis Tematu</h6>
+                                                                <h6 className="mb-0">Zawartosc Postu</h6>
                                                             </div>
                                                             <div className="col-sm-12 text-secondary">
                                                                 <input type="text" className="form-control form-control-sm" placeholder='Opis'

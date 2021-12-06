@@ -3,9 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import Button from "react-bootstrap/Button";
 import axios_variebles from "../Axios/Axios_variebles";
-import {AiFillEdit} from "react-icons/ai";
+import { BsFillTrashFill } from "react-icons/bs";
 import {BsShield} from "react-icons/bs";
 import {Link} from "react-router-dom";
+
 
 
 function ForumTopicsList() {
@@ -94,7 +95,27 @@ function ForumTopicsList() {
     const handleDeleteTopic = (e) => {
         e.preventDefault();
         console.log(e.target.id)
-        console.log(topicsList)
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+        var formdata = new FormData();
+        formdata.append("id", e.target.id);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch(axios_variebles.baseURL + "forum/topic/remove", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                window.location.reload()
+            })
+            .catch(error => console.log('error', error));
+
     }
 
     return (
@@ -201,6 +222,12 @@ function ForumTopicsList() {
                                                     </div>
 
                                                 </div>
+
+                                                {(currentUser.id === topic.owner) ? (
+                                                    <div>
+                                                        <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><BsFillTrashFill/></Button>
+                                                    </div>
+                                                ) : ('')}
 
                                             </div>
                                         )
