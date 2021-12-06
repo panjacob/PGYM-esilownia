@@ -9,6 +9,7 @@ import axios_variebles from "../components/Axios/Axios_variebles";
 function ForumTopicPosts() {
 
     const [topicData, setTopicData] = useState([])
+    const [topicDate, setTopicDate] = useState('')
     const [postList, setPostList] = useState([])
     const [userList, setUserList] = useState([])
 
@@ -28,6 +29,7 @@ function ForumTopicPosts() {
             })
             .then((res) => {
                 setTopicData(res.data)
+                    setTopicDate(res.data.date)
 
                 res.data.posts.map((post)=>{
                     axiosInstance
@@ -122,7 +124,7 @@ function ForumTopicPosts() {
                                                         )
                                                     }
                                                 })}
-                                                <div className="forum-sub-title">{topicData.date}</div>
+                                                <div className="forum-sub-title">{topicDate.replace('T', " ").substr(0, 19)}</div>
                                             </div>
 
                                         </div>
@@ -135,8 +137,11 @@ function ForumTopicPosts() {
                                     <div className="forum-title">
                                         <h3>Posty</h3>
                                     </div>
-                                    {/*{JSON.stringify(postList)}*/}
-                                    {postList.map((post) => {
+                                    {postList.sort(function(a, b) {
+                                        var c = new Date(a.date);
+                                        var d = new Date(b.date);
+                                        return c-d;
+                                    }).map((post) => {
                                         return (
                                             <div className="forum-item">
 
@@ -147,18 +152,18 @@ function ForumTopicPosts() {
                                                             <BsShield className='mid-icon'></BsShield>
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-9">
+                                                    <div className="col-md-8">
                                                         {uniqBy(userList, JSON.stringify).map((user)=>{
                                                             if(user.id === post.owner){
                                                                 return (
-                                                                    <div className="forum-item-title">{user.first_name} {user.last_name}</div>
+                                                                    <div className="forum-post-title">{user.first_name} {user.last_name}</div>
                                                                 )
                                                             }
                                                         })}
-                                                        <div className="forum-sub-title">{post.body}</div>
+                                                        <div className="forum-post-body">{post.body}</div>
                                                     </div>
-                                                    <div className='col-md-2'>
-                                                        <div className="forum-sub-title">{post.date}</div>
+                                                    <div className='col-md-3'>
+                                                        <div className="forum-sub-title">{post.date.replace('T', " ").replace('Z', '').substr(0, 19)}</div>
                                                     </div>
 
                                                 </div>

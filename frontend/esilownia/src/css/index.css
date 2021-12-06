@@ -335,6 +335,14 @@ div.notifications div.container div.items div.card div.options div.option{
     color: #999;
     margin-left: 10px;
 }
+.forum-item .forum-post-title {
+    color: #999;
+    margin-left: 10px;
+}
+.forum-item .forum-post-body {
+    margin-left: 10px;
+    word-wrap: break-word;
+}
 .forum-title {
     margin: 15px 0 15px 0;
     padding: 0px 20px;

@@ -174,8 +174,11 @@ function ForumTopicsList() {
                                                                 topicId: topic.id
                                                             }
                                                         }}>{topic.title}</Link>
-                                                        <div className="forum-sub-title">{topic.description} Opic tematu ...</div>
-
+                                                        {(topic.post_count > 0) ? (
+                                                            <div className="forum-sub-title">{topic.first_post.body}</div>
+                                                        ) : (
+                                                            <div className="forum-sub-title">Brak postow w tym temacie</div>)
+                                                        }
                                                     </div>
                                                     <div className="col-md-3">
                                                         {uniqBy(userList, JSON.stringify).map((user)=>{
@@ -185,12 +188,12 @@ function ForumTopicsList() {
                                                                 )
                                                             }
                                                         })}
-                                                        <div className="forum-sub-title">{topic.date}</div>
+                                                        <div className="forum-sub-title">{topic.date.replace('T', " ").replace('Z', '').substr(0, 19)}</div>
                                                     </div>
 
                                                     <div className="col-md-1 forum-info">
                                                 <span className="views-number">
-                                                    140
+                                                    {topic.post_count}
                                                 </span>
                                                         <div>
                                                             <small>Posts</small>
