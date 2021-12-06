@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+docker-compose -f docker-compose.yml -f jibri.yml up -d --scale jibri=5
+./jibri-scale.sh
