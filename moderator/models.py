@@ -32,7 +32,9 @@ class ApplicationImage(models.Model):
 class Report(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
     date = models.DateTimeField(default=timezone.now)
-    user_reported = models.ForeignKey(UserExtended, on_delete=models.CASCADE, related_name='user_reported')
+    user_reported = models.ForeignKey(UserExtended, on_delete=models.CASCADE, related_name='user_reported', null=True,
+                                      default=None)
     title = models.CharField(max_length=1000)
     description = models.CharField(max_length=10000)
     file = models.FileField(null=True, blank=True)
+    is_solved = models.BooleanField(default=False)

@@ -8,4 +8,7 @@ urlpatterns = [
     path('application/all', views.application_all, name='moderator_application_all'),
     path('application/accept', views.application_accept, name='moderator_application_accept'),
     path('application/reject', views.application_reject, name='moderator_application_reject'),
+    path('report/create', views.report_create, name='moderator_application_reject'),
+    path('report/get', views.report_get, name='moderator_application_reject'),
+    path('report/all', views.report_all, name='moderator_application_reject'),
 ]
