@@ -22,6 +22,7 @@ import Chat from "./Views/Chat";
 import Training_trainer from "./Views/Training_trainer";
 import Payment_history from "./Views/Payment_history";
 import Forum from "./Views/Forum";
+import {ForumTopicPosts} from "./Views/Index";
 
 function App() {
     return (
@@ -49,6 +50,7 @@ function App() {
                     <Route path="/wiadomości" exact component={() => <Chat/>}/>
                     <Route path="/historia_płatności" exact component={() => <Payment_history/>}/>
                     <Route path="/forum" exact component={() => <Forum/>}/>
+                    <Route path="/forum_temat" exact component={() => <ForumTopicPosts/>}/>
                 </Switch>
                 <Footer/>
             </Router>

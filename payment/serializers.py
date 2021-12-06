@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from payment.models import Transaction, Offer
+from payment.models import Transaction, Offer, TrainingTransaction
 
 
 class TransactionSerializer(ModelSerializer):
@@ -12,3 +12,9 @@ class OfferSerializer(ModelSerializer):
     class Meta:
         model = Offer
         fields = ['id', 'name', 'price', 'coins']
+
+
+class TrainingTransactionSerializer(ModelSerializer):
+    class Meta:
+        model = TrainingTransaction
+        fields = ['transaction_id', 'time', 'user', 'owner', 'amount']

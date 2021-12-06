@@ -12,13 +12,14 @@ export { default as Diet } from "./Diet";
 export { default as Account } from "./Account";
 export { default as AccountEdit } from "./Account_edit";
 export { default as Dashboard } from "./Dashboard";
-export { default as ModeratorPanel } from "./Cockpit";
+export { default as ModeratorPanel } from "./Moderator_panel";
 export { default as TrainerSpace } from "./TrainingGroups_TrainerSpace";
-export { default as TrainingsTrainerSpace } from "./Trainings_TrainerSpace";
-export { default as Training } from "./Training";
+export { default as TrainingsTrainerSpace } from "./Training_trainer";
+//export { default as Training } from "./Training";
 export { default as TrainingJisti } from "./Trening_Jitsi";
 export { default as GroupOfferDetails } from "./Group_offer_details";
 export { default as Chat } from "./Chat";
 export { default as PaymentHistory } from "./Payment_history";
 export { default as Forum } from "./Forum";
+export { default as ForumTopicPosts } from "./Forum_Topic_Posts";
 

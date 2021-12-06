@@ -29,7 +29,16 @@ def topic_get(request):
 @api_view(['POST'])
 def topic_all(request):
     topics = Topic.objects.all()
-    result = [TopicSerializerAll(instance=x).data for x in topics]
+    result = []
+    for topic in topics:
+        topic_dict = TopicSerializerAll(instance=topic).data
+        topic_result = {**topic_dict, 'post_count': topic.posts.count()}
+        if topic_result['post_count'] > 0:
+            first_post = topic.posts.order_by('date')[0]
+            serializer = PostSerializer(instance=first_post)
+            topic_result['first_post'] = serializer.data
+
+        result.append(topic_result)
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
 

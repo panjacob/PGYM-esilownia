@@ -11,6 +11,14 @@ function TrainingJitsi(props) {
 
     useEffect(() => {
 
+        const script = document.createElement("script");
+        script.src = "https://meet.pgym.xyz/external_api.js";
+        script.async = true;
+        document.head.appendChild(script);
+        script.onload = () => {
+            jitsiGetToken();
+        };
+
         setGroupId(location.state.trainingId)
 
         axiosInstance
@@ -54,14 +62,6 @@ function TrainingJitsi(props) {
                 jitsiStart(res.data.token);
             });
     }
-
-    const script = document.createElement("script");
-    script.src = "https://meet.pgym.xyz/external_api.js";
-    script.async = true;
-    document.head.appendChild(script);
-    script.onload = () => {
-        jitsiGetToken();
-    };
 
     return (
         <div className="treningJitsi justify-content-center">

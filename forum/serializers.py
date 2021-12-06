@@ -34,4 +34,4 @@ class TopicSerializerGet(ModelSerializer):
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         topics = PostSerializer(read_only=True, many=True)
 
-        fields = ['owner', 'date', 'title', 'body', 'posts']
+        fields = ['id', 'owner', 'date', 'title', 'body', 'posts']

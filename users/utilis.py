@@ -1,4 +1,3 @@
-# Returns true if password meets the requiremets
 import functools
 
 from rest_framework import status
