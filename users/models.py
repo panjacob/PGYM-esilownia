@@ -37,6 +37,8 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    bank_account = models.IntegerField(default=None, null=True)
+    ban_date_expiration = models.DateTimeField(default=None, null=True)
 
     # Properties of ContentCreator
     is_coach = models.BooleanField(default=False)
