@@ -5,7 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from moderator import models
-from moderator.serializers import ApplicationCreateSerializer, ApplicationGetSerializer, ReportCreateSerializer
+from moderator.serializers import ApplicationCreateSerializer, ApplicationGetSerializer, ReportCreateSerializer, \
+    ReportGetSerializer
 from users.utilis import put_owner_in_request_data
 
 
@@ -66,8 +67,11 @@ def report_create(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
 def report_get(request):
-    return None
+    report = models.Report.objects.get(id=request.data['id'])
+    serializer = ReportGetSerializer(instance=report)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
 def report_all(request):
