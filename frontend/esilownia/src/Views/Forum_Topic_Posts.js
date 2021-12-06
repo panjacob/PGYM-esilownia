@@ -235,17 +235,17 @@ function ForumTopicPosts() {
 
                                                     <div className="col-md-1">
                                                         <div className="forum-photo align-middle">
-                                                            {uniqBy(userList, JSON.stringify).map((user)=>{
+                                                            {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                                 if(user.id === post.owner) {
                                                                     if (user.profile_photo === null) {
                                                                         return (
-                                                                            <img src={profilePicture} alt="..."
+                                                                            <img key={idx} src={profilePicture} alt="..."
                                                                                  className="img-thumbnail" width='200px'
                                                                                  height='200px'/>
                                                                         )
                                                                     } else {
                                                                         return (
-                                                                            <img
+                                                                            <img key={idx}
                                                                                 src={axios_variebles.baseURL.slice(0, -1) + user.profile_photo}
                                                                                 alt="..." className="img-thumbnail"
                                                                                 width='200px'
