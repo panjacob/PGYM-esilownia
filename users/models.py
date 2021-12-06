@@ -17,9 +17,6 @@ class CustomAccountManager(BaseUserManager):
         return self.create_user(email, username, first_name, password, **other_fields)
 
     def create_user(self, username, email="fb", first_name="", password="", **other_fields):
-        # print(email)
-        # if not email:
-        #     raise ValueError('You must provide an email address')
         print('other fields: ', other_fields)
         email = self.normalize_email(email)
         user = self.model(email=email, username=username, first_name=first_name, **other_fields)
@@ -52,19 +49,5 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', ]
 
-    # password is required by default ?
-
     def __str__(self):
         return self.username
-# formularz
-
-# user
-# tresc
-# zalacznik wiele plikow
-# dietetyk czy trener czy moderator
-
-
-# @receiver(post_save, sender=User)
-# def create_auth_token(sender, instance=None, created=False, **kwargs):
-#     if created:
-#         Token.objects.create(user=instance)
