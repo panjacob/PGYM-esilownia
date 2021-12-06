@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from moderator import models
 from moderator.serializers import ApplicationCreateSerializer, ApplicationGetSerializer, ReportCreateSerializer, \
-    ReportGetSerializer
+    ReportGetSerializer, ReportEditSerializer
 from users.utilis import put_owner_in_request_data
 
 
@@ -79,3 +79,13 @@ def report_all(request):
     reports = models.Report.objects.all().order_by('-date')
     result = [ReportGetSerializer(instance=x).data for x in reports]
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def report_edit(request):
+    report = models.Report.objects.get(id=request.data['id'])
+    serializer = ReportEditSerializer(instance=report, data=request.data)
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

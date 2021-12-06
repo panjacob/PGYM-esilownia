@@ -26,3 +26,8 @@ class ReportGetSerializer(ModelSerializer):
     class Meta:
         model = Report
         fields = ['id', 'date', 'owner', 'user_reported', 'title', 'description', 'file', 'is_solved']
+
+class ReportEditSerializer(ModelSerializer):
+    class Meta:
+        model = Report
+        fields = ['is_solved']
