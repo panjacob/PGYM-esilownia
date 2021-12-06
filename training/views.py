@@ -9,10 +9,11 @@ from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
 from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required, \
-    training_owner_required
+    training_owner_required, get_price_and_days_to_add, participant_extend_subscription
 from users.utilis import put_owner_in_request_data
 from message.utilis import notification_send
 from users.models import UserExtended
+from payment.utilis import user1_give_money_user2_training
 
 MAX_PING_ACTIVE_SECONDS = 30
 
@@ -44,31 +45,22 @@ def training_group_edit(request):
 
 @api_view(['POST'])
 def training_group_join(request):
-    training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
-    payment_type = request.data['payment_type']
-    if payment_type == '0':
-        price = training_group.price_day
-        days_to_add = 1
-    elif payment_type == '1':
-        price = training_group.price_week
-        days_to_add = 7
-    elif payment_type == '2':
-        price = training_group.price_month
-        days_to_add = 30
-    else:
-        return Response({'payment_type is not specified'}, status=status.HTTP_400_BAD_REQUEST)
-
     user = request.user
+    training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
+    owner = training_group.owner
+    price, days_to_add = get_price_and_days_to_add(request.data['payment_type'], training_group)
+
+    if price is None and days_to_add is None:
+        return Response({'Payment type is invalid'}, status=status.HTTP_400_BAD_REQUEST)
+
     if user.money < price:
         return Response({'User does not have enough money'}, status=status.HTTP_400_BAD_REQUEST)
 
     training_group_participant, _ = models.TrainingGroupParticipant.objects.get_or_create(user=user,
                                                                                           training_group=training_group)
 
-    training_group_participant.subscription_end += timedelta(days_to_add)
-    training_group_participant.save()
-    user.money -= price
-    user.save()
+    participant_extend_subscription(training_group_participant, days_to_add)
+    user1_give_money_user2_training(user, owner, price)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
