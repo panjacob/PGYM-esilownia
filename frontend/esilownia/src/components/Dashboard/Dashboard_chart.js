@@ -44,27 +44,31 @@ function Dashboard_chart(){
                 <div className="col-md-6 text-center">
                     <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Waga</h1>
                     <hr></hr>
-                    <LineChart width={500} height={300} data={dayData}>
-                        <Line type="monotone" dataKey="weight" stroke="#fc9803"/>
-                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
-                        <XAxis dataKey="date"/>
-                        <YAxis/>
-                        <Legend/>
-                        <Tooltip/>
-                    </LineChart>
+                    <ResponsiveContainer height={300}>
+                        <LineChart width={500} height={300} data={dayData}>
+                            <Line type="monotone" dataKey="weight" stroke="#fc9803"/>
+                            <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
+                            <XAxis dataKey="date"/>
+                            <YAxis/>
+                            <Legend/>
+                            <Tooltip/>
+                        </LineChart>
+                    </ResponsiveContainer>
                 </div>
                 <div className="col-md-6 text-center">
                     <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Kalorie</h1>
                     <hr></hr>
-                    <AreaChart width={500} height={300} data={dayData}>
-                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
-                        <XAxis dataKey="date"/>
-                        <YAxis/>
-                        <Legend/>
-                        <Tooltip/>
-                        <Area type="monotone" dataKey="calories_eaten" stroke='#fc9803' fill='#fc9803'/>
-                        <Area type="monotone" dataKey="calories_burned" stroke='#fc0303' fill='#fc0303'/>
-                    </AreaChart>
+                    <ResponsiveContainer height={300}>
+                        <AreaChart width={500} height={300} data={dayData}>
+                            <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
+                            <XAxis dataKey="date"/>
+                            <YAxis/>
+                            <Legend/>
+                            <Tooltip/>
+                            <Area type="monotone" dataKey="calories_eaten" stroke='#fc9803' fill='#fc9803'/>
+                            <Area type="monotone" dataKey="calories_burned" stroke='#fc0303' fill='#fc0303'/>
+                        </AreaChart>
+                    </ResponsiveContainer>
                 </div>
             </div>
             <hr/>
