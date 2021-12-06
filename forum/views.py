@@ -31,17 +31,14 @@ def topic_all(request):
     topics = Topic.objects.all()
     result = []
     for topic in topics:
-
         topic_dict = TopicSerializerAll(instance=topic).data
-        a = {**topic_dict}
-        # print(type (x))
-        if topic.posts.exists():
+        topic_result = {**topic_dict, 'post_count': topic.posts.count()}
+        if topic_result['post_count'] > 0:
             first_post = topic.posts.order_by('date')[0]
             serializer = PostSerializer(instance=first_post)
-            a['first_post'] = serializer.data
+            topic_result['first_post'] = serializer.data
 
-        result.append(a)
-    # result = [TopicSerializerAll(instance=x).data for x in topics]
+        result.append(topic_result)
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
