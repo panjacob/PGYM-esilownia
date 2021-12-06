@@ -5,8 +5,8 @@ import {Link, useLocation} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import {BsShield, BsShieldFill} from "react-icons/bs";
 import axios_variebles from "../components/Axios/Axios_variebles";
-import { BsFillTrashFill } from "react-icons/bs";
-import { AiFillEdit } from "react-icons/ai";
+import trashIcon from "../imgs/trash-10-16.png";
+import editIcon from "../imgs/edit-6-16.png";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 
 function ForumTopicPosts() {
@@ -274,8 +274,8 @@ function ForumTopicPosts() {
 
                                                 {(currentUser.id === post.owner) ? (
                                                     <div className='mt-2'>
-                                                        <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><AiFillEdit/></Button>
-                                                        <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><BsFillTrashFill/></Button>
+                                                        <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><img id={post.id} src={editIcon}/></Button>
+                                                        <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><img id={post.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
 

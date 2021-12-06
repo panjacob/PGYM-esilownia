@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import Button from "react-bootstrap/Button";
 import axios_variebles from "../Axios/Axios_variebles";
-import { BsFillTrashFill } from "react-icons/bs";
+import trashIcon from "../../imgs/trash-10-16.png";
 import {BsShield} from "react-icons/bs";
 import {Link} from "react-router-dom";
 
@@ -228,7 +228,7 @@ function ForumTopicsList() {
 
                                                 {(currentUser.id === topic.owner) ? (
                                                     <div className='mt-2'>
-                                                        <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><BsFillTrashFill/></Button>
+                                                        <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><img id={topic.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
 
