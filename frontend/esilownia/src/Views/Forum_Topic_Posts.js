@@ -119,7 +119,7 @@ function ForumTopicPosts() {
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
 
         var formdata = new FormData();
-        formdata.append("id", id);
+        formdata.append("id", e.target.id );
 
         var requestOptions = {
             method: 'POST',
@@ -168,8 +168,10 @@ function ForumTopicPosts() {
         }
     }
 
-    function editShowHide() {
-        var x = document.getElementById("editBox");
+    const editShowHide = (e) => {
+        e.preventDefault();
+
+        var x = document.getElementById(`editPost-${e.target.id}`);
         if (x.style.display === "none") {
             x.style.display = "block";
         } else {
@@ -277,7 +279,7 @@ function ForumTopicPosts() {
                                                     </div>
                                                 ) : ('')}
 
-                                                <div id="editBox" style={{display:'none'}}>
+                                                <div id={`editPost-${post.id}`} style={{display:'none'}}>
                                                     <div className='container border justify-content-center p-3'>
                                                         <div className='row justify-content-center'>
 
