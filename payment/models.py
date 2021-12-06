@@ -16,7 +16,7 @@ class TrainingTransaction(models.Model):
     transaction_id = models.CharField(unique=True, default=random_string, max_length=50)
     time = models.IntegerField(default=current_milli_time)
     user = models.ForeignKey(UserExtended, on_delete=models.CASCADE)
-    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, related_name='owner')
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, related_name='user2')
     amount = models.IntegerField()
 
 
