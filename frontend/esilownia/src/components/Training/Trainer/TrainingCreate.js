@@ -51,11 +51,13 @@ function TrainingCreate(props){
         };
 
         fetch(axios_variebles.baseURL + "training/create", requestOptions)
-            .then(response => response.text())
+            .then(response => {
+                response.text();
+                window.location.reload();
+            })
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
-        window.location.reload()
     };
 
     function validateForm() {

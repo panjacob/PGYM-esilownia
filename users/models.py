@@ -17,6 +17,9 @@ class CustomAccountManager(BaseUserManager):
         return self.create_user(email, username, first_name, password, **other_fields)
 
     def create_user(self, username, email="fb", first_name="", password="", **other_fields):
+        # print(email)
+        # if not email:
+        #     raise ValueError('You must provide an email address')
         print('other fields: ', other_fields)
         email = self.normalize_email(email)
         user = self.model(email=email, username=username, first_name=first_name, **other_fields)
@@ -34,7 +37,8 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
-    ban_date_expiration = models.DateTimeField(null=True, blank=True, default=None)
+    bank_account = models.IntegerField(default=None, null=True, blank=True)
+    ban_date_expiration = models.DateTimeField(default=None, null=True, blank=True)
 
     # Properties of ContentCreator
     is_coach = models.BooleanField(default=False)
@@ -45,10 +49,25 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
 
     money = models.IntegerField(default=1000)
     objects = CustomAccountManager()
-    bank_account = models.IntegerField(default=None, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', ]
 
+    stripe_customer_id = models.CharField(max_length=150, null=True, blank=True)
+
+    # password is required by default ?
+
     def __str__(self):
         return self.username
+# formularz
+
+# user
+# tresc
+# zalacznik wiele plikow
+# dietetyk czy trener czy moderator
+
+
+# @receiver(post_save, sender=User)
+# def create_auth_token(sender, instance=None, created=False, **kwargs):
+#     if created:
+#         Token.objects.create(user=instance)

@@ -73,9 +73,12 @@ function TrainingRemoveParticipant(props) {
         };
 
         fetch(axios_variebles.baseURL + "training/group/participant/remove", requestOptions)
-            .then(response => response.text())
+            .then(response => {
+                response.text();
+                window.location.reload();
+            })
             .catch(error => console.log('error', error));
-        window.location.reload();
+
     };
 
     function validateForm() {
