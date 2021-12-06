@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import status
@@ -34,5 +35,15 @@ def offer_all(request):
     result = []
     for offer in offers:
         serializer = serializers.OfferSerializer(instance=offer)
+        result.append(serializer.data)
+    return JsonResponse(result, safe=False)
+
+
+@api_view(['POST'])
+def training_transactions_user(request):
+    transactions = models.TrainingTransaction.objects.filter(Q(user=request.user) | Q(owner=request.user))
+    result = []
+    for transaction in transactions:
+        serializer = serializers.TrainingTransactionSerializer(instance=transaction)
         result.append(serializer.data)
     return JsonResponse(result, safe=False)
