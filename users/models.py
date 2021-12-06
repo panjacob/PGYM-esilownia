@@ -47,6 +47,7 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
 
     money = models.IntegerField(default=1000)
     objects = CustomAccountManager()
+    bank_account = models.IntegerField(default=None, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', ]
