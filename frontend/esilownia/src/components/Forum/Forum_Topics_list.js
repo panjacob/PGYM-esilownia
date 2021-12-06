@@ -243,6 +243,7 @@ function ForumTopicsList() {
 
                     </div>
                 </div>
+                <div className="container" style={{height:"450px"}}/>
             </div>
         </div>
     );

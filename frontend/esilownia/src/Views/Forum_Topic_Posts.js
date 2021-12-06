@@ -349,7 +349,7 @@ function ForumTopicPosts() {
 
                     </div>
                 </div>
-
+                <div className="container" style={{height:"450px"}}/>
             </div>
         </div>
     );
