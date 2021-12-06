@@ -60,9 +60,12 @@ function ForumTopicsList() {
         };
 
         fetch(axios_variebles.baseURL + "forum/topic/create", requestOptions)
-            .then(response => response.text())
-            .then(result => {
+            .then(response => {
+                response.text();
                 window.location.reload();
+            })
+            .then(result => {
+                //window.location.reload();
             })
             .catch(error => console.log('error', error));
     }

@@ -48,4 +48,3 @@ if __name__ == '__main__':
         manage_py(f"makemigrations {app}")
 
     manage_py('migrate')
-    manage_py('runserver')

@@ -84,6 +84,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # cors
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -207,3 +208,8 @@ CORS_ORIGIN_WHITELIST = ('http://localhost:3000',)
 # CORS_ALLOWED_ORIGINS = ['*']
 
 JITSI_SECRET = "0JJbsqPcqayuUiJftRadR0ilW137goLQgfxw5VjZxjDoBCtHfxqZhci5zllX8E6"
+
+STRIPE_PUBLISHABLE_KEY = "pk_test_51K3OGcLydeVK0fA9IF381WZuGA7cgUJbQsczpvf7y9l3T8EmXsqx2s3814uda118yTP2AmhQXJR7580C6KN50sEH00HvKm2nh5"
+STRIPE_SECRET_KEY = "sk_test_51K3OGcLydeVK0fA9X4mN5cLaoN7fby95YIQqit8KtDJzEmJldLmMkgYyznfMxnlaHB50I7aTat5L4hSiMdXUgnSd00DCEhsHXs"
+
+

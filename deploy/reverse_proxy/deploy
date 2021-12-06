@@ -1,0 +1,8 @@
+#!/bin/bash
+
+sudo docker-compose down
+rm -r www/react
+mv build www/react
+chmod -R 777 www
+sudo docker-compose up -d
+
