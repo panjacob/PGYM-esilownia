@@ -21,8 +21,9 @@ def create_transaction(user, offer_id):
 
 
 @transaction.atomic
-def user1_give_money_user2(user1, user2, ammount):
-    user1.money -= ammount
+def user1_give_money_user2_training(user1, user2, amount):
+    user1.money -= amount
     user1.save()
-    user2.money += ammount
+    user2.money += amount
     user2.save()
+    models.TrainingTransaction.objects.create(user=user1, owner=user2, ammount=amount)

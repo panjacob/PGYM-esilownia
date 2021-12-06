@@ -13,7 +13,7 @@ from training.utilis import jitsi_payload_create, jitsi_token_encode, current_mi
 from users.utilis import put_owner_in_request_data
 from message.utilis import notification_send
 from users.models import UserExtended
-from payment.utilis import user1_give_money_user2
+from payment.utilis import user1_give_money_user2_training
 
 MAX_PING_ACTIVE_SECONDS = 30
 
@@ -60,7 +60,7 @@ def training_group_join(request):
                                                                                           training_group=training_group)
 
     participant_extend_subscription(training_group_participant, days_to_add)
-    user1_give_money_user2(user, owner, price)
+    user1_give_money_user2_training(user, owner, price)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
