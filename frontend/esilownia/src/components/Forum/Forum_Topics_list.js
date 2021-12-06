@@ -97,7 +97,7 @@ function ForumTopicsList() {
 
     const handleDeleteTopic = (e) => {
         e.preventDefault();
-        console.log(e.target.id)
+        //console.log(e.target.id)
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
@@ -180,9 +180,9 @@ function ForumTopicsList() {
                                         <h3>Tematy</h3>
                                     </div>
 
-                                    {topicsList.map((topic) => {
+                                    {topicsList.map((topic,idx) => {
                                         return (
-                                            <div className="forum-item">
+                                            <div key={idx} className="forum-item">
 
                                                 <div className="row align-middle">
 

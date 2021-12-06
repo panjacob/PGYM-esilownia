@@ -88,7 +88,7 @@ function ForumTopicPosts() {
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
 
         var formdata = new FormData();
-        formdata.append("topic_id", '1');
+        formdata.append("topic_id", topicData.id);
         formdata.append("body", newPostDescription);
 
         var requestOptions = {
@@ -109,7 +109,29 @@ function ForumTopicPosts() {
 
     const handleDeletePost = (e) => {
         e.preventDefault();
-        console.log(e.target.id)
+        //console.log(e.target.id)
+        let id = e.target.id
+        //console.log(id)
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+        var formdata = new FormData();
+        formdata.append("id", id);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch(axios_variebles.baseURL + "forum/post/remove", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                window.location.reload()
+            })
+            .catch(error => console.log('error', error));
     }
     const handleEditPost = (e) => {
         e.preventDefault();
@@ -140,10 +162,10 @@ function ForumTopicPosts() {
                                                 <div className="forum-sub-title">{topicData.body}</div>
                                             </div>
                                             <div className='col-md-3'>
-                                                {uniqBy(userList, JSON.stringify).map((user)=>{
+                                                {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                     if(user.id === topicData.owner){
                                                         return (
-                                                            <div className="forum-sub-title">{user.first_name} {user.last_name}</div>
+                                                            <div key={idx} className="forum-sub-title">{user.first_name} {user.last_name}</div>
                                                         )
                                                     }
                                                 })}
@@ -164,9 +186,9 @@ function ForumTopicPosts() {
                                         var c = new Date(a.date);
                                         var d = new Date(b.date);
                                         return c-d;
-                                    }).map((post) => {
+                                    }).map((post,idx) => {
                                         return (
-                                            <div className="forum-item">
+                                            <div key={idx} className="forum-item">
 
                                                 <div className="row align-middle">
 
@@ -176,10 +198,10 @@ function ForumTopicPosts() {
                                                         </div>
                                                     </div>
                                                     <div className="col-md-8">
-                                                        {uniqBy(userList, JSON.stringify).map((user)=>{
+                                                        {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                             if(user.id === post.owner){
                                                                 return (
-                                                                    <div className="forum-post-title">{user.first_name} {user.last_name}</div>
+                                                                    <div key={idx} className="forum-post-title">{user.first_name} {user.last_name}</div>
                                                                 )
                                                             }
                                                         })}
