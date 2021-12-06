@@ -9,7 +9,8 @@ class UserInfoSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
         fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
-                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money']
+                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money',
+                  'bank_account']
 
 
 class UserGetSerializer(ModelSerializer):
@@ -22,19 +23,21 @@ class UserGetModeratorSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
         fields = ['id', 'email', 'username', 'first_name', 'last_name', 'start_date', 'is_staff',
-                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money']
+                  'is_active', 'is_superuser', 'is_coach', 'is_dietician', 'profile_photo', 'is_moderator', 'money',
+                  'bank_account']
 
 
 class UserEditSerializer(ModelSerializer):
     class Meta:
         model = UserExtended
-        fields = ['email', 'username', 'first_name', 'last_name']
+        fields = ['email', 'username', 'first_name', 'last_name', 'bank_account']
 
         def update(self, instance, validated_data):
             instance.email = validated_data.get('email', instance.email)
             instance.user_name = validated_data.get('username', instance.user_name)
             instance.first_name = validated_data.get('first_name', instance.first_name)
             instance.last_name = validated_data.get('last_name', instance.last_name)
+            instance.bank_account = validated_data.get('bank_account', instance.bank_account)
             instance.save()
             return instance
 
