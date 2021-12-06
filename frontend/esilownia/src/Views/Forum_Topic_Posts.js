@@ -17,6 +17,7 @@ function ForumTopicPosts() {
     const [currentUser, setCurrentUser] = useState({})
 
     const [newPostDescription, setNewPostDescription] = useState('')
+    const [editPostDescription, setEditPostDescription] = useState('')
 
     const location = useLocation()
 
@@ -136,6 +137,43 @@ function ForumTopicPosts() {
     const handleEditPost = (e) => {
         e.preventDefault();
         console.log(e.target.id)
+
+        console.log(document.getElementById(`post-${e.target.id}`).innerText)
+        console.log(editPostDescription)
+
+        if(document.getElementById(`post-${e.target.id}`).innerText !== editPostDescription && editPostDescription !== '') {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+        var formdata = new FormData();
+        formdata.append("id", e.target.id);
+        formdata.append("body", editPostDescription);
+
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch(axios_variebles.baseURL + "forum/post/edit", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                setEditPostDescription('')
+                window.location.reload();
+            })
+            .catch(error => console.log('error', error));
+        }
+    }
+
+    function editShowHide() {
+        var x = document.getElementById("editBox");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
     }
 
     return (
@@ -205,7 +243,7 @@ function ForumTopicPosts() {
                                                                 )
                                                             }
                                                         })}
-                                                        <div className="forum-post-body">{post.body}</div>
+                                                        <div id={`post-${post.id}`} className="forum-post-body">{post.body}</div>
                                                     </div>
                                                     <div className='col-md-3'>
                                                         <div className="forum-sub-title">{post.date.replace('T', " ").replace('Z', '').substr(0, 19)}</div>
@@ -214,11 +252,35 @@ function ForumTopicPosts() {
                                                 </div>
 
                                                 {(currentUser.id === post.owner) ? (
-                                                    <div>
-                                                        <Button className='m-1' id={post.id} onClick={handleEditPost} variant="btn" size="md"><AiFillEdit/></Button>
+                                                    <div className='mt-2'>
+                                                        <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><AiFillEdit/></Button>
                                                         <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><BsFillTrashFill/></Button>
                                                     </div>
                                                 ) : ('')}
+
+                                                <div id="editBox" style={{display:'none'}}>
+                                                    <div className='container border justify-content-center p-3'>
+                                                        <div className='row justify-content-center'>
+
+                                                            <div className="col-sm-12 p-1">
+                                                                <div className="col-sm-12">
+                                                                    <h6 className="mb-0">Edytuj Zawartość</h6>
+                                                                </div>
+                                                                <div className="col-sm-12 text-secondary">
+                                                                    <input type="text" className="form-control form-control-sm" placeholder={post.body}
+                                                                           onChange={(e) => setEditPostDescription(e.target.value)}/>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <div className="col pt-2 pb-2">
+                                                            <Button id={post.id} onClick={handleEditPost} variant="btn" size="sm">Zapisz</Button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         )

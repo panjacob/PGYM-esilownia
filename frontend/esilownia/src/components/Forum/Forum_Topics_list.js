@@ -227,7 +227,7 @@ function ForumTopicsList() {
                                                 </div>
 
                                                 {(currentUser.id === topic.owner) ? (
-                                                    <div>
+                                                    <div className='mt-2'>
                                                         <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><BsFillTrashFill/></Button>
                                                     </div>
                                                 ) : ('')}
