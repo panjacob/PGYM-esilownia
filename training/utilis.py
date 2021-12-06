@@ -1,6 +1,7 @@
 import functools
 import threading
 import time
+from datetime import timedelta
 
 import jwt
 from django.utils import timezone
@@ -53,7 +54,6 @@ def training_group_owner_required():
         def wrapper(*args, **kwargs):
             request = args[0]
             id = request.data.get('id', None)
-            print(id)
             training_group_id = request.data.get('training_group', None)
             if TrainingGroup.objects.filter(id=id).exists():
                 training_group = TrainingGroup.objects.get(id=id)
@@ -115,3 +115,24 @@ def do_job_every_x_seconds(f, interval):
     t = threading.Thread(target=repeat, args=(), kwargs={}, daemon=True)
     t.start()
     return True
+
+
+def get_price_and_days_to_add(payment_type, training_group):
+    if payment_type == '0':
+        price = training_group.price_day
+        days_to_add = 1
+    elif payment_type == '1':
+        price = training_group.price_week
+        days_to_add = 7
+    elif payment_type == '2':
+        price = training_group.price_month
+        days_to_add = 30
+    else:
+        return None, None
+
+    return price, days_to_add
+
+
+def participant_extend_subscription(participant, days):
+    participant.subscription_end += timedelta(days)
+    participant.save()
