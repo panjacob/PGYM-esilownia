@@ -7,6 +7,7 @@ import {BsShield, BsShieldFill} from "react-icons/bs";
 import axios_variebles from "../components/Axios/Axios_variebles";
 import { BsFillTrashFill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
+import profilePicture from "../imgs/basic_profile_photo.jpg";
 
 function ForumTopicPosts() {
 
@@ -231,8 +232,26 @@ function ForumTopicPosts() {
                                                 <div className="row align-middle">
 
                                                     <div className="col-md-1">
-                                                        <div className="forum-icon align-middle">
-                                                            <BsShield className='mid-icon'></BsShield>
+                                                        <div className="forum-photo align-middle">
+                                                            {uniqBy(userList, JSON.stringify).map((user)=>{
+                                                                if(user.id === post.owner) {
+                                                                    if (user.profile_photo === null) {
+                                                                        return (
+                                                                            <img src={profilePicture} alt="..."
+                                                                                 className="img-thumbnail" width='200px'
+                                                                                 height='200px'/>
+                                                                        )
+                                                                    } else {
+                                                                        return (
+                                                                            <img
+                                                                                src={axios_variebles.baseURL.slice(0, -1) + user.profile_photo}
+                                                                                alt="..." className="img-thumbnail"
+                                                                                width='200px'
+                                                                                height='200px'/>
+                                                                        )
+                                                                    }
+                                                                }
+                                                            })}
                                                         </div>
                                                     </div>
                                                     <div className="col-md-8">

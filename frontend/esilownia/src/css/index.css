@@ -337,7 +337,6 @@ div.notifications div.container div.items div.card div.options div.option{
 }
 .forum-item .forum-post-title {
     color: #999;
-    margin-left: 10px;
 }
 .forum-item .forum-post-body {
     margin-left: 10px;
@@ -355,6 +354,11 @@ div.notifications div.container div.items div.card div.options div.option{
     float: left;
     width: 30px;
     margin-right: 20px;
+    text-align: center;
+}
+.forum-photo {
+    float: right;
+    width: 60px;
     text-align: center;
 }
 a.forum-item-title {
