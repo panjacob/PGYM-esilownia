@@ -74,5 +74,8 @@ def report_get(request):
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
+@api_view(['POST'])
 def report_all(request):
-    return None
+    reports = models.Report.objects.all().order_by('-date')
+    result = [ReportGetSerializer(instance=x).data for x in reports]
+    return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
