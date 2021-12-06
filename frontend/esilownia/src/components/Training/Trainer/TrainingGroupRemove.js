@@ -72,10 +72,12 @@ function TrainingGroupRemove(props) {
         };
 
         fetch(axios_variebles.baseURL + "training/group/remove", requestOptions)
-            .then(response => response.text())
+            .then(response => {
+                response.text();
+                history.goBack();
+            })
             .catch(error => console.log('error', error));
 
-        history.goBack()
     };
 
 

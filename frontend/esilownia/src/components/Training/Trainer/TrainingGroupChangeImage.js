@@ -59,11 +59,12 @@ function TrainingGroupChangeImage(props){
         };
 
         fetch(axios_variebles.baseURL + "training/group/image/add", requestOptions)
-            .then(response => response.text())
+            .then(response => {
+                response.text();
+                window.location.reload();
+            })
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
-        window.location.reload()
 
     }
 
@@ -105,11 +106,12 @@ function TrainingGroupChangeImage(props){
         };
 
         fetch(axios_variebles.baseURL + "training/group/image/remove", requestOptions2)
-            .then(response => response.text())
+            .then(response => {
+                response.text();
+                window.location.reload();
+            })
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
-        window.location.reload()
 
     }
 

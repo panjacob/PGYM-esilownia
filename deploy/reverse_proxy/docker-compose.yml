@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    reverse_proxy:
+        image: nginx
+        restart: unless-stopped
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - ./config/certs:/etc/nginx/certs
+            - ./config/conf.d:/etc/nginx/conf.d
+            - ./www:/www
+            
+            
