@@ -264,7 +264,11 @@ function ForumTopicPosts() {
                                                                 )
                                                             }
                                                         })}
-                                                        <div id={`post-${post.id}`} className="forum-post-body">{post.body}</div>
+                                                                <div id={`post-${post.id}`} className="forum-post-body mt-3 border-top" style={{minHeight:'10px'}}>
+                                                                    <div className="container mt-2">
+                                                                        {post.body}
+                                                                    </div>
+                                                                </div>
                                                     </div>
                                                     <div className='col-md-3'>
                                                         <div className="forum-sub-title">{post.date.replace('T', " ").replace('Z', '').substr(0, 19)}</div>
@@ -309,14 +313,12 @@ function ForumTopicPosts() {
                                 </div>
 
                                 <div className="p-2 pl-4 mb-2 mt-2 border shadow">
-                                    <div className="pull-left m-r-md">
+                                    <div className="pull-left mr-2">
                                         <div className='row'>
-                                            <div className='col'>
-
+                                            <div className='col mr-2'>
                                                 <h2>Dodaj Post</h2>
-
-
-                                                <div className='container border justify-content-center p-3'>
+                                                <hr/>
+                                                <div className='container justify-content-center p-3'>
                                                     <div className='row justify-content-center'>
 
                                                         <div className="col-sm-12 p-1">
@@ -328,25 +330,17 @@ function ForumTopicPosts() {
                                                                        onChange={(e) => setNewPostDescription(e.target.value)}/>
                                                             </div>
                                                         </div>
-
                                                     </div>
-
-
                                                     <div className="col pt-2 pb-2">
                                                         <Button onClick={handleSubmitData} variant="btn" size="sm">Utwórz</Button>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div className="container" style={{height:"450px"}}/>
