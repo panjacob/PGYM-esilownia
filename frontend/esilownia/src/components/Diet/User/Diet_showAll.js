@@ -132,7 +132,6 @@ function Diet_showAll(){
                     })}
                     <div style={{minWidth: '250px'}} className="col-md-3"></div>
                     <div style={{minWidth: '250px'}} className="col-md-3"></div>
-                    <div style={{minWidth: '250px'}} className="col-md-3"></div>
                 </div>
         )
     }
@@ -193,7 +192,7 @@ function Diet_showAll(){
                     <hr></hr>
                 </div>
                 <div className="row">
-                    <div className="col border text-center inline-block" style={{minHeight:'800px'}}>
+                    <div className="col border rounded text-center inline-block" style={{minHeight:'800px'}}>
 
 
                     <PaginatedItems itemsPerPage={6}></PaginatedItems>
