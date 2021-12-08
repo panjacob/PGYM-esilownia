@@ -96,11 +96,9 @@ def stripe_webhook(request):
         )
     except ValueError as e:
         # Invalid payload
-        print(e)
         raise(e)
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
-        print(e)
         raise(e)
     
     if event['type'] == 'checkout.session.completed':
@@ -110,10 +108,11 @@ def stripe_webhook(request):
         session = stripe.checkout.Session.retrieve(
             session_id, expand=['line_items']
         )
-        coin_amount = session['line_items']['data'][0]['price']['transform_quantity']['divide_by']
-        print(coin_amount)
+        print(session)
         if session['status'] == 'complete' and session['payment_status'] == 'paid':
-            pass
+            coin_amount = session['line_items']['data'][0]['price']['transform_quantity']['divide_by']
+            payment_intent = session['payment_intent']
+
 
 
     else:

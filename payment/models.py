@@ -21,6 +21,7 @@ class TrainingTransaction(models.Model):
 
 
 class Offer(models.Model):
+    stripe_price_id = models.CharField(unique=True, max_length=150)
     name = models.CharField(max_length=100)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     coins = models.IntegerField()
