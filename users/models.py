@@ -55,19 +55,6 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
 
     stripe_customer_id = models.CharField(max_length=150, null=True, blank=True)
 
-    # password is required by default ?
-
     def __str__(self):
         return self.username
-# formularz
 
-# user
-# tresc
-# zalacznik wiele plikow
-# dietetyk czy trener czy moderator
-
-
-# @receiver(post_save, sender=User)
-# def create_auth_token(sender, instance=None, created=False, **kwargs):
-#     if created:
-#         Token.objects.create(user=instance)
