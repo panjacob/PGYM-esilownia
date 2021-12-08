@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
@@ -134,6 +136,7 @@ def user_get(request):
     return JsonResponse(serializer.data)
 
 
+# TODO: do wyrzucenia?
 @csrf_exempt
 @api_view(['POST'])
 # moderator_required()
@@ -143,3 +146,6 @@ def user_get_moderator(request):
     user = UserExtended.objects.get(id=request.data['id'])
     serializer = serializers.UserGetModeratorSerializer(user)
     return JsonResponse(serializer.data)
+
+
+
