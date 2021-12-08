@@ -6,6 +6,7 @@ from payment.utilis import random_string
 
 class Transaction(models.Model):
     transaction_id = models.CharField(unique=True, default=random_string, max_length=50)
+    stripe_pi_id = models.CharField(max_length=150)
     user = models.ForeignKey(UserExtended, on_delete=models.CASCADE)
     time = models.IntegerField(default=current_milli_time)
     payed = models.DecimalField(decimal_places=2, max_digits=10)
