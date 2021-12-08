@@ -11,9 +11,9 @@ def random_string():
 
 
 @transaction.atomic
-def create_transaction(user, offer_id):
+def create_transaction(user, offer_id, stripe_pi_id):
     offer = models.Offer.objects.get(id=offer_id)
-    transaction = models.Transaction.objects.create(user=user, payed=offer.price, purchased=offer.coins)
+    transaction = models.Transaction.objects.create(user=user, payed=offer.price, purchased=offer.coins, stripe_pi_id=stripe_pi_id)
     user.money += offer.coins
     user.save()
     transaction.save()
