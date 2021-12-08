@@ -1,5 +1,6 @@
 # Create your views here.
 from django.http import JsonResponse
+import datetime
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -89,3 +90,20 @@ def report_edit(request):
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def user_ban(request):
+    days = int(request.data['days'])
+    user = request.user
+    user.ban_date_expiration = datetime.datetime.now() + datetime.timedelta(days)
+    user.save()
+    return Response({'message': f"User is banned until {user.ban_date_expiration}"}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def user_unban(request):
+    user = request.user
+    user.ban_date_expiration = None
+    user.save()
+    return Response({'message': f"User is unbanned"}, status=status.HTTP_200_OK)

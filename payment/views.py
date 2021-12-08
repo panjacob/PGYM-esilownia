@@ -9,6 +9,7 @@ from payment import models
 from payment import serializers
 from django.conf import settings
 import stripe
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -53,8 +54,8 @@ def create_checkout_session(request):
     cus = user.stripe_customer_id
     if cus == None:
         customer = stripe.Customer.create(
-            email = user.email,
-            name = (user.first_name + ' ' + user.last_name)
+            email=user.email,
+            name=(user.first_name + ' ' + user.last_name)
         )
         user.stripe_customer_id = customer['id']
         user.save()
@@ -63,16 +64,16 @@ def create_checkout_session(request):
 
     try:
         checkout_session = stripe.checkout.Session.create(
-            line_items = [
+            line_items=[
                 {
                     'price': request.data['stripeprice'],
                     'quantity': 1,
                 },
             ],
-            customer = customer['id'],
-            mode = 'payment',
-            success_url = 'https://pgym.xyz/',
-            cancel_url = 'https://pgym.xyz/',
+            customer=customer['id'],
+            mode='payment',
+            success_url='https://pgym.xyz/',
+            cancel_url='https://pgym.xyz/',
         )
     except Exception as e:
         print(e)
@@ -89,7 +90,7 @@ def stripe_webhook(request):
     endpoint_secret = "whsec_2NCkI7lwrop4nScVpALKfx3xcY5g94ww"
     event = None
     sig_header = request.headers['STRIPE_SIGNATURE']
-    
+
     try:
         event = stripe.Webhook.construct_event(
             payload, sig_header, endpoint_secret

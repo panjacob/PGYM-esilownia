@@ -8,7 +8,7 @@ class PostSerializer(ModelSerializer):
         model = Post
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         optional_fields = ['date']
-        fields = ['owner', 'date', 'body']
+        fields = ['id', 'owner', 'date', 'body']
 
 
 class TopicSerializerCreate(ModelSerializer):
