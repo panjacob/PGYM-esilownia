@@ -21,6 +21,9 @@ function Price_list_offer() {
     const [offerDataCoins1, setOfferDataCoins1] = useState('')
     const [offerDataCoins2, setOfferDataCoins2] = useState('')
     const [offerDataCoins3, setOfferDataCoins3] = useState('')
+    const [offerDataStripePriceId1, setOfferDataStripePriceId1] = useState('')
+    const [offerDataStripePriceId2, setOfferDataStripePriceId2] = useState('')
+    const [offerDataStripePriceId3, setOfferDataStripePriceId3] = useState('')
 
     const [modal1Show, setModal1Show] = React.useState(false);
     const [modal2Show, setModal2Show] = React.useState(false);
@@ -50,13 +53,20 @@ function Price_list_offer() {
                 setOfferDataCoins1(res.data[0].coins)
                 setOfferDataCoins2(res.data[1].coins)
                 setOfferDataCoins3(res.data[2].coins)
+                setOfferDataStripePriceId1(res.data[0].stripe_price_id)
+                setOfferDataStripePriceId2(res.data[1].stripe_price_id)
+                setOfferDataStripePriceId3(res.data[2].stripe_price_id)
             });
     }, []);
 
-    const createStripeCheckoutSession = (stripeprice) => {
+    const buyCoins = (stripe_price_id) => {
+        if (localStorage.getItem('token_type') == null || localStorage.getItem('access_token') == null) {
+            alert("Musisz być zalogowany, aby dokonać zakupu.");
+            return;
+        }
         axiosInstance
             .post(`/payment/create_checkout_session`, {
-                'stripeprice': stripeprice
+                'stripeprice': stripe_price_id
             }, {
                 headers: {
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -76,29 +86,13 @@ function Price_list_offer() {
     //         })
     // }
 
-    const buyCoins = (amount) => {
-        let stripeprice;
-        if (amount == 20) {
-            stripeprice = "price_1K3OTcLydeVK0fA9M1RVokYU";
-        }
-        else if (amount == 60) {
-            stripeprice = "price_1K3OTcLydeVK0fA9ZsK0aDa8";
-        }
-        else if (amount == 250) {
-            stripeprice = "price_1K3OTcLydeVK0fA9OLgLsELK";
-        }
-        else {
-            alert("Something happened");
-            return;
-        }
-
-        if (localStorage.getItem('token_type') == null || localStorage.getItem('access_token') == null) {
-            alert("Musisz być zalogowany, aby dokonać zakupu.");
-            return;
-        }
-
-        createStripeCheckoutSession(stripeprice);
-    };
+    // const buyCoins = (stripe_price_id) => {
+    //     if (localStorage.getItem('token_type') == null || localStorage.getItem('access_token') == null) {
+    //         alert("Musisz być zalogowany, aby dokonać zakupu.");
+    //         return;
+    //     }
+    //     createStripeCheckoutSession(stripe_price_id);
+    // };
 
     // const handlePayment = (e) => {
     //     e.preventDefault();
@@ -446,7 +440,7 @@ function Price_list_offer() {
                                         <b><i>${offerDataPrice1}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="btn" onClick={() => buyCoins(offerDataCoins1)}>
+                                    <Button variant="btn" onClick={() => buyCoins(offerDataStripePriceId1)}>
                                         Kup
                                     </Button>
 
@@ -474,7 +468,7 @@ function Price_list_offer() {
                                         <b><i>${offerDataPrice2}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="btn" onClick={() => buyCoins(offerDataCoins2)}>
+                                    <Button variant="btn" onClick={() => buyCoins(offerDataStripePriceId2)}>
                                         Kup
                                     </Button>
 
@@ -501,7 +495,7 @@ function Price_list_offer() {
                                         <b><i>${offerDataPrice3}</i></b>
                                     </Card.Text>
 
-                                    <Button variant="btn" onClick={() => buyCoins(offerDataCoins3)}>
+                                    <Button variant="btn" onClick={() => buyCoins(offerDataStripePriceId3)}>
                                         Kup
                                     </Button>
 
