@@ -16,6 +16,6 @@ class PaymentConfig(AppConfig):
     name = 'payment'
 
     def ready(self):
-        init_offer('price_1K3OTcLydeVK0fA9M1RVokYU', 'Basic', 20, 20)
-        init_offer('price_1K3OTcLydeVK0fA9ZsK0aDa8', 'Premium', 50, 60)
-        init_offer('price_1K3OTcLydeVK0fA9OLgLsELK', 'VIP', 200, 250)
+        init_offer('price_1K4a64LydeVK0fA9TNjZWnfv', 'Basic', 20, 20)
+        init_offer('price_1K4a64LydeVK0fA9VAnUzc2k', 'Premium', 50, 60)
+        init_offer('price_1K4a64LydeVK0fA98PHUpkmh', 'VIP', 200, 250)
