@@ -50,10 +50,10 @@ function Dashboard_chart(){
                             <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                             <XAxis dataKey="date"/>
                             <YAxis/>
-                            <Legend/>
                             <Tooltip/>
                         </LineChart>
                     </ResponsiveContainer>
+                    <p className="font-weight-light" style={{color:'orange'}}>Waga</p>
                 </div>
                 <div className="col-md-6 text-center">
                     <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Kalorie</h1>
@@ -63,12 +63,13 @@ function Dashboard_chart(){
                             <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                             <XAxis dataKey="date"/>
                             <YAxis/>
-                            <Legend/>
                             <Tooltip/>
                             <Area type="monotone" dataKey="calories_eaten" stroke='#fc9803' fill='#fc9803'/>
                             <Area type="monotone" dataKey="calories_burned" stroke='#fc0303' fill='#fc0303'/>
                         </AreaChart>
                     </ResponsiveContainer>
+                    <p className="font-weight-light" style={{color:'red'}}>Spalone kalorie</p>
+                    <p className="font-weight-light" style={{color:'orange'}}>Spożyte kalorie</p>
                 </div>
             </div>
             <hr/>

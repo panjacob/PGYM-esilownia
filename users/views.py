@@ -1,3 +1,6 @@
+import datetime
+from pprint import pprint
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
@@ -11,6 +14,27 @@ from users.models import UserExtended
 from users.utilis import superuser_required, moderator_required
 from training.models import TrainingGroupParticipant
 from message.utilis import notification_send
+
+from drf_social_oauth2.views import TokenView
+
+
+def is_banned(user):
+    if user.ban_date_expiration is None:
+        return False
+    return user.ban_date_expiration.timestamp() > datetime.datetime.now().timestamp()
+
+
+@api_view((['POST']))
+@permission_classes([AllowAny])
+def auth_token_wrapper_check_ban(request):
+    if request.data['grant_type'] == 'password':
+        email = request.data['username']
+        user = UserExtended.objects.get(email=email)
+        if is_banned(user):
+            return Response({'message': 'User is banned', 'ban_date_expiration': user.ban_date_expiration},
+                            status=status.HTTP_200_OK)
+
+    return TokenView().post(request=request)
 
 
 @api_view((['POST']))
@@ -134,6 +158,7 @@ def user_get(request):
     return JsonResponse(serializer.data)
 
 
+# TODO: do wyrzucenia?
 @csrf_exempt
 @api_view(['POST'])
 # moderator_required()

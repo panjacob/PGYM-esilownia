@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import Button from "react-bootstrap/Button";
 import axios_variebles from "../Axios/Axios_variebles";
-import { BsFillTrashFill } from "react-icons/bs";
+import trashIcon from "../../imgs/trash-10-16.png";
 import {BsShield} from "react-icons/bs";
 import {Link} from "react-router-dom";
 
@@ -129,16 +129,13 @@ function ForumTopicsList() {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="wrapper wrapper-content animated fadeInRight">
-
-                                <div className="p-2 pl-4 mb-2 mt-2 border shadow">
-                                        <div className="pull-left m-r-md">
+                                <div className="p-2 pl-4 mb-3 mt-2 border shadow">
+                                        <div className="pull-left mr-2">
                                             <div className='row'>
                                                 <div className='col'>
-
                                                     <h2>Dodaj Temat</h2>
-
-
-                                                    <div className='container border justify-content-center p-3'>
+                                                    <hr/>
+                                                    <div className='container  justify-content-center p-3'>
                                                         <div className='row justify-content-center'>
                                                             <div className="col-sm-4 p-1">
                                                                 <div className="col-sm-12">
@@ -178,6 +175,7 @@ function ForumTopicsList() {
 
                                     <div className="forum-title">
                                         <h3>Tematy</h3>
+                                        <hr/>
                                     </div>
 
                                     {topicsList.map((topic,idx) => {
@@ -220,7 +218,7 @@ function ForumTopicsList() {
                                                     {topic.post_count}
                                                 </span>
                                                         <div>
-                                                            <small>Posts</small>
+                                                            <small>Posty</small>
                                                         </div>
                                                     </div>
 
@@ -228,7 +226,7 @@ function ForumTopicsList() {
 
                                                 {(currentUser.id === topic.owner) ? (
                                                     <div className='mt-2'>
-                                                        <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><BsFillTrashFill/></Button>
+                                                        <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><img id={topic.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
 
@@ -243,6 +241,7 @@ function ForumTopicsList() {
 
                     </div>
                 </div>
+                <div className="container" style={{height:"450px"}}/>
             </div>
         </div>
     );

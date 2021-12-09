@@ -6,6 +6,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from payment import utilis
 from payment import models
+from users.models import UserExtended
 from payment import serializers
 from django.conf import settings
 import stripe
@@ -90,32 +91,30 @@ def stripe_webhook(request):
     endpoint_secret = "whsec_2NCkI7lwrop4nScVpALKfx3xcY5g94ww"
     event = None
     sig_header = request.headers['STRIPE_SIGNATURE']
-
     try:
         event = stripe.Webhook.construct_event(
             payload, sig_header, endpoint_secret
         )
     except ValueError as e:
         # Invalid payload
-        print(e)
-        raise (e)
+        raise(e)
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
-        print(e)
-        raise (e)
-
+        raise(e)
+    
     if event['type'] == 'checkout.session.completed':
         returned_session = event['data']['object']
-        user_email = returned_session['customer_email']
-        session_id = returned_session['id']
+        user_email = returned_session['customer_details']['email']
         session = stripe.checkout.Session.retrieve(
-            session_id, expand=['line_items']
+            returned_session['id'], expand=['line_items']
         )
-        coin_amount = session['line_items']['data'][0]['price']['transform_quantity']['divide_by']
-        print(coin_amount)
+        #print(session)
         if session['status'] == 'complete' and session['payment_status'] == 'paid':
-            pass
-
+            payment_intent = session['payment_intent']
+            stripe_price_id = session['line_items']['data'][0]['price']['id']
+            offer = models.Offer.objects.get(stripe_price_id=stripe_price_id)
+            user = UserExtended.objects.get(email=user_email)
+            utilis.create_transaction(user=user, offer_id=offer.id, stripe_pi_id=payment_intent)
 
     else:
         print("Unhandled event type {}".format(event['type']))

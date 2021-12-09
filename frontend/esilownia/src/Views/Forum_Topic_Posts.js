@@ -5,8 +5,8 @@ import {Link, useLocation} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import {BsShield, BsShieldFill} from "react-icons/bs";
 import axios_variebles from "../components/Axios/Axios_variebles";
-import { BsFillTrashFill } from "react-icons/bs";
-import { AiFillEdit } from "react-icons/ai";
+import trashIcon from "../imgs/trash-10-16.png";
+import editIcon from "../imgs/edit-6-16.png";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 
 function ForumTopicPosts() {
@@ -264,7 +264,11 @@ function ForumTopicPosts() {
                                                                 )
                                                             }
                                                         })}
-                                                        <div id={`post-${post.id}`} className="forum-post-body">{post.body}</div>
+                                                                <div id={`post-${post.id}`} className="forum-post-body mt-3 border-top" style={{minHeight:'10px'}}>
+                                                                    <div className="container mt-2">
+                                                                        {post.body}
+                                                                    </div>
+                                                                </div>
                                                     </div>
                                                     <div className='col-md-3'>
                                                         <div className="forum-sub-title">{post.date.replace('T', " ").replace('Z', '').substr(0, 19)}</div>
@@ -274,8 +278,8 @@ function ForumTopicPosts() {
 
                                                 {(currentUser.id === post.owner) ? (
                                                     <div className='mt-2'>
-                                                        <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><AiFillEdit/></Button>
-                                                        <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><BsFillTrashFill/></Button>
+                                                        <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><img id={post.id} src={editIcon}/></Button>
+                                                        <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><img id={post.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
 
@@ -309,14 +313,12 @@ function ForumTopicPosts() {
                                 </div>
 
                                 <div className="p-2 pl-4 mb-2 mt-2 border shadow">
-                                    <div className="pull-left m-r-md">
+                                    <div className="pull-left mr-2">
                                         <div className='row'>
-                                            <div className='col'>
-
+                                            <div className='col mr-2'>
                                                 <h2>Dodaj Post</h2>
-
-
-                                                <div className='container border justify-content-center p-3'>
+                                                <hr/>
+                                                <div className='container justify-content-center p-3'>
                                                     <div className='row justify-content-center'>
 
                                                         <div className="col-sm-12 p-1">
@@ -328,28 +330,20 @@ function ForumTopicPosts() {
                                                                        onChange={(e) => setNewPostDescription(e.target.value)}/>
                                                             </div>
                                                         </div>
-
                                                     </div>
-
-
                                                     <div className="col pt-2 pb-2">
                                                         <Button onClick={handleSubmitData} variant="btn" size="sm">Utwórz</Button>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
-
+                <div className="container" style={{height:"450px"}}/>
             </div>
         </div>
     );
