@@ -205,10 +205,10 @@ function ForumTopicsList() {
                                                         }
                                                     </div>
                                                     <div className="col-md-3">
-                                                        {uniqBy(userList, JSON.stringify).map((user)=>{
+                                                        {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                             if(user.id === topic.owner){
                                                                 return (
-                                                                    <div className="forum-sub-title">{user.first_name} {user.last_name}</div>
+                                                                    <div key={idx} className="forum-sub-title">{user.first_name} {user.last_name}</div>
                                                                 )
                                                             }
                                                         })}
