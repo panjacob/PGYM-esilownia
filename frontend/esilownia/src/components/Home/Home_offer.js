@@ -13,7 +13,7 @@ function HomeOffer() {
                         flexDirection: 'column',
                         justifyContent: 'space-between'}}>
                         <div>
-                        <h4 className="font-weight-light ">Dołacz jako Użytkownik</h4>
+                        <h4 className="font-weight-light ">Dołącz jako Użytkownik</h4>
                         <hr color={'black'} width={'30%'} className='my-4'/>
                         </div>
                         <p className="font-weight-light">Szukasz miejsca do ćwiczen bez wychodzenia z domu ? Nie
@@ -32,7 +32,7 @@ function HomeOffer() {
                         flexDirection: 'column',
                         justifyContent: 'space-between'}}>
                         <div>
-                        <h4 className="font-weight-light">Dołacz jako Trener lub Dietetyk</h4>
+                        <h4 className="font-weight-light">Dołącz jako Trener lub Dietetyk</h4>
                         <hr color={'black'} width={'30%'} className='my-4'/>
                         </div>
                         <p className="font-weight-light">Masz uprawnienia trenera fitness, trenera personalnego czy
