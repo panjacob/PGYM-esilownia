@@ -10,8 +10,8 @@ class UserDay(models.Model):
     weight = models.FloatField(default=0, blank=True)
     calories_burned = models.IntegerField(default=0)
     calories_eaten = models.IntegerField(default=0)
-    sleep_start = models.DateTimeField(default=timezone.now)
-    sleep_end = models.DateTimeField(default=timezone.now)
+    sleep_start = models.DateTimeField(default=None, null=True, blank=True)
+    sleep_end = models.DateTimeField(default=None, null=True, blank=True)
     steps = models.IntegerField(default=0)
 
 
