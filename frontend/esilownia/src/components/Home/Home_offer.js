@@ -16,8 +16,8 @@ function HomeOffer() {
                         <h4 className="font-weight-light ">Dołącz jako Użytkownik</h4>
                         <hr color={'black'} width={'30%'} className='my-4'/>
                         </div>
-                        <p className="font-weight-light">Szukasz miejsca do ćwiczen bez wychodzenia z domu ? Nie
-                            masz czasu na dojazdy na siłownie ?</p>
+                        <p className="font-weight-light">Szukasz miejsca do ćwiczeń bez wychodzenia z domu? Nie
+                            masz czasu na dojazdy na siłownie?</p>
 
                         <p className="font-weight-light">Jeśli tak to PGYM jest idealnym miejscem dla
                             Ciebie!</p>

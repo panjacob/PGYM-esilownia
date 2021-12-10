@@ -228,7 +228,7 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.weight}
+                                    {userDayData.weight} kg
                                 </div>
 
                                 <div className='col-sm-6'>
@@ -247,7 +247,7 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.calories_burned}
+                                    {userDayData.calories_burned} kcal
                                 </div>
 
                                 <div className='col-sm-6'>
@@ -266,7 +266,7 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.calories_eaten}
+                                    {userDayData.calories_eaten} kcal
                                 </div>
 
                                 <div className='col-sm-6'>
@@ -372,7 +372,7 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.weight}
+                                    {userDayData.weight} kg
                                 </div>
 
                                 <div className='col-sm-6'>
@@ -391,7 +391,7 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.calories_burned}
+                                    {userDayData.calories_burned} kcal
                                 </div>
 
                                 <div className='col-sm-6'>
@@ -410,7 +410,7 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.calories_eaten}
+                                    {userDayData.calories_eaten} kcal
                                 </div>
 
                                 <div className='col-sm-6'>
