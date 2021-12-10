@@ -351,7 +351,7 @@ function Dashboard_data_userday() {
             ) : (
                 <div className="col-md-11 mx-auto mt-3">
 
-                    <div className="card mb-3">
+                    <div className="card mb-3 bg-light">
                         <div className="card-body">
                             <div className="row">
 
@@ -478,8 +478,8 @@ function Dashboard_data_userday() {
                                 </div>
 
                             </div>
-
-                            <div className='row p-1'>
+                            <hr/>
+                            <div className='row p-1 mt-2'>
                                 <div className='col-sm-6'>
                                     <Button onClick={editShowHide} variant="btn" size="md">Edytuj</Button>
                                 </div>
