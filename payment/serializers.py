@@ -11,7 +11,7 @@ class TransactionSerializer(ModelSerializer):
 class OfferSerializer(ModelSerializer):
     class Meta:
         model = Offer
-        fields = ['id', 'name', 'price', 'coins']
+        fields = ['id', 'stripe_price_id', 'name', 'price', 'coins']
 
 
 class TrainingTransactionSerializer(ModelSerializer):

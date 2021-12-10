@@ -12,4 +12,7 @@ urlpatterns = [
     path('report/get', views.report_get, name='report_get'),
     path('report/all', views.report_all, name='report_all'),
     path('report/edit', views.report_edit, name='report_edit'),
+
+    path('user_ban', views.user_ban, name='user_ban'),
+    path('user_unban', views.user_unban, name='user_unban'),
 ]

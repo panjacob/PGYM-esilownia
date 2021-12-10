@@ -3,9 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import Button from "react-bootstrap/Button";
 import axios_variebles from "../Axios/Axios_variebles";
-import {AiFillEdit} from "react-icons/ai";
+import trashIcon from "../../imgs/trash-10-16.png";
 import {BsShield} from "react-icons/bs";
 import {Link} from "react-router-dom";
+
 
 
 function ForumTopicsList() {
@@ -96,8 +97,28 @@ function ForumTopicsList() {
 
     const handleDeleteTopic = (e) => {
         e.preventDefault();
-        console.log(e.target.id)
-        console.log(topicsList)
+        //console.log(e.target.id)
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+        var formdata = new FormData();
+        formdata.append("id", e.target.id);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch(axios_variebles.baseURL + "forum/topic/remove", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                window.location.reload()
+            })
+            .catch(error => console.log('error', error));
+
     }
 
     return (
@@ -108,16 +129,13 @@ function ForumTopicsList() {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="wrapper wrapper-content animated fadeInRight">
-
-                                <div className="p-2 pl-4 mb-2 mt-2 border shadow">
-                                        <div className="pull-left m-r-md">
+                                <div className="p-2 pl-4 mb-3 mt-2 border shadow">
+                                        <div className="pull-left mr-2">
                                             <div className='row'>
                                                 <div className='col'>
-
                                                     <h2>Dodaj Temat</h2>
-
-
-                                                    <div className='container border justify-content-center p-3'>
+                                                    <hr/>
+                                                    <div className='container  justify-content-center p-3'>
                                                         <div className='row justify-content-center'>
                                                             <div className="col-sm-4 p-1">
                                                                 <div className="col-sm-12">
@@ -157,11 +175,12 @@ function ForumTopicsList() {
 
                                     <div className="forum-title">
                                         <h3>Tematy</h3>
+                                        <hr/>
                                     </div>
 
-                                    {topicsList.map((topic) => {
+                                    {topicsList.map((topic,idx) => {
                                         return (
-                                            <div className="forum-item">
+                                            <div key={idx} className="forum-item">
 
                                                 <div className="row align-middle">
 
@@ -184,10 +203,10 @@ function ForumTopicsList() {
                                                         }
                                                     </div>
                                                     <div className="col-md-3">
-                                                        {uniqBy(userList, JSON.stringify).map((user)=>{
+                                                        {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                             if(user.id === topic.owner){
                                                                 return (
-                                                                    <div className="forum-sub-title">{user.first_name} {user.last_name}</div>
+                                                                    <div key={idx} className="forum-sub-title">{user.first_name} {user.last_name}</div>
                                                                 )
                                                             }
                                                         })}
@@ -199,11 +218,17 @@ function ForumTopicsList() {
                                                     {topic.post_count}
                                                 </span>
                                                         <div>
-                                                            <small>Posts</small>
+                                                            <small>Posty</small>
                                                         </div>
                                                     </div>
 
                                                 </div>
+
+                                                {(currentUser.id === topic.owner) ? (
+                                                    <div className='mt-2'>
+                                                        <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><img id={topic.id} src={trashIcon}/></Button>
+                                                    </div>
+                                                ) : ('')}
 
                                             </div>
                                         )
@@ -216,6 +241,7 @@ function ForumTopicsList() {
 
                     </div>
                 </div>
+                <div className="container" style={{height:"450px"}}/>
             </div>
         </div>
     );

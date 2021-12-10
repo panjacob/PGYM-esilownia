@@ -17,5 +17,4 @@ urlpatterns = [
 
     path('photo/add', views.user_photo_add, name='photo_add'),
     path('photo/remove', views.user_photo_remove, name='photo_remove'),
-
 ]

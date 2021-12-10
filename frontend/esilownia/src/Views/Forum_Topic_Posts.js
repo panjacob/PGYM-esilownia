@@ -5,6 +5,9 @@ import {Link, useLocation} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import {BsShield, BsShieldFill} from "react-icons/bs";
 import axios_variebles from "../components/Axios/Axios_variebles";
+import trashIcon from "../imgs/trash-10-16.png";
+import editIcon from "../imgs/edit-6-16.png";
+import profilePicture from "../imgs/basic_profile_photo.jpg";
 
 function ForumTopicPosts() {
 
@@ -12,8 +15,10 @@ function ForumTopicPosts() {
     const [topicDate, setTopicDate] = useState('')
     const [postList, setPostList] = useState([])
     const [userList, setUserList] = useState([])
+    const [currentUser, setCurrentUser] = useState({})
 
     const [newPostDescription, setNewPostDescription] = useState('')
+    const [editPostDescription, setEditPostDescription] = useState('')
 
     const location = useLocation()
 
@@ -57,6 +62,17 @@ function ForumTopicPosts() {
                         });
                 });
 
+        axiosInstance
+            .post(`/users/info/`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setCurrentUser(res.data)
+            });
+
     },[]);
 
     function uniqBy(a, key) {
@@ -74,7 +90,7 @@ function ForumTopicPosts() {
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
 
         var formdata = new FormData();
-        formdata.append("topic_id", '1');
+        formdata.append("topic_id", topicData.id);
         formdata.append("body", newPostDescription);
 
         var requestOptions = {
@@ -91,6 +107,76 @@ function ForumTopicPosts() {
                 window.location.reload();
             })
             .catch(error => console.log('error', error));
+    }
+
+    const handleDeletePost = (e) => {
+        e.preventDefault();
+        //console.log(e.target.id)
+        let id = e.target.id
+        //console.log(id)
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+        var formdata = new FormData();
+        formdata.append("id", e.target.id );
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch(axios_variebles.baseURL + "forum/post/remove", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                window.location.reload()
+            })
+            .catch(error => console.log('error', error));
+    }
+    const handleEditPost = (e) => {
+        e.preventDefault();
+        console.log(e.target.id)
+
+        console.log(document.getElementById(`post-${e.target.id}`).innerText)
+        console.log(editPostDescription)
+
+        if(document.getElementById(`post-${e.target.id}`).innerText !== editPostDescription && editPostDescription !== '') {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+        var formdata = new FormData();
+        formdata.append("id", e.target.id);
+        formdata.append("body", editPostDescription);
+
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch(axios_variebles.baseURL + "forum/post/edit", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                setEditPostDescription('')
+                window.location.reload();
+            })
+            .catch(error => console.log('error', error));
+        }
+    }
+
+    const editShowHide = (e) => {
+        e.preventDefault();
+
+        var x = document.getElementById(`editPost-${e.target.id}`);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
     }
 
     return (
@@ -117,10 +203,10 @@ function ForumTopicPosts() {
                                                 <div className="forum-sub-title">{topicData.body}</div>
                                             </div>
                                             <div className='col-md-3'>
-                                                {uniqBy(userList, JSON.stringify).map((user)=>{
+                                                {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                     if(user.id === topicData.owner){
                                                         return (
-                                                            <div className="forum-sub-title">{user.first_name} {user.last_name}</div>
+                                                            <div key={idx} className="forum-sub-title">{user.first_name} {user.last_name}</div>
                                                         )
                                                     }
                                                 })}
@@ -141,31 +227,84 @@ function ForumTopicPosts() {
                                         var c = new Date(a.date);
                                         var d = new Date(b.date);
                                         return c-d;
-                                    }).map((post) => {
+                                    }).map((post,idx) => {
                                         return (
-                                            <div className="forum-item">
+                                            <div key={idx} className="forum-item">
 
                                                 <div className="row align-middle">
 
                                                     <div className="col-md-1">
-                                                        <div className="forum-icon align-middle">
-                                                            <BsShield className='mid-icon'></BsShield>
+                                                        <div className="forum-photo align-middle">
+                                                            {uniqBy(userList, JSON.stringify).map((user,idx)=>{
+                                                                if(user.id === post.owner) {
+                                                                    if (user.profile_photo === null) {
+                                                                        return (
+                                                                            <img key={idx} src={profilePicture} alt="..."
+                                                                                 className="img-thumbnail" width='200px'
+                                                                                 height='200px'/>
+                                                                        )
+                                                                    } else {
+                                                                        return (
+                                                                            <img key={idx}
+                                                                                src={axios_variebles.baseURL.slice(0, -1) + user.profile_photo}
+                                                                                alt="..." className="img-thumbnail"
+                                                                                width='200px'
+                                                                                height='200px'/>
+                                                                        )
+                                                                    }
+                                                                }
+                                                            })}
                                                         </div>
                                                     </div>
                                                     <div className="col-md-8">
-                                                        {uniqBy(userList, JSON.stringify).map((user)=>{
+                                                        {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                             if(user.id === post.owner){
                                                                 return (
-                                                                    <div className="forum-post-title">{user.first_name} {user.last_name}</div>
+                                                                    <div key={idx} className="forum-post-title">{user.first_name} {user.last_name}</div>
                                                                 )
                                                             }
                                                         })}
-                                                        <div className="forum-post-body">{post.body}</div>
+                                                                <div id={`post-${post.id}`} className="forum-post-body mt-3 border-top" style={{minHeight:'10px'}}>
+                                                                    <div className="container mt-2">
+                                                                        {post.body}
+                                                                    </div>
+                                                                </div>
                                                     </div>
                                                     <div className='col-md-3'>
                                                         <div className="forum-sub-title">{post.date.replace('T', " ").replace('Z', '').substr(0, 19)}</div>
                                                     </div>
 
+                                                </div>
+
+                                                {(currentUser.id === post.owner) ? (
+                                                    <div className='mt-2'>
+                                                        <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><img id={post.id} src={editIcon}/></Button>
+                                                        <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><img id={post.id} src={trashIcon}/></Button>
+                                                    </div>
+                                                ) : ('')}
+
+                                                <div id={`editPost-${post.id}`} style={{display:'none'}}>
+                                                    <div className='container border justify-content-center p-3'>
+                                                        <div className='row justify-content-center'>
+
+                                                            <div className="col-sm-12 p-1">
+                                                                <div className="col-sm-12">
+                                                                    <h6 className="mb-0">Edytuj Zawartość</h6>
+                                                                </div>
+                                                                <div className="col-sm-12 text-secondary">
+                                                                    <input type="text" className="form-control form-control-sm" placeholder={post.body}
+                                                                           onChange={(e) => setEditPostDescription(e.target.value)}/>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <div className="col pt-2 pb-2">
+                                                            <Button id={post.id} onClick={handleEditPost} variant="btn" size="sm">Zapisz</Button>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -174,47 +313,37 @@ function ForumTopicPosts() {
                                 </div>
 
                                 <div className="p-2 pl-4 mb-2 mt-2 border shadow">
-                                    <div className="pull-left m-r-md">
+                                    <div className="pull-left mr-2">
                                         <div className='row'>
-                                            <div className='col'>
-
+                                            <div className='col mr-2'>
                                                 <h2>Dodaj Post</h2>
-
-
-                                                <div className='container border justify-content-center p-3'>
+                                                <hr/>
+                                                <div className='container justify-content-center p-3'>
                                                     <div className='row justify-content-center'>
 
                                                         <div className="col-sm-12 p-1">
                                                             <div className="col-sm-12">
-                                                                <h6 className="mb-0">Opis Tematu</h6>
+                                                                <h6 className="mb-0">Zawartosc Postu</h6>
                                                             </div>
                                                             <div className="col-sm-12 text-secondary">
                                                                 <input type="text" className="form-control form-control-sm" placeholder='Opis'
                                                                        onChange={(e) => setNewPostDescription(e.target.value)}/>
                                                             </div>
                                                         </div>
-
                                                     </div>
-
-
                                                     <div className="col pt-2 pb-2">
                                                         <Button onClick={handleSubmitData} variant="btn" size="sm">Utwórz</Button>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
-
+                <div className="container" style={{height:"450px"}}/>
             </div>
         </div>
     );
