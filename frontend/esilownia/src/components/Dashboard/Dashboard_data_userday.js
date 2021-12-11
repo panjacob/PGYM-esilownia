@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Carousel} from "react-bootstrap";
+import {Carousel, Form} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import DatePicker from "react-datepicker";
@@ -17,12 +17,15 @@ function Dashboard_data_userday() {
     const [startDate, setStartDate] = useState(new Date());
 
     const [userDayData, setUserDayData] = useState([])
+    const [sleepStart, setSleepStart] = useState('0')
+    const [sleepEnd, setSleepEnd] = useState('0')
+
 
     const [newWaga, setNewWaga] = useState('0')
     const [newSpaloneKalorie, setNewSpaloneKalorie] = useState('0')
     const [newSpozyteKalorie, setNewSpozyteKalorie] = useState('0')
-    const [newPoczatekSnu, setNewPoczatekSnu] = useState('2021-10-16 08:18:12')
-    const [newKoniecSnu, setNewKoniecSnu] = useState('2021-10-16 08:18:12')
+    const [newPoczatekSnu, setNewPoczatekSnu] = useState('')
+    const [newKoniecSnu, setNewKoniecSnu] = useState('')
     const [newKroki, setNewKroki] = useState('0')
 
 
@@ -37,11 +40,23 @@ function Dashboard_data_userday() {
             })
             .then((res) => {
                 setUserDayData(res.data)
+                if(res.data.sleep_start === null){
+                    setSleepStart('0')
+                } else {
+                    setSleepStart(res.data.sleep_start)
+                }
+                if(res.data.sleep_end === null){
+                    setSleepEnd('0')
+                } else {
+                    setSleepEnd(res.data.sleep_end)
+                }
             })
             .catch(function (error) {
                 if (error.response) {
                     if(error.response.status === 400) {
                         setUserDayData({'weight':0,'calories_burned':0,'calories_eaten':0,'sleep_start':0,'sleep_end':0,'steps':0})
+                        setSleepStart('0')
+                        setSleepEnd('0')
                     }
                 }
             });
@@ -59,6 +74,21 @@ function Dashboard_data_userday() {
         //console.log(convert( date ))
         setStartDate(date)
 
+        var x = document.getElementById(`editUserStat-1`);
+        x.style.display = "none"
+        var x = document.getElementById(`editUserStat-2`);
+        x.style.display = "none"
+        var x = document.getElementById(`editUserStat-3`);
+        x.style.display = "none"
+        var x = document.getElementById(`editUserStat-4`);
+        x.style.display = "none"
+        var x = document.getElementById(`editUserStat-5`);
+        x.style.display = "none"
+        var x = document.getElementById(`editUserStat-6`);
+        x.style.display = "none"
+        var x = document.getElementById(`editUserStat-7`);
+        x.style.display = "none"
+
         axiosInstance
             .post(`/dashboard/user_day/get`, { date: convert( date )},{
                 headers: {
@@ -68,11 +98,23 @@ function Dashboard_data_userday() {
             })
             .then((res) => {
                 setUserDayData(res.data)
+                if(res.data.sleep_start === null){
+                    setSleepStart('0')
+                } else {
+                    setSleepStart(res.data.sleep_start)
+                }
+                if(res.data.sleep_end === null){
+                    setSleepEnd('0')
+                } else {
+                    setSleepEnd(res.data.sleep_end)
+                }
             })
             .catch(function (error) {
                 if (error.response) {
                     if(error.response.status === 400) {
                         setUserDayData({'weight':0,'calories_burned':0,'calories_eaten':0,'sleep_start':0,'sleep_end':0,'steps':0})
+                        setSleepStart('0')
+                        setSleepEnd('0')
                     }
                 }
             });;
@@ -153,13 +195,13 @@ function Dashboard_data_userday() {
             urlencoded.append("steps", userDayData.steps);
         }
 
-        if(newPoczatekSnu !== '0'){
+        if(newPoczatekSnu !== ''){
             urlencoded.append("sleep_start", newPoczatekSnu);
         }else{
             urlencoded.append("sleep_start", userDayData.sleep_start);
         }
 
-        if(newKoniecSnu !== '0'){
+        if(newKoniecSnu !== ''){
             urlencoded.append("sleep_end", newKoniecSnu);
         }else{
             urlencoded.append("sleep_end", userDayData.sleep_end);
@@ -285,13 +327,16 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.sleep_start}
+                                    {sleepStart.replace('T', " ").replace('Z', "")}
                                 </div>
 
                                 <div className='col-sm-6'>
                                     <div id={`editUserStat-4`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewPoczatekSnu(e.target.value)}/>
+                                        <Form.Control
+                                            type="datetime-local"
+                                            value={newPoczatekSnu}
+                                            onChange={(e) => setNewPoczatekSnu(e.target.value)}
+                                        />
                                     </div>
                                 </div>
 
@@ -304,13 +349,16 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.sleep_end}
+                                    {sleepEnd.replace('T', " ").replace('Z', "")}
                                 </div>
 
                                 <div className='col-sm-6'>
                                     <div id={`editUserStat-5`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewKoniecSnu(e.target.value)}/>
+                                        <Form.Control
+                                            type="datetime-local"
+                                            value={newKoniecSnu}
+                                            onChange={(e) => setNewKoniecSnu(e.target.value)}
+                                        />
                                     </div>
                                 </div>
 
@@ -429,13 +477,16 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.sleep_start}
+                                    {sleepStart.replace('T', " ").replace('Z', "")}
                                 </div>
 
                                 <div className='col-sm-6'>
                                     <div id={`editUserStat-4`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewPoczatekSnu(e.target.value)}/>
+                                        <Form.Control
+                                            type="datetime-local"
+                                            value={newPoczatekSnu}
+                                            onChange={(e) => setNewPoczatekSnu(e.target.value)}
+                                        />
                                     </div>
                                 </div>
 
@@ -448,13 +499,16 @@ function Dashboard_data_userday() {
                                 </div>
 
                                 <div className="col-sm-3 text-secondary">
-                                    {userDayData.sleep_end}
+                                    {sleepEnd.replace('T', " ").replace('Z', "")}
                                 </div>
 
                                 <div className='col-sm-6'>
                                     <div id={`editUserStat-5`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewKoniecSnu(e.target.value)}/>
+                                        <Form.Control
+                                            type="datetime-local"
+                                            value={newKoniecSnu}
+                                            onChange={(e) => setNewKoniecSnu(e.target.value)}
+                                        />
                                     </div>
                                 </div>
 
