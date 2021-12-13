@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from diet.models import DietGroup, DietGroupParticipant
+from diet.models import DietGroup, DietGroupParticipant, DietGroupType
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
-    participantsSerializerGet
+    participantsSerializerGet, DietGroupTypesSerializer
 from payment.utilis import user1_give_money_user2_training
 from training.utilis import get_price_and_days_to_add, participant_extend_subscription
 from users.utilis import put_owner_in_request_data
@@ -109,15 +109,14 @@ def diet_group_all(request):
         serializer = DietGroupSerializerGetAll(diet_group)
         result.append(serializer.data)
     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
-#
-#
-# @api_view(['POST'])
-# def training_group_type_get(request):
-#     training_group_type = models.TrainingGroupType.objects.get(id=request.data['id'])
-#     serializer = TrainingGroupTypesSerializer(training_group_type)
-#     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
-#
-#
+
+
+@api_view(['POST'])
+def diet_group_type_get(request):
+    diet_group_type = DietGroupType.objects.get(id=request.data['id'])
+    serializer = DietGroupTypesSerializer(diet_group_type)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
+
 # @api_view(['POST'])
 # def training_group_type_all(request):
 #     training_group_types = models.TrainingGroupType.objects.all()
