@@ -84,14 +84,13 @@ def diet_group_join(request):
     user1_give_money_user2_training(user, owner, price)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
-#
-#
-# @api_view(['POST'])
-# # @training_group_owner_required()
-# def training_group_participant_remove(request):
-#     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
-#     models.TrainingGroupParticipant.objects.get(user=request.data['user'], training_group=training_group).delete()
-#     return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def diet_group_participant_remove(request):
+    diet_group = DietGroup.objects.get(id=request.data['diet_group'])
+    DietGroupParticipant.objects.get(user=request.data['user'], diet_group=diet_group).delete()
+    return Response({'OK'}, status=status.HTTP_200_OK)
 #
 #
 
