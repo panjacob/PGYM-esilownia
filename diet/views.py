@@ -1,10 +1,11 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from diet.models import DietGroup
-from diet.serializers import DietGroupSerializerCreate
+from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet
 from users.utilis import put_owner_in_request_data
 
 MAX_PING_ACTIVE_SECONDS = 30
@@ -31,8 +32,33 @@ def diet_group_edit(request):
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#
-#
+
+
+@api_view(['POST'])
+def diet_group_get(request):
+    training_group = DietGroup.objects.get(id=request.data['id'])
+    serializer = DietGroupSerializerGet(training_group)
+    result = serializer.data
+    # result['images'] = []
+    # result['videos'] = []
+    # result['trainings'] = []
+    # result['participants'] = []
+
+    # for training_group_image in training_group.traininggroupimage_set.all():
+    #     try:
+    #         result['images'].append({'id': training_group_image.id, 'url': training_group_image.image.url})
+    #     except Exception as e:
+    #         print(e)
+    # for training_group_video in training_group.traininggroupvideo_set.all():
+    #     try:
+    #         result['videos'].append({'id': training_group_video.id, 'url': training_group_video.video.url})
+    #     except Exception as e:
+    #         print(e)
+    # for training in training_group.training_set.all():
+    #     result['trainings'] += {training.id}
+    # for participant in training_group.traininggroupparticipant_set.all():
+    #     result['participants'].append(participantsSerializerGet(participant))
+    return JsonResponse(result, safe=False)
 # @api_view(['POST'])
 # def training_group_join(request):
 #     user = request.user
@@ -63,31 +89,7 @@ def diet_group_edit(request):
 #     return Response({'OK'}, status=status.HTTP_200_OK)
 #
 #
-# @api_view(['POST'])
-# def training_group_get(request):
-#     training_group = models.TrainingGroup.objects.get(id=request.data['id'])
-#     serializer = TrainingGroupSerializerGet(training_group)
-#     result = serializer.data
-#     result['images'] = []
-#     result['videos'] = []
-#     result['trainings'] = []
-#     result['participants'] = []
-#
-#     for training_group_image in training_group.traininggroupimage_set.all():
-#         try:
-#             result['images'].append({'id': training_group_image.id, 'url': training_group_image.image.url})
-#         except Exception as e:
-#             print(e)
-#     for training_group_video in training_group.traininggroupvideo_set.all():
-#         try:
-#             result['videos'].append({'id': training_group_video.id, 'url': training_group_video.video.url})
-#         except Exception as e:
-#             print(e)
-#     for training in training_group.training_set.all():
-#         result['trainings'] += {training.id}
-#     for participant in training_group.traininggroupparticipant_set.all():
-#         result['participants'].append(participantsSerializerGet(participant))
-#     return JsonResponse(result)
+
 #
 #
 # @api_view(['POST'])

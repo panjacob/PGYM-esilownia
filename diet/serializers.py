@@ -19,3 +19,13 @@ class DietGroupSerializerCreate(ModelSerializer):
 
         fields = ['owner', 'title', 'description', 'type', 'price_day', 'price_week', 'price_month', 'image',
                   'is_private']
+
+
+class DietGroupSerializerGet(ModelSerializer):
+    class Meta:
+        model = DietGroup
+        owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        type = DietGroupTypesSerializer(read_only=True, many=True)
+
+        fields = ['id', 'owner', 'date', 'title', 'description', 'type', 'price_day',
+                  'price_week', 'price_month', 'image', 'is_private']
