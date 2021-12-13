@@ -117,14 +117,15 @@ def diet_group_type_get(request):
     serializer = DietGroupTypesSerializer(diet_group_type)
     return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
 
-# @api_view(['POST'])
-# def training_group_type_all(request):
-#     training_group_types = models.TrainingGroupType.objects.all()
-#     response = []
-#     for training_group_type in training_group_types:
-#         serializer = TrainingGroupTypesSerializer(training_group_type)
-#         response.append(serializer.data)
-#     return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
+
+@api_view(['POST'])
+def diet_group_type_all(request):
+    diet_group_types = DietGroupType.objects.all()
+    response = []
+    for diet_group_type in diet_group_types:
+        serializer = DietGroupTypesSerializer(diet_group_type)
+        response.append(serializer.data)
+    return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
 #
 #
 # @api_view(['POST'])
