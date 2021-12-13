@@ -122,7 +122,6 @@ function Dashboard_data_userday() {
 
     const editShowHide = (e) => {
         e.preventDefault();
-        //console.log(e.target.name)
         var x = document.getElementById(`editUserStat-1`);
         if (x.style.display === "none") {
             x.style.display = "block";
@@ -289,7 +288,9 @@ function Dashboard_data_userday() {
 
                                             <div className='col-sm-6'>
                                                 <div id={`editUserStat-1`} style={{display:'none'}}>
-                                                    <input type="text" className="form-control form-control-sm"
+                                                    <input type="number" className="form-control form-control-sm"
+                                                           max="300"
+                                                           min="0"
                                                            onChange={(e) => setNewWaga(e.target.value)}/>
                                                 </div>
                                             </div>
@@ -308,7 +309,9 @@ function Dashboard_data_userday() {
 
                                             <div className='col-sm-6'>
                                                 <div id={`editUserStat-2`} style={{display:'none'}}>
-                                                    <input type="text" className="form-control form-control-sm"
+                                                    <input type="number" className="form-control form-control-sm"
+                                                           min="0"
+                                                           max="20000"
                                                            onChange={(e) => setNewSpaloneKalorie(e.target.value)}/>
                                                 </div>
                                             </div>
@@ -327,7 +330,9 @@ function Dashboard_data_userday() {
 
                                             <div className='col-sm-6'>
                                                 <div id={`editUserStat-3`} style={{display:'none'}}>
-                                                    <input type="text" className="form-control form-control-sm"
+                                                    <input type="number" className="form-control form-control-sm"
+                                                           min="0"
+                                                           max="20000"
                                                            onChange={(e) => setNewSpozyteKalorie(e.target.value)}/>
                                                 </div>
                                             </div>
@@ -390,7 +395,9 @@ function Dashboard_data_userday() {
 
                                             <div className='col-sm-6'>
                                                 <div id={`editUserStat-6`} style={{display:'none'}}>
-                                                    <input type="text" className="form-control form-control-sm"
+                                                    <input type="number" className="form-control form-control-sm"
+                                                           min="0"
+                                                           max="73000"
                                                            onChange={(e) => setNewKroki(e.target.value)}/>
                                                 </div>
                                             </div>
@@ -439,7 +446,9 @@ function Dashboard_data_userday() {
 
                                             <div className='col-sm-6'>
                                                 <div id={`editUserStat-1`} style={{display:'none'}}>
-                                                    <input type="text" className="form-control form-control-sm"
+                                                    <input type="number" className="form-control form-control-sm"
+                                                           max="300"
+                                                           min="0"
                                                            onChange={(e) => setNewWaga(e.target.value)}/>
                                                 </div>
                                             </div>
@@ -458,7 +467,9 @@ function Dashboard_data_userday() {
 
                                             <div className='col-sm-6'>
                                                 <div id={`editUserStat-2`} style={{display:'none'}}>
-                                                    <input type="text" className="form-control form-control-sm"
+                                                    <input type="number" className="form-control form-control-sm"
+                                                           min="0"
+                                                           max="20000"
                                                            onChange={(e) => setNewSpaloneKalorie(e.target.value)}/>
                                                 </div>
                                             </div>
@@ -477,7 +488,9 @@ function Dashboard_data_userday() {
 
                                             <div className='col-sm-6'>
                                                 <div id={`editUserStat-3`} style={{display:'none'}}>
-                                                    <input type="text" className="form-control form-control-sm"
+                                                    <input type="number" className="form-control form-control-sm"
+                                                           min="0"
+                                                           max="20000"
                                                            onChange={(e) => setNewSpozyteKalorie(e.target.value)}/>
                                                 </div>
                                             </div>
@@ -540,7 +553,9 @@ function Dashboard_data_userday() {
 
                                             <div className='col-sm-6'>
                                                 <div id={`editUserStat-6`} style={{display:'none'}}>
-                                                    <input type="text" className="form-control form-control-sm"
+                                                    <input type="number" className="form-control form-control-sm"
+                                                           min="0"
+                                                           max="73000"
                                                            onChange={(e) => setNewKroki(e.target.value)}/>
                                                 </div>
                                             </div>
