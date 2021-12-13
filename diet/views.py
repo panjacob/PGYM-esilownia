@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from diet.models import DietGroup
 from diet.serializers import DietGroupSerializerCreate
 from users.utilis import put_owner_in_request_data
 
@@ -20,17 +21,16 @@ def diet_group_create(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# @api_view(['POST'])
-# # Trainer required
-# def training_group_edit(request):
-#     request = put_owner_in_request_data(request)
-#     instance = TrainingGroup.objects.get(id=request.data['id'])
-#     serializer = TrainingGroupSerializerCreate(instance=instance, data=request.data)
-#
-#     if serializer.is_valid():
-#         if serializer.save():
-#             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def diet_group_edit(request):
+    request = put_owner_in_request_data(request)
+    instance = DietGroup.objects.get(id=request.data['id'])
+    serializer = DietGroupSerializerCreate(instance=instance, data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #
 #
 # @api_view(['POST'])
