@@ -22,7 +22,6 @@ DietGroupTypes = [
 
 class DietGroupType(models.Model):
     type = models.CharField(max_length=50, unique=True)
-    description = models.CharField(max_length=300)
 
 
 class DietFile(models.Model):
