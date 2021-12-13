@@ -265,7 +265,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-3">
                                     <h6 className="mb-0">Waga</h6>
                                 </div>
 
@@ -284,7 +284,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-3">
                                     <h6 className="mb-0">Spalone Kalorie</h6>
                                 </div>
 
@@ -303,7 +303,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-3">
                                     <h6 className="mb-0">Spożyte Kalorie</h6>
                                 </div>
 
@@ -322,7 +322,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-4">
                                     <h6 className="mb-0">Początek Snu</h6>
                                 </div>
 
@@ -344,7 +344,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-4">
                                     <h6 className="mb-0">Koniec Snu</h6>
                                 </div>
 
@@ -366,7 +366,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-3">
                                     <h6 className="mb-0">Kroki</h6>
                                 </div>
 
@@ -382,7 +382,7 @@ function Dashboard_data_userday() {
                                 </div>
 
                             </div>
-
+                            <hr/>
                             <div className='row p-1'>
                                 <div className='col-sm-6'>
                                     <Button onClick={editShowHide} variant="btn" size="md">Edytuj</Button>
