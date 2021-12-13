@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import profilePicture from '../../imgs/basic_profile_photo.jpg'
+import gymcoinIco from '../../imgs/gymcoin.ico'
 import axiosInstance from "../Axios/Axios";
 import axios_variebles from "../Axios/Axios_variebles";
 
@@ -80,7 +81,7 @@ function Dashboard_data_user() {
                                 </div>
 
                                 <div className="col-sm-7 text-secondary ">
-                                    <h5 className="mb-0">{gymcoin}</h5>
+                                    <h5 className="mb-0">{gymcoin}<img className="mb-1" src={gymcoinIco} style={{height:'20px'}}/></h5>
                                 </div>
 
                             </div>
