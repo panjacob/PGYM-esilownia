@@ -5,9 +5,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from diet.models import DietGroup, DietGroupParticipant
-from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet
+from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
+    participantsSerializerGet
 from payment.utilis import user1_give_money_user2_training
-from diet.serializers import participantsSerializerGet
 from training.utilis import get_price_and_days_to_add, participant_extend_subscription
 from users.utilis import put_owner_in_request_data
 
@@ -99,16 +99,16 @@ def diet_group_remove(request):
     diet_group.delete()
 
     return Response({'OK'}, status=status.HTTP_200_OK)
-#
-#
-# @api_view(['POST'])
-# def training_group_all(request):
-#     result = []
-#     training_groups = TrainingGroup.objects.all()
-#     for training_group in training_groups:
-#         serializer = TrainingGroupSerializerGetAll(training_group)
-#         result.append(serializer.data)
-#     return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+@api_view(['POST'])
+def diet_group_all(request):
+    result = []
+    diet_groups = DietGroup.objects.all()
+    for diet_group in diet_groups:
+        serializer = DietGroupSerializerGetAll(diet_group)
+        result.append(serializer.data)
+    return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
 #
 #
 # @api_view(['POST'])

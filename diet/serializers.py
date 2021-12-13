@@ -38,3 +38,12 @@ def participantsSerializerGet(participant):
         'subscription_end': participant.subscription_end
     }
     return result
+
+
+class DietGroupSerializerGetAll(ModelSerializer):
+    class Meta:
+        model = DietGroup
+        owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+        type = DietGroupTypesSerializer(read_only=True, many=True)
+
+        fields = ['id', 'owner', 'title', 'type', 'image', 'is_private']
