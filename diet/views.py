@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from diet.models import DietGroup, DietGroupParticipant, DietGroupType
+from diet.models import DietGroup, DietGroupParticipant, DietGroupType, DietGroupFile
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
     participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer
 from payment.utilis import user1_give_money_user2_training
@@ -138,12 +138,12 @@ def diet_group_file_add(request):
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-#
-# @api_view(['POST'])
-# def training_group_video_remove(request):
-#     video_id = request.data['id']
-#     print(video_id)
-#     if TrainingGroupVideo.objects.filter(id=video_id).exists():
-#         TrainingGroupVideo.objects.get(id=video_id).delete()
-#         return Response({'OK'}, status=status.HTTP_200_OK)
-#     return Response({'error': 'Video doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def diet_group_file_remove(request):
+    file_id = request.data['id']
+    print(file_id)
+    if DietGroupFile.objects.filter(id=file_id).exists():
+        DietGroupFile.objects.get(id=file_id).delete()
+        return Response({'OK'}, status=status.HTTP_200_OK)
+    return Response({'error': 'File doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)

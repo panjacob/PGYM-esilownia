@@ -14,4 +14,5 @@ urlpatterns = [
     path('group/type/all', views.diet_group_type_all, name='diet_group_type_all'),
 
     path('group/file/add', views.diet_group_file_add, name='diet_group_file_add'),
+    path('group/file/remove', views.diet_group_file_remove, name='diet_group_file_remove'),
 ]
