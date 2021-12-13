@@ -241,7 +241,12 @@ function Dashboard_data_userday() {
 
             <div className='row justify-content-center' style={{minHeight:'200px'}}>
                 <div className='col-4 justify-content-center text-center'>
-                <DatePicker locale="pl" className='text-center justify-content-center' dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => selectedDate(date)} inline showPopperArrow={false} />
+                <DatePicker
+                    locale="pl"
+                    className='react-datepicker'
+                    dateFormat="dd/MM/yyyy"
+                    selected={startDate}
+                    onChange={(date) => selectedDate(date)} inline showPopperArrow={false} />
                 </div>
             </div>
 
@@ -415,7 +420,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-3">
                                     <h6 className="mb-0">Waga</h6>
                                 </div>
 
@@ -434,7 +439,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-3">
                                     <h6 className="mb-0">Spalone Kalorie</h6>
                                 </div>
 
@@ -453,7 +458,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-3">
                                     <h6 className="mb-0">Spożyte Kalorie</h6>
                                 </div>
 
@@ -472,7 +477,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-4">
                                     <h6 className="mb-0">Początek Snu</h6>
                                 </div>
 
@@ -494,7 +499,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-4">
                                     <h6 className="mb-0">Koniec Snu</h6>
                                 </div>
 
@@ -516,7 +521,7 @@ function Dashboard_data_userday() {
                             <hr></hr>
                             <div className="row">
 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 mb-3">
                                     <h6 className="mb-0">Kroki</h6>
                                 </div>
 
