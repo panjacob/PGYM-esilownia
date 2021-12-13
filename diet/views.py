@@ -42,25 +42,18 @@ def diet_group_get(request):
     diet_group = DietGroup.objects.get(id=request.data['id'])
     serializer = DietGroupSerializerGet(diet_group)
     result = serializer.data
-    # result['images'] = []
-    # result['videos'] = []
-    # result['trainings'] = []
+    result['files'] = []
     result['participants'] = []
 
-    # for training_group_image in training_group.traininggroupimage_set.all():
-    #     try:
-    #         result['images'].append({'id': training_group_image.id, 'url': training_group_image.image.url})
-    #     except Exception as e:
-    #         print(e)
-    # for training_group_video in training_group.traininggroupvideo_set.all():
-    #     try:
-    #         result['videos'].append({'id': training_group_video.id, 'url': training_group_video.video.url})
-    #     except Exception as e:
-    #         print(e)
-    # for training in training_group.training_set.all():
-    #     result['trainings'] += {training.id}
+    for diet_group_file in diet_group.dietgroupfile_set.all():
+        try:
+            result['files'].append({'id': diet_group_file.id, 'url': diet_group_file.file.url})
+        except Exception as e:
+            print(e)
+
     for participant in diet_group.dietgroupparticipant_set.all():
         result['participants'].append(participantsSerializerGet(participant))
+
     return JsonResponse(result, safe=False)
 
 

@@ -35,8 +35,9 @@ class DietGroup(models.Model):
     price_day = models.IntegerField(default=None, null=True)
     price_week = models.IntegerField(default=None, null=True)
     price_month = models.IntegerField(default=None, null=True)
-
     image = models.ImageField(null=True, blank=True)
+
+    ping = models.IntegerField(default=0)
 
 
 class DietGroupParticipant(models.Model):
