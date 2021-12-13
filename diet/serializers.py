@@ -29,3 +29,12 @@ class DietGroupSerializerGet(ModelSerializer):
 
         fields = ['id', 'owner', 'date', 'title', 'description', 'type', 'price_day',
                   'price_week', 'price_month', 'image', 'is_private']
+
+
+def participantsSerializerGet(participant):
+    result = {
+        'diet_group_participant': participant.id,
+        'user': participant.user.id,
+        'subscription_end': participant.subscription_end
+    }
+    return result

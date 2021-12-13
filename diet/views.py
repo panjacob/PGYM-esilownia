@@ -4,8 +4,11 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from diet.models import DietGroup
+from diet.models import DietGroup, DietGroupParticipant
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet
+from payment.utilis import user1_give_money_user2_training
+from diet.serializers import participantsSerializerGet
+from training.utilis import get_price_and_days_to_add, participant_extend_subscription
 from users.utilis import put_owner_in_request_data
 
 MAX_PING_ACTIVE_SECONDS = 30
@@ -36,13 +39,13 @@ def diet_group_edit(request):
 
 @api_view(['POST'])
 def diet_group_get(request):
-    training_group = DietGroup.objects.get(id=request.data['id'])
-    serializer = DietGroupSerializerGet(training_group)
+    diet_group = DietGroup.objects.get(id=request.data['id'])
+    serializer = DietGroupSerializerGet(diet_group)
     result = serializer.data
     # result['images'] = []
     # result['videos'] = []
     # result['trainings'] = []
-    # result['participants'] = []
+    result['participants'] = []
 
     # for training_group_image in training_group.traininggroupimage_set.all():
     #     try:
@@ -56,29 +59,31 @@ def diet_group_get(request):
     #         print(e)
     # for training in training_group.training_set.all():
     #     result['trainings'] += {training.id}
-    # for participant in training_group.traininggroupparticipant_set.all():
-    #     result['participants'].append(participantsSerializerGet(participant))
+    for participant in diet_group.dietgroupparticipant_set.all():
+        result['participants'].append(participantsSerializerGet(participant))
     return JsonResponse(result, safe=False)
-# @api_view(['POST'])
-# def training_group_join(request):
-#     user = request.user
-#     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
-#     owner = training_group.owner
-#     price, days_to_add = get_price_and_days_to_add(request.data['payment_type'], training_group)
-#
-#     if price is None and days_to_add is None:
-#         return Response({'Payment type is invalid'}, status=status.HTTP_400_BAD_REQUEST)
-#
-#     if user.money < price:
-#         return Response({'User does not have enough money'}, status=status.HTTP_400_BAD_REQUEST)
-#
-#     training_group_participant, _ = models.TrainingGroupParticipant.objects.get_or_create(user=user,
-#                                                                                           training_group=training_group)
-#
-#     participant_extend_subscription(training_group_participant, days_to_add)
-#     user1_give_money_user2_training(user, owner, price)
-#
-#     return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def diet_group_join(request):
+    user = request.user
+    diet_group = DietGroup.objects.get(id=request.data['diet_group'])
+    print('A')
+    owner = diet_group.owner
+    price, days_to_add = get_price_and_days_to_add(request.data['payment_type'], diet_group)
+
+    if price is None and days_to_add is None:
+        return Response({'Payment type is invalid'}, status=status.HTTP_400_BAD_REQUEST)
+
+    if user.money < price:
+        return Response({'User does not have enough money'}, status=status.HTTP_400_BAD_REQUEST)
+
+    diet_group_participant, _ = DietGroupParticipant.objects.get_or_create(user=user, diet_group=diet_group)
+
+    participant_extend_subscription(diet_group_participant, days_to_add)
+    user1_give_money_user2_training(user, owner, price)
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
 #
 #
 # @api_view(['POST'])

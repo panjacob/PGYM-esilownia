@@ -42,3 +42,9 @@ class DietGroup(models.Model):
 
     image = models.ImageField(null=True, blank=True)
     files = models.ManyToManyField(DietFile)
+
+
+class DietGroupParticipant(models.Model):
+    user = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    diet_group = models.ForeignKey(DietGroup, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    subscription_end = models.DateField(default=timezone.now)
