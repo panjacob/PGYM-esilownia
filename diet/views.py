@@ -10,7 +10,6 @@ MAX_PING_ACTIVE_SECONDS = 30
 
 
 @api_view(['POST'])
-# Trainer required
 def diet_group_create(request):
     request = put_owner_in_request_data(request)
     serializer = DietGroupSerializerCreate(data=request.data)
