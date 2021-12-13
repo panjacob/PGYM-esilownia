@@ -12,4 +12,6 @@ urlpatterns = [
     path('group/participant/remove', views.diet_group_participant_remove, name='diet_group_participant_remove'),
     path('group/type/get', views.diet_group_type_get, name='diet_group_type_get'),
     path('group/type/all', views.diet_group_type_all, name='diet_group_type_all'),
+
+    path('group/file/add', views.diet_group_file_add, name='diet_group_file_add'),
 ]

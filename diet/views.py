@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from diet.models import DietGroup, DietGroupParticipant, DietGroupType
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
-    participantsSerializerGet, DietGroupTypesSerializer
+    participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer
 from payment.utilis import user1_give_money_user2_training
 from training.utilis import get_price_and_days_to_add, participant_extend_subscription
 from users.utilis import put_owner_in_request_data
@@ -126,40 +126,18 @@ def diet_group_type_all(request):
         serializer = DietGroupTypesSerializer(diet_group_type)
         response.append(serializer.data)
     return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
-#
-#
-# @api_view(['POST'])
-# @training_group_owner_required()
-# def training_group_image_add(request):
-#     request = put_owner_in_request_data(request)
-#     serializer = TrainingGroupSerializerImageAdd(data=request.data)
-#
-#     if serializer.is_valid():
-#         if serializer.save():
-#             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-#     return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-#
-#
-# @api_view(['POST'])
-# def training_group_image_remove(request):
-#     image_id = request.data['id']
-#     if TrainingGroupImage.objects.filter(id=image_id).exists():
-#         TrainingGroupImage.objects.get(id=image_id).delete()
-#         return Response({'OK'}, status=status.HTTP_200_OK)
-#     return Response({'error': 'Image doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
-#
-#
-# @api_view(['POST'])
-# @training_group_owner_required()
-# def training_group_video_add(request):
-#     request = put_owner_in_request_data(request)
-#     serializer = TrainingGroupSerializerVideoAdd(data=request.data)
-#
-#     if serializer.is_valid():
-#         if serializer.save():
-#             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
-#     return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-#
+
+
+@api_view(['POST'])
+def diet_group_file_add(request):
+    request = put_owner_in_request_data(request)
+    serializer = DietGroupFileSerializer(data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
 #
 # @api_view(['POST'])
 # def training_group_video_remove(request):
