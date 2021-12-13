@@ -239,13 +239,13 @@ function Dashboard_data_userday() {
                 <hr></hr>
             </div>
             <div className="row">
-                <div className="col-4 justify-content-center text-center">
+                <div className="col-lg-4 justify-content-center text-center">
                     <div className='row' style={{minHeight:'200px'}}>
                         <div className='col-4 mt-3'>
-                            <div className="card bg-light" style={{minWidth:"397px"}}>
+                            <div className="card bg-light" style={{minWidth:"353px"}}>
                                 <div className="card-body">
-                                    <div className="container" style={{minHeight:'150px'}}>
-                                        <h1 style={{"fontSize": "3vw"}} className="display-1 font-weight-light mb-4">Wybierz Datę</h1>
+                                    <div className="container" style={{minHeight:'190px'}}>
+                                        <h1 style={{"fontSize": "3rem"}} className="display-1 font-weight-light mb-4">Wybierz Datę</h1>
                                     </div>
                                 </div>
                             </div>
@@ -258,7 +258,7 @@ function Dashboard_data_userday() {
                         </div>
                     </div>
                 </div>
-                <div className="col-8 justify-content-center">
+                <div className="col-lg-8 justify-content-center">
                     <div>
                         {(JSON.stringify(userDayData) === JSON.stringify({'weight':0,'calories_burned':0,'calories_eaten':0,'sleep_start':0,'sleep_end':0,'steps':0})) ? (
                             <div className="col-md-11 mx-auto mt-3">
