@@ -238,321 +238,335 @@ function Dashboard_data_userday() {
                 <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Dane twoich treningów</h1>
                 <hr></hr>
             </div>
+            <div className="row">
+                <div className="col-4 justify-content-center text-center">
+                    <div className='row' style={{minHeight:'200px'}}>
+                        <div className='col-4 mt-3'>
+                            <div className="card bg-light" style={{minWidth:"397px"}}>
+                                <div className="card-body">
+                                    <div className="container" style={{minHeight:'150px'}}>
+                                        <h1 style={{"fontSize": "3vw"}} className="display-1 font-weight-light mb-4">Wybierz Datę</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <DatePicker
+                                locale="pl"
+                                className='react-datepicker'
+                                dateFormat="dd/MM/yyyy"
+                                selected={startDate}
+                                onChange={(date) => selectedDate(date)} inline showPopperArrow={false} />
+                        </div>
+                    </div>
+                </div>
+                <div className="col-8 justify-content-center">
+                    <div>
+                        {(JSON.stringify(userDayData) === JSON.stringify({'weight':0,'calories_burned':0,'calories_eaten':0,'sleep_start':0,'sleep_end':0,'steps':0})) ? (
+                            <div className="col-md-11 mx-auto mt-3">
 
-            <div className='row justify-content-center' style={{minHeight:'200px'}}>
-                <div className='col-4 justify-content-center text-center'>
-                <DatePicker
-                    locale="pl"
-                    className='react-datepicker'
-                    dateFormat="dd/MM/yyyy"
-                    selected={startDate}
-                    onChange={(date) => selectedDate(date)} inline showPopperArrow={false} />
+                                <div className="card mb-3 bg-light">
+                                    <div className="card-body">
+                                        <div className="row">
+
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Data</h6>
+                                            </div>
+
+                                            <div className="col-sm-9 text-secondary">
+                                                {convert(startDate)}
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-3">
+                                                <h6 className="mb-0">Waga</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.weight} kg
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-1`} style={{display:'none'}}>
+                                                    <input type="text" className="form-control form-control-sm"
+                                                           onChange={(e) => setNewWaga(e.target.value)}/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-3">
+                                                <h6 className="mb-0">Spalone Kalorie</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.calories_burned} kcal
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-2`} style={{display:'none'}}>
+                                                    <input type="text" className="form-control form-control-sm"
+                                                           onChange={(e) => setNewSpaloneKalorie(e.target.value)}/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-3">
+                                                <h6 className="mb-0">Spożyte Kalorie</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.calories_eaten} kcal
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-3`} style={{display:'none'}}>
+                                                    <input type="text" className="form-control form-control-sm"
+                                                           onChange={(e) => setNewSpozyteKalorie(e.target.value)}/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-4">
+                                                <h6 className="mb-0">Początek Snu</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {sleepStart.replace('T', " ").replace('Z', "")}
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-4`} style={{display:'none'}}>
+                                                    <Form.Control
+                                                        type="datetime-local"
+                                                        value={newPoczatekSnu}
+                                                        onChange={(e) => setNewPoczatekSnu(e.target.value)}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-4">
+                                                <h6 className="mb-0">Koniec Snu</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {sleepEnd.replace('T', " ").replace('Z', "")}
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-5`} style={{display:'none'}}>
+                                                    <Form.Control
+                                                        type="datetime-local"
+                                                        value={newKoniecSnu}
+                                                        onChange={(e) => setNewKoniecSnu(e.target.value)}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-3">
+                                                <h6 className="mb-0">Kroki</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.steps}
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-6`} style={{display:'none'}}>
+                                                    <input type="text" className="form-control form-control-sm"
+                                                           onChange={(e) => setNewKroki(e.target.value)}/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr/>
+                                        <div className='row p-1'>
+                                            <div className='col-sm-6'>
+                                                <Button onClick={editShowHide} variant="btn" size="md">Edytuj</Button>
+                                            </div>
+                                            <div className='col-sm-6' id={`editUserStat-7`} style={{display:'none'}}>
+                                                <Button onClick={sumbitEdit} variant="btn" size="md">Zapisz</Button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        ) : (
+                            <div className="col-md-11 mx-auto mt-3">
+
+                                <div className="card mb-3 bg-light">
+                                    <div className="card-body">
+                                        <div className="row">
+
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Data</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.date}
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-3">
+                                                <h6 className="mb-0">Waga</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.weight} kg
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-1`} style={{display:'none'}}>
+                                                    <input type="text" className="form-control form-control-sm"
+                                                           onChange={(e) => setNewWaga(e.target.value)}/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-3">
+                                                <h6 className="mb-0">Spalone Kalorie</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.calories_burned} kcal
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-2`} style={{display:'none'}}>
+                                                    <input type="text" className="form-control form-control-sm"
+                                                           onChange={(e) => setNewSpaloneKalorie(e.target.value)}/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-3">
+                                                <h6 className="mb-0">Spożyte Kalorie</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.calories_eaten} kcal
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-3`} style={{display:'none'}}>
+                                                    <input type="text" className="form-control form-control-sm"
+                                                           onChange={(e) => setNewSpozyteKalorie(e.target.value)}/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-4">
+                                                <h6 className="mb-0">Początek Snu</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {sleepStart.replace('T', " ").replace('Z', "")}
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-4`} style={{display:'none'}}>
+                                                    <Form.Control
+                                                        type="datetime-local"
+                                                        value={newPoczatekSnu}
+                                                        onChange={(e) => setNewPoczatekSnu(e.target.value)}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-4">
+                                                <h6 className="mb-0">Koniec Snu</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {sleepEnd.replace('T', " ").replace('Z', "")}
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-5`} style={{display:'none'}}>
+                                                    <Form.Control
+                                                        type="datetime-local"
+                                                        value={newKoniecSnu}
+                                                        onChange={(e) => setNewKoniecSnu(e.target.value)}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                        <div className="row">
+
+                                            <div className="col-sm-3 mb-3">
+                                                <h6 className="mb-0">Kroki</h6>
+                                            </div>
+
+                                            <div className="col-sm-3 text-secondary">
+                                                {userDayData.steps}
+                                            </div>
+
+                                            <div className='col-sm-6'>
+                                                <div id={`editUserStat-6`} style={{display:'none'}}>
+                                                    <input type="text" className="form-control form-control-sm"
+                                                           onChange={(e) => setNewKroki(e.target.value)}/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr/>
+                                        <div className='row p-1 mt-2'>
+                                            <div className='col-sm-6'>
+                                                <Button onClick={editShowHide} variant="btn" size="md">Edytuj</Button>
+                                            </div>
+                                            <div className='col-sm-6' id={`editUserStat-7`} style={{display:'none'}}>
+                                                <Button onClick={sumbitEdit} variant="btn" size="md">Zapisz</Button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            <div>
-            {(JSON.stringify(userDayData) === JSON.stringify({'weight':0,'calories_burned':0,'calories_eaten':0,'sleep_start':0,'sleep_end':0,'steps':0})) ? (
-                <div className="col-md-11 mx-auto mt-3">
 
-                    <div className="card mb-3 bg-light">
-                        <div className="card-body">
-                            <div className="row">
 
-                                <div className="col-sm-3">
-                                    <h6 className="mb-0">Data</h6>
-                                </div>
-
-                                <div className="col-sm-9 text-secondary">
-                                    {convert(startDate)}
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-3">
-                                    <h6 className="mb-0">Waga</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.weight} kg
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-1`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewWaga(e.target.value)}/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-3">
-                                    <h6 className="mb-0">Spalone Kalorie</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.calories_burned} kcal
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-2`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewSpaloneKalorie(e.target.value)}/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-3">
-                                    <h6 className="mb-0">Spożyte Kalorie</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.calories_eaten} kcal
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-3`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewSpozyteKalorie(e.target.value)}/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-4">
-                                    <h6 className="mb-0">Początek Snu</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {sleepStart.replace('T', " ").replace('Z', "")}
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-4`} style={{display:'none'}}>
-                                        <Form.Control
-                                            type="datetime-local"
-                                            value={newPoczatekSnu}
-                                            onChange={(e) => setNewPoczatekSnu(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-4">
-                                    <h6 className="mb-0">Koniec Snu</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {sleepEnd.replace('T', " ").replace('Z', "")}
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-5`} style={{display:'none'}}>
-                                        <Form.Control
-                                            type="datetime-local"
-                                            value={newKoniecSnu}
-                                            onChange={(e) => setNewKoniecSnu(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-3">
-                                    <h6 className="mb-0">Kroki</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.steps}
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-6`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewKroki(e.target.value)}/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr/>
-                            <div className='row p-1'>
-                                <div className='col-sm-6'>
-                                    <Button onClick={editShowHide} variant="btn" size="md">Edytuj</Button>
-                                </div>
-                                <div className='col-sm-6' id={`editUserStat-7`} style={{display:'none'}}>
-                                    <Button onClick={sumbitEdit} variant="btn" size="md">Zapisz</Button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            ) : (
-                <div className="col-md-11 mx-auto mt-3">
-
-                    <div className="card mb-3 bg-light">
-                        <div className="card-body">
-                            <div className="row">
-
-                                <div className="col-sm-3">
-                                    <h6 className="mb-0">Data</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.date}
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-3">
-                                    <h6 className="mb-0">Waga</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.weight} kg
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-1`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewWaga(e.target.value)}/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-3">
-                                    <h6 className="mb-0">Spalone Kalorie</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.calories_burned} kcal
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-2`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewSpaloneKalorie(e.target.value)}/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-3">
-                                    <h6 className="mb-0">Spożyte Kalorie</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.calories_eaten} kcal
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-3`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewSpozyteKalorie(e.target.value)}/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-4">
-                                    <h6 className="mb-0">Początek Snu</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {sleepStart.replace('T', " ").replace('Z', "")}
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-4`} style={{display:'none'}}>
-                                        <Form.Control
-                                            type="datetime-local"
-                                            value={newPoczatekSnu}
-                                            onChange={(e) => setNewPoczatekSnu(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-4">
-                                    <h6 className="mb-0">Koniec Snu</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {sleepEnd.replace('T', " ").replace('Z', "")}
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-5`} style={{display:'none'}}>
-                                        <Form.Control
-                                            type="datetime-local"
-                                            value={newKoniecSnu}
-                                            onChange={(e) => setNewKoniecSnu(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr></hr>
-                            <div className="row">
-
-                                <div className="col-sm-3 mb-3">
-                                    <h6 className="mb-0">Kroki</h6>
-                                </div>
-
-                                <div className="col-sm-3 text-secondary">
-                                    {userDayData.steps}
-                                </div>
-
-                                <div className='col-sm-6'>
-                                    <div id={`editUserStat-6`} style={{display:'none'}}>
-                                        <input type="text" className="form-control form-control-sm"
-                                               onChange={(e) => setNewKroki(e.target.value)}/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr/>
-                            <div className='row p-1 mt-2'>
-                                <div className='col-sm-6'>
-                                    <Button onClick={editShowHide} variant="btn" size="md">Edytuj</Button>
-                                </div>
-                                <div className='col-sm-6' id={`editUserStat-7`} style={{display:'none'}}>
-                                    <Button onClick={sumbitEdit} variant="btn" size="md">Zapisz</Button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            )}
-            </div>
 
         </div>
     );
