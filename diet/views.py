@@ -154,3 +154,10 @@ def diet_jitsi_join(request):
     return Response({'token': token}, status=status.HTTP_200_OK)
 
 
+@api_view(['POST'])
+def diet_jitsi_leave(request):
+    user = request.user
+    diet = Diet.objects.get(id=request.data['id'])
+    diet.participants.remove(user)
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
