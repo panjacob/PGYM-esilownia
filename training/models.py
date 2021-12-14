@@ -61,10 +61,11 @@ class Training(models.Model):
     description = models.CharField(max_length=10000)
     date_start = models.DateTimeField(default=timezone.now)
     date_end = models.DateTimeField(default=timezone.now)
-    participants = models.ManyToManyField(UserExtended)  # Participants which were on particular training
     calories = models.IntegerField(default=0)
-    ping = models.IntegerField(default=0)
     file = models.FileField(null=True, blank=True)
+    # jitsi
+    participants = models.ManyToManyField(UserExtended)
+    ping = models.IntegerField(default=0)
 
 
 class TrainingGroupImage(models.Model):

@@ -20,16 +20,16 @@ DietGroupTypes = [
 ]
 
 
-class DietGroupType(models.Model):
+class DietType(models.Model):
     type = models.CharField(max_length=50, unique=True)
 
 
-class DietGroup(models.Model):
+class Diet(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, default=None,
                               related_name='owner_diet')
     date = models.DateField(default=timezone.now)
     is_private = models.BooleanField(default=False)
-    type = models.ManyToManyField(DietGroupType)
+    type = models.ManyToManyField(DietType)
     title = models.CharField(max_length=300)
     description = models.CharField(max_length=10000)
     price_day = models.IntegerField(default=None, null=True)
@@ -37,16 +37,17 @@ class DietGroup(models.Model):
     price_month = models.IntegerField(default=None, null=True)
     image = models.ImageField(null=True, blank=True)
 
+    participants = models.ManyToManyField(UserExtended)
     ping = models.IntegerField(default=0)
 
 
 class DietGroupParticipant(models.Model):
     user = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
-    diet_group = models.ForeignKey(DietGroup, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    diet_group = models.ForeignKey(Diet, on_delete=models.CASCADE, null=True, blank=True, default=None)
     subscription_end = models.DateField(default=timezone.now)
 
 
-class DietGroupFile(models.Model):
+class DietFile(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
     file = models.FileField(null=True, blank=True)
-    diet_group = models.ForeignKey(DietGroup, on_delete=models.CASCADE)
+    diet_group = models.ForeignKey(Diet, on_delete=models.CASCADE)

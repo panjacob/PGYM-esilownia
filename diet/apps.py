@@ -17,9 +17,9 @@ class DietConfig(AppConfig):
 
 def init_DietGroupTypes():
     try:
-        from diet.models import DietGroupType, DietGroupTypes
+        from diet.models import DietType, DietGroupTypes
         for id, type in DietGroupTypes:
-            instance, created = DietGroupType.objects.get_or_create(id=id)
+            instance, created = DietType.objects.get_or_create(id=id)
             instance.type = type
             instance.save()
 

@@ -1,18 +1,18 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from diet.models import DietGroup, DietGroupType, DietGroupFile
+from diet.models import Diet, DietType, DietFile
 
 
 class DietGroupTypesSerializer(ModelSerializer):
     class Meta:
-        model = DietGroupType
+        model = DietType
         fields = ['id', 'type']
 
 
 class DietGroupSerializerCreate(ModelSerializer):
     class Meta:
-        model = DietGroup
+        model = Diet
         optional_fields = ['image', 'is_private']
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = DietGroupTypesSerializer(read_only=True, many=True)
@@ -23,7 +23,7 @@ class DietGroupSerializerCreate(ModelSerializer):
 
 class DietGroupSerializerGet(ModelSerializer):
     class Meta:
-        model = DietGroup
+        model = Diet
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = DietGroupTypesSerializer(read_only=True, many=True)
 
@@ -42,7 +42,7 @@ def participantsSerializerGet(participant):
 
 class DietGroupSerializerGetAll(ModelSerializer):
     class Meta:
-        model = DietGroup
+        model = Diet
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         type = DietGroupTypesSerializer(read_only=True, many=True)
 
@@ -51,7 +51,7 @@ class DietGroupSerializerGetAll(ModelSerializer):
 
 class DietGroupFileSerializer(ModelSerializer):
     class Meta:
-        model = DietGroupFile
+        model = DietFile
         diet_group = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         owner = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         fields = ['file', 'owner', 'diet_group']

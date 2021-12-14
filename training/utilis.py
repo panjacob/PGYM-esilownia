@@ -44,10 +44,15 @@ def jitsi_payload_create(user, training, time_to_live_minutes=10):
     return payload
 
 
-def is_training_owner(user, training):
-    # TODO: zrobić uniwersalnie dla diet
-    print('Classname', type(training).__name__)
-    return training.training_group.owner_id == user.id
+def is_instance_diet(instance):
+    return type(instance).__name__ == "Diet"
+
+
+def is_training_owner(user, instance):
+    if is_instance_diet(instance):
+        return instance.owner_id == user.id
+    else:
+        return instance.training_group.owner_id == user.id
 
 
 def training_group_owner_required():
