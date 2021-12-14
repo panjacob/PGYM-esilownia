@@ -47,7 +47,7 @@ def diet_group_get(request):
     result['files'] = []
     result['participants'] = []
 
-    for diet_group_file in diet_group.dietgroupfile_set.all():
+    for diet_group_file in diet_group.dietfile_set.all():
         try:
             result['files'].append({'id': diet_group_file.id, 'url': diet_group_file.file.url})
         except Exception as e:
