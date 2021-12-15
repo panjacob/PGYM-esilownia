@@ -151,9 +151,7 @@ function Diet_showUserDiet(){
                                                                     <p>Kalorie: {cValue.calories}</p>
                                                                     <Link className='btn' to={{
                                                                         pathname: '/',
-                                                                        state: {
-                                                                            Diet: cValue.id
-                                                                        }
+                                                                        search: 'id='+cValue.id.toString()
                                                                     }}>Przejdź do Diety</Link>
                                                                 </div>
                                                             </div>

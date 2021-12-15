@@ -37,8 +37,11 @@ function GroupOfferDetails() {
 
     useEffect(() => {
 
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
         axiosInstance
-            .post(`training/group/get`, {id: location.state.groupId}, {
+            .post(`training/group/get`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
