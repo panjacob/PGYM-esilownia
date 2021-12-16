@@ -8,7 +8,7 @@ import ReactPaginate from 'react-paginate'
 import {Link} from "react-router-dom";
 import axios_variebles from "../../Axios/Axios_variebles";
 
-function TrainingGroupShowAllGroup() {
+function Diet_showAll() {
 
     const [dietAll, setDietAll] = useState([]);
     const [dietTypeAll, setDietTypeAll] = useState([]);
@@ -383,4 +383,4 @@ function TrainingGroupShowAllGroup() {
     );
 }
 
-export default TrainingGroupShowAllGroup;
+export default Diet_showAll;
