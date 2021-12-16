@@ -1,6 +1,8 @@
 import datetime
+from django.utils import timezone
 from pprint import pprint
 
+from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
@@ -168,3 +170,52 @@ def user_get_moderator(request):
     user = UserExtended.objects.get(id=request.data['id'])
     serializer = serializers.UserGetModeratorSerializer(user)
     return JsonResponse(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def password_reset_request(request):
+    email = request.data['email']
+    try:
+        user = UserExtended.objects.get(email=email)
+    except UserExtended.DoesNotExist:
+        return Response(status=200)
+    token = utilis.generate_password_reset_token()
+    user.password_reset_token = token
+    user.password_reset_token_time = datetime.datetime.now(tz=timezone.get_current_timezone())
+    user.save()
+    if "localhost" in request.get_host() or "127.0.0.1" in request.get_host():
+        link = f'http://localhost:3000/password_reset?token={token}'
+    else:
+        link = f'https://pgym.xyz/password_reset?token={token}'
+    html_message = f'Aby zresetować swoje hasło kliknij <a href="{link}">TUTAJ</a>'
+    send_mail(
+        'PGYM - Reset Hasła',
+        '',
+        'yot2137@cock.li',
+        ['raifubaransu@airmail.cc'],
+        fail_silently=False,
+        html_message=html_message,
+    )
+    return Response(status=200)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def password_reset(request):
+    token = request.data['token']
+    try:
+        user = UserExtended.objects.get(password_reset_token=token)
+    except UserExtended.DoesNotExist:
+        return Response({'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+    password = request.data['password']
+    if not utilis.validate_password(password):
+        return Response({'message': 'New password is not secure'}, status.HTTP_400_BAD_REQUEST)
+    if (user.password_reset_token_time + datetime.timedelta(hours=1) < datetime.datetime.now(
+        tz=timezone.get_current_timezone())):
+        return Response({'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+    user.password_reset_token = None
+    user.password_reset_token_time = None
+    user.set_password(password)
+    user.save()
+    return Response({'message': 'OK'}, status=status.HTTP_200_OK)
