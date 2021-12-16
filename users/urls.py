@@ -17,4 +17,7 @@ urlpatterns = [
 
     path('photo/add', views.user_photo_add, name='photo_add'),
     path('photo/remove', views.user_photo_remove, name='photo_remove'),
+
+    path('password_reset_request/', views.password_reset_request, name='password_reset_request'),
+    path('password_reset/', views.password_reset, name='password_reset'),
 ]

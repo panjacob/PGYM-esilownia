@@ -73,7 +73,9 @@ function Login_form() {
                     Zaloguj
                 </Button>
 
-                Nie masz konta? <Link to="/register">Zarejestruj się!</Link>
+                <p>Nie masz konta? <Link to="/register">Zarejestruj się!</Link></p>
+
+                <p>Nie możesz się zalogować? <Link to="/password_reset">Zresetuj hasło</Link></p>
 
             </Form>
 

@@ -4,6 +4,7 @@ import Header from "./components/Template/Header";
 import Footer from "./components/Template/Footer";
 import Home from "./Views/Home";
 import Login from "./Views/Login";
+import PasswordReset from "./Views/Password_reset";
 import Register from "./Views/Register";
 import Cadre from "./Views/Cadre";
 import TrainingGroups from "./Views/TrainingGroups";
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/treningi" exact component={() => <TrainingGroups/>}/>
                     <Route path="/dieta" exact component={() => <Diet/>}/>
                     <Route path="/login" exact component={() => <Login/>}/>
+                    <Route path="/password_reset" exact component={() => <PasswordReset/>}/>
                     <Route path="/register" exact component={() => <Register/>}/>
                     <Route path="/konto" exact component={() => <Account/>}/>
                     <Route path="/konto_edycja" exact component={() => <AccountEdit/>}/>
