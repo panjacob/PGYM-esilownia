@@ -232,7 +232,7 @@ function Diet_showAll() {
                                         )}
                                         <Link className='btn'
                                               to={{
-                                                  pathname: '/grupa_szczegóły',
+                                                  pathname: '/dieta_szczegóły',
                                                   search: 'id='+cValue.id.toString()
                                               }}
                                         >Pokaż Wiecej</Link>
