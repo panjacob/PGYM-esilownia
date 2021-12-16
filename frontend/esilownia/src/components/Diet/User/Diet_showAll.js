@@ -297,7 +297,7 @@ function Diet_showAll() {
 
 
     return (
-        <div className="trainingGroupShowAll">
+        <div className="dietShowAll">
 
             <div className="text-center">
                 <hr></hr>

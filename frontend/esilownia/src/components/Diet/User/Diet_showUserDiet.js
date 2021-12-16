@@ -50,7 +50,7 @@ function TrainingGroupShowUserTrainings() {
 
 
     return (
-        <div className="trainingGroupShowUserTrainings">
+        <div className="dietShowUserDiets">
             {/*<div className="container">*/}
 
             {/*    <div className="text-center">*/}
@@ -92,7 +92,7 @@ function TrainingGroupShowUserTrainings() {
             {/*                                        </div>*/}
             {/*                                        <p className="card-text text-center"> Trener: {diet.owner}</p>*/}
             {/*                                        <Link className='btn' to={{*/}
-            {/*                                            pathname: '/grupa_treningi',*/}
+            {/*                                            pathname: '/grupa_diety',*/}
             {/*                                            search: 'id='+diet.id.toString()*/}
             {/*                                        }}>Szczegóły Diety {diet.id}</Link>*/}
 

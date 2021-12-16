@@ -8,6 +8,7 @@ export { default as AboutUs } from "./About_us";
 export { default as Cadre } from "./Cadre";
 export { default as Trainings } from "./TrainingGroups";
 export { default as Training } from "./Training";
+export { default as DietMeetings } from "./DietMeetings";
 export { default as Diet } from "./Diet";
 export { default as Account } from "./Account";
 export { default as AccountEdit } from "./Account_edit";
