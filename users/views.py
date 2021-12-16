@@ -193,7 +193,7 @@ def password_reset_request(request):
         'PGYM - Reset Hasła',
         '',
         'yot2137@cock.li',
-        ['raifubaransu@airmail.cc'],
+        [email],
         fail_silently=False,
         html_message=html_message,
     )
