@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from payment.models import Transaction, Offer, TrainingTransaction
+from payment.models import Transaction, Offer, TrainingTransaction, Withdraw
 
 
 class TransactionSerializer(ModelSerializer):
