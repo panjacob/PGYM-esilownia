@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from core.settings import JITSI_SECRET
-from diet.models import Diet, DietGroupParticipant, DietType, DietFile, DietImage
+from diet.models import Diet, DietGroupParticipant, DietType, DietFile, DietImage, DietMeeting
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
     participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer, DietSerializerImageAdd, \
     DietMeetingSerializer
@@ -198,3 +198,11 @@ def diet_meeting_add(request):
         if serializer.save():
             return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
     return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def diet_meeting_remove(request):
+    diet_group = DietMeeting.objects.get(id=request.data['id'])
+    diet_group.delete()
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
