@@ -11,6 +11,8 @@ from payment import serializers
 from django.conf import settings
 import stripe
 
+from users.utilis import put_owner_in_request_data
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -97,18 +99,18 @@ def stripe_webhook(request):
         )
     except ValueError as e:
         # Invalid payload
-        raise(e)
+        raise (e)
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
-        raise(e)
-    
+        raise (e)
+
     if event['type'] == 'checkout.session.completed':
         returned_session = event['data']['object']
         user_email = returned_session['customer_details']['email']
         session = stripe.checkout.Session.retrieve(
             returned_session['id'], expand=['line_items']
         )
-        #print(session)
+        # print(session)
         if session['status'] == 'complete' and session['payment_status'] == 'paid':
             payment_intent = session['payment_intent']
             stripe_price_id = session['line_items']['data'][0]['price']['id']
@@ -120,3 +122,22 @@ def stripe_webhook(request):
         print("Unhandled event type {}".format(event['type']))
 
     return Response(status=200)
+
+
+def withdraw_money(owner, amount):
+    if owner.money < amount:
+        return None
+    owner.money -= amount
+    owner.save()
+    withDraw = models.Withdraw.objects.create(amount=amount)
+    return withDraw
+
+
+@api_view(['POST'])
+def withdraw(request):
+    request = put_owner_in_request_data(request)
+    amount = int(request.data['amount'])
+    withDraw = withdraw_money(owner=request.user, amount=amount)
+    if withDraw is None:
+        Response("Not sufficient money", status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse({'id': withDraw.id}, safe=False)
