@@ -68,13 +68,12 @@ function Login_form() {
                 </Form.Group>
                 <p className="alert alert-danger">{loginMessage}</p>
 
-                <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login" type="submit"
+                <Button onClick={handleSubmit} block size="lg" className="btn btn-lg mb-4 mt-4" id="btn-login" type="submit"
                         disabled={!validateForm()}>
                     Zaloguj
                 </Button>
 
                 <p>Nie masz konta? <Link to="/register">Zarejestruj się!</Link></p>
-
                 <p>Nie możesz się zalogować? <Link to="/password_reset">Zresetuj hasło</Link></p>
 
             </Form>
