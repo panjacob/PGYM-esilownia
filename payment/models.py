@@ -35,4 +35,4 @@ class Offer(models.Model):
 class Withdraw(models.Model):
     date = models.DateTimeField(default=timezone.now)
     amount = models.IntegerField()
-
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE)

@@ -129,15 +129,34 @@ def withdraw_money(owner, amount):
         return None
     owner.money -= amount
     owner.save()
-    withDraw = models.Withdraw.objects.create(amount=amount)
+    withDraw = models.Withdraw.objects.create(owner=owner, amount=amount)
     return withDraw
 
 
 @api_view(['POST'])
-def withdraw(request):
+def withdraw_create(request):
     request = put_owner_in_request_data(request)
     amount = int(request.data['amount'])
-    withDraw = withdraw_money(owner=request.user, amount=amount)
-    if withDraw is None:
+    withdraw_instance = withdraw_money(owner=request.user, amount=amount)
+    if withdraw_instance is None:
         Response("Not sufficient money", status=status.HTTP_400_BAD_REQUEST)
-    return JsonResponse({'id': withDraw.id}, safe=False)
+    return JsonResponse({'id': withdraw_instance.id}, safe=False)
+
+
+@api_view(['POST'])
+def withdraw_get(request):
+    month = request.data['month']
+    year = request.data['year']
+    withdraw_instances = models.Withdraw.objects.filter(date__year=year, date__month=month)
+    result = []
+    for x in withdraw_instances:
+        result.append({
+            'id': x.id,
+            'date': x.date,
+            'bank_account': x.owner.bank_account,
+            'first_name': x.owner.first_name,
+            'last_name': x.owner.last_name,
+            'amount_gymcoins': x.amount,
+            'amount_zloty': x.amount / 100,
+        })
+    return JsonResponse(result, safe=False)
