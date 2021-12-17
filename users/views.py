@@ -11,6 +11,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 import users.serializers as serializers
+from diet.models import DietGroupParticipant
 from users import utilis
 from users.models import UserExtended
 from users.utilis import superuser_required, moderator_required
@@ -96,10 +97,16 @@ def user_info(request):
     serializer = serializers.UserInfoSerializer(user)
     result = serializer.data
     result['trainings'] = []
+    result['diets'] = []
     trainings_group_participant = TrainingGroupParticipant.objects.filter(user=user).all()
     for training_group in trainings_group_participant:
         result['trainings'].append(
             {'training_group': training_group.training_group.id, 'subscription_end': training_group.subscription_end})
+    diet_group_participants = DietGroupParticipant.objects.filter(user=user).all()
+    for diet in diet_group_participants:
+        result['diets'].append({
+            'diet': diet.id, 'subscription_end': diet.subscription_end
+        })
 
     return JsonResponse(result, safe=False)
 
@@ -212,7 +219,7 @@ def password_reset(request):
     if not utilis.validate_password(password):
         return Response({'message': 'New password is not secure'}, status.HTTP_400_BAD_REQUEST)
     if (user.password_reset_token_time + datetime.timedelta(hours=1) < datetime.datetime.now(
-        tz=timezone.get_current_timezone())):
+            tz=timezone.get_current_timezone())):
         return Response({'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
     user.password_reset_token = None
     user.password_reset_token_time = None
