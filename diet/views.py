@@ -45,11 +45,18 @@ def diet_group_get(request):
     serializer = DietGroupSerializerGet(diet_group)
     result = serializer.data
     result['files'] = []
+    result['images'] = []
     result['participants'] = []
 
     for diet_group_file in diet_group.dietfile_set.all():
         try:
             result['files'].append({'id': diet_group_file.id, 'url': diet_group_file.file.url})
+        except Exception as e:
+            print(e)
+
+    for diet_image in diet_group.dietimage_set.all():
+        try:
+            result['files'].append({'id': diet_image.id, 'url': diet_image.file.url})
         except Exception as e:
             print(e)
 
