@@ -1,4 +1,5 @@
 import functools
+from django.utils.crypto import get_random_string
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -90,3 +91,7 @@ def superuser_required():
         return wrapper
 
     return decorator
+
+
+def generate_password_reset_token():
+    return get_random_string(150)

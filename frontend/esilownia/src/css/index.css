@@ -451,3 +451,8 @@ a.forum-item-title:hover {
 }
 /*Datepicker-End*/
 
+.googleLogin{
+    width: 275px;
+    font-size: 20px!important;
+}
+

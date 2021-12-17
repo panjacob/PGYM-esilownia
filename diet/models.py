@@ -1,6 +1,4 @@
 from django.db import models
-
-from django.db import models
 from django.utils import timezone
 
 from users.models import UserExtended
@@ -51,3 +49,14 @@ class DietFile(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
     file = models.FileField(null=True, blank=True)
     diet_group = models.ForeignKey(Diet, on_delete=models.CASCADE)
+
+
+class DietImage(models.Model):
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    image = models.ImageField(null=True, blank=True)
+    diet = models.ForeignKey(Diet, on_delete=models.CASCADE)
+
+
+class DietMeeting(models.Model):
+    diet = models.ForeignKey(Diet, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=timezone.now)

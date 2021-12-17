@@ -42,10 +42,14 @@ function Training() {
     const location = useLocation()
 
     useEffect(() => {
-        setGroupId(location.state.groupId)
+
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
+        setGroupId(id)
 
         axiosInstance
-            .post(`/training/group/get`, {id: location.state.groupId}, {
+            .post(`/training/group/get`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -233,9 +237,7 @@ function Training() {
                             return (
                                 <Link className='btn m-4 shadow border' id='trainingCard' to={{
                                     pathname: '/trening',
-                                    state: {
-                                        trainingId: training.id
-                                    }
+                                    search: 'id='+training.id.toString()
 
                                 }}>
                                     <div className="container my-auto" id='trainingCardBody'>

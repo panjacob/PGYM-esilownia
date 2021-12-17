@@ -22,6 +22,6 @@ export default function Logout() {
         history.push('/');
     };
 
-    return <div onClick={handleLogout}>Logout</div>;
+    return <div onClick={handleLogout}>Wyloguj</div>;
 
 }

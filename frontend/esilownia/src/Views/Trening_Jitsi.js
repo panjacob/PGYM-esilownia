@@ -19,10 +19,13 @@ function TrainingJitsi(props) {
             jitsiGetToken();
         };
 
-        setGroupId(location.state.trainingId)
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
+        setGroupId(id)
 
         axiosInstance
-            .post(`training/get`, {id: location.state.trainingId}, {
+            .post(`training/get`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')

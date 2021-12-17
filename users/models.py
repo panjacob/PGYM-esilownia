@@ -40,6 +40,9 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     bank_account = models.IntegerField(default=None, null=True, blank=True)
     ban_date_expiration = models.DateTimeField(default=None, null=True, blank=True)
 
+    password_reset_token = models.CharField(max_length=150, unique=True, null=True, blank=True)
+    password_reset_token_time = models.DateTimeField(null=True, blank=True)
+
     # Properties of ContentCreator
     is_coach = models.BooleanField(default=False)
     is_dietician = models.BooleanField(default=False)
@@ -48,12 +51,11 @@ class UserExtended(AbstractBaseUser, PermissionsMixin):
     profile_photo = models.ImageField(null=True, blank=True)
 
     money = models.IntegerField(default=1000)
+    stripe_customer_id = models.CharField(max_length=150, null=True, blank=True)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', ]
-
-    stripe_customer_id = models.CharField(max_length=150, null=True, blank=True)
 
     def __str__(self):
         return self.username

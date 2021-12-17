@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import OfertaTrener from "../components/Dashboard/Dashboard_offer_trainer"
 import HomeCarousel from "../components/Home/Home_carousel";
@@ -11,6 +11,15 @@ import {Tab, Tabs} from "react-bootstrap";
 import HomeTabs from "../components/Home/Home_tabs";
 
 function Home() {
+
+    useEffect(() => {
+
+        if(localStorage.getItem('access_token') !== null) {
+            window.location.href = '/dashboard'
+        }
+
+    }, []);
+
     return (
         <div className="home">
 

@@ -4,6 +4,7 @@ import Header from "./components/Template/Header";
 import Footer from "./components/Template/Footer";
 import Home from "./Views/Home";
 import Login from "./Views/Login";
+import PasswordReset from "./Views/Password_reset";
 import Register from "./Views/Register";
 import Cadre from "./Views/Cadre";
 import TrainingGroups from "./Views/TrainingGroups";
@@ -22,7 +23,8 @@ import Chat from "./Views/Chat";
 import Training_trainer from "./Views/Training_trainer";
 import Payment_history from "./Views/Payment_history";
 import Forum from "./Views/Forum";
-import {ForumTopicPosts} from "./Views/Index";
+import {DietMeetings, ForumTopicPosts} from "./Views/Index";
+import DietOfferDetails from "./Views/Diet_offer_details";
 
 function App() {
     return (
@@ -37,6 +39,7 @@ function App() {
                     <Route path="/treningi" exact component={() => <TrainingGroups/>}/>
                     <Route path="/dieta" exact component={() => <Diet/>}/>
                     <Route path="/login" exact component={() => <Login/>}/>
+                    <Route path="/password_reset" exact component={() => <PasswordReset/>}/>
                     <Route path="/register" exact component={() => <Register/>}/>
                     <Route path="/konto" exact component={() => <Account/>}/>
                     <Route path="/konto_edycja" exact component={() => <AccountEdit/>}/>
@@ -45,8 +48,10 @@ function App() {
                     <Route path="/strefa_trenera" exact component={() => <TrainerSpace/>}/>
                     <Route path="/strefa_trenera_treningi" exact component={() => <Training_trainer/>}/>
                     <Route path="/grupa_treningi" exact component={() => <Training/>}/>
+                    <Route path="/grupa_diety" exact component={() => <DietMeetings/>}/>
                     <Route path="/trening" exact component={() => <TreningJitsi/>}/>
                     <Route path="/grupa_szczegóły" exact component={() => <GroupOfferDetails/>}/>
+                    <Route path="/dieta_szczegóły" exact component={() => <DietOfferDetails/>}/>
                     <Route path="/wiadomości" exact component={() => <Chat/>}/>
                     <Route path="/historia_płatności" exact component={() => <Payment_history/>}/>
                     <Route path="/forum" exact component={() => <Forum/>}/>

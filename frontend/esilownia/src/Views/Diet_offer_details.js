@@ -7,30 +7,16 @@ import {Button, Card} from "react-bootstrap";
 import profilePicture from "../imgs/basic_profile_photo.jpg";
 import placeholderImg from "../imgs/placeholder.jpg";
 
-function GroupOfferDetails() {
+function DietOfferDetails() {
 
-    const [trainingGroup, setTrainingGroup] = useState([])
-    const [trainerInfo, setTrainerInfo] = useState([])
-    const [groupTypes, setGroupTypes] = useState([])
-    const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([])
+    const [diet, setDiet] = useState([])
+    const [dieticianInfo, setDieticianInfo] = useState([])
+    const [dietTypes, setDietTypes] = useState([])
+    const [dietTypeAll, setDietTypeAll] = useState([])
     const [photo, setPhoto] = useState("")
     const [imagesPh, setImagesPh] = useState([])
     const [userInfo, setUserInfo] = useState([])
-    const difficultiesAll = [
-        {
-            id: '0',
-            name: 'Łatwy'
-        }, {
-            id: '1',
-            name: 'Średni'
-        }, {
-            id: '2',
-            name: 'Trudny'
-        }, {
-            id: '3',
-            name: 'Armagedon'
-        }
-    ]
+
 
     const history = useHistory()
     const location = useLocation()
@@ -41,15 +27,15 @@ function GroupOfferDetails() {
         const id = new URLSearchParams(search).get('id');
 
         axiosInstance
-            .post(`training/group/get`, {id: id}, {
+            .post(`diet/get`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
-                setTrainingGroup(res.data)
-                setGroupTypes(res.data.type)
+                setDiet(res.data)
+                setDietTypes(res.data.type)
                 if(res.data.images === null){
                     setImagesPh((placeholderImg))
                 } else {
@@ -64,7 +50,7 @@ function GroupOfferDetails() {
                         }
                     })
                     .then((res2) => {
-                        setTrainerInfo(res2.data)
+                        setDieticianInfo(res2.data)
                         if(res2.data.profile_photo === null){
                             setPhoto(profilePicture)
                         } else {
@@ -75,14 +61,14 @@ function GroupOfferDetails() {
             });
 
         axiosInstance
-            .post(`training/group/type/all`, {}, {
+            .post(`diet/type/all`, {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
-                setTrainingGroupTypeAll(res.data)
+                setDietTypeAll(res.data)
             });
 
         axiosInstance
@@ -105,7 +91,7 @@ function GroupOfferDetails() {
         console.log(e.target.name)
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("training_group", trainingGroup.id);
+        urlencoded.append("diet_group", diet.id);
         urlencoded.append("payment_type", e.target.name);
 
         var myHeaders = new Headers();
@@ -119,21 +105,21 @@ function GroupOfferDetails() {
             redirect: 'follow'
         };
 
-        fetch(axios_variebles.baseURL + "training/group/join", requestOptions)
+        fetch(axios_variebles.baseURL + "diet/participant/join", requestOptions)
             .then(response => response.text())
             .then(result => {
 
-                let msg = 'Zakupiono trening '+ trainingGroup.title + '. Możesz sie teraz tutaj porozumiec z trenerem ' + trainerInfo.first_name + ' ' + trainerInfo.last_name + ' odpowiedzialnym za tą grupe.'
+                let msg = 'Zakupiono dietę '+ diet.title + '. Możesz sie teraz tutaj porozumiec z dietetykiem ' + dieticianInfo.first_name + ' ' + dieticianInfo.last_name + ' odpowiedzialnym za tą grupe.'
 
                 axiosInstance
-                    .post(`/message/send_admin`, { receiver:userInfo.id , message:msg , sender: trainerInfo.id }, {
+                    .post(`/message/send_admin`, { receiver:userInfo.id , message:msg , sender: dieticianInfo.id }, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                         }
                     })
                     .then((res) => {
-                        window.location.href="/treningi";
+                        window.location.href="/dieta";
                     });
 
             })
@@ -146,22 +132,22 @@ function GroupOfferDetails() {
                 <Button className="btn btn-lg mt-4 border-0" style={{'color':'black'}} onClick={() => history.goBack()}>Wstecz</Button>
                 <div className="text-center">
                     <hr></hr>
-                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">{trainingGroup.title}</h1>
+                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">{diet.title}</h1>
                     <hr></hr>
                 </div>
                 <div className="row border rounded mt-4 shadow">
                     <div className="col-md-6">
-                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 mt-4 text-center">Trener </h1>
+                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 mt-4 text-center">Dietetyk </h1>
                         <hr></hr>
                         <div className="row justify-content-center">
                             <Card style={{width: '18rem'}} className="bg-light text-center center">
                                 <Card.Img variant="top" src={photo} alt="..." className="img-thumbnail" width='200px'
                                           height='200px'/>
-                                <Card.Title className="font-weight-light">{trainerInfo.first_name + " " + trainerInfo.last_name}</Card.Title>
+                                <Card.Title className="font-weight-light">{dieticianInfo.first_name + " " + dieticianInfo.last_name}</Card.Title>
                             </Card>
                         </div>
                         <hr></hr>
-                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 text-center">Dane o grupie</h1>
+                        <h1 style={{"fontSize": "2rem"}} className="display-1 font-weight-light mb-4 text-center">Dane o diecie</h1>
                         <hr></hr>
 
                         <div className="row justify-content-center">
@@ -170,21 +156,7 @@ function GroupOfferDetails() {
                             </div>
                             <div className="col-6 justify-content-center text-secondary">
                                 <div className="col-sm-7 text-secondary">
-                                    <p>{trainingGroup.description}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row justify-content-center">
-                            <div className="col-6 justify-content-center">
-                                <p>Poziom trudności:</p>
-                            </div>
-                            <div className="col-6 justify-content-center">
-                                <div className="col-sm-7 text-secondary">
-                                    {difficultiesAll.map((difficulty, idx) => {
-                                        if (difficulty.id === trainingGroup.difficulty) {
-                                            return (<p key={idx}>{difficulty.name}</p>)
-                                        }
-                                    })}
+                                    <p>{diet.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -195,9 +167,9 @@ function GroupOfferDetails() {
                             </div>
                             <div className="col-6 justify-content-center">
                                 <div className="col-sm-7 text-secondary">
-                                    {trainingGroupTypeAll.map((type,idx) => {
-                                        for (let i = 0; i < groupTypes.length; i++) {
-                                            if (type.id === groupTypes[i]) {
+                                    {dietTypeAll.map((type,idx) => {
+                                        for (let i = 0; i < dietTypes.length; i++) {
+                                            if (type.id === dietTypes[i]) {
                                                 return (
                                                     <p key={idx}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</p>)
                                             }
@@ -212,7 +184,7 @@ function GroupOfferDetails() {
                             </div>
                             <div className="col-6">
                                 <div className="col-sm-7 text-secondary">
-                                    <p>{trainingGroup.date}</p>
+                                    <p>{diet.date}</p>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +195,7 @@ function GroupOfferDetails() {
                             <div className="col-4">
                                 <div className="row justify-content-center text-center">
                                     <p className="m-0">Dzień :</p>
-                                    <p className="m-0 pl-1 pr-1">{trainingGroup.price_day}</p>
+                                    <p className="m-0 pl-1 pr-1">{diet.price_day}</p>
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
@@ -235,7 +207,7 @@ function GroupOfferDetails() {
                             <div className="col-4">
                                 <div className="row justify-content-center text-center">
                                     <p className="m-0">Tydzień :</p>
-                                    <p className="m-0 pl-1 pr-1">{trainingGroup.price_week}</p>
+                                    <p className="m-0 pl-1 pr-1">{diet.price_week}</p>
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
@@ -247,7 +219,7 @@ function GroupOfferDetails() {
                             <div className="col-4">
                                 <div className="row justify-content-center text-center">
                                     <p className="m-0">Miesiąc :</p>
-                                    <p className="m-0 pl-1 pr-1">{trainingGroup.price_month}</p>
+                                    <p className="m-0 pl-1 pr-1">{diet.price_month}</p>
                                     <p className="m-0">Gym-coinów</p>
                                 </div>
                                 <div className="row justify-content-center text-center">
@@ -278,4 +250,4 @@ function GroupOfferDetails() {
     );
 }
 
-export default GroupOfferDetails;
+export default DietOfferDetails;

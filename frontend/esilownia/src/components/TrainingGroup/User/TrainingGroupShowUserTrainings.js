@@ -109,9 +109,7 @@ function TrainingGroupShowUserTrainings() {
                                                     <p className="card-text text-center"> Trener: {training.owner}</p>
                                                     <Link className='btn' to={{
                                                         pathname: '/grupa_treningi',
-                                                        state: {
-                                                            groupId: training.id
-                                                        }
+                                                        search: 'id='+training.id.toString()
                                                     }}>Szczegóły Grupy {training.id}</Link>
 
                                                 </div>
