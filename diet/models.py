@@ -51,3 +51,9 @@ class DietFile(models.Model):
     owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
     file = models.FileField(null=True, blank=True)
     diet_group = models.ForeignKey(Diet, on_delete=models.CASCADE)
+
+
+class DietImage(models.Model):
+    owner = models.ForeignKey(UserExtended, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    image = models.ImageField(null=True, blank=True)
+    diet = models.ForeignKey(Diet, on_delete=models.CASCADE)

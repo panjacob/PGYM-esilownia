@@ -100,8 +100,7 @@ function DietMeetings() {
 
                         <div className="text-center">
                             <hr></hr>
-                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Informacje
-                                Grupy
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Informacje o Diecie
                             </h1>
                             <hr></hr>
                         </div>
