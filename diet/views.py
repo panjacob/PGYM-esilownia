@@ -7,7 +7,8 @@ from rest_framework.response import Response
 from core.settings import JITSI_SECRET
 from diet.models import Diet, DietGroupParticipant, DietType, DietFile, DietImage
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
-    participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer, DietSerializerImageAdd
+    participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer, DietSerializerImageAdd, \
+    DietMeetingSerializer
 from payment.utilis import user1_give_money_user2_training
 from training.utilis import get_price_and_days_to_add, participant_extend_subscription, jitsi_payload_create, \
     jitsi_token_encode
@@ -188,3 +189,12 @@ def diet_image_remove(request):
         DietImage.objects.get(id=image_id).delete()
         return Response({'OK'}, status=status.HTTP_200_OK)
     return Response({'error': 'Image doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def diet_meeting_add(request):
+    serializer = DietMeetingSerializer(data=request.data)
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
