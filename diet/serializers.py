@@ -70,3 +70,9 @@ class DietMeetingSerializer(ModelSerializer):
         model = DietMeeting
         diet = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
         fields = ['diet', 'date']
+
+
+class DietMeetingSerializerGet(ModelSerializer):
+    class Meta:
+        model = DietMeeting
+        fields = ['date']
