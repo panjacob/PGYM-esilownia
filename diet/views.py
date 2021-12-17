@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from core.settings import JITSI_SECRET
 from diet.models import Diet, DietGroupParticipant, DietType, DietFile
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
-    participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer
+    participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer, DietSerializerImageAdd
 from payment.utilis import user1_give_money_user2_training
 from training.utilis import get_price_and_days_to_add, participant_extend_subscription, jitsi_payload_create, \
     jitsi_token_encode
@@ -168,3 +168,14 @@ def diet_jitsi_leave(request):
     diet.participants.remove(user)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def diet_image_add(request):
+    request = put_owner_in_request_data(request)
+    serializer = DietSerializerImageAdd(data=request.data)
+
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

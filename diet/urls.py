@@ -15,6 +15,7 @@ urlpatterns = [
 
     path('file/add', views.diet_group_file_add, name='diet_group_file_add'),
     path('file/remove', views.diet_group_file_remove, name='diet_group_file_remove'),
+    path('image/add', views.diet_image_add, name='diet_image_add'),
 
     path('jitsi/join', views.diet_jitsi_join, name='diet_jitsi_join'),
     path('jitsi/leave', views.diet_jitsi_leave, name='diet_jitsi_leave'),
