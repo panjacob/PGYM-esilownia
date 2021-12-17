@@ -5,9 +5,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from core.settings import JITSI_SECRET
-from diet.models import Diet, DietGroupParticipant, DietType, DietFile, DietImage
+from diet.models import Diet, DietGroupParticipant, DietType, DietFile, DietImage, DietMeeting
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
-    participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer, DietSerializerImageAdd
+    participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer, DietSerializerImageAdd, \
+    DietMeetingSerializer, DietMeetingSerializerGet
 from payment.utilis import user1_give_money_user2_training
 from training.utilis import get_price_and_days_to_add, participant_extend_subscription, jitsi_payload_create, \
     jitsi_token_encode
@@ -47,6 +48,7 @@ def diet_group_get(request):
     result['files'] = []
     result['images'] = []
     result['participants'] = []
+    result['meetings'] = []
 
     for diet_group_file in diet_group.dietfile_set.all():
         try:
@@ -62,6 +64,9 @@ def diet_group_get(request):
 
     for participant in diet_group.dietgroupparticipant_set.all():
         result['participants'].append(participantsSerializerGet(participant))
+
+    for meeting in diet_group.dietmeeting_set.all():
+        result['meetings'].append(DietMeetingSerializerGet(meeting).data)
 
     return JsonResponse(result, safe=False)
 
@@ -188,3 +193,20 @@ def diet_image_remove(request):
         DietImage.objects.get(id=image_id).delete()
         return Response({'OK'}, status=status.HTTP_200_OK)
     return Response({'error': 'Image doesnt exist or problems when deleting'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def diet_meeting_add(request):
+    serializer = DietMeetingSerializer(data=request.data)
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'id': serializer.instance.id}, status=status.HTTP_200_OK)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def diet_meeting_remove(request):
+    diet_group = DietMeeting.objects.get(id=request.data['id'])
+    diet_group.delete()
+
+    return Response({'OK'}, status=status.HTTP_200_OK)
