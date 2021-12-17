@@ -237,9 +237,7 @@ function Training() {
                             return (
                                 <Link className='btn m-4 shadow border' id='trainingCard' to={{
                                     pathname: '/trening',
-                                    state: {
-                                        trainingId: training.id
-                                    }
+                                    search: 'id='+training.id.toString()
 
                                 }}>
                                     <div className="container my-auto" id='trainingCardBody'>
