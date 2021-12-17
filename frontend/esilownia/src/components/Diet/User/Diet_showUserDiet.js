@@ -43,7 +43,6 @@ function Diet_showUserDiet() {
                 }
             })
             .then((res) => {
-                console.log(res.data)
                 setUserDiets(res.data.diets)
             });
 
