@@ -180,7 +180,7 @@ function DieticianDiet() {
                                         {meetingsInfo.map((diet,idx) => {
                                             for (let i = 0; i < dietMeetings.length; i++) {
                                                 if (diet.id === dietMeetings[i]) {
-                                                    return (<p key={idx}>{diet.title} - {diet.date_start.replace('T', " ").replace('Z', '')}</p>)
+                                                    return (<p key={idx}>{diet.title} - {diet.date.replace('T', " ").replace('Z', '')}</p>)
                                                 }
                                             }
                                         })}
@@ -218,10 +218,6 @@ function DieticianDiet() {
                                                     <h6 className="mb-0">{meeting.title}</h6>
                                                 </div>
                                                 <hr/>
-                                                <div className="text-center" style={{height:'2.5rem'}}>
-                                                    <p className="mb-0">{meeting.description}</p>
-                                                </div>
-                                                <hr/>
                                                 <div className="row">
                                                     <div className="col-sm-5">
                                                         <h6 className="mb-0">Start</h6>
@@ -239,15 +235,15 @@ function DieticianDiet() {
                         </div>
                     </div>
                 </div>
-                {/*<div className='row'>*/}
-                {/*    <div className="col-md-10 mx-auto mt-3 text-center">*/}
-                {/*        <MeetingCreate groupId={dietId}></MeetingCreate>*/}
-                {/*        <TrainingRemoveParticipant groupId={dietId}></TrainingRemoveParticipant>*/}
-                {/*        <TrainingGroupChangeImage groupId={dietId}></TrainingGroupChangeImage>*/}
-                {/*        <TrainingGroupChangeVideo groupId={dietId}></TrainingGroupChangeVideo>*/}
-                {/*        <TrainingGroupRemove groupId={dietId}></TrainingGroupRemove>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className='row'>
+                    <div className="col-md-10 mx-auto mt-3 text-center">
+                        <MeetingCreate groupId={dietId}></MeetingCreate>
+                        {/*<TrainingRemoveParticipant groupId={dietId}></TrainingRemoveParticipant>*/}
+                        {/*<TrainingGroupChangeImage groupId={dietId}></TrainingGroupChangeImage>*/}
+                        {/*<TrainingGroupChangeVideo groupId={dietId}></TrainingGroupChangeVideo>*/}
+                        {/*<TrainingGroupRemove groupId={dietId}></TrainingGroupRemove>*/}
+                    </div>
+                </div>
             </div>
         </div>
     );

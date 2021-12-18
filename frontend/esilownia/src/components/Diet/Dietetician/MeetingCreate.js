@@ -5,24 +5,21 @@ import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 function MeetingCreate(props){
-    const [groupInfo, setGroupInfo] = useState([])
+    const [dietInfo, setDietInfo] = useState([])
     const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
     const [dateStart, setDateStart] = useState("")
-    const [dateEnd, setDateEnd] = useState("")
-    const [calories, setCalories] = useState("")
 
     useEffect(() => {
 
         axiosInstance
-            .post(`training/group/get`, {id: props.groupId}, {
+            .post(`diet/get`, {id: props.groupId}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
-                setGroupInfo(res.data)
+                setDietInfo(res.data)
             });
 
     }, [props.groupId]);
@@ -31,12 +28,9 @@ function MeetingCreate(props){
         e.preventDefault();
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("training_group", groupInfo.id);
+        urlencoded.append("diet", dietInfo.id);
         urlencoded.append("title", title);
-        urlencoded.append("description", description);
-        urlencoded.append("date_start", dateStart);
-        urlencoded.append("date_end", dateEnd);
-        urlencoded.append("calories", calories);
+        urlencoded.append("date", dateStart);
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
@@ -49,7 +43,7 @@ function MeetingCreate(props){
             redirect: 'follow'
         };
 
-        fetch(axios_variebles.baseURL + "training/create", requestOptions)
+        fetch(axios_variebles.baseURL + "diet/meeting/add", requestOptions)
             .then(response => {
                 response.text();
                 window.location.reload();
@@ -60,13 +54,13 @@ function MeetingCreate(props){
     };
 
     function validateForm() {
-        return title.length > 0 && description.length > 0 && dateStart.length > 0 && dateEnd.length > 0 && calories > 0;
+        return title.length > 0 && dateStart.length > 0;
     }
 
     return(
         <div className="TrainingCreateContainer">
             <hr/>
-            <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Utwórz trening</h1>
+            <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Utwórz Spotkanie</h1>
             <hr/>
             <div className="container text-left">
                 <div className="row">
@@ -81,16 +75,6 @@ function MeetingCreate(props){
                                 />
                             </Form.Group>
                             <Form.Group size="lg" controlId="text">
-                                <Form.Label>Opis</Form.Label>
-                                <Form.Control
-                                    as="textarea"
-                                    rows={3}
-                                    type="text"
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                />
-                            </Form.Group>
-                            <Form.Group size="lg" controlId="text">
                                 <Form.Label>Data Rozpoczęcia</Form.Label>
                                 <Form.Control
                                     type="datetime-local"
@@ -98,23 +82,9 @@ function MeetingCreate(props){
                                     onChange={(e) => setDateStart(e.target.value)}
                                 />
                             </Form.Group>
-                            <Form.Group size="lg" controlId="text">
-                                <Form.Label>Data Zakonczenia</Form.Label>
-                                <Form.Control
-                                    type="datetime-local"
-                                    value={dateEnd}
-                                    onChange={(e) => setDateEnd(e.target.value)}
-                                />
-                            </Form.Group>
-                            <Form.Label>Kalorie</Form.Label>
-                            <Form.Control
-                                type="number"
-                                value={calories}
-                                onChange={(e) => setCalories(e.target.value)}
-                            />
                             <Button onClick={handleSubmit} block size="lg" className="btn btn-lg mt-4" id="btn-login"
                                     disabled={!validateForm()}>
-                                Utwórz Trening
+                                Utwórz Spotkanie
                             </Button>
                         </Form>
                     </div>
