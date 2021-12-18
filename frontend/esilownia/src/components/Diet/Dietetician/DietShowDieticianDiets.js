@@ -98,7 +98,7 @@ function DietShowDieticianDiets() {
                                                 <p className="card-text text-center"> Trener:</p>
                                                 <p className="card-text text-center">{userInfo.first_name} {userInfo.last_name}</p>
                                                 <Link className='btn' to={{
-                                                    pathname: '/strefa_trenera_treningi',
+                                                    pathname: '/strefa_dietetyka_dieta',
                                                     search: 'id='+diet.id.toString()
                                                 }}>Szczegóły Diety</Link>
                                             </div>

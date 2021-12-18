@@ -17,6 +17,7 @@ export { default as ModeratorPanel } from "./Moderator_panel";
 export { default as TrainerSpace } from "./TrainingGroups_TrainerSpace";
 export { default as DieticianSpace } from "../components/Diet/Dietetician/DieticianSpace";
 export { default as TrainingsTrainerSpace } from "./Training_trainer";
+export { default as DieticianDiet } from  "../components/Diet/Dietetician/DieticianDiet";
 //export { default as Training } from "./Training";
 export { default as TrainingJisti } from "./Trening_Jitsi";
 export { default as DietMeetingJitsi } from "./DietMeeting_Jitsi"
