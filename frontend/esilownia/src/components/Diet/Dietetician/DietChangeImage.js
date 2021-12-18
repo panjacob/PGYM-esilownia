@@ -4,9 +4,9 @@ import Button from "react-bootstrap/Button";
 import axios_variebles from "../../Axios/Axios_variebles";
 
 function DietChangeImage(props){
-    const [groupInfo, setGroupInfo] = useState([]);
+    const [dietInfo, setDietInfo] = useState([]);
     const [photo, setPhoto] = useState();
-    const [groupInfoPhotos, setGroupInfoPhotos] = useState([]);
+    const [dietInfoPhotos, setDietInfoPhotos] = useState([]);
     const [photoSelected, setPhotoSelected] = useState('none');
     const [fileToUpload, setFileToUpload] = useState();
     const [fileToUploadName, setFileToUploadName] = useState("");
@@ -23,8 +23,8 @@ function DietChangeImage(props){
                 }
             })
             .then((res) => {
-                setGroupInfo(res.data)
-                setGroupInfoPhotos(res.data.images)
+                setDietInfo(res.data)
+                setDietInfoPhotos(res.data.images)
             });
 
     }, [props.groupId]);
@@ -47,7 +47,7 @@ function DietChangeImage(props){
         if(isFilePicked===true){
             formdata.append("image", fileToUpload, fileToUploadName);
         }
-        formdata.append("diet", groupInfo.id )
+        formdata.append("diet", dietInfo.id )
 
         var requestOptions = {
             method: 'POST',
@@ -69,7 +69,7 @@ function DietChangeImage(props){
     const photoChosen = (e) => {
         if(e.target.value !=='none'){
             setPhotoSelected(e.target.value)
-            groupInfoPhotos.map((photo)=>{
+            dietInfoPhotos.map((photo)=>{
                 if(photo.id.toString() === e.target.value){
                     setPhotoSelectedName(photo.url)
                 }
@@ -158,7 +158,7 @@ function DietChangeImage(props){
                                 <select className='text-center' style={{width: '100%', height: '30px'}}
                                         onChange={photoChosen}>
                                     <option value='none'> - </option>
-                                    {groupInfoPhotos.map(function (photos, idx) {
+                                    {dietInfoPhotos.map(function (photos, idx) {
                                         return (
                                             <option
                                                 key={idx}
