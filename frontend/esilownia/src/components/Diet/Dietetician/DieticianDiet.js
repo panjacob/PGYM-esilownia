@@ -5,13 +5,11 @@ import axiosInstance from "../../Axios/Axios";
 import profilePicture from "../../../imgs/basic_profile_photo.jpg";
 import axios_variebles from "../../Axios/Axios_variebles";
 import {Button} from "react-bootstrap";
-import TrainingGroupChangeImage from "../../Training/Trainer/TrainingGroupChangeImage";
-import TrainingGroupChangeVideo from "../../Training/Trainer/TrainingGroupChangeVideo";
-import TrainingGroupRemove from "../../Training/Trainer/TrainingGroupRemove";
 import MeetingCreate from "./MeetingCreate";
 import DietRemoveParticipant from "./DietRemoveParticipant";
 import DietChangeImage from "./DietChangeImage";
 import DietChangeFile from "./DietChangeFile";
+import DietRemove from "./DietRemove";
 
 function DieticianDiet() {
 
@@ -242,7 +240,7 @@ function DieticianDiet() {
                         <DietRemoveParticipant groupId={dietId}></DietRemoveParticipant>
                         <DietChangeImage groupId={dietId}></DietChangeImage>
                         <DietChangeFile groupId={dietId}></DietChangeFile>
-                        {/*<TrainingGroupRemove groupId={dietId}></TrainingGroupRemove>*/}
+                        <DietRemove groupId={dietId}></DietRemove>
                     </div>
                 </div>
             </div>
