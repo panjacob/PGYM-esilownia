@@ -1,10 +1,35 @@
 import functools
+import threading
 from django.utils.crypto import get_random_string
+from django.core.mail import send_mail
 
 from rest_framework import status
 from rest_framework.response import Response
 
 from users.models import UserExtended
+
+
+class EmailThread(threading.Thread):
+    def __init__(self, subject, html_message, recipent):
+        self.subject = subject
+        self.html_message = html_message
+        self.recipent = recipent
+        threading.Thread.__init__(self)
+    def run(self):
+        send_mail(self.subject, '', 'yot2137@cock.li', [self.recipent], html_message=self.html_message, fail_silently=False)
+
+
+def send_html_mail(subject, html_message, recipent):
+    EmailThread(subject, html_message, recipent).start()
+
+
+def generate_password_reset_email_body(host, token):
+    if "localhost" in host or "127.0.0.1" in host:
+        link = f'http://localhost:3000/password_reset?token={token}'
+    else:
+        link = f'https://pgym.xyz/password_reset?token={token}'
+    html_message = f'Aby zresetować swoje hasło kliknij <a href="{link}">TUTAJ</a>'
+    return html_message
 
 
 def validate_password(password):

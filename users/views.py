@@ -2,7 +2,6 @@ import datetime
 from django.utils import timezone
 from pprint import pprint
 
-from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
@@ -191,19 +190,8 @@ def password_reset_request(request):
     user.password_reset_token = token
     user.password_reset_token_time = datetime.datetime.now(tz=timezone.get_current_timezone())
     user.save()
-    if "localhost" in request.get_host() or "127.0.0.1" in request.get_host():
-        link = f'http://localhost:3000/password_reset?token={token}'
-    else:
-        link = f'https://pgym.xyz/password_reset?token={token}'
-    html_message = f'Aby zresetować swoje hasło kliknij <a href="{link}">TUTAJ</a>'
-    send_mail(
-        'PGYM - Reset Hasła',
-        '',
-        'yot2137@cock.li',
-        [email],
-        fail_silently=False,
-        html_message=html_message,
-    )
+    html_message = utilis.generate_password_reset_email_body(request.get_host(), token)
+    utilis.send_html_mail('PGYM - Reset Hasła', html_message, email)
     return Response(status=200)
 
 
