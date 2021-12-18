@@ -6,6 +6,7 @@ import axiosInstance from "../components/Axios/Axios";
 function DietMeetingJitsi(props) {
     const [groupId, setGroupId] = useState("")
     const [meetingInfo, setMeetingInfo] = useState([])
+    const [meetingDate, setMeetingDate] = useState("")
 
     const location = useLocation()
 
@@ -33,13 +34,17 @@ function DietMeetingJitsi(props) {
             })
             .then((res) => {
                 console.log(res.data)
+                setMeetingDate(res.data.date)
                 setMeetingInfo(res.data)
             });
 
     }, [props.groupId]);
 
     const jitsiStart = (jwt) => {
-        const roomName = location.state.meetingId;
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
+        const roomName = id;
         const domain = "meet.pgym.xyz";
         const options = {
             width: 1100,
@@ -55,8 +60,11 @@ function DietMeetingJitsi(props) {
     };
 
     const jitsiGetToken = (e) => {
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
         axiosInstance
-            .post(`diet/jitsi/join`, {id: location.state.meetingId}, {
+            .post(`diet/jitsi/join`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -87,7 +95,7 @@ function DietMeetingJitsi(props) {
                                 <h6 className="mb-0">Start</h6>
                             </div>
                             <div className="col-sm-7 text-secondary">
-                                {meetingInfo.date}
+                                {meetingDate.replace("T", " ").replace("Z", " ")}
                             </div>
                         </div>
                         <hr/>

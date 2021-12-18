@@ -175,7 +175,7 @@ function Header(props) {
 
     let isDietician = false;
     if (localStorage.getItem('role') !== null) {
-        isTrainer = JSON.parse(localStorage.getItem('role')).includes('dietician')
+        isDietician = JSON.parse(localStorage.getItem('role')).includes('dietician')
     }
 
     return (
