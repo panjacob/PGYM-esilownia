@@ -18,6 +18,7 @@ export { default as TrainerSpace } from "./TrainingGroups_TrainerSpace";
 export { default as TrainingsTrainerSpace } from "./Training_trainer";
 //export { default as Training } from "./Training";
 export { default as TrainingJisti } from "./Trening_Jitsi";
+export { default as DietMeetingJitsi } from "./DietMeeting_Jitsi"
 export { default as GroupOfferDetails } from "./Group_offer_details";
 export { default as DietOfferDetails } from "./Diet_offer_details";
 export { default as Chat } from "./Chat";

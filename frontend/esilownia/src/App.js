@@ -25,6 +25,7 @@ import Payment_history from "./Views/Payment_history";
 import Forum from "./Views/Forum";
 import {DietMeetings, ForumTopicPosts} from "./Views/Index";
 import DietOfferDetails from "./Views/Diet_offer_details";
+import DietMeeting_Jitsi from "./Views/DietMeeting_Jitsi";
 
 function App() {
     return (
@@ -50,6 +51,7 @@ function App() {
                     <Route path="/grupa_treningi" exact component={() => <Training/>}/>
                     <Route path="/grupa_diety" exact component={() => <DietMeetings/>}/>
                     <Route path="/trening" exact component={() => <TreningJitsi/>}/>
+                    <Route path="/spotkanie" exact component={() => <DietMeeting_Jitsi/>}/>
                     <Route path="/grupa_szczegóły" exact component={() => <GroupOfferDetails/>}/>
                     <Route path="/dieta_szczegóły" exact component={() => <DietOfferDetails/>}/>
                     <Route path="/wiadomości" exact component={() => <Chat/>}/>

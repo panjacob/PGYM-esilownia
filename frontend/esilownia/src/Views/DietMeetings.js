@@ -206,10 +206,8 @@ function DietMeetings() {
                             {dietsInfo.map((diet) => {
                                 return (
                                     <Link className='btn m-1 shadow' id='trainingCard' to={{
-                                        pathname: '/trening',
-                                        state: {
-                                            trainingId: diet.id
-                                        }
+                                        pathname: '/spotkanie',
+                                        search: 'id='+diet.id.toString()
 
                                     }}>
                                         <div className="container my-auto" id='trainingCardBody'>
