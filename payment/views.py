@@ -9,6 +9,7 @@ from payment import models
 from users.models import UserExtended
 from payment import serializers
 from django.conf import settings
+from users.utilis import send_html_mail
 import stripe
 
 from users.utilis import put_owner_in_request_data
@@ -98,8 +99,9 @@ def stripe_webhook(request):
             stripe_price_id = session['line_items']['data'][0]['price']['id']
             offer = models.Offer.objects.get(stripe_price_id=stripe_price_id)
             user = UserExtended.objects.get(email=user_email)
-            utilis.create_transaction(user=user, offer_id=offer.id, stripe_pi_id=payment_intent)
-
+            transaction = utilis.create_transaction(user=user, offer_id=offer.id, stripe_pi_id=payment_intent)
+            html_message = utilis.generate_purchase_confirmation_email_body(transaction.purchased, transaction.transaction_id)
+            send_html_mail("PGYM - Zakup Gymcoinów", html_message, user_email)
     else:
         print("Unhandled event type {}".format(event['type']))
 
