@@ -59,4 +59,5 @@ class DietImage(models.Model):
 
 class DietMeeting(models.Model):
     diet = models.ForeignKey(Diet, on_delete=models.CASCADE)
+    title = models.CharField(max_length=500)
     date = models.DateTimeField(default=timezone.now)
