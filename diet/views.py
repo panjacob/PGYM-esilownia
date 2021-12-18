@@ -210,3 +210,10 @@ def diet_meeting_remove(request):
     diet_group.delete()
 
     return Response({'OK'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def diet_meeting_get(request):
+    meeting = DietMeeting.objects.get(id=request.data['id'])
+    serializer = DietMeetingSerializerGet(meeting)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})

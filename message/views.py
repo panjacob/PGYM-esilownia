@@ -82,12 +82,8 @@ def notification_all(request):
 
     result = []
     notifications = Notification.objects.filter(user=request.user)
-    print(seen)
     if not seen:
-        not_seen = not seen
-        print(notifications)
         notifications = notifications.filter(seen=seen)
-        print(notifications)
 
     for notification in notifications:
         serializer = NotificationSerializer(instance=notification)
