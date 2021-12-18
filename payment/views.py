@@ -17,24 +17,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 @api_view(['POST'])
-def transaction_create(request):
-    transaction = utilis.create_transaction(user=request.user, offer_id=request.data['offer'])
-
-    return Response({'message': f"Transakcja zakończona poprawnie", 'transaction_id': transaction.transaction_id},
-                    status=status.HTTP_200_OK)
-
-
-@api_view(['POST'])
-def transaction_all(request):
-    transactions = models.Transaction.objects.filter(user=request.user)
-    result = []
-    for transaction in transactions:
-        serializer = serializers.TransactionSerializer(instance=transaction)
-        result.append(serializer.data)
-    return JsonResponse(result, safe=False)
-
-
-@api_view(['POST'])
 @permission_classes([AllowAny])
 def offer_all(request):
     offers = models.Offer.objects.all()
