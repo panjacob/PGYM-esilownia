@@ -38,7 +38,11 @@ function TrainingJitsi(props) {
     }, [props.groupId]);
 
     const jitsiStart = (jwt) => {
-        const roomName = location.state.trainingId;
+
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
+        const roomName = id;
         const domain = "meet.pgym.xyz";
         const options = {
             width: 1100,
@@ -54,8 +58,12 @@ function TrainingJitsi(props) {
     };
 
     const jitsiGetToken = (e) => {
+
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
         axiosInstance
-            .post(`/training/join`, {id: location.state.trainingId}, {
+            .post(`/training/join`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
