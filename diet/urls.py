@@ -19,6 +19,7 @@ urlpatterns = [
     path('image/remove', views.diet_image_remove, name='diet_image_remove'),
     path('meeting/add', views.diet_meeting_add, name='diet_meeting_add'),
     path('meeting/remove', views.diet_meeting_remove, name='diet_meeting_remove'),
+    path('meeting/get', views.diet_meeting_get, name='diet_meeting_get'),
 
     path('jitsi/join', views.diet_jitsi_join, name='diet_jitsi_join'),
     path('jitsi/leave', views.diet_jitsi_leave, name='diet_jitsi_leave'),

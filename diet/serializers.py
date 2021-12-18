@@ -75,4 +75,4 @@ class DietMeetingSerializer(ModelSerializer):
 class DietMeetingSerializerGet(ModelSerializer):
     class Meta:
         model = DietMeeting
-        fields = ['date']
+        fields = ['id', 'diet', 'date', 'title']
