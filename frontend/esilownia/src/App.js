@@ -23,7 +23,7 @@ import Chat from "./Views/Chat";
 import Training_trainer from "./Views/Training_trainer";
 import Payment_history from "./Views/Payment_history";
 import Forum from "./Views/Forum";
-import {DietMeetings, ForumTopicPosts} from "./Views/Index";
+import {DieticianSpace, DietMeetings, ForumTopicPosts} from "./Views/Index";
 import DietOfferDetails from "./Views/Diet_offer_details";
 import DietMeeting_Jitsi from "./Views/DietMeeting_Jitsi";
 
@@ -47,6 +47,7 @@ function App() {
                     <Route path="/dashboard" exact component={() => <Dashboard/>}/>
                     <Route path="/cockpit" exact component={() => <ModeratorPanel/>}/>
                     <Route path="/strefa_trenera" exact component={() => <TrainerSpace/>}/>
+                    <Route path="/strefa_dietetyka" exact component={() => <DieticianSpace/>}/>
                     <Route path="/strefa_trenera_treningi" exact component={() => <Training_trainer/>}/>
                     <Route path="/grupa_treningi" exact component={() => <Training/>}/>
                     <Route path="/grupa_diety" exact component={() => <DietMeetings/>}/>

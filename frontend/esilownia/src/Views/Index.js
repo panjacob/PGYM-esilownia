@@ -15,6 +15,7 @@ export { default as AccountEdit } from "./Account_edit";
 export { default as Dashboard } from "./Dashboard";
 export { default as ModeratorPanel } from "./Moderator_panel";
 export { default as TrainerSpace } from "./TrainingGroups_TrainerSpace";
+export { default as DieticianSpace } from "../components/Diet/Dietetician/DieticianSpace";
 export { default as TrainingsTrainerSpace } from "./Training_trainer";
 //export { default as Training } from "./Training";
 export { default as TrainingJisti } from "./Trening_Jitsi";
