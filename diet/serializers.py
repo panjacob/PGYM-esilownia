@@ -69,10 +69,10 @@ class DietMeetingSerializer(ModelSerializer):
     class Meta:
         model = DietMeeting
         diet = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-        fields = ['diet', 'date']
+        fields = ['diet', 'date', 'title']
 
 
 class DietMeetingSerializerGet(ModelSerializer):
     class Meta:
         model = DietMeeting
-        fields = ['date']
+        fields = ['id', 'diet', 'date', 'title']

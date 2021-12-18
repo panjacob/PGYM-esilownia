@@ -62,6 +62,24 @@ def training_group_join(request):
     participant_extend_subscription(training_group_participant, days_to_add)
     user1_give_money_user2_training(user, owner, price)
 
+    body_user = {
+        'training_group': training_group.id,
+        'training_group_image': training_group.image,
+        'training_group_name': training_group.title,
+        'bought_days': days_to_add
+    }
+    notification_send(user=user, body=body_user, kind=4)
+
+    body_owner = {
+        'training_group': training_group.id,
+        'training_group_image': training_group.image,
+        'training_group_name': training_group.title,
+        'bought_days': days_to_add,
+        'user_who_bought': user.id,
+        'user_who_bought_name': f"{user.first_name} {user.last_name}",
+    }
+    notification_send(user=owner, body=body_owner, kind=5)
+
     return Response({'OK'}, status=status.HTTP_200_OK)
 
 
