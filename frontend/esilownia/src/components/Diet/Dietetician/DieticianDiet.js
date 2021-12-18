@@ -11,6 +11,7 @@ import TrainingGroupRemove from "../../Training/Trainer/TrainingGroupRemove";
 import MeetingCreate from "./MeetingCreate";
 import DietRemoveParticipant from "./DietRemoveParticipant";
 import DietChangeImage from "./DietChangeImage";
+import DietChangeFile from "./DietChangeFile";
 
 function DieticianDiet() {
 
@@ -240,7 +241,7 @@ function DieticianDiet() {
                         <MeetingCreate groupId={dietId}></MeetingCreate>
                         <DietRemoveParticipant groupId={dietId}></DietRemoveParticipant>
                         <DietChangeImage groupId={dietId}></DietChangeImage>
-                        {/*<TrainingGroupChangeVideo groupId={dietId}></TrainingGroupChangeVideo>*/}
+                        <DietChangeFile groupId={dietId}></DietChangeFile>
                         {/*<TrainingGroupRemove groupId={dietId}></TrainingGroupRemove>*/}
                     </div>
                 </div>
