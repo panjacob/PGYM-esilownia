@@ -10,6 +10,16 @@ function Diet_showUserDiet() {
     const [dietsAll, setDietsAll] = useState([]);
     const [dietTypeAll, setDietTypeAll] = useState([]);
     const [userDiets, setUserDiets] = useState([]);
+    const [dieticianInfo, setDieticianInfo] = useState([]);
+
+    function uniqBy(a, key) {
+        var seen = {};
+        return a.filter(function (item) {
+            var k = key(item);
+            return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+        })
+    }
+
 
     useEffect(() => {
 
@@ -22,6 +32,20 @@ function Diet_showUserDiet() {
             })
             .then((res) => {
                 setDietsAll(res.data)
+
+                res.data.map((group) => {
+
+                    axiosInstance
+                        .post(`/users/get/`, {id: group.owner}, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                            }
+                        })
+                        .then((res2) => {
+                            setDieticianInfo(trainersInfo => [...trainersInfo, res2.data])
+                        });
+                })
             });
 
         axiosInstance
@@ -90,7 +114,13 @@ function Diet_showUserDiet() {
                                                             }
                                                         })}
                                                     </div>
-                                                    <p className="card-text text-center"> Dietetyk {diet.owner}</p>
+                                                    <p className="card-text text-center"> Dietetyk</p>
+                                                    {uniqBy(dieticianInfo, JSON.stringify).map((trainer, idx) => {
+                                                        if (trainer.id === diet.owner)
+                                                            return (<p key={idx}
+                                                                       className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
+
+                                                    })}
                                                     <Link className='btn' to={{
                                                         pathname: '/grupa_diety',
                                                         search: 'id='+diet.id.toString()
