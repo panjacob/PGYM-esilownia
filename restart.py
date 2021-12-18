@@ -5,7 +5,6 @@ import os
 from manage import main
 
 path = os.getcwd()
-print(path)
 if sys.platform == 'windows':
     path = '.\\manage.py'
 else:

@@ -66,7 +66,7 @@ def diet_group_get(request):
         result['participants'].append(participantsSerializerGet(participant))
 
     for meeting in diet_group.dietmeeting_set.all():
-        result['meetings'].append(DietMeetingSerializerGet(meeting).data)
+        result['meetings'].append(meeting.id)
 
     return JsonResponse(result, safe=False)
 
