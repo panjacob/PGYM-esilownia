@@ -12,7 +12,7 @@ function DietMeetings() {
     const [dietsInfo, setDietsInfo] = useState([])
     const [dietTypeAll, setDietTypeAll] = useState([]);
     const [dietTypes, setDietTypes] = useState([])
-    const [groupDiets, setGroupDiets] = useState([])
+    const [dietMeetings, setDietMeetings] = useState([])
     const [dieticianInfo, setDieticianInfo] = useState([])
     const [photo, setPhoto] = useState([])
     const [video, setVideo] = useState([])
@@ -41,8 +41,9 @@ function DietMeetings() {
             .then((res) => {
                 setDietInfo(res.data)
                 setDietTypes(res.data.type)
-                // setGroupDiets(res.data.trainings)
-                // setVideo(res.data.videos)
+                setDietMeetings(res.data.meetings)
+                console.log(res.data.meetings)
+                setVideo(res.data.files)
 
                 if(res.data.image === null){
                     setPhoto(profilePicture)
@@ -50,20 +51,20 @@ function DietMeetings() {
                     setPhoto(axios_variebles.baseURL.slice(0, -1) + res.data.image)
                 }
 
-                setDietsInfo(trainingsInfo => [])
+                setDietsInfo(dietsInfo => [])
 
-                // res.data.trainings.map((trainingId) => {
-                //     axiosInstance
-                //         .post(`/training/get`, {id: trainingId}, {
-                //             headers: {
-                //                 'Content-Type': 'application/json',
-                //                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                //             }
-                //         })
-                //         .then((res) => {
-                //             setDietsInfo(trainingsInfo => [...trainingsInfo, res.data])
-                //         })
-                // });
+                res.data.meetings.map((meetingId) => {
+                    axiosInstance
+                        .post(`diet/meeting/get`, {id: meetingId}, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                            }
+                        })
+                        .then((res) => {
+                            setDietsInfo(dietsInfo => [...dietsInfo, res.data])
+                        })
+                });
 
                 axiosInstance
                     .post(`/users/get/`, {id: res.data.owner}, {
@@ -175,9 +176,9 @@ function DietMeetings() {
                                     </div>
                                     <div className="col-sm-7 text-secondary">
                                         {dietsInfo.map((diets,idx) => {
-                                            for (let i = 0; i < groupDiets.length; i++) {
-                                                if (diets.id === groupDiets[i]) {
-                                                    return (<p key={idx}>{diets.title} - {diets.date_start.replace('T', " ").replace('Z', '')}</p>)
+                                            for (let i = 0; i < dietMeetings.length; i++) {
+                                                if (diets.id === dietMeetings[i]) {
+                                                    return (<p key={idx}>{diets.title} - {diets.date.replace('T', " ").replace('Z', '')}</p>)
                                                 }
                                             }
                                         })}
@@ -217,34 +218,12 @@ function DietMeetings() {
                                                     <h6 className="mb-0">{diet.title}</h6>
                                                 </div>
                                                 <hr/>
-                                                <div className="text-center" style={{height:'2.5rem'}}>
-                                                    <p className="mb-0">{diet.description}</p>
-                                                </div>
-                                                <hr/>
                                                 <div className="row">
                                                     <div className="col-sm-5">
                                                         <h6 className="mb-0">Start</h6>
                                                     </div>
                                                     <div className="col-sm-7 text-secondary">
-                                                        {diet.date_start.replace('T', " ").replace('Z', '')}
-                                                    </div>
-                                                </div>
-                                                <hr/>
-                                                <div className="row">
-                                                    <div className="col-sm-5">
-                                                        <h6 className="mb-0">Koniec</h6>
-                                                    </div>
-                                                    <div className="col-sm-7 text-secondary">
-                                                        {diet.date_end.replace('T', " ").replace('Z', '')}
-                                                    </div>
-                                                </div>
-                                                <hr/>
-                                                <div className="row">
-                                                    <div className="col-sm-5">
-                                                        <h6 className="mb-0">Kalorie</h6>
-                                                    </div>
-                                                    <div className="col-sm-7 text-secondary mb-4">
-                                                        {diet.calories}
+                                                        {diet.date.replace('T', " ").replace('Z', '')}
                                                     </div>
                                                 </div>
                                             </div>
@@ -256,29 +235,28 @@ function DietMeetings() {
                     </div>
 
                 </div>
-                {/*<div className='row'>*/}
-                {/*    <div className="col-md-10 mx-auto mt-3">*/}
-                {/*        <div className="text-center">*/}
-                {/*            <hr></hr>*/}
-                {/*            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Filmy*/}
-                {/*                Instruktażowe*/}
-                {/*            </h1>*/}
-                {/*            <hr></hr>*/}
-                {/*        </div>*/}
-                {/*        /!*<Carousel variant="dark" activeIndex={index} onSelect={handleSelect} interval={null}>*!/*/}
-                {/*        /!*    {video.map(function (videos, idx) {*!/*/}
-                {/*        /!*        return (*!/*/}
-                {/*        /!*            <Carousel.Item>*!/*/}
-                {/*        /!*                <div className="container text-center">*!/*/}
-                {/*        /!*                    <video src={axios_variebles.baseURL.slice(0, -1) + videos.url} width="600px" height="500px" controls/>*!/*/}
-                {/*        /!*                </div>*!/*/}
-                {/*        /!*            </Carousel.Item>*!/*/}
-                {/*        /!*        )*!/*/}
-                {/*        /!*    })}*!/*/}
-                {/*        /!*</Carousel>*!/*/}
-                {/*        <hr/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className='row'>
+                    <div className="col-md-10 mx-auto mt-3">
+                        <div className="text-center">
+                            <hr></hr>
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Zawarte Pliki
+                            </h1>
+                            <hr></hr>
+                        </div>
+                        <Carousel variant="dark" activeIndex={index} onSelect={handleSelect} interval={null}>
+                            {video.map(function (videos, idx) {
+                                return (
+                                    <Carousel.Item>
+                                        <div className="container text-center">
+                                            <video src={axios_variebles.baseURL.slice(0, -1) + videos.url} width="600px" height="500px" controls/>
+                                        </div>
+                                    </Carousel.Item>
+                                )
+                            })}
+                        </Carousel>
+                        <hr/>
+                    </div>
+                </div>
 
             </div>
         </div>

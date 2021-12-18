@@ -58,6 +58,7 @@ function Training() {
                 setGroupTypes(res.data.type)
                 setGroupTrainings(res.data.trainings)
                 setVideo(res.data.videos)
+                console.log(res.data)
 
                 if(res.data.image === null){
                     setPhoto(profilePicture)
