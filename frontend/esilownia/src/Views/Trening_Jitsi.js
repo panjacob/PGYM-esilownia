@@ -240,11 +240,11 @@ function TrainingJitsi(props) {
         return config;
     }
 
-    const jitsiStart = (jwt, moderator) => {
+    const jitsiStart = (jwt, roomName, moderator) => {
         document.getElementById("meet").innerHTML = "";
-        const search = location.search;
-        const id = new URLSearchParams(search).get('id');
-        const roomName = id;
+        //const search = location.search;
+        //const id = new URLSearchParams(search).get('id');
+        //const roomName = id;
         const domain = "meet.pgym.xyz";
         const configOverwrite = (moderator) ? jitsiConfigModerator() : jitsiConfigUser();
         const options = {
@@ -274,7 +274,7 @@ function TrainingJitsi(props) {
                 }
             })
             .then((res) => {
-                jitsiStart(res.data.token, res.data.moderator);
+                jitsiStart(res.data.token, res.data.roomName, res.data.moderator);
             });
     }
 

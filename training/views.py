@@ -246,10 +246,11 @@ def training_join(request):
     user = request.user
     training = models.Training.objects.get(id=request.data['id'])
     training.participants.add(user)
-    payload = jitsi_payload_create(user, training)
-    token = jitsi_token_encode(JITSI_SECRET, payload)
     moderator = is_training_owner(user, training)
-    return Response({'token': token, 'moderator': moderator}, status=status.HTTP_200_OK)
+    room_name = "training" + "_" + str(training.id)
+    payload = jitsi_payload_create(user, training, room_name=room_name, moderator=moderator)
+    token = jitsi_token_encode(JITSI_SECRET, payload)
+    return Response({'token': token, 'moderator': moderator, 'roomName': room_name}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
