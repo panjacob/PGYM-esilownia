@@ -88,8 +88,6 @@ function DietOfferDetails() {
     const handlePayment = (e) => {
         e.preventDefault();
 
-        console.log(e.target.name)
-
         var urlencoded = new URLSearchParams();
         urlencoded.append("diet_group", diet.id);
         urlencoded.append("payment_type", e.target.name);
