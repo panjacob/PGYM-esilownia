@@ -56,9 +56,10 @@ def diet_group_get(request):
         except Exception as e:
             print(e)
 
+    print(diet_group.dietimage_set.all())
     for diet_image in diet_group.dietimage_set.all():
         try:
-            result['files'].append({'id': diet_image.id, 'url': diet_image.file.url})
+            result['images'].append({'id': diet_image.id, 'url': diet_image.image.url})
         except Exception as e:
             print(e)
 
