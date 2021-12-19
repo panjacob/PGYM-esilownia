@@ -120,20 +120,15 @@ function Dashboard_timetable() {
                                     )
                                 } else {
                                     return (
-                                        <td className='col-xl-3'>
+                                        <td className='col-xl-3 my-auto pt-4 pb-4'>
 
-                                            <div className=' col-md-12 text-center border p-2 shadow'
+                                            <div className='col-md-12 text-center border-left border-right p-2 shadow'
                                                  style={{backgroundColor: 'white'}}>
-                                                <Link className='btn m-1 shadow' id='trainingCard2' to={{
-                                                    pathname: '/trening',
-                                                    search: 'id=' + training.id.toString()
-                                                }}>
                                                     <div>{training.title}</div>
                                                     <div>Od
                                                         : {training.date_start.replace('T', ' ').replace('Z', '').substring(11, 19)}</div>
                                                     <div>Do
                                                         : {training.date_end.replace('T', ' ').replace('Z', '').substring(11, 19)}</div>
-                                                </Link>
                                             </div>
 
                                         </td>
@@ -152,7 +147,7 @@ function Dashboard_timetable() {
                         }).map((training)=>{
                             if((today_plus1.getFullYear()+'-'+(today_plus1.getMonth()+1)+'-'+today_plus1.getDate()).match(training.date_start.substring(0, 10)))
                                 return (
-                                    <td className='col-xl-3'>
+                                    <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
                                             <Link className='btn m-1 shadow' id='trainingCard2' to={{
                                                 pathname: '/trening',
@@ -178,7 +173,7 @@ function Dashboard_timetable() {
                         }).map((training)=>{
                             if((today_plus2.getFullYear()+'-'+(today_plus2.getMonth()+1)+'-'+today_plus2.getDate()).match(training.date_start.substring(0, 10)))
                                 return (
-                                    <td className='col-xl-3'>
+                                    <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
                                             <Link className='btn m-1 shadow' id='trainingCard2' to={{
                                                 pathname: '/trening',
@@ -204,7 +199,7 @@ function Dashboard_timetable() {
                         }).map((training)=>{
                             if((today_plus3.getFullYear()+'-'+(today_plus3.getMonth()+1)+'-'+today_plus3.getDate()).match(training.date_start.substring(0, 10)))
                                 return (
-                                    <td className='col-xl-3'>
+                                    <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
                                             <Link className='btn m-1 shadow' id='trainingCard2' to={{
                                                 pathname: '/trening',
@@ -230,7 +225,7 @@ function Dashboard_timetable() {
                         }).map((training)=>{
                             if((today_plus4.getFullYear()+'-'+(today_plus4.getMonth()+1)+'-'+today_plus4.getDate()).match(training.date_start.substring(0, 10)))
                                 return (
-                                    <td className='col-xl-3'>
+                                    <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
                                             <Link className='btn m-1 shadow' id='trainingCard2' to={{
                                                 pathname: '/trening',
@@ -256,7 +251,7 @@ function Dashboard_timetable() {
                         }).map((training)=>{
                             if((today_plus5.getFullYear()+'-'+(today_plus5.getMonth()+1)+'-'+today_plus5.getDate()).match(training.date_start.substring(0, 10)))
                                 return (
-                                    <td className='col-xl-3'>
+                                    <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
                                             <Link className='btn m-1 shadow' id='trainingCard2' to={{
                                                 pathname: '/trening',
@@ -282,7 +277,7 @@ function Dashboard_timetable() {
                         }).map((training)=>{
                             if((today_plus6.getFullYear()+'-'+(today_plus6.getMonth()+1)+'-'+today_plus6.getDate()).match(training.date_start.substring(0, 10)))
                                 return (
-                                    <td className='col-xl-3'>
+                                    <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
                                             <Link className='btn m-1 shadow' id='trainingCard2' to={{
                                                 pathname: '/trening',
