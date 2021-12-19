@@ -4,6 +4,7 @@ import axiosInstance from "../Axios/Axios";
 import profilePicture from "../../imgs/basic_profile_photo.jpg";
 import axios_variebles from "../Axios/Axios_variebles";
 import {Table} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 function Dashboard_timetable() {
 
@@ -94,16 +95,50 @@ function Dashboard_timetable() {
                             var d = new Date(b.date_start);
                             return c-d;
                         }).map((training)=>{
+                            var ds = new Date(training.date_start)
+                            var de = new Date(training.date_end)
                             if((today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()).match(training.date_start.substring(0, 10)))
-                            return (
-                                <td className='col-xl-3'>
-                                <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
-                                    <div>{training.title}</div>
-                                    <div>Od : {training.date_start.replace('T',' ').replace('Z','').substring(11, 19)}</div>
-                                    <div>Do : {training.date_end.replace('T',' ').replace('Z','').substring(11, 19)}</div>
-                                </div>
-                                </td>
-                            )
+                                if(today-ds>0 && today-de<0) {
+                                    return (
+                                        <td className='col-xl-3'>
+
+                                            <div className=' col-md-12 text-center border p-2 shadow'
+                                                 style={{backgroundColor: 'lightgreen'}}>
+                                                <Link className='btn m-1 shadow' id='trainingCard2' to={{
+                                                    pathname: '/trening',
+                                                    search: 'id=' + training.id.toString()
+                                                }}>
+                                                    <div>{training.title}</div>
+                                                    <div>Od
+                                                        : {training.date_start.replace('T', ' ').replace('Z', '').substring(11, 19)}</div>
+                                                    <div>Do
+                                                        : {training.date_end.replace('T', ' ').replace('Z', '').substring(11, 19)}</div>
+                                                </Link>
+                                            </div>
+
+                                        </td>
+                                    )
+                                } else {
+                                    return (
+                                        <td className='col-xl-3'>
+
+                                            <div className=' col-md-12 text-center border p-2 shadow'
+                                                 style={{backgroundColor: 'white'}}>
+                                                <Link className='btn m-1 shadow' id='trainingCard2' to={{
+                                                    pathname: '/trening',
+                                                    search: 'id=' + training.id.toString()
+                                                }}>
+                                                    <div>{training.title}</div>
+                                                    <div>Od
+                                                        : {training.date_start.replace('T', ' ').replace('Z', '').substring(11, 19)}</div>
+                                                    <div>Do
+                                                        : {training.date_end.replace('T', ' ').replace('Z', '').substring(11, 19)}</div>
+                                                </Link>
+                                            </div>
+
+                                        </td>
+                                    )
+                                }
                         })}
                     </tr>
                     </tr>
@@ -119,9 +154,14 @@ function Dashboard_timetable() {
                                 return (
                                     <td className='col-xl-3'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
+                                            <Link className='btn m-1 shadow' id='trainingCard2' to={{
+                                                pathname: '/trening',
+                                                search: 'id='+training.id.toString()
+                                            }}>
                                             <div>{training.title}</div>
                                             <div>Od : {training.date_start.replace('T',' ').replace('Z','').substring(11, 19)}</div>
                                             <div>Do : {training.date_end.replace('T',' ').replace('Z','').substring(11, 19)}</div>
+                                            </Link>
                                         </div>
                                     </td>
                                 )
@@ -140,9 +180,14 @@ function Dashboard_timetable() {
                                 return (
                                     <td className='col-xl-3'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
+                                            <Link className='btn m-1 shadow' id='trainingCard2' to={{
+                                                pathname: '/trening',
+                                                search: 'id='+training.id.toString()
+                                            }}>
                                             <div>{training.title}</div>
                                             <div>Od : {training.date_start.replace('T',' ').replace('Z','').substring(11, 19)}</div>
                                             <div>Do : {training.date_end.replace('T',' ').replace('Z','').substring(11, 19)}</div>
+                                            </Link>
                                         </div>
                                     </td>
                                 )
@@ -161,9 +206,14 @@ function Dashboard_timetable() {
                                 return (
                                     <td className='col-xl-3'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
+                                            <Link className='btn m-1 shadow' id='trainingCard2' to={{
+                                                pathname: '/trening',
+                                                search: 'id='+training.id.toString()
+                                            }}>
                                             <div>{training.title}</div>
                                             <div>Od : {training.date_start.replace('T',' ').replace('Z','').substring(11, 19)}</div>
                                             <div>Do : {training.date_end.replace('T',' ').replace('Z','').substring(11, 19)}</div>
+                                            </Link>
                                         </div>
                                     </td>
                                 )
@@ -182,9 +232,14 @@ function Dashboard_timetable() {
                                 return (
                                     <td className='col-xl-3'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
+                                            <Link className='btn m-1 shadow' id='trainingCard2' to={{
+                                                pathname: '/trening',
+                                                search: 'id='+training.id.toString()
+                                            }}>
                                             <div>{training.title}</div>
                                             <div>Od : {training.date_start.replace('T',' ').replace('Z','').substring(11, 19)}</div>
                                             <div>Do : {training.date_end.replace('T',' ').replace('Z','').substring(11, 19)}</div>
+                                            </Link>
                                         </div>
                                     </td>
                                 )
@@ -203,9 +258,14 @@ function Dashboard_timetable() {
                                 return (
                                     <td className='col-xl-3'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
+                                            <Link className='btn m-1 shadow' id='trainingCard2' to={{
+                                                pathname: '/trening',
+                                                search: 'id='+training.id.toString()
+                                            }}>
                                             <div>{training.title}</div>
                                             <div>Od : {training.date_start.replace('T',' ').replace('Z','').substring(11, 19)}</div>
                                             <div>Do : {training.date_end.replace('T',' ').replace('Z','').substring(11, 19)}</div>
+                                            </Link>
                                         </div>
                                     </td>
                                 )
@@ -224,9 +284,14 @@ function Dashboard_timetable() {
                                 return (
                                     <td className='col-xl-3'>
                                         <div className=' col-md-12 text-center border p-2 shadow' style={{backgroundColor:'white'}}>
+                                            <Link className='btn m-1 shadow' id='trainingCard2' to={{
+                                                pathname: '/trening',
+                                                search: 'id='+training.id.toString()
+                                            }}>
                                             <div>{training.title}</div>
                                             <div>Od : {training.date_start.replace('T',' ').replace('Z','').substring(11, 19)}</div>
                                             <div>Do : {training.date_end.replace('T',' ').replace('Z','').substring(11, 19)}</div>
+                                            </Link>
                                         </div>
                                     </td>
                                 )
