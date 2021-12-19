@@ -260,6 +260,7 @@ function DietMeetingJitsi(props) {
             configOverwrite: configOverwrite
         };
         const api = new window.JitsiMeetExternalAPI(domain, options);
+        setParticipantsInfo([])
         setParticipantsInfo(api.getParticipantsInfo())
         api.on('readyToClose', () => {
             api.dispose();
@@ -291,7 +292,7 @@ function DietMeetingJitsi(props) {
                     </h1>
                     <hr></hr>
                 </div>
-                <div className="container mt-4 border" style={{'width':'1100px', 'height':'700px'}}>
+                <div className="container mt-4 border pl-0" style={{'width':'1100px', 'height':'700px'}}>
                     <div id='meet'></div>
                 </div>
                 <div className="card mb-4 mt-4 bg-light" width="100%">
