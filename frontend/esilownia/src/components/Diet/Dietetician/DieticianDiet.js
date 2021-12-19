@@ -1,35 +1,37 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link, useHistory, useLocation} from "react-router-dom";
-import axiosInstance from "../components/Axios/Axios";
-import profilePicture from "../imgs/basic_profile_photo.jpg";
-import axios_variebles from "../components/Axios/Axios_variebles";
-import {Button, Carousel} from "react-bootstrap";
+import axiosInstance from "../../Axios/Axios";
+import profilePicture from "../../../imgs/basic_profile_photo.jpg";
+import axios_variebles from "../../Axios/Axios_variebles";
+import {Button} from "react-bootstrap";
+import MeetingCreate from "./MeetingCreate";
+import DietRemoveParticipant from "./DietRemoveParticipant";
+import DietChangeImage from "./DietChangeImage";
+import DietChangeFile from "./DietChangeFile";
+import DietRemove from "./DietRemove";
 
-function DietMeetings() {
+function DieticianDiet() {
 
+    const [dietId, setDietId] = useState("")
     const [dietInfo, setDietInfo] = useState([])
-    const [dietsInfo, setDietsInfo] = useState([])
+    const [meetingsInfo, setMeetingsInfo] = useState([])
     const [dietTypeAll, setDietTypeAll] = useState([]);
     const [dietTypes, setDietTypes] = useState([])
     const [dietMeetings, setDietMeetings] = useState([])
     const [dieticianInfo, setDieticianInfo] = useState([])
     const [photo, setPhoto] = useState([])
-    const [video, setVideo] = useState([])
-    const [index, setIndex] = useState(0);
 
 
-    const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
-    };
-
-    const history = useHistory();
+    const history = useHistory()
     const location = useLocation()
 
     useEffect(() => {
 
         const search = location.search;
         const id = new URLSearchParams(search).get('id');
+
+        setDietId(id)
 
         axiosInstance
             .post(`/diet/get`, {id: id}, {
@@ -42,8 +44,6 @@ function DietMeetings() {
                 setDietInfo(res.data)
                 setDietTypes(res.data.type)
                 setDietMeetings(res.data.meetings)
-                console.log(res.data.meetings)
-                setVideo(res.data.files)
 
                 if(res.data.image === null){
                     setPhoto(profilePicture)
@@ -51,18 +51,18 @@ function DietMeetings() {
                     setPhoto(axios_variebles.baseURL.slice(0, -1) + res.data.image)
                 }
 
-                setDietsInfo(dietsInfo => [])
+                setMeetingsInfo(trainingsInfo => [])
 
-                res.data.meetings.map((meetingId) => {
+                res.data.meetings.map((trainingId) => {
                     axiosInstance
-                        .post(`diet/meeting/get`, {id: meetingId}, {
+                        .post(`/diet/meeting/get`, {id: trainingId}, {
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                             }
                         })
                         .then((res) => {
-                            setDietsInfo(dietsInfo => [...dietsInfo, res.data])
+                            setMeetingsInfo(trainingsInfo => [...trainingsInfo, res.data])
                         })
                 });
 
@@ -93,7 +93,7 @@ function DietMeetings() {
     }, []);
 
     return (
-        <div className="diety">
+        <div className="treningi">
             <div className="container">
                 <Button className="btn btn-lg mt-4 border-0" style={{'color':'black'}} onClick={() => history.goBack()}>Wstecz</Button>
                 <div className='row'>
@@ -101,7 +101,8 @@ function DietMeetings() {
 
                         <div className="text-center">
                             <hr></hr>
-                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Informacje o Diecie
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Informacje
+                                Diety
                             </h1>
                             <hr></hr>
                         </div>
@@ -175,10 +176,10 @@ function DietMeetings() {
                                         <h6 className="mb-0">Spotkania :</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {dietsInfo.map((diets,idx) => {
+                                        {meetingsInfo.map((diet,idx) => {
                                             for (let i = 0; i < dietMeetings.length; i++) {
-                                                if (diets.id === dietMeetings[i]) {
-                                                    return (<p key={idx}>{diets.title} - {diets.date.replace('T', " ").replace('Z', '')}</p>)
+                                                if (diet.id === dietMeetings[i]) {
+                                                    return (<p key={idx}>{diet.title} - {diet.date.replace('T', " ").replace('Z', '')}</p>)
                                                 }
                                             }
                                         })}
@@ -203,17 +204,17 @@ function DietMeetings() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                            {dietsInfo.map((diet) => {
+                            {meetingsInfo.map((meeting) => {
                                 return (
-                                    <Link className='btn m-1 shadow' id='trainingCard' to={{
+                                    <Link className='btn m-4 shadow border' id='trainingCard' to={{
                                         pathname: '/spotkanie',
-                                        search: 'id='+diet.id.toString()
+                                        search: 'id='+meeting.id.toString()
 
                                     }}>
                                         <div className="container my-auto" id='trainingCardBody'>
                                             <div className="container font-weight-light">
                                                 <div className="text-center">
-                                                    <h6 className="mb-0">{diet.title}</h6>
+                                                    <h6 className="mb-0">{meeting.title}</h6>
                                                 </div>
                                                 <hr/>
                                                 <div className="row">
@@ -221,9 +222,10 @@ function DietMeetings() {
                                                         <h6 className="mb-0">Start</h6>
                                                     </div>
                                                     <div className="col-sm-7 text-secondary">
-                                                        {diet.date.replace('T', " ").replace('Z', '')}
+                                                        {meeting.date.replace('T', " ").replace('Z', '')}
                                                     </div>
                                                 </div>
+                                                <hr/>
                                             </div>
                                         </div>
                                     </Link>
@@ -231,34 +233,19 @@ function DietMeetings() {
                             })}
                         </div>
                     </div>
-
                 </div>
                 <div className='row'>
-                    <div className="col-md-10 mx-auto mt-3">
-                        <div className="text-center">
-                            <hr></hr>
-                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Zawarte Pliki
-                            </h1>
-                            <hr></hr>
-                        </div>
-                        <Carousel variant="dark" activeIndex={index} onSelect={handleSelect} interval={null}>
-                            {video.map(function (videos, idx) {
-                                return (
-                                    <Carousel.Item>
-                                        <div className="container text-center">
-                                            <video src={axios_variebles.baseURL.slice(0, -1) + videos.url} width="600px" height="500px" controls/>
-                                        </div>
-                                    </Carousel.Item>
-                                )
-                            })}
-                        </Carousel>
-                        <hr/>
+                    <div className="col-md-10 mx-auto mt-3 text-center">
+                        <MeetingCreate groupId={dietId}></MeetingCreate>
+                        <DietRemoveParticipant groupId={dietId}></DietRemoveParticipant>
+                        <DietChangeImage groupId={dietId}></DietChangeImage>
+                        <DietChangeFile groupId={dietId}></DietChangeFile>
+                        <DietRemove groupId={dietId}></DietRemove>
                     </div>
                 </div>
-
             </div>
         </div>
     );
 }
 
-export default DietMeetings;
+export default DieticianDiet;

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python ../../manage.py graph_models users payment --arrow-shape normal -X Group,Permission,PermissionsMixin,AbstractBaseUser -go graphs/users_payment.png

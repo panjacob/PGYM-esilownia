@@ -9,7 +9,7 @@ from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
 from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required, \
-    training_owner_required, get_price_and_days_to_add, participant_extend_subscription
+    training_owner_required, get_price_and_days_to_add, participant_extend_subscription, is_training_owner
 from users.utilis import put_owner_in_request_data
 from message.utilis import notification_send
 from users.models import UserExtended
@@ -62,9 +62,11 @@ def training_group_join(request):
     participant_extend_subscription(training_group_participant, days_to_add)
     user1_give_money_user2_training(user, owner, price)
 
+
+
     body_user = {
         'training_group': training_group.id,
-        'training_group_image': training_group.image,
+        'training_group_image': training_group.image.url if training_group.image else "",
         'training_group_name': training_group.title,
         'bought_days': days_to_add
     }
@@ -72,7 +74,7 @@ def training_group_join(request):
 
     body_owner = {
         'training_group': training_group.id,
-        'training_group_image': training_group.image,
+        'training_group_image': training_group.image.url if training_group.image else "",
         'training_group_name': training_group.title,
         'bought_days': days_to_add,
         'user_who_bought': user.id,
@@ -246,7 +248,8 @@ def training_join(request):
     training.participants.add(user)
     payload = jitsi_payload_create(user, training)
     token = jitsi_token_encode(JITSI_SECRET, payload)
-    return Response({'token': token}, status=status.HTTP_200_OK)
+    moderator = is_training_owner(user, training)
+    return Response({'token': token, 'moderator': moderator}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

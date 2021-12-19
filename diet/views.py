@@ -56,9 +56,10 @@ def diet_group_get(request):
         except Exception as e:
             print(e)
 
+    print(diet_group.dietimage_set.all())
     for diet_image in diet_group.dietimage_set.all():
         try:
-            result['files'].append({'id': diet_image.id, 'url': diet_image.file.url})
+            result['images'].append({'id': diet_image.id, 'url': diet_image.image.url})
         except Exception as e:
             print(e)
 
@@ -66,7 +67,7 @@ def diet_group_get(request):
         result['participants'].append(participantsSerializerGet(participant))
 
     for meeting in diet_group.dietmeeting_set.all():
-        result['meetings'].append(DietMeetingSerializerGet(meeting).data)
+        result['meetings'].append(meeting.id)
 
     return JsonResponse(result, safe=False)
 

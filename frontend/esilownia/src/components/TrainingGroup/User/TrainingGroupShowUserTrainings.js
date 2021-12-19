@@ -10,6 +10,15 @@ function TrainingGroupShowUserTrainings() {
     const [trainingGroupAll, setTrainingGroupAll] = useState([]);
     const [trainingGroupTypeAll, setTrainingGroupTypeAll] = useState([]);
     const [userTrainings, setUserTrainings] = useState([]);
+    const [trainersInfo, setTrainersInfo] = useState([]);
+
+    function uniqBy(a, key) {
+        var seen = {};
+        return a.filter(function (item) {
+            var k = key(item);
+            return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+        })
+    }
 
     useEffect(() => {
 
@@ -22,6 +31,20 @@ function TrainingGroupShowUserTrainings() {
             })
             .then((res) => {
                 setTrainingGroupAll(res.data)
+
+                res.data.map((group) => {
+
+                    axiosInstance
+                        .post(`/users/get/`, {id: group.owner}, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                            }
+                        })
+                        .then((res2) => {
+                            setTrainersInfo(trainersInfo => [...trainersInfo, res2.data])
+                        });
+                })
             });
 
         axiosInstance
@@ -106,7 +129,13 @@ function TrainingGroupShowUserTrainings() {
                                                         })}
                                                     </div>
                                                     <p className="card-text"> Poziom: {training.difficulty}</p>
-                                                    <p className="card-text text-center"> Trener: {training.owner}</p>
+                                                    <p className="card-text text-center"> Trener:</p>
+                                                    {uniqBy(trainersInfo, JSON.stringify).map((trainer, idx) => {
+                                                        if (trainer.id === training.owner)
+                                                            return (<p key={idx}
+                                                                       className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
+
+                                                    })}
                                                     <Link className='btn' to={{
                                                         pathname: '/grupa_treningi',
                                                         search: 'id='+training.id.toString()

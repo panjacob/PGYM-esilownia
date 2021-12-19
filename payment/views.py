@@ -9,29 +9,12 @@ from payment import models
 from users.models import UserExtended
 from payment import serializers
 from django.conf import settings
+from users.utilis import send_html_mail
 import stripe
 
 from users.utilis import put_owner_in_request_data
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
-@api_view(['POST'])
-def transaction_create(request):
-    transaction = utilis.create_transaction(user=request.user, offer_id=request.data['offer'])
-
-    return Response({'message': f"Transakcja zakończona poprawnie", 'transaction_id': transaction.transaction_id},
-                    status=status.HTTP_200_OK)
-
-
-@api_view(['POST'])
-def transaction_all(request):
-    transactions = models.Transaction.objects.filter(user=request.user)
-    result = []
-    for transaction in transactions:
-        serializer = serializers.TransactionSerializer(instance=transaction)
-        result.append(serializer.data)
-    return JsonResponse(result, safe=False)
 
 
 @api_view(['POST'])
@@ -116,8 +99,9 @@ def stripe_webhook(request):
             stripe_price_id = session['line_items']['data'][0]['price']['id']
             offer = models.Offer.objects.get(stripe_price_id=stripe_price_id)
             user = UserExtended.objects.get(email=user_email)
-            utilis.create_transaction(user=user, offer_id=offer.id, stripe_pi_id=payment_intent)
-
+            transaction = utilis.create_transaction(user=user, offer_id=offer.id, stripe_pi_id=payment_intent)
+            html_message = utilis.generate_purchase_confirmation_email_body(transaction.purchased, transaction.transaction_id)
+            send_html_mail("PGYM - Zakup Gymcoinów", html_message, user_email)
     else:
         print("Unhandled event type {}".format(event['type']))
 

@@ -58,6 +58,7 @@ function Training() {
                 setGroupTypes(res.data.type)
                 setGroupTrainings(res.data.trainings)
                 setVideo(res.data.videos)
+                console.log(res.data)
 
                 if(res.data.image === null){
                     setPhoto(profilePicture)
@@ -236,9 +237,7 @@ function Training() {
                             return (
                                 <Link className='btn m-1 shadow' id='trainingCard' to={{
                                     pathname: '/trening',
-                                    state: {
-                                        trainingId: training.id
-                                    }
+                                    search: 'id='+training.id.toString()
 
                                 }}>
                                     <div className="container my-auto" id='trainingCardBody'>

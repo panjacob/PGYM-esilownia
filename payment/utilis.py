@@ -27,3 +27,9 @@ def user1_give_money_user2_training(user1, user2, amount):
     user2.money += amount
     user2.save()
     models.TrainingTransaction.objects.create(user=user1, owner=user2, amount=amount)
+
+
+def generate_purchase_confirmation_email_body(coin_amount, transaction_id):
+   html_message = f'<p>Gratulujemy zakupu {coin_amount} Gymcoinów!</p>'
+   html_message += f'<p>ID transakcji: {transaction_id}</p>'
+   return html_message
