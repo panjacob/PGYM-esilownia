@@ -17,6 +17,7 @@ function TrainingGroupShowAllGroup() {
     const [trainingFilter, setTrainingFilter] = useState([]);
     const [trainersInfo, setTrainersInfo] = useState([]);
     const [selectedGroupsType, setSelectedGroupsType] = useState([]);
+    const [userInfo,setUserInfo] = useState([])
 
     function uniqBy(a, key) {
         var seen = {};
@@ -231,69 +232,84 @@ function TrainingGroupShowAllGroup() {
                 setTrainingGroupTypeAll(res.data)
             });
 
+        axiosInstance
+            .post(`/users/info/`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setUserInfo([])
+                res.data.trainings.map((trainigsId)=>{
+                    setUserInfo(userInfo => [...userInfo, trainigsId.training_group])
+                })
+            });
+
     }, []);
 
     function Items({currentItems}) {
         return (
             <div id="offer_container" className="row justify-content-center">
                 {currentItems && currentItems.map(function (cValue, idx) {
+                        if(!userInfo.includes(cValue.id)) {
 
-                    return (
-                        <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
-                            <div className="h-100 card m-1 shadow bg-light" key={idx}>
-                                {(cValue.image === null) ? (
-                                    <img src={Photo} width="100%" height="width"
-                                         className="card-img-top rounded-circle"
-                                         alt="..."/>
-                                ) : (
-                                    <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="233px"
-                                         height="233px"
-                                         className="card-img-top rounded-circle"
-                                         alt="..."/>
-                                )}
-                                <div className="card-body">
-                                    <div>
-                                        <h5 className="card-title">{cValue.title}</h5>
-                                        <div className="card-subtitle"
-                                             style={{overflow: 'auto', height: '100px'}}>
-                                            {trainingGroupTypeAll.map(function (type, id) {
-                                                for (let i = 0; i < cValue.type.length; i++) {
-                                                    if (cValue.type.includes(type.id)) {
-                                                        return (<p style={{fontSize: '15px'}} className="m-0"
-                                                                   key={id}>{type.type}</p>)
-                                                    }
-                                                }
-                                            })}
-                                        </div>
-                                        <p className="card-text"> Trener: </p>
-                                        {uniqBy(trainersInfo, JSON.stringify).map((trainer, idx) => {
-                                            if (trainer.id === cValue.owner)
-                                                return (<p key={idx}
-                                                           className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
-
-                                        })}
-                                        {difficultiesAll.map((difficulty) => {
-                                            if (difficulty.id === cValue.difficulty) {
-                                                return (<p className="card-text"> Poziom: {difficulty.name}</p>)
-                                            }
-                                        })}
-                                        {(cValue.is_private === true) ? (
-                                            <p className="card-text">Trening Personalny</p>
+                            return (
+                                <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
+                                    <div className="h-100 card m-1 shadow bg-light" key={idx}>
+                                        {(cValue.image === null) ? (
+                                            <img src={Photo} width="100%" height="width"
+                                                 className="card-img-top rounded-circle"
+                                                 alt="..."/>
                                         ) : (
-                                            <p className="card-text">Trening Grupowy</p>
+                                            <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="233px"
+                                                 height="233px"
+                                                 className="card-img-top rounded-circle"
+                                                 alt="..."/>
                                         )}
-                                        <Link className='btn'
-                                              to={{
-                                                  pathname: '/grupa_szczegóły',
-                                                  search: 'id='+cValue.id.toString()
-                                              }}
-                                        >Pokaż Wiecej</Link>
+                                        <div className="card-body">
+                                            <div>
+                                                <h5 className="card-title">{cValue.title}</h5>
+                                                <div className="card-subtitle"
+                                                     style={{overflow: 'auto', height: '100px'}}>
+                                                    {trainingGroupTypeAll.map(function (type, id) {
+                                                        for (let i = 0; i < cValue.type.length; i++) {
+                                                            if (cValue.type.includes(type.id)) {
+                                                                return (<p style={{fontSize: '15px'}} className="m-0"
+                                                                           key={id}>{type.type}</p>)
+                                                            }
+                                                        }
+                                                    })}
+                                                </div>
+                                                <p className="card-text"> Trener: </p>
+                                                {uniqBy(trainersInfo, JSON.stringify).map((trainer, idx) => {
+                                                    if (trainer.id === cValue.owner)
+                                                        return (<p key={idx}
+                                                                   className="card-text"> {trainer.first_name} {trainer.last_name} </p>)
+
+                                                })}
+                                                {difficultiesAll.map((difficulty) => {
+                                                    if (difficulty.id === cValue.difficulty) {
+                                                        return (<p className="card-text"> Poziom: {difficulty.name}</p>)
+                                                    }
+                                                })}
+                                                {(cValue.is_private === true) ? (
+                                                    <p className="card-text">Trening Personalny</p>
+                                                ) : (
+                                                    <p className="card-text">Trening Grupowy</p>
+                                                )}
+                                                <Link className='btn'
+                                                      to={{
+                                                          pathname: '/grupa_szczegóły',
+                                                          search: 'id=' + cValue.id.toString()
+                                                      }}
+                                                >Pokaż Wiecej</Link>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    )
-
+                            )
+                        }
                 })}
                 <div style={{minWidth: '250px'}} className="col-md-4"></div>
                 <div style={{minWidth: '250px'}} className="col-md-4"></div>

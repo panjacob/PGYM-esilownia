@@ -414,8 +414,12 @@ th {
 }
 
 #trainingCard2:hover{
-    background-color: rgba(255, 159, 0) !important;
+    background-color: orange !important;
     transform: scale(1.1);
+}
+
+.trainingCard3 {
+    height: 100% !important;
 }
 
 #trainingCardCon{
