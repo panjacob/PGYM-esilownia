@@ -376,6 +376,12 @@ a.forum-item-title:hover {
     color: #9b9b9b;
 }
 
+th {
+    min-width: 120px;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
 @media (max-width: 992px) {
     .forum-info {
         margin: 15px 0 10px 0;
@@ -450,4 +456,9 @@ a.forum-item-title:hover {
     background-color: orange!important;
 }
 /*Datepicker-End*/
+
+.googleLogin{
+    width: 275px;
+    font-size: 20px!important;
+}
 

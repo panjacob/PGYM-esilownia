@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 
-function TrainingJitsi(props) {
+function DietMeetingJitsi(props) {
     const [groupId, setGroupId] = useState("")
-    const [trainingInfo, setTrainingInfo] = useState([])
+    const [meetingInfo, setMeetingInfo] = useState([])
 
     const location = useLocation()
 
@@ -25,24 +25,21 @@ function TrainingJitsi(props) {
         setGroupId(id)
 
         axiosInstance
-            .post(`training/get`, {id: id}, {
+            .post(`diet/meeting/get`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
-                setTrainingInfo(res.data)
+                console.log(res.data)
+                setMeetingInfo(res.data)
             });
 
     }, [props.groupId]);
 
     const jitsiStart = (jwt) => {
-
-        const search = location.search;
-        const id = new URLSearchParams(search).get('id');
-
-        const roomName = id;
+        const roomName = location.state.meetingId;
         const domain = "meet.pgym.xyz";
         const options = {
             width: 1100,
@@ -58,12 +55,8 @@ function TrainingJitsi(props) {
     };
 
     const jitsiGetToken = (e) => {
-
-        const search = location.search;
-        const id = new URLSearchParams(search).get('id');
-
         axiosInstance
-            .post(`/training/join`, {id: id}, {
+            .post(`diet/jitsi/join`, {id: location.state.meetingId}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -79,7 +72,7 @@ function TrainingJitsi(props) {
             <div className="container">
                 <div className="text-center">
                     <hr></hr>
-                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">{trainingInfo.title}
+                    <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">{meetingInfo.title}
                     </h1>
                     <hr></hr>
                 </div>
@@ -88,21 +81,13 @@ function TrainingJitsi(props) {
                 </div>
                 <div className="card mb-4 mt-4 bg-light" width="100%">
                     <div className="card-body">
-                        <div className="row">
-                            <div className="col-sm-5">
-                                <h6 className="mb-0">Opis</h6>
-                            </div>
-                            <div className="col-sm-7 text-secondary">
-                                {trainingInfo.description}
-                            </div>
-                        </div>
                         <hr/>
                         <div className="row">
                             <div className="col-sm-5">
-                                <h6 className="mb-0">Czas Trwania</h6>
+                                <h6 className="mb-0">Start</h6>
                             </div>
                             <div className="col-sm-7 text-secondary">
-                                {trainingInfo.date_start} - {trainingInfo.date_end}
+                                {meetingInfo.date}
                             </div>
                         </div>
                         <hr/>
@@ -114,4 +99,4 @@ function TrainingJitsi(props) {
     );
 }
 
-export default TrainingJitsi;
+export default DietMeetingJitsi;

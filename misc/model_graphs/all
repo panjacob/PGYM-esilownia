@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python ../../manage.py graph_models users dashboard moderator payment training diet forum message --arrow-shape normal -X Group,Permission,PermissionsMixin,AbstractBaseUser -go graphs/all.png

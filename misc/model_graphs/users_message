@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python ../../manage.py graph_models users message --arrow-shape normal -X Group,Permission,PermissionsMixin,AbstractBaseUser -go graphs/users_message.png

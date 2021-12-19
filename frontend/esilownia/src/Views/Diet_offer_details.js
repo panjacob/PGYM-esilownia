@@ -36,10 +36,10 @@ function DietOfferDetails() {
             .then((res) => {
                 setDiet(res.data)
                 setDietTypes(res.data.type)
-                if(res.data.image === null){
+                if(res.data.images === null){
                     setImagesPh((placeholderImg))
                 } else {
-                    setImagesPh(res.data.image)
+                    setImagesPh(res.data.images)
                 }
                 //console.log(res.data)
                 axiosInstance
@@ -232,16 +232,16 @@ function DietOfferDetails() {
                     </div>
                     <div className="col-md-6" style={{backgroundColor:'#f2f2f2', overflowY:'scroll', maxHeight:'1000px'}}>
                         <div className="text-center">
-                            {/*{imagesPh.map(function (photos, idx) {*/}
-                            {/*    return (*/}
-                            {/*        <img src={axios_variebles.baseURL.slice(0, -1) + photos.url}*/}
-                            {/*             key={idx}*/}
-                            {/*             value={photos.id}*/}
-                            {/*             alt="Zdjęcia pokazowe"*/}
-                            {/*             className="img-fluid m-1"*/}
-                            {/*        />*/}
-                            {/*    )*/}
-                            {/*})}*/}
+                            {imagesPh.map(function (photos, idx) {
+                                return (
+                                    <img src={axios_variebles.baseURL.slice(0, -1) + photos.url}
+                                         key={idx}
+                                         value={photos.id}
+                                         alt="Zdjęcia pokazowe"
+                                         className="img-fluid m-1"
+                                    />
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

@@ -168,10 +168,14 @@ function Header(props) {
     if (localStorage.getItem('role') !== null) {
         isModerator = JSON.parse(localStorage.getItem('role')).includes('moderator')
     }
-    console.log(JSON.parse(localStorage.getItem('role')))
     let isTrainer = false;
     if (localStorage.getItem('role') !== null) {
         isTrainer = JSON.parse(localStorage.getItem('role')).includes('trainer')
+    }
+
+    let isDietician = false;
+    if (localStorage.getItem('role') !== null) {
+        isTrainer = JSON.parse(localStorage.getItem('role')).includes('dietician')
     }
 
     return (
@@ -195,16 +199,22 @@ function Header(props) {
                             {
                                 localStorage.getItem('access_token') ?
                                     <>{(isTrainer === true) ? (
-                                        <Nav.Link href="/strefa_trenera">Treningi</Nav.Link> )
-                                        : (
+                                        <Nav.Link href="/strefa_trenera">Treningi</Nav.Link>
+                                        ) : (
                                             <Nav.Link href="/treningi">Treningi</Nav.Link>
                                         )}</>
                                     : ""
                             }
                             {
                                 localStorage.getItem('access_token') ?
-                                    <Nav.Link href="/dieta">Dieta</Nav.Link>
+                                    <>{(isDietician === true) ? (
+                                        <Nav.Link href="/strefa_dietetyka">Dieta</Nav.Link>
+                                    ) : (
+                                        <Nav.Link href="/dieta">Dieta</Nav.Link>
+                                    )}
+                                    </>
                                     : ""
+
                             }
                             {
                                 localStorage.getItem('access_token') ?
@@ -254,8 +264,8 @@ function Header(props) {
                                 </Nav>
                             ) : (
                                 <Nav className="ml-auto">
-                                    <Nav.Link href="/login">Login</Nav.Link>
-                                    <Nav.Link href="/register">Register</Nav.Link>
+                                    <Nav.Link href="/login">Zaloguj</Nav.Link>
+                                    <Nav.Link href="/register">Zarejestruj</Nav.Link>
                                 </Nav>
                             )
                         }
