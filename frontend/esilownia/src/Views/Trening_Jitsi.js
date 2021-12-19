@@ -287,7 +287,7 @@ function TrainingJitsi(props) {
                     </h1>
                     <hr></hr>
                 </div>
-                <div className="container mt-4 border" style={{'width':'1100px', 'height':'700px'}} >
+                <div className="container mt-4 pl-0 border" style={{'width':'1100px', 'height':'700px'}} >
                     <div id='meet'></div>
                 </div>
                 <div className="card mb-4 mt-4 bg-light" width="100%">
