@@ -102,9 +102,9 @@ def user_info(request):
         result['trainings'].append(
             {'training_group': training_group.training_group.id, 'subscription_end': training_group.subscription_end})
     diet_group_participants = DietGroupParticipant.objects.filter(user=user).all()
-    for diet in diet_group_participants:
+    for diet_participant in diet_group_participants:
         result['diets'].append({
-            'diet': diet.id, 'subscription_end': diet.subscription_end
+            'diet': diet_participant.diet_group.id, 'subscription_end': diet_participant.subscription_end
         })
 
     return JsonResponse(result, safe=False)
