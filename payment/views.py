@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+
+from message.utilis import notification_send
 from payment import utilis
 from payment import models
 from users.models import UserExtended
@@ -100,8 +102,10 @@ def stripe_webhook(request):
             offer = models.Offer.objects.get(stripe_price_id=stripe_price_id)
             user = UserExtended.objects.get(email=user_email)
             transaction = utilis.create_transaction(user=user, offer_id=offer.id, stripe_pi_id=payment_intent)
-            html_message = utilis.generate_purchase_confirmation_email_body(transaction.purchased, transaction.transaction_id)
+            html_message = utilis.generate_purchase_confirmation_email_body(transaction.purchased,
+                                                                            transaction.transaction_id)
             send_html_mail("PGYM - Zakup Gymcoinów", html_message, user_email)
+            notification_send(user=user, body={'message': f"You have successfully bought {offer.coins}"}, kind=8)
     else:
         print("Unhandled event type {}".format(event['type']))
 
