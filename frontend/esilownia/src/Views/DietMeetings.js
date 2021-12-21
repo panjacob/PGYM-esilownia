@@ -184,6 +184,15 @@ function DietMeetings() {
                                         })}
                                     </div>
                                 </div>
+                                <hr></hr>
+
+                                <div className='text-left m-1'>
+                                    <Link className='btn'
+                                          to={{
+                                              pathname: '/zgłoszenia',
+                                          }}
+                                    >Zgłoś</Link>
+                                </div>
 
                             </div>
 

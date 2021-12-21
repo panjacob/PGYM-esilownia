@@ -27,4 +27,5 @@ export { default as Chat } from "./Chat";
 export { default as PaymentHistory } from "./Payment_history";
 export { default as Forum } from "./Forum";
 export { default as ForumTopicPosts } from "./Forum_Topic_Posts";
+export { default as Report } from "./Report";
 

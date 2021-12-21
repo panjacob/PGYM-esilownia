@@ -224,11 +224,18 @@ function ForumTopicsList() {
 
                                                 </div>
 
+                                                <div className='mt-2'>
                                                 {(currentUser.id === topic.owner) ? (
-                                                    <div className='mt-2'>
+                                                    <div>
                                                         <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><img id={topic.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
+                                                    <Link className='btn'
+                                                          to={{
+                                                              pathname: '/zgłoszenia',
+                                                          }}
+                                                    >Zgłoś</Link>
+                                                </div>
 
                                             </div>
                                         )

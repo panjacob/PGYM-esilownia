@@ -27,6 +27,7 @@ import {DieticianSpace, DietMeetings, ForumTopicPosts} from "./Views/Index";
 import DietOfferDetails from "./Views/Diet_offer_details";
 import DietMeeting_Jitsi from "./Views/DietMeeting_Jitsi";
 import DieticianDiet from "./components/Diet/Dietetician/DieticianDiet";
+import Report from "./Views/Report";
 
 function App() {
     return (
@@ -61,6 +62,7 @@ function App() {
                     <Route path="/historia_płatności" exact component={() => <Payment_history/>}/>
                     <Route path="/forum" exact component={() => <Forum/>}/>
                     <Route path="/forum_temat" exact component={() => <ForumTopicPosts/>}/>
+                    <Route path="/zgłoszenia" exact component={() => <Report/>}/>
                 </Switch>
                 <Footer/>
             </Router>

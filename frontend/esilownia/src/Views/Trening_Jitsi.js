@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 
 function TrainingJitsi(props) {
@@ -310,10 +310,20 @@ function TrainingJitsi(props) {
                             </div>
                         </div>
                         <hr/>
+
+                        <div className='text-left mb-2'>
+                            <Link className='btn'
+                                  to={{
+                                      pathname: '/zgłoszenia',
+                                  }}
+                            >Zgłoś</Link>
+                        </div>
+
                     </div>
 
                 </div>
             </div>
+
         </div>
     );
 }

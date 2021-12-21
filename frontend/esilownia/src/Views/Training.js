@@ -214,6 +214,15 @@ function Training() {
                                         })}
                                     </div>
                                 </div>
+                                <hr></hr>
+
+                                <div className='text-left m-1'>
+                                    <Link className='btn'
+                                          to={{
+                                              pathname: '/zgłoszenia',
+                                          }}
+                                    >Zgłoś</Link>
+                                </div>
 
                             </div>
 
@@ -283,8 +292,8 @@ function Training() {
                         })}
                         </div>
                     </div>
-
                 </div>
+
                 <div className='row'>
                     <div className="col-md-10 mx-auto mt-3">
                         <div className="text-center">

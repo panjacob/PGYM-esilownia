@@ -231,6 +231,7 @@ function Header(props) {
                                         <NavDropdown.Divider/>
                                         <NavDropdown.Item href="/konto_edycja">Edytuj konto</NavDropdown.Item>
                                         <NavDropdown.Item href="/historia_płatności">Historia Płatności</NavDropdown.Item>
+                                        <NavDropdown.Item href="/zgłoszenia">Zgłoszenia</NavDropdown.Item>
                                         <NavDropdown.Divider/>
                                         {
                                             (isModerator === true) ? (
