@@ -9,6 +9,7 @@ from diet.models import Diet, DietGroupParticipant, DietType, DietFile, DietImag
 from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, DietGroupSerializerGetAll, \
     participantsSerializerGet, DietGroupTypesSerializer, DietGroupFileSerializer, DietSerializerImageAdd, \
     DietMeetingSerializer, DietMeetingSerializerGet
+from message.utilis import notification_send
 from payment.utilis import user1_give_money_user2_training
 from training.utilis import get_price_and_days_to_add, participant_extend_subscription, jitsi_payload_create, \
     jitsi_token_encode
@@ -90,6 +91,23 @@ def diet_group_join(request):
 
     participant_extend_subscription(diet_group_participant, days_to_add)
     user1_give_money_user2_training(user, owner, price)
+
+    body_user = {
+        'training_group': diet_group.id,
+        'bought_days': days_to_add,
+        'message': f"You have bought access to diet '{diet_group.title}'"
+    }
+    notification_send(user=user, body=body_user, kind=6)
+
+    body_owner = {
+        'training_group': diet_group.id,
+        'training_group_name': diet_group.title,
+        'bought_days': days_to_add,
+        'user_who_bought': user.id,
+        'user_who_bought_name': f"{user.first_name} {user.last_name}",
+        'message': f"{user.first_name} {user.last_name} has bought diet '{diet_group.title}'",
+    }
+    notification_send(user=owner, body=body_owner, kind=7)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
