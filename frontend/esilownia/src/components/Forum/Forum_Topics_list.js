@@ -230,7 +230,7 @@ function ForumTopicsList() {
                                                         <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><img id={topic.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
-                                                    <Link className='btn'
+                                                    <Link className='ml-1 btn'
                                                           to={{
                                                               pathname: '/zgłoszenia',
                                                           }}

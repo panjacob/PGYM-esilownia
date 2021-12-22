@@ -149,7 +149,7 @@ function ModeratorPanelReport(props) {
                     <div className="row">
 
                         <div className="col-4">
-                            <h6 className="mb-0">Owner</h6>
+                            <h6 className="mb-0">Właściciel</h6>
                         </div>
 
                         <div className="col text-secondary" id={`user-${id.id}-${id.owner}`}>
@@ -174,7 +174,7 @@ function ModeratorPanelReport(props) {
                     <div className="row">
 
                         <div className="col-4">
-                            <h6 className="mb-0">File</h6>
+                            <h6 className="mb-0">Plik</h6>
                         </div>
 
                         <div className="col text-secondary">
