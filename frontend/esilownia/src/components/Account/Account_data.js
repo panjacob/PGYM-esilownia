@@ -9,6 +9,7 @@ function Account_data() {
     const [username, setUsername] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
+    const [bankAcc, setBankAcc] = useState("");
     const [joindate, setJoindate] = useState("");
 
     useEffect(() => {
@@ -25,6 +26,7 @@ function Account_data() {
                 setUsername(res.data.username)
                 setFirstname(res.data.first_name)
                 setLastname(res.data.last_name)
+                setBankAcc(res.data.bank_account)
                 setJoindate(res.data.start_date.slice(0, 10))
             });
 
@@ -76,6 +78,20 @@ function Account_data() {
                             </div>
                             <div className="col-sm-9 text-secondary">
                                 {email}
+                            </div>
+                        </div>
+                        <hr></hr>
+
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <h6 className="mb-0">Konto Bankowe</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                                {(bankAcc !== null) ? (
+                                        <div>{bankAcc}</div>
+                                    ) :
+                                    ( ' Brak danych ' )
+                                }
                             </div>
                         </div>
                         <hr></hr>
