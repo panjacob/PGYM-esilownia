@@ -8,6 +8,13 @@ import Notifications from "react-notifications-menu";
 import axiosInstance from "../Axios/Axios"
 import bell from "../../imgs/bell-2-24.png";
 
+import bought from '../../imgs/notifications/bought.jpg'
+import accepted from '../../imgs/notifications/accepted.jpg'
+import denied from '../../imgs/notifications/denied.png'
+import diet from '../../imgs/notifications/diet.jpg'
+import training from '../../imgs/notifications/training.png'
+
+
 function Header(props) {
 
     const [data, setData] = useState([])
@@ -57,14 +64,85 @@ function Header(props) {
                         let time_now = Date.now()
                         let time = time_now - time_send;
 
-                        let obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: logo,
-                            message: JSON.parse(notification.body).message,
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
+                        let obj = {}
+
+                        if(notification.kind === '0') {
+                            obj = {
+                                id: notification.id,
+                                kind: notification.kind,
+                                image: logo,
+                                message: 'Witamy na platformie P-Gym.',
+                                detailPage: '#',
+                                receivedTime: msToTime(time)
+                            }
                         }
+
+                        if(notification.kind === '1') {
+                            obj = {
+                                id: notification.id,
+                                kind: notification.kind,
+                                image: accepted,
+                                message: 'Twoja Aplikacja została zaakceptowna.',
+                                detailPage: '#',
+                                receivedTime: msToTime(time)
+                            }
+                        }
+
+                        if(notification.kind === '2') {
+                            obj = {
+                                id: notification.id,
+                                kind: notification.kind,
+                                image: denied,
+                                message: 'Twoja Aplikacja została odrzucona.',
+                                detailPage: '#',
+                                receivedTime: msToTime(time)
+                            }
+                        }
+
+                        if(notification.kind === '4') {
+                            obj = {
+                                id: notification.id,
+                                kind: notification.kind,
+                                image: training,
+                                message: 'Dziekujemy za zakup treningu.',
+                                detailPage: '#',
+                                receivedTime: msToTime(time)
+                            }
+                        }
+
+                        if(notification.kind === '5') {
+                            obj = {
+                                id: notification.id,
+                                kind: notification.kind,
+                                image: bought,
+                                message: 'Uzytkownik wykupił dostep do twojego treningu.',
+                                detailPage: '#',
+                                receivedTime: msToTime(time)
+                            }
+                        }
+
+                        if(notification.kind === '6') {
+                            obj = {
+                                id: notification.id,
+                                kind: notification.kind,
+                                image: diet,
+                                message: 'Dziekujemy za zakup diety.',
+                                detailPage: '#',
+                                receivedTime: msToTime(time)
+                            }
+                        }
+
+                        if(notification.kind === '7') {
+                            obj = {
+                                id: notification.id,
+                                kind: notification.kind,
+                                image: bought,
+                                message: 'Uzytkownik wykupił twoja oferte diety.',
+                                detailPage: '#',
+                                receivedTime: msToTime(time)
+                            }
+                        }
+
                         setData(data => [...data, obj])
                     })
             });
@@ -107,15 +185,85 @@ function Header(props) {
                     let time_now = Date.now()
                     let time = time_now - time_send;
 
-                    let obj = {
-                        key: notification.id,
-                        id: notification.id,
-                        kind: notification.kind,
-                        image: logo,
-                        message: JSON.parse(notification.body).message,
-                        detailPage: '#',
-                        receivedTime: msToTime(time)
+                    let obj = {}
+
+                    if(notification.kind === '0') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: logo,
+                            message: 'Witamy na platformie P-Gym.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
                     }
+
+                    if(notification.kind === '1') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: accepted,
+                            message: 'Twoja Aplikacja została zaakceptowna.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '2') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: denied,
+                            message: 'Twoja Aplikacja została odrzucona.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '4') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: training,
+                            message: 'Dziekujemy za zakup treningu.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '5') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: bought,
+                            message: 'Uzytkownik wykupił dostep do twojego treningu.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '6') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: diet,
+                            message: 'Dziekujemy za zakup diety.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '7') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: bought,
+                            message: 'Uzytkownik wykupił twoja oferte diety.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
                     setData(data => [...data, obj])
                 })
             });
@@ -150,15 +298,85 @@ function Header(props) {
                     let time_now = Date.now()
                     let time = time_now - time_send;
 
-                    let obj = {
-                        key: notification.id,
-                        id: notification.id,
-                        kind: notification.kind,
-                        image: logo,
-                        message: JSON.parse(notification.body).message,
-                        detailPage: '#',
-                        receivedTime: msToTime(time)
+                    let obj = {}
+
+                    if(notification.kind === '0') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: logo,
+                            message: 'Witamy na platformie P-Gym.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
                     }
+
+                    if(notification.kind === '1') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: accepted,
+                            message: 'Twoja Aplikacja została zaakceptowna.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '2') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: denied,
+                            message: 'Twoja Aplikacja została odrzucona.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '4') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: training,
+                            message: 'Dziekujemy za zakup treningu.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '5') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: bought,
+                            message: 'Uzytkownik wykupił dostep do twojego treningu.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '6') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: diet,
+                            message: 'Dziekujemy za zakup diety.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '7') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: bought,
+                            message: 'Uzytkownik wykupił twoja oferte diety.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
                     setData(data => [...data, obj])
                 })
             });
