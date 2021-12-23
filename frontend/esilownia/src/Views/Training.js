@@ -40,6 +40,7 @@ function Training() {
     ]
     const history = useHistory();
     const location = useLocation()
+    var today = new Date()
 
     useEffect(() => {
 
@@ -237,59 +238,124 @@ function Training() {
 
                         <div className="text-center">
                             <hr></hr>
-                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Treningi
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Nadchodzące Treningi
                             </h1>
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
                         {trainingsInfo.map((training) => {
-                            return (
-                                <Link className='btn m-1 shadow' id='trainingCard' to={{
-                                    pathname: '/trening',
-                                    search: 'id='+training.id.toString()
+                            if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_start.toString()) {
+                                return (
+                                    <Link className='btn m-1 shadow' id='trainingCard' to={{
+                                        pathname: '/trening',
+                                        search: 'id=' + training.id.toString()
 
-                                }}>
-                                    <div className="container my-auto" id='trainingCardBody'>
-                                        <div className="container font-weight-light">
-                                            <div className="text-center">
-                                                <h6 className="mb-0">{training.title}</h6>
-                                            </div>
-                                            <hr/>
-                                            <div className="text-center" style={{height:'2.5rem'}}>
-                                                <p className="mb-0">{training.description}</p>
-                                            </div>
-                                            <hr/>
-                                            <div className="row">
-                                                <div className="col-sm-5">
-                                                    <h6 className="mb-0">Start</h6>
+                                    }}>
+                                        <div className="container my-auto" id='trainingCardBody'>
+                                            <div className="container font-weight-light">
+                                                <div className="text-center">
+                                                    <h6 className="mb-0">{training.title}</h6>
                                                 </div>
-                                                <div className="col-sm-7 text-secondary">
-                                                    {training.date_start.replace('T', " ").replace('Z', '')}
+                                                <hr/>
+                                                <div className="text-center" style={{height: '2.5rem'}}>
+                                                    <p className="mb-0">{training.description}</p>
                                                 </div>
-                                            </div>
-                                            <hr/>
-                                            <div className="row">
-                                                <div className="col-sm-5">
-                                                    <h6 className="mb-0">Koniec</h6>
+                                                <hr/>
+                                                <div className="row">
+                                                    <div className="col-sm-5">
+                                                        <h6 className="mb-0">Start</h6>
+                                                    </div>
+                                                    <div className="col-sm-7 text-secondary">
+                                                        {training.date_start.replace('T', " ").replace('Z', '')}
+                                                    </div>
                                                 </div>
-                                                <div className="col-sm-7 text-secondary">
-                                                    {training.date_end.replace('T', " ").replace('Z', '')}
+                                                <hr/>
+                                                <div className="row">
+                                                    <div className="col-sm-5">
+                                                        <h6 className="mb-0">Koniec</h6>
+                                                    </div>
+                                                    <div className="col-sm-7 text-secondary">
+                                                        {training.date_end.replace('T', " ").replace('Z', '')}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <hr/>
-                                            <div className="row">
-                                                <div className="col-sm-5">
-                                                    <h6 className="mb-0">Kalorie</h6>
-                                                </div>
-                                                <div className="col-sm-7 text-secondary mb-4">
-                                                    {training.calories}
+                                                <hr/>
+                                                <div className="row">
+                                                    <div className="col-sm-5">
+                                                        <h6 className="mb-0">Kalorie</h6>
+                                                    </div>
+                                                    <div className="col-sm-7 text-secondary mb-4">
+                                                        {training.calories}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            )
+                                    </Link>
+                                )
+                            }
                         })}
+                        </div>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className="col-md-10 mx-auto mt-3">
+
+                        <div className="text-center">
+                            <hr></hr>
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Przeszłe Treningi
+                            </h1>
+                            <hr></hr>
+                        </div>
+                        <div className="container text-center" id='trainingCardCon'>
+                            {trainingsInfo.map((training) => {
+                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > training.date_start.toString()) {
+                                    return (
+                                        <Link className='btn m-1 shadow' id='trainingCard' to={{
+                                            pathname: '/trening',
+                                            search: 'id=' + training.id.toString()
+
+                                        }}>
+                                            <div className="container my-auto" id='trainingCardBody'>
+                                                <div className="container font-weight-light">
+                                                    <div className="text-center">
+                                                        <h6 className="mb-0">{training.title}</h6>
+                                                    </div>
+                                                    <hr/>
+                                                    <div className="text-center" style={{height: '2.5rem'}}>
+                                                        <p className="mb-0">{training.description}</p>
+                                                    </div>
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-sm-5">
+                                                            <h6 className="mb-0">Start</h6>
+                                                        </div>
+                                                        <div className="col-sm-7 text-secondary">
+                                                            {training.date_start.replace('T', " ").replace('Z', '')}
+                                                        </div>
+                                                    </div>
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-sm-5">
+                                                            <h6 className="mb-0">Koniec</h6>
+                                                        </div>
+                                                        <div className="col-sm-7 text-secondary">
+                                                            {training.date_end.replace('T', " ").replace('Z', '')}
+                                                        </div>
+                                                    </div>
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-sm-5">
+                                                            <h6 className="mb-0">Kalorie</h6>
+                                                        </div>
+                                                        <div className="col-sm-7 text-secondary mb-4">
+                                                            {training.calories}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    )
+                                }
+                            })}
                         </div>
                     </div>
                 </div>
