@@ -16,21 +16,14 @@ Activate venv in /esilownia/venv/Scripts:
 
 Activate virtual environment in /esilownia:
 ```source venv/bin/activate```
-
+-------------------------------------------------------------
 Install requirements.txt:
 ```python -m pip install -r requirements.txt```
 
-Make migrations:<br />
-```python manage.py makemigrations```<br />
-```python manage.py makemigrations users```<br />
-```python manage.py makemigrations training```<br />
-```python manage.py makemigrations dashboard```<br />
-```python manage.py makemigrations moderator```<br />
+Migrations:
+```python restart.py```
 
-Migrate:
-```python manage.py migrate```
-
-## Create superuser:
+## If no superuser Create superuser:
 
 Create Superuser:
 ```python manage.py createsuperuser```
@@ -46,7 +39,7 @@ Activate venv in /esilownia/venv/Scripts:
 
 Activate virtual environment in /esilownia:
 ```source venv/bin/activate```
-
+--------------------------------------------------------------
 and in venv:
 ```python3 manage.py runserver```
 
