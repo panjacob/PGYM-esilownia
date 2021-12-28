@@ -71,7 +71,7 @@ function Header(props) {
                                 id: notification.id,
                                 kind: notification.kind,
                                 image: logo,
-                                message: 'Witamy na platformie P-Gym.',
+                                message: JSON.parse( notification.body ).message,
                                 detailPage: '#',
                                 receivedTime: msToTime(time)
                             }
@@ -82,7 +82,7 @@ function Header(props) {
                                 id: notification.id,
                                 kind: notification.kind,
                                 image: accepted,
-                                message: 'Twoja Aplikacja została zaakceptowna.',
+                                message:  JSON.parse( notification.body ).message,
                                 detailPage: '#',
                                 receivedTime: msToTime(time)
                             }
@@ -93,7 +93,7 @@ function Header(props) {
                                 id: notification.id,
                                 kind: notification.kind,
                                 image: denied,
-                                message: 'Twoja Aplikacja została odrzucona.',
+                                message:  JSON.parse( notification.body ).message,
                                 detailPage: '#',
                                 receivedTime: msToTime(time)
                             }
@@ -104,7 +104,7 @@ function Header(props) {
                                 id: notification.id,
                                 kind: notification.kind,
                                 image: training,
-                                message: 'Dziekujemy za zakup treningu.',
+                                message:  JSON.parse( notification.body ).message,
                                 detailPage: '#',
                                 receivedTime: msToTime(time)
                             }
@@ -115,7 +115,7 @@ function Header(props) {
                                 id: notification.id,
                                 kind: notification.kind,
                                 image: bought,
-                                message: 'Uzytkownik wykupił dostep do twojego treningu.',
+                                message:  JSON.parse( notification.body ).message,
                                 detailPage: '#',
                                 receivedTime: msToTime(time)
                             }
@@ -126,7 +126,7 @@ function Header(props) {
                                 id: notification.id,
                                 kind: notification.kind,
                                 image: diet,
-                                message: 'Dziekujemy za zakup diety.',
+                                message:  JSON.parse( notification.body ).message,
                                 detailPage: '#',
                                 receivedTime: msToTime(time)
                             }
@@ -137,7 +137,7 @@ function Header(props) {
                                 id: notification.id,
                                 kind: notification.kind,
                                 image: bought,
-                                message: 'Uzytkownik wykupił twoja oferte diety.',
+                                message:  JSON.parse( notification.body ).message,
                                 detailPage: '#',
                                 receivedTime: msToTime(time)
                             }
@@ -159,7 +159,7 @@ function Header(props) {
     }, []);
 
     function markSeen(data){
-        console.log(data)
+        //console.log(data)
         axiosInstance
             .post(`/message/notification/seen`, {id: data.id}, {
                 headers: {
@@ -168,111 +168,114 @@ function Header(props) {
                 }
             })
             .then((res) => {
+
+                axiosInstance
+                    .post(`/message/notification/all`, {show_seen: 'False'}, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                        }
+                    })
+                    .then((res) => {
+                        setData([])
+                        res.data.map((notification) => {
+                            let time_send = new Date()
+                            time_send.setTime(notification.time)
+                            let time_now = Date.now()
+                            let time = time_now - time_send;
+
+                            let obj = {}
+
+                            if(notification.kind === '0') {
+                                obj = {
+                                    id: notification.id,
+                                    kind: notification.kind,
+                                    image: logo,
+                                    message: JSON.parse( notification.body ).message,
+                                    detailPage: '#',
+                                    receivedTime: msToTime(time)
+                                }
+                            }
+
+                            if(notification.kind === '1') {
+                                obj = {
+                                    id: notification.id,
+                                    kind: notification.kind,
+                                    image: accepted,
+                                    message:  JSON.parse( notification.body ).message,
+                                    detailPage: '#',
+                                    receivedTime: msToTime(time)
+                                }
+                            }
+
+                            if(notification.kind === '2') {
+                                obj = {
+                                    id: notification.id,
+                                    kind: notification.kind,
+                                    image: denied,
+                                    message:  JSON.parse( notification.body ).message,
+                                    detailPage: '#',
+                                    receivedTime: msToTime(time)
+                                }
+                            }
+
+                            if(notification.kind === '4') {
+                                obj = {
+                                    id: notification.id,
+                                    kind: notification.kind,
+                                    image: training,
+                                    message:  JSON.parse( notification.body ).message,
+                                    detailPage: '#',
+                                    receivedTime: msToTime(time)
+                                }
+                            }
+
+                            if(notification.kind === '5') {
+                                obj = {
+                                    id: notification.id,
+                                    kind: notification.kind,
+                                    image: bought,
+                                    message:  JSON.parse( notification.body ).message,
+                                    detailPage: '#',
+                                    receivedTime: msToTime(time)
+                                }
+                            }
+
+                            if(notification.kind === '6') {
+                                obj = {
+                                    id: notification.id,
+                                    kind: notification.kind,
+                                    image: diet,
+                                    message:  JSON.parse( notification.body ).message,
+                                    detailPage: '#',
+                                    receivedTime: msToTime(time)
+                                }
+                            }
+
+                            if(notification.kind === '7') {
+                                obj = {
+                                    id: notification.id,
+                                    kind: notification.kind,
+                                    image: bought,
+                                    message:  JSON.parse( notification.body ).message,
+                                    detailPage: '#',
+                                    receivedTime: msToTime(time)
+                                }
+                            }
+
+                            setData(data => [...data, obj])
+                        })
+                    });
+
             });
 
-        axiosInstance
-            .post(`/message/notification/all`, {show_seen: 'False'}, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-            .then((res) => {
-                setData([])
-                res.data.map((notification) => {
-                    let time_send = new Date()
-                    time_send.setTime(notification.time)
-                    let time_now = Date.now()
-                    let time = time_now - time_send;
 
-                    let obj = {}
-
-                    if(notification.kind === '0') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: logo,
-                            message: 'Witamy na platformie P-Gym.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '1') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: accepted,
-                            message: 'Twoja Aplikacja została zaakceptowna.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '2') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: denied,
-                            message: 'Twoja Aplikacja została odrzucona.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '4') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: training,
-                            message: 'Dziekujemy za zakup treningu.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '5') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: bought,
-                            message: 'Uzytkownik wykupił dostep do twojego treningu.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '6') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: diet,
-                            message: 'Dziekujemy za zakup diety.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '7') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: bought,
-                            message: 'Uzytkownik wykupił twoja oferte diety.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    setData(data => [...data, obj])
-                })
-            });
     }
 
     function markAllSeen(data){
         data.map((notification)=>{
-            console.log(data)
-            console.log(notification)
+            //console.log(data)
+            //console.log(notification)
             axiosInstance
                 .post(`/message/notification/seen`, {id: notification.id}, {
                     headers: {
@@ -281,105 +284,107 @@ function Header(props) {
                     }
                 })
                 .then((res) => {
+
+                    axiosInstance
+                        .post(`/message/notification/all`, {show_seen: 'False'}, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                            }
+                        })
+                        .then((res) => {
+                            setData([])
+                            res.data.map((notification) => {
+                                let time_send = new Date()
+                                time_send.setTime(notification.time)
+                                let time_now = Date.now()
+                                let time = time_now - time_send;
+
+                                let obj = {}
+
+                                if(notification.kind === '0') {
+                                    obj = {
+                                        id: notification.id,
+                                        kind: notification.kind,
+                                        image: logo,
+                                        message: JSON.parse( notification.body ).message,
+                                        detailPage: '#',
+                                        receivedTime: msToTime(time)
+                                    }
+                                }
+
+                                if(notification.kind === '1') {
+                                    obj = {
+                                        id: notification.id,
+                                        kind: notification.kind,
+                                        image: accepted,
+                                        message:  JSON.parse( notification.body ).message,
+                                        detailPage: '#',
+                                        receivedTime: msToTime(time)
+                                    }
+                                }
+
+                                if(notification.kind === '2') {
+                                    obj = {
+                                        id: notification.id,
+                                        kind: notification.kind,
+                                        image: denied,
+                                        message:  JSON.parse( notification.body ).message,
+                                        detailPage: '#',
+                                        receivedTime: msToTime(time)
+                                    }
+                                }
+
+                                if(notification.kind === '4') {
+                                    obj = {
+                                        id: notification.id,
+                                        kind: notification.kind,
+                                        image: training,
+                                        message:  JSON.parse( notification.body ).message,
+                                        detailPage: '#',
+                                        receivedTime: msToTime(time)
+                                    }
+                                }
+
+                                if(notification.kind === '5') {
+                                    obj = {
+                                        id: notification.id,
+                                        kind: notification.kind,
+                                        image: bought,
+                                        message:  JSON.parse( notification.body ).message,
+                                        detailPage: '#',
+                                        receivedTime: msToTime(time)
+                                    }
+                                }
+
+                                if(notification.kind === '6') {
+                                    obj = {
+                                        id: notification.id,
+                                        kind: notification.kind,
+                                        image: diet,
+                                        message:  JSON.parse( notification.body ).message,
+                                        detailPage: '#',
+                                        receivedTime: msToTime(time)
+                                    }
+                                }
+
+                                if(notification.kind === '7') {
+                                    obj = {
+                                        id: notification.id,
+                                        kind: notification.kind,
+                                        image: bought,
+                                        message:  JSON.parse( notification.body ).message,
+                                        detailPage: '#',
+                                        receivedTime: msToTime(time)
+                                    }
+                                }
+
+                                setData(data => [...data, obj])
+                            })
+                        });
+
                 });
         })
-        axiosInstance
-            .post(`/message/notification/all`, {show_seen: 'False'}, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-            .then((res) => {
-                setData([])
-                res.data.map((notification) => {
-                    let time_send = new Date()
-                    time_send.setTime(notification.time)
-                    let time_now = Date.now()
-                    let time = time_now - time_send;
-
-                    let obj = {}
-
-                    if(notification.kind === '0') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: logo,
-                            message: 'Witamy na platformie P-Gym.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '1') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: accepted,
-                            message: 'Twoja Aplikacja została zaakceptowna.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '2') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: denied,
-                            message: 'Twoja Aplikacja została odrzucona.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '4') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: training,
-                            message: 'Dziekujemy za zakup treningu.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '5') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: bought,
-                            message: 'Uzytkownik wykupił dostep do twojego treningu.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '6') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: diet,
-                            message: 'Dziekujemy za zakup diety.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    if(notification.kind === '7') {
-                        obj = {
-                            id: notification.id,
-                            kind: notification.kind,
-                            image: bought,
-                            message: 'Uzytkownik wykupił twoja oferte diety.',
-                            detailPage: '#',
-                            receivedTime: msToTime(time)
-                        }
-                    }
-
-                    setData(data => [...data, obj])
-                })
-            });
     }
 
     let isModerator = false;
