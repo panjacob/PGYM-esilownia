@@ -242,10 +242,10 @@ function Dashboard_data_userday() {
                 <hr></hr>
             </div>
             <div className="row">
-                <div className="col-lg-4 justify-content-center text-center">
-                    <div className='row' style={{minHeight:'200px'}}>
-                        <div className='col-4 mt-3'>
-                            <div className="card bg-light" style={{minWidth:"353px"}}>
+                <div className="col-lg-4 text-center">
+                    <div className='row mx-auto justify-content-center' style={{minHeight:'200px'}}>
+                        <div className='mt-3 justify-content-center'>
+                            <div className="card bg-light" style={{minWidth:"354px",maxWidth:'354px'}}>
                                 <div className="card-body">
                                     <div className="container" style={{minHeight:'190px'}}>
                                         <h1 style={{"fontSize": "3rem"}} className="display-1 font-weight-light mb-4">Wybierz Datę</h1>
