@@ -26,13 +26,7 @@ function Kontakt() {
                         <FaTwitter/>
                     </a>
                     <a href="/o_nas" className="mx-4 text-reset">
-                        <FaGoogle/>
-                    </a>
-                    <a href="/o_nas" className="mx-4 text-reset">
                         <FaInstagram/>
-                    </a>
-                    <a href="/o_nas" className="mx-4 text-reset">
-                        <FaLinkedinIn/>
                     </a>
                     <a href="https://github.com/panjacob/esilownia" className="mx-4 text-reset">
                         <FaGithub/>
@@ -63,10 +57,9 @@ function Kontakt() {
                                 Kontakt
                             </h6>
 
-                            <p><FaHome className="mr-1"/> Gdańsk, Brzegi 55</p>
-                            <p><FaEnvelope className="mr-1"/> mail@mail.com</p>
-                            <p><FaPhone className="mr-1"/> + 48 000 000 000</p>
-                            <p><FaPrint className="mr-1"/> + 48 000 000 000</p>
+                            <p><FaHome className="mr-1"/> Gdańsk, ul. Brzegi 55, 80-045</p>
+                            <p><FaEnvelope className="mr-1"/> gdansk@pja.edu.pl</p>
+                            <p><FaPhone className="mr-1"/> (+48 58) 683 59 87</p>
 
                         </div>
 

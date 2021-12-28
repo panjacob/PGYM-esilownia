@@ -197,13 +197,17 @@ function Dashboard_data_userday() {
         if(newPoczatekSnu !== ''){
             urlencoded.append("sleep_start", newPoczatekSnu);
         }else{
-            urlencoded.append("sleep_start", userDayData.sleep_start);
+            if(userDayData.sleep_start === '0'){
+                urlencoded.append("sleep_start", userDayData.sleep_start);
+            }
         }
 
         if(newKoniecSnu !== ''){
             urlencoded.append("sleep_end", newKoniecSnu);
         }else{
-            urlencoded.append("sleep_end", userDayData.sleep_end);
+            if(userDayData.sleep_end === '0'){
+                urlencoded.append("sleep_end", userDayData.sleep_end);
+            }
         }
 
         if(newWaga !== '0'){
