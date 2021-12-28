@@ -27,18 +27,19 @@ def jitsi_exp(time_to_live_minutes):
     return current_milli_time() + time_to_live_minutes * 1000 * 60
 
 
-def jitsi_payload_create(user, training, time_to_live_minutes=10):
+def jitsi_payload_create(user, training, room_name, moderator, time_to_live_minutes=10):
     payload = {
         'context': {
             'user': {
-                'name': f"{user.first_name} {user.last_name}"
+                'name': f"{user.first_name} {user.last_name}",
+                'email': user.email
             }
         },
-        'moderator': is_training_owner(user, training),
+        'moderator': moderator,
         'aud': 'pgym-jitsi',
         'iss': 'pgym',
         'sub': 'pgym-jitsi.xyz',
-        'room': training.id,
+        'room': room_name,
         'exp': jitsi_exp(time_to_live_minutes)
     }
     return payload

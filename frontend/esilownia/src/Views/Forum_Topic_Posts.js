@@ -276,12 +276,19 @@ function ForumTopicPosts() {
 
                                                 </div>
 
+                                                <div className='mt-2'>
                                                 {(currentUser.id === post.owner) ? (
-                                                    <div className='mt-2'>
+                                                    <div>
                                                         <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><img id={post.id} src={editIcon}/></Button>
                                                         <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><img id={post.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
+                                                    <Link className='ml-1 btn'
+                                                          to={{
+                                                              pathname: '/zgłoszenia',
+                                                          }}
+                                                    >Zgłoś</Link>
+                                                </div>
 
                                                 <div id={`editPost-${post.id}`} style={{display:'none'}}>
                                                     <div className='container border justify-content-center p-3'>

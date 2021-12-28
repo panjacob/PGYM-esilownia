@@ -409,6 +409,19 @@ th {
     transform: scale(1.1);
 }
 
+#trainingCard2{
+    background-color: white!important;
+}
+
+#trainingCard2:hover{
+    background-color: orange !important;
+    transform: scale(1.1);
+}
+
+.trainingCard3 {
+    height: 100% !important;
+}
+
 #trainingCardCon{
     height: auto;
 }

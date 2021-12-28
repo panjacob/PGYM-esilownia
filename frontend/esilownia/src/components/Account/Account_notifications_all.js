@@ -2,6 +2,11 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import logo from "../../imgs/coin_img.png";
+import accepted from "../../imgs/notifications/accepted.jpg";
+import denied from "../../imgs/notifications/denied.png";
+import training from "../../imgs/notifications/training.png";
+import bought from "../../imgs/notifications/bought.jpg";
+import diet from "../../imgs/notifications/diet.jpg";
 
 function AccountNotificationsAll() {
 
@@ -42,20 +47,91 @@ function AccountNotificationsAll() {
             })
             .then((res) => {
                 setNotificationsToShow([])
-                res.data.map((notification) => {
+                res.data.sort(function(a, b){return b.time-a.time}).map((notification) => {
                     let time_send = new Date()
                     time_send.setTime(notification.time)
                     let time_now = Date.now()
                     let time = time_now - time_send;
 
-                    let obj = {
-                        id: notification.id,
-                        kind: notification.kind,
-                        image: logo,
-                        message: JSON.parse(notification.body).message,
-                        detailPage: '#',
-                        receivedTime: msToTime(time)
+                    let obj = {}
+
+                    if(notification.kind === '0') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: logo,
+                            message: 'Witamy na platformie P-Gym.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
                     }
+
+                    if(notification.kind === '1') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: accepted,
+                            message: 'Twoja Aplikacja została zaakceptowna.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '2') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: denied,
+                            message: 'Twoja Aplikacja została odrzucona.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '4') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: training,
+                            message: 'Dziekujemy za zakup treningu.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '5') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: bought,
+                            message: 'Uzytkownik wykupił dostep do twojego treningu.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '6') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: diet,
+                            message: 'Dziekujemy za zakup diety.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '7') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: bought,
+                            message: 'Uzytkownik wykupił twoja oferte diety.',
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
                     setNotificationsToShow(notificationsToShow => [...notificationsToShow, obj])
                 })
             });

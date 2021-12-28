@@ -437,7 +437,7 @@ function Price_list_offer() {
                                     </Card.Text>
                                     <hr width="35%" color="black"/>
                                     <Card.Text as={"h2"}>
-                                        <b><i>${offerDataPrice1}</i></b>
+                                        <b><i>{offerDataPrice1}zł</i></b>
                                     </Card.Text>
 
                                     <Button variant="btn" onClick={() => buyCoins(offerDataStripePriceId1)}>
@@ -465,7 +465,7 @@ function Price_list_offer() {
                                     </Card.Text>
                                     <hr width="35%" color="black"/>
                                     <Card.Text as={"h2"}>
-                                        <b><i>${offerDataPrice2}</i></b>
+                                        <b><i>{offerDataPrice2}zł</i></b>
                                     </Card.Text>
 
                                     <Button variant="btn" onClick={() => buyCoins(offerDataStripePriceId2)}>
@@ -492,7 +492,7 @@ function Price_list_offer() {
                                     </Card.Text>
                                     <hr width="35%" color="black"/>
                                     <Card.Text as={"h2"}>
-                                        <b><i>${offerDataPrice3}</i></b>
+                                        <b><i>{offerDataPrice3}zł</i></b>
                                     </Card.Text>
 
                                     <Button variant="btn" onClick={() => buyCoins(offerDataStripePriceId3)}>

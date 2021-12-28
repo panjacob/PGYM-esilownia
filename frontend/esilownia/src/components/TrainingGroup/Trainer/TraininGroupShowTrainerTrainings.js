@@ -60,7 +60,7 @@ function TrainingGroupShowTrainerTrainings() {
                     <hr></hr>
                 </div>
 
-                <div className="row border justify-content-center text-center inline-block">
+                <div className="row justify-content-center text-center inline-block">
                     {trainingGroupAll.map((training, idx) => {
 
                         if (training.difficulty === "0") {
@@ -126,6 +126,7 @@ function TrainingGroupShowTrainerTrainings() {
                     <div style={{minWidth: '250px'}} className="col-md-3"></div>
                     <div style={{minWidth: '250px'}} className="col-md-3"></div>
                 </div>
+                <hr/>
             </div>
 
         </div>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 
 function TrainingJitsi(props) {
@@ -240,11 +240,11 @@ function TrainingJitsi(props) {
         return config;
     }
 
-    const jitsiStart = (jwt, moderator) => {
+    const jitsiStart = (jwt, roomName, moderator) => {
         document.getElementById("meet").innerHTML = "";
-        const search = location.search;
-        const id = new URLSearchParams(search).get('id');
-        const roomName = id;
+        //const search = location.search;
+        //const id = new URLSearchParams(search).get('id');
+        //const roomName = id;
         const domain = "meet.pgym.xyz";
         const configOverwrite = (moderator) ? jitsiConfigModerator() : jitsiConfigUser();
         const options = {
@@ -274,7 +274,7 @@ function TrainingJitsi(props) {
                 }
             })
             .then((res) => {
-                jitsiStart(res.data.token, res.data.moderator);
+                jitsiStart(res.data.token, res.data.roomName, res.data.moderator);
             });
     }
 
@@ -287,7 +287,7 @@ function TrainingJitsi(props) {
                     </h1>
                     <hr></hr>
                 </div>
-                <div className="container mt-4 border" style={{'width':'1100px', 'height':'700px'}} >
+                <div className="container mt-4 pl-0 border" style={{'width':'1100px', 'height':'700px'}} >
                     <div id='meet'></div>
                 </div>
                 <div className="card mb-4 mt-4 bg-light" width="100%">
@@ -310,10 +310,20 @@ function TrainingJitsi(props) {
                             </div>
                         </div>
                         <hr/>
+
+                        <div className='text-left mb-2'>
+                            <Link className='btn'
+                                  to={{
+                                      pathname: '/zgłoszenia',
+                                  }}
+                            >Zgłoś</Link>
+                        </div>
+
                     </div>
 
                 </div>
             </div>
+
         </div>
     );
 }

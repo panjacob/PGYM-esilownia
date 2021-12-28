@@ -16,6 +16,7 @@ function Diet_showAll() {
     const [dietFilter, setDietFilter] = useState([]);
     const [dieticianInfo, setDieticianInfo] = useState([]);
     const [selectedDietsType, setSelectedDietsType] = useState([]);
+    const [userInfo,setUserInfo] = useState([])
 
     function uniqBy(a, key) {
         var seen = {};
@@ -184,64 +185,80 @@ function Diet_showAll() {
                 setDietTypeAll(res.data)
             });
 
+        axiosInstance
+            .post(`/users/info/`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
+            })
+            .then((res) => {
+                setUserInfo([])
+                res.data.diets.map((userDietsId)=>{
+                    setUserInfo(userInfo => [...userInfo, userDietsId.diet])
+                })
+            });
+
     }, []);
 
     function Items({currentItems}) {
         return (
             <div id="offer_container" className="row justify-content-center">
                 {currentItems && currentItems.map(function (cValue, idx) {
+                    if (!userInfo.includes(cValue.id)) {
 
-                    return (
-                        <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
-                            <div className="h-100 card m-1 shadow bg-light" key={idx}>
-                                {(cValue.image === null) ? (
-                                    <img src={Photo} width="100%" height="width"
-                                         className="card-img-top rounded-circle"
-                                         alt="..."/>
-                                ) : (
-                                    <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="233px"
-                                         height="233px"
-                                         className="card-img-top rounded-circle"
-                                         alt="..."/>
-                                )}
-                                <div className="card-body">
-                                    <div>
-                                        <h5 className="card-title">{cValue.title}</h5>
-                                        <div className="card-subtitle"
-                                             style={{overflow: 'auto', height: '100px'}}>
-                                            {dietTypeAll.map(function (type, id) {
-                                                for (let i = 0; i < cValue.type.length; i++) {
-                                                    if (cValue.type.includes(type.id)) {
-                                                        return (<p style={{fontSize: '15px'}} className="m-0"
-                                                                   key={id}>{type.type}</p>)
+
+                        return (
+                            <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
+                                <div className="h-100 card m-1 shadow bg-light" key={idx}>
+                                    {(cValue.image === null) ? (
+                                        <img src={Photo} width="100%" height="width"
+                                             className="card-img-top rounded-circle"
+                                             alt="..."/>
+                                    ) : (
+                                        <img src={axios_variebles.baseURL.slice(0, -1) + cValue.image} width="233px"
+                                             height="233px"
+                                             className="card-img-top rounded-circle"
+                                             alt="..."/>
+                                    )}
+                                    <div className="card-body">
+                                        <div>
+                                            <h5 className="card-title">{cValue.title}</h5>
+                                            <div className="card-subtitle"
+                                                 style={{overflow: 'auto', height: '100px'}}>
+                                                {dietTypeAll.map(function (type, id) {
+                                                    for (let i = 0; i < cValue.type.length; i++) {
+                                                        if (cValue.type.includes(type.id)) {
+                                                            return (<p style={{fontSize: '15px'}} className="m-0"
+                                                                       key={id}>{type.type}</p>)
+                                                        }
                                                     }
-                                                }
-                                            })}
-                                        </div>
-                                        <p className="card-text"> Dietetyk: </p>
-                                        {uniqBy(dieticianInfo, JSON.stringify).map((dietician, idx) => {
-                                            if (dietician.id === cValue.owner)
-                                                return (<p key={idx}
-                                                           className="card-text"> {dietician.first_name} {dietician.last_name} </p>)
+                                                })}
+                                            </div>
+                                            <p className="card-text"> Dietetyk: </p>
+                                            {uniqBy(dieticianInfo, JSON.stringify).map((dietician, idx) => {
+                                                if (dietician.id === cValue.owner)
+                                                    return (<p key={idx}
+                                                               className="card-text"> {dietician.first_name} {dietician.last_name} </p>)
 
-                                        })}
-                                        {(cValue.is_private === true) ? (
-                                            <p className="card-text">Dieta prywatna</p>
-                                        ) : (
-                                            <p className="card-text">Dieta grupowa</p>
-                                        )}
-                                        <Link className='btn'
-                                              to={{
-                                                  pathname: '/dieta_szczegóły',
-                                                  search: 'id='+cValue.id.toString()
-                                              }}
-                                        >Pokaż Wiecej</Link>
+                                            })}
+                                            {(cValue.is_private === true) ? (
+                                                <p className="card-text">Dieta prywatna</p>
+                                            ) : (
+                                                <p className="card-text">Dieta grupowa</p>
+                                            )}
+                                            <Link className='btn'
+                                                  to={{
+                                                      pathname: '/dieta_szczegóły',
+                                                      search: 'id=' + cValue.id.toString()
+                                                  }}
+                                            >Pokaż Wiecej</Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
-
+                        )
+                    }
                 })}
                 <div style={{minWidth: '250px'}} className="col-md-4"></div>
                 <div style={{minWidth: '250px'}} className="col-md-4"></div>
