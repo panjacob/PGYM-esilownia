@@ -114,7 +114,7 @@ function TrainingGroupShowTrainerTrainings() {
                                                 <Link className='btn' to={{
                                                     pathname: '/strefa_trenera_treningi',
                                                     search: 'id='+training.id.toString()
-                                                }}>Szczegóły Grupy {training.id}</Link>
+                                                }}>Szczegóły Grupy</Link>
                                             </div>
                                         </div>
                                     </div>
