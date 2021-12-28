@@ -68,7 +68,7 @@ def user_register(request):
     if serializer.is_valid():
         new_user = serializer.save()
         if new_user:
-            notification_body = {'message': 'Tego stringa trzeba zamienić w JSONA'}
+            notification_body = {'message': 'Witaj w PGYM!'}
             notification = notification_send(new_user, notification_body, 0)
             return Response({'id': new_user.id, 'username': new_user.username, 'email': new_user.email},
                             status=status.HTTP_200_OK)

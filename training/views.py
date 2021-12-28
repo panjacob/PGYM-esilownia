@@ -62,13 +62,12 @@ def training_group_join(request):
     participant_extend_subscription(training_group_participant, days_to_add)
     user1_give_money_user2_training(user, owner, price)
 
-
-
     body_user = {
         'training_group': training_group.id,
         'training_group_image': training_group.image.url if training_group.image else "",
         'training_group_name': training_group.title,
-        'bought_days': days_to_add
+        'bought_days': days_to_add,
+        'message': f"Kupiłeś dostęp do treningu {training_group.title}"
     }
     notification_send(user=user, body=body_user, kind=4)
 
@@ -79,6 +78,7 @@ def training_group_join(request):
         'bought_days': days_to_add,
         'user_who_bought': user.id,
         'user_who_bought_name': f"{user.first_name} {user.last_name}",
+        'message': f"{user.first_name} {user.last_name} kupił dostęp do grupy treningowej '{training_group.title}'",
     }
     notification_send(user=owner, body=body_owner, kind=5)
 
@@ -299,9 +299,11 @@ def training_file_remove(request):
 @api_view(['POST'])
 def training_group_invite(request):
     user_receiver = UserExtended.objects.get(id=request.data['user'])
+    training_group = TrainingGroup.objects.get(id=request.data['training_group'])
     body = {
         'user_sender': request.user.id,
-        'training_group': request.data['training_group']
+        'training_group': request.data['training_group'],
+        'message': f"{training_group.owner.first_name} {training_group.owner.last_name} zaprosił Cię do grupy treningowej {training_group.title}",
     }
     notification_send(user=user_receiver, body=body, kind=3)
 
