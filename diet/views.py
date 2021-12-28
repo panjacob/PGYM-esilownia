@@ -95,7 +95,7 @@ def diet_group_join(request):
     body_user = {
         'training_group': diet_group.id,
         'bought_days': days_to_add,
-        'message': f"You have bought access to diet '{diet_group.title}'"
+        'message': f"Kupiłeś dostęp do diety '{diet_group.title}'"
     }
     notification_send(user=user, body=body_user, kind=6)
 
@@ -105,7 +105,7 @@ def diet_group_join(request):
         'bought_days': days_to_add,
         'user_who_bought': user.id,
         'user_who_bought_name': f"{user.first_name} {user.last_name}",
-        'message': f"{user.first_name} {user.last_name} has bought diet '{diet_group.title}'",
+        'message': f"{user.first_name} {user.last_name} kupił dostęp do diety '{diet_group.title}'",
     }
     notification_send(user=owner, body=body_owner, kind=7)
 

@@ -105,7 +105,7 @@ def stripe_webhook(request):
             html_message = utilis.generate_purchase_confirmation_email_body(transaction.purchased,
                                                                             transaction.transaction_id)
             send_html_mail("PGYM - Zakup Gymcoinów", html_message, user_email)
-            notification_send(user=user, body={'message': f"You have successfully bought {offer.coins}"}, kind=8)
+            notification_send(user=user, body={'message': f"Otrzymałeś {offer.coins} monet"}, kind=8)
     else:
         print("Unhandled event type {}".format(event['type']))
 

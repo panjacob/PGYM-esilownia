@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from message.utilis import notification_send
 from moderator import models
 from moderator.serializers import ApplicationCreateSerializer, ApplicationGetSerializer, ReportCreateSerializer, \
     ReportGetSerializer, ReportEditSerializer
@@ -45,6 +46,10 @@ def application_accept(request):
     application = models.Application.objects.get(id=request.data['id'])
     application.status = application.ACCEPTED
     application.save()
+    body_user = {
+        'message': "Twoja zgłoszenie zostało rozpatrzone pomyślnie"
+    }
+    notification_send(user=application.owner.id, body=body_user, kind=1)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
@@ -54,6 +59,10 @@ def application_reject(request):
     application = models.Application.objects.get(id=request.data['id'])
     application.status = application.REJECTED
     application.save()
+    body_user = {
+        'message': "Twoja zgłoszenie zostało rozpatrzone negatywnie"
+    }
+    notification_send(user=application.owner.id, body=body_user, kind=2)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
