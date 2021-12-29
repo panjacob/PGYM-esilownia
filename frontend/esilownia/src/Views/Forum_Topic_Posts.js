@@ -24,9 +24,12 @@ function ForumTopicPosts() {
 
     useEffect(() => {
 
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
         setPostList([]);
         axiosInstance
-            .post(`/forum/topic/get`, {id: location.state.topicId}, {
+            .post(`/forum/topic/get`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -262,9 +265,7 @@ function ForumTopicPosts() {
                                                                 return (
                                                                     <Link className="forum-item-title" to={{
                                                                         pathname: '/profil_uzytkownika',
-                                                                        state: {
-                                                                            userId: user.id
-                                                                        }
+                                                                        search: 'id=' + user.id.toString()
                                                                     }}>
                                                                     <div key={idx} className="forum-post-title">{user.first_name} {user.last_name}</div>
                                                                     </Link>

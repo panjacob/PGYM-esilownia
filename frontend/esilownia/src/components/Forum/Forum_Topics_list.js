@@ -192,9 +192,8 @@ function ForumTopicsList() {
                                                     <div className="col-md-7">
                                                         <Link className="forum-item-title" to={{
                                                             pathname: '/forum_temat',
-                                                            state: {
-                                                                topicId: topic.id
-                                                            }
+                                                            search: 'id=' + topic.id.toString()
+
                                                         }}>{topic.title}</Link>
                                                         {(topic.post_count > 0) ? (
                                                             <div className="forum-sub-title">{topic.first_post.body}</div>
@@ -208,9 +207,8 @@ function ForumTopicsList() {
                                                                 return (
                                                                     <Link className="forum-item-title" to={{
                                                                         pathname: '/profil_uzytkownika',
-                                                                        state: {
-                                                                            userId: user.id
-                                                                        }
+                                                                        search: 'id=' + user.id.toString()
+
                                                                     }}>
                                                                     <div key={idx} className="forum-sub-title">{user.first_name} {user.last_name}</div>
                                                                     </Link>
