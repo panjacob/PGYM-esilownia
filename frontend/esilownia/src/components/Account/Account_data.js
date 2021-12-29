@@ -156,14 +156,14 @@ function Account_data() {
 
             {(isTrainer === true || isDietician === true) ? (
                 <div className="checkout">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="text-center">
-                                <hr></hr>
-                                <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Wypłać Gymcoiny
-                                </h1>
-                                <hr></hr>
-                            </div>
+                    <div className="row justify-content-center">
+                        <div className="text-center">
+                            <hr></hr>
+                            <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Wypłać Gymcoiny
+                            </h1>
+                            <hr></hr>
+                        </div>
+                        <div className="col-md-6">
                             <Form className="p-4">
                                 <Form.Group size="lg" controlId="number" onSubmit={handleSubmit}>
                                     <Form.Label>Ilość</Form.Label>
