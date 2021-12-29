@@ -36,7 +36,7 @@ function Account_data() {
     const handleSubmit = (e) => {
         e.preventDefault();
         var formdata = new FormData();
-        formdata.append("reciever", userId);
+        formdata.append("receiver", userId);
         formdata.append("message", message);
         var myHeaders = new Headers();
         myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
