@@ -51,7 +51,7 @@ function Account_data() {
         fetch(axios_variebles.baseURL + "message/send", requestOptions)
             .then(response => {
                 response.text();
-                // window.location.reload();
+                window.location.reload();
             })
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
