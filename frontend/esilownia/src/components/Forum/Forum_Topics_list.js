@@ -206,7 +206,14 @@ function ForumTopicsList() {
                                                         {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                             if(user.id === topic.owner){
                                                                 return (
+                                                                    <Link className="forum-item-title" to={{
+                                                                        pathname: '/profil_uzytkownika',
+                                                                        state: {
+                                                                            userId: user.id
+                                                                        }
+                                                                    }}>
                                                                     <div key={idx} className="forum-sub-title">{user.first_name} {user.last_name}</div>
+                                                                    </Link>
                                                                 )
                                                             }
                                                         })}
