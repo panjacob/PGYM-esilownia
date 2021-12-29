@@ -231,14 +231,6 @@ function ChatContent() {
                                         </div>
                                     )
                                 }
-                                // return (
-                                //     <div key={idx} className='m-1 p-1 border'>
-                                //         <p style={{margin: '0'}}>time : {msToTime(msg.time)}</p>
-                                //         <p style={{margin: '0'}}>sender : {msg.sender}</p>
-                                //         <p style={{margin: '0'}}>receiver : {msg.receiver}</p>
-                                //         <p style={{margin: '0'}}>message : {msg.message}</p>
-                                //     </div>
-                                // )
                             })}
                             </div>
                         </div>
