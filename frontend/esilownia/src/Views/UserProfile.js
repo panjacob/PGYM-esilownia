@@ -1,6 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import User_photo from "../components/UserProfile/User_photo";
 
 function UserProfile() {
 
@@ -8,6 +8,7 @@ function UserProfile() {
         <div className="UserProfile">
             <div className="container">
 
+                <User_photo></User_photo>
 
 
             </div>
