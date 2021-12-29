@@ -34,7 +34,7 @@ function User_photo() {
     }, []);
 
     return (
-        <div className="account_photo">
+        <div className="user_photo">
 
             <div className="col-md-8 mx-auto mt-3">
 
