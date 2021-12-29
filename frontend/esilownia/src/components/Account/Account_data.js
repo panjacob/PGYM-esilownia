@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axiosInstance from "../Axios/Axios";
 import AccountNotificationsAll from "./Account_notifications_all";
+import {Button, Form} from "react-bootstrap";
+import axios_variebles from "../Axios/Axios_variebles";
 
 function Account_data() {
 
@@ -11,6 +13,21 @@ function Account_data() {
     const [lastname, setLastname] = useState("");
     const [bankAcc, setBankAcc] = useState("");
     const [joindate, setJoindate] = useState("");
+    const [getCheckout, setGetCheckout] = useState("");
+    const [checkoutMoney, setCheckoutMoney] = useState("");
+
+    let isDietician = false;
+    let isTrainer = false;
+    if (localStorage.getItem('role') !== null) {
+        isDietician = JSON.parse(localStorage.getItem('role')).includes('dietician')
+    }
+    if (localStorage.getItem('role') !== null) {
+        isTrainer = JSON.parse(localStorage.getItem('role')).includes('trainer')
+    }
+
+    function validateForm() {
+        return checkoutMoney > 0;
+    }
 
     useEffect(() => {
 
@@ -27,11 +44,36 @@ function Account_data() {
                 setFirstname(res.data.first_name)
                 setLastname(res.data.last_name)
                 setBankAcc(res.data.bank_account)
+                setGetCheckout(res.data.money)
                 setJoindate(res.data.start_date.slice(0, 10))
             });
 
 
     }, []);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        var formdata = new FormData();
+        formdata.append("amount", checkoutMoney);
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch(axios_variebles.baseURL + "payment/withdraw/create", requestOptions)
+            .then(response => {
+                response.text();
+                window.location.reload();
+            })
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+    }
 
     return (
         <div className="account_data">
@@ -111,6 +153,40 @@ function Account_data() {
 
             </div>
             <AccountNotificationsAll></AccountNotificationsAll>
+
+            {(isTrainer === true || isDietician === true) ? (
+                <div className="checkout">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="text-center">
+                                <hr></hr>
+                                <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Wypłać Gymcoiny
+                                </h1>
+                                <hr></hr>
+                            </div>
+                            <Form className="p-4">
+                                <Form.Group size="lg" controlId="number" onSubmit={handleSubmit}>
+                                    <Form.Label>Ilość</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        value={checkoutMoney}
+                                        placeholder={getCheckout}
+                                        max={getCheckout}
+                                        min={0}
+                                        onChange={(e) => setCheckoutMoney(e.target.value)}
+                                    />
+                                </Form.Group>
+                                <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
+                                        disabled={!validateForm()}>
+                                    Wypłać
+                                </Button>
+                                <hr/>
+                            </Form>
+                        </div>
+                    </div>
+                </div>
+            ) : ("")
+            }
 
         </div>
     );
