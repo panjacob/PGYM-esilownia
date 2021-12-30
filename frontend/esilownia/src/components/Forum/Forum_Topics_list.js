@@ -196,9 +196,17 @@ function ForumTopicsList() {
 
                                                         }}>{topic.title}</Link>
                                                         {(topic.post_count > 0) ? (
-                                                            <div className="forum-sub-title">{topic.first_post.body}</div>
+                                                            <div className="forum-sub-title border-top border-bottom pb-2 mt-3">
+                                                                <div className="container mt-2">
+                                                                    {topic.first_post.body}
+                                                                </div>
+                                                            </div>
                                                         ) : (
-                                                            <div className="forum-sub-title">Brak postow w tym temacie</div>)
+                                                            <div className="forum-sub-title border-top border-bottom pb-2 mt-3">
+                                                                <div className="container mt-2">
+                                                                    Brak postow w tym temacie
+                                                                </div>
+                                                            </div>)
                                                         }
                                                     </div>
                                                     <div className="col-md-3">
@@ -229,17 +237,19 @@ function ForumTopicsList() {
 
                                                 </div>
 
-                                                <div className='mt-2'>
+                                                <div className='row pl-3 mt-2'>
                                                 {(currentUser.id === topic.owner) ? (
                                                     <div>
                                                         <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><img id={topic.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
-                                                    <Link className='ml-1 btn'
-                                                          to={{
-                                                              pathname: '/zgłoszenia',
-                                                          }}
-                                                    >Zgłoś</Link>
+                                                    <div>
+                                                        <Link className='m-1 btn'
+                                                            to={{
+                                                                pathname: '/zgłoszenia',
+                                                            }}
+                                                        >Zgłoś</Link>
+                                                    </div>
                                                 </div>
 
                                             </div>

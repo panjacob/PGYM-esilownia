@@ -272,7 +272,7 @@ function ForumTopicPosts() {
                                                                 )
                                                             }
                                                         })}
-                                                                <div id={`post-${post.id}`} className="forum-post-body mt-3 border-top" style={{minHeight:'10px'}}>
+                                                                <div id={`post-${post.id}`} className="forum-post-body mt-3 pb-2 border-top border-bottom" style={{minHeight:'10px'}}>
                                                                     <div className="container mt-2">
                                                                         {post.body}
                                                                     </div>
@@ -284,18 +284,20 @@ function ForumTopicPosts() {
 
                                                 </div>
 
-                                                <div className='mt-2'>
+                                                <div className='row pl-3 mt-2'>
                                                 {(currentUser.id === post.owner) ? (
                                                     <div>
                                                         <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><img id={post.id} src={editIcon}/></Button>
                                                         <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><img id={post.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
-                                                    <Link className='ml-1 btn'
+                                                    <div>
+                                                    <Link className='m-1 btn'
                                                           to={{
                                                               pathname: '/zgłoszenia',
                                                           }}
                                                     >Zgłoś</Link>
+                                                    </div>
                                                 </div>
 
                                                 <div id={`editPost-${post.id}`} style={{display:'none'}}>
