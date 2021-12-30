@@ -149,13 +149,13 @@ function AccountNotificationsAll() {
                     <hr></hr>
                 </div>
 
-                <div className="col-md-5 mx-auto mt-3 border pl-5 pr-5" style={{overflowY:'scroll', maxHeight:'500px', minHeight:'250px'}}>
+                <div className="col-md-6 mx-auto mt-3  pl-5 pr-5" style={{overflowY:'scroll', maxHeight:'500px', minHeight:'250px'}}>
 
                     {notificationsToShow.reverse().map((notification) => {
                         return (
 
                             <div className="card bg-light">
-                                <a href={notification.detailPage} className="card-link">
+                               <a href={notification.detailPage} className="card-link">
                                     <div className="content">
                                         <div className="image"><img src={notification.image} alt="Person"/></div>
                                         <div className="message">

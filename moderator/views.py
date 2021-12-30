@@ -49,7 +49,7 @@ def application_accept(request):
     body_user = {
         'message': "Twoja zgłoszenie zostało rozpatrzone pomyślnie"
     }
-    notification_send(user=application.owner.id, body=body_user, kind=1)
+    notification_send(user=application.owner, body=body_user, kind=1)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
@@ -62,7 +62,7 @@ def application_reject(request):
     body_user = {
         'message': "Twoja zgłoszenie zostało rozpatrzone negatywnie"
     }
-    notification_send(user=application.owner.id, body=body_user, kind=2)
+    notification_send(user=application.owner, body=body_user, kind=2)
 
     return Response({'OK'}, status=status.HTTP_200_OK)
 
