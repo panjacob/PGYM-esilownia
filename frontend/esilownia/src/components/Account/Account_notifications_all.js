@@ -27,7 +27,7 @@ function AccountNotificationsAll() {
         if (days === 0) {
             return hours + " godz. temu";
         }
-        if (hours > 24) {
+        if (hours <= 24) {
             if (days === 1) {
                 return days + " dzień temu"
             } else {
