@@ -20,6 +20,8 @@ class EmailThread(threading.Thread):
 
 
 def send_html_mail(subject, html_message, recipent):
+    print('Email sending disabled') # TODO enable before deployment
+    return
     EmailThread(subject, html_message, recipent).start()
 
 
