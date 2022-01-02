@@ -124,7 +124,7 @@ function Diet_showUserDiet() {
                                                     <Link className='btn' to={{
                                                         pathname: '/grupa_diety',
                                                         search: 'id='+diet.id.toString()
-                                                    }}>Szczegóły Diety {diet.id}</Link>
+                                                    }}>Szczegóły Diety</Link>
 
                                                 </div>
                                             </div>

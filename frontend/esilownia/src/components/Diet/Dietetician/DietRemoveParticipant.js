@@ -4,10 +4,10 @@ import axiosInstance from "../../Axios/Axios";
 import Button from "react-bootstrap/Button";
 import axios_variebles from "../../Axios/Axios_variebles";
 
-function TrainingRemoveParticipant(props) {
+function DietRemoveParticipant(props) {
 
-    const [groupInfo, setGroupInfo] = useState([]);
-    const [groupInfoParticipants, setGroupInfoParticipants] = useState([]);
+    const [dietInfo, setDietInfo] = useState([]);
+    const [dietInfoParticipants, setDietInfoParticipants] = useState([]);
     const [userSelected, setUserSelected] = useState('none');
     const [usersData, setUsersData] = useState([])
 
@@ -15,15 +15,15 @@ function TrainingRemoveParticipant(props) {
     useEffect(() => {
 
         axiosInstance
-            .post(`training/group/get`, {id: props.groupId}, {
+            .post(`diet/get`, {id: props.groupId}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
-                setGroupInfo(res.data)
-                setGroupInfoParticipants(res.data.participants)
+                setDietInfo(res.data)
+                setDietInfoParticipants(res.data.participants)
             });
 
     }, [props.groupId]);
@@ -31,7 +31,7 @@ function TrainingRemoveParticipant(props) {
     useEffect(() => {
 
         let list = []
-        groupInfoParticipants.map((user) => {
+        dietInfoParticipants.map((user) => {
             axiosInstance
                 .post(`/users/get/`, {id: user.user}, {
                     headers: {
@@ -47,7 +47,7 @@ function TrainingRemoveParticipant(props) {
                 })
         })
 
-    }, [groupInfoParticipants]);
+    }, [dietInfoParticipants]);
 
 
     const userChosen = (e) => {
@@ -58,7 +58,7 @@ function TrainingRemoveParticipant(props) {
         e.preventDefault();
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("training_group", groupInfo.id);
+        urlencoded.append("diet_group", dietInfo.id);
         urlencoded.append("user", userSelected);
 
         var myHeaders = new Headers();
@@ -72,7 +72,7 @@ function TrainingRemoveParticipant(props) {
             redirect: 'follow'
         };
 
-        fetch(axios_variebles.baseURL + "training/group/participant/remove", requestOptions)
+        fetch(axios_variebles.baseURL + "diet/participant/remove", requestOptions)
             .then(response => {
                 response.text();
                 window.location.reload();
@@ -86,11 +86,11 @@ function TrainingRemoveParticipant(props) {
     }
 
     return (
-        <div className="trainingRemoveParticipant">
+        <div className="dietRemoveParticipant">
 
             <hr/>
             <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Usuń użytkownika z
-                grupy</h1>
+                diety</h1>
             <hr/>
 
             <div className="container justify-content-center border p-4">
@@ -102,7 +102,7 @@ function TrainingRemoveParticipant(props) {
                         <select className='text-center' style={{width: '100%', height: '30px'}}
                                 onChange={userChosen}>
                             <option value='none'> - </option>
-                            {groupInfoParticipants.map(function (participants, idx) {
+                            {dietInfoParticipants.map(function (participants, idx) {
                                 for (let i = 0; i < usersData.length; i++) {
                                     if (usersData[i].id === participants.user) {
                                         return (
@@ -135,4 +135,4 @@ function TrainingRemoveParticipant(props) {
 
 }
 
-export default TrainingRemoveParticipant;
+export default DietRemoveParticipant;

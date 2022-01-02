@@ -12,7 +12,7 @@ from diet.serializers import DietGroupSerializerCreate, DietGroupSerializerGet, 
 from message.utilis import notification_send
 from payment.utilis import user1_give_money_user2_training
 from training.utilis import get_price_and_days_to_add, participant_extend_subscription, jitsi_payload_create, \
-    jitsi_token_encode
+    jitsi_token_encode, is_training_owner
 from users.utilis import put_owner_in_request_data
 
 MAX_PING_ACTIVE_SECONDS = 30
@@ -180,9 +180,11 @@ def diet_jitsi_join(request):
     user = request.user
     diet = Diet.objects.get(id=request.data['id'])
     diet.participants.add(user)
-    payload = jitsi_payload_create(user, diet)
+    moderator = is_training_owner(user, diet)
+    room_name = "diet" + "_" + str(diet.id)
+    payload = jitsi_payload_create(user, diet, room_name=room_name, moderator=moderator)
     token = jitsi_token_encode(JITSI_SECRET, payload)
-    return Response({'token': token}, status=status.HTTP_200_OK)
+    return Response({'token': token, 'moderator': moderator, 'roomName': room_name}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

@@ -3,7 +3,7 @@ import axiosInstance from "../../Axios/Axios";
 import Button from "react-bootstrap/Button";
 import axios_variebles from "../../Axios/Axios_variebles";
 
-function TrainingGroupChangeVideo(props){
+function DietChangeFile(props){
     const [groupInfo, setGroupInfo] = useState([]);
     const [video, setVideo] = useState();
     const [groupInfoVideos, setGroupInfoVideos] = useState([]);
@@ -16,7 +16,7 @@ function TrainingGroupChangeVideo(props){
     useEffect(() => {
 
         axiosInstance
-            .post(`training/group/get`, {id: props.groupId}, {
+            .post(`diet/get`, {id: props.groupId}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -24,7 +24,7 @@ function TrainingGroupChangeVideo(props){
             })
             .then((res) => {
                 setGroupInfo(res.data)
-                setGroupInfoVideos(res.data.videos)
+                setGroupInfoVideos(res.data.files)
             });
 
     }, [props.groupId]);
@@ -45,9 +45,9 @@ function TrainingGroupChangeVideo(props){
 
         var formdata = new FormData();
         if(isFilePicked===true){
-            formdata.append("video", fileToUpload, fileToUploadName);
+            formdata.append("file", fileToUpload, fileToUploadName);
         }
-        formdata.append("training_group", groupInfo.id )
+        formdata.append("diet_group", groupInfo.id );
 
         var requestOptions = {
             method: 'POST',
@@ -56,7 +56,7 @@ function TrainingGroupChangeVideo(props){
             redirect: 'follow'
         };
 
-        fetch(axios_variebles.baseURL + "training/group/video/add", requestOptions)
+        fetch(axios_variebles.baseURL + "diet/file/add", requestOptions)
             .then(response => {
                 response.text();
                 window.location.reload();
@@ -94,6 +94,8 @@ function TrainingGroupChangeVideo(props){
 
         var formdata2 = new FormData();
         formdata2.append("id", videoSelected);
+        formdata2.append("diet_group", groupInfo.id );
+
 
 
         var requestOptions2 = {
@@ -103,7 +105,7 @@ function TrainingGroupChangeVideo(props){
             redirect: 'follow'
         };
 
-        fetch(axios_variebles.baseURL + "training/group/video/remove", requestOptions2)
+        fetch(axios_variebles.baseURL + "diet/file/remove", requestOptions2)
             .then(response => {
                 response.text();
                 window.location.reload();
@@ -115,9 +117,9 @@ function TrainingGroupChangeVideo(props){
 
 
     return(
-        <div className="TrainingGroupChangeVideo">
+        <div className="dietGroupChangeFile">
             <hr/>
-            <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Zmień Filmy Instruktażowe</h1>
+            <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Zmień Filmy/Pdfy</h1>
             <hr/>
             <div className="col-md-8 mx-auto mt-3">
                 <div className="card mb-3 bg-light">
@@ -125,7 +127,7 @@ function TrainingGroupChangeVideo(props){
                         <div className="row justify-content-center">
                             <div className="col-sm-6">
                                 <div className="custom-file">
-                                    <input type="file" accept="video/*"
+                                    <input type="file" accept="video/*, application/pdf"
                                            className="custom-file-input" id="customFile" onChange={onFileChange}>
                                     </input>
                                     <label className="custom-file-label text-left" htmlFor="customFile">Wybierz plik</label>
@@ -145,9 +147,10 @@ function TrainingGroupChangeVideo(props){
                                 </div>
                             </div>
                             <div className="col-sm-3">
-                                <Button onClick={handleSubmitVid} variant="btn" size="sm">Dodaj Film</Button>
+                                <Button onClick={handleSubmitVid} variant="btn" size="sm">Dodaj Plik</Button>
                             </div>
                         </div>
+
                         <hr></hr>
 
                         <div className="row justify-content-center">
@@ -168,10 +171,10 @@ function TrainingGroupChangeVideo(props){
                                         )
                                     })}
                                 </select>
-                                <p className='m-0'>Wybierz film do usunięcia</p>
+                                <p className="m-0">Wybierz plik do usunięcia</p>
                             </div>
                             <div className="col-sm-3">
-                                <Button onClick={handleRemoveVid} variant="btn" size="sm" disabled={!validateForm()}>Usuń Film</Button>
+                                <Button onClick={handleRemoveVid} variant="btn" size="sm" disabled={!validateForm()}>Usuń Plik</Button>
                             </div>
 
                         </div>
@@ -186,4 +189,4 @@ function TrainingGroupChangeVideo(props){
         </div>
     );
 }
-export default TrainingGroupChangeVideo
+export default DietChangeFile;

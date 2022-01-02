@@ -332,7 +332,7 @@ div.notifications div.container div.items div.card div.options div.option{
     color: #999;
 }
 .forum-item .forum-sub-title {
-    color: #999;
+    /*color: #999;*/
     margin-left: 10px;
 }
 .forum-item .forum-post-title {
@@ -407,6 +407,19 @@ th {
 #trainingCard:hover{
     background-color: rgba(255, 159, 0, 0.63) !important;
     transform: scale(1.1);
+}
+
+#trainingCard2{
+    background-color: white!important;
+}
+
+#trainingCard2:hover{
+    background-color: orange !important;
+    transform: scale(1.1);
+}
+
+.trainingCard3 {
+    height: 100% !important;
 }
 
 #trainingCardCon{

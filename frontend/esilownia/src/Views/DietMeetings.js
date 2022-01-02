@@ -25,6 +25,7 @@ function DietMeetings() {
 
     const history = useHistory();
     const location = useLocation()
+    var today = new Date();
 
     useEffect(() => {
 
@@ -184,6 +185,15 @@ function DietMeetings() {
                                         })}
                                     </div>
                                 </div>
+                                <hr></hr>
+
+                                <div className='text-left m-1'>
+                                    <Link className='btn'
+                                          to={{
+                                              pathname: '/zgłoszenia',
+                                          }}
+                                    >Zgłoś</Link>
+                                </div>
 
                             </div>
 
@@ -198,36 +208,79 @@ function DietMeetings() {
 
                         <div className="text-center">
                             <hr></hr>
-                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Spotkania
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Nadchodzące Spotkania
                             </h1>
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
                             {dietsInfo.map((diet) => {
-                                return (
-                                    <Link className='btn m-1 shadow' id='trainingCard' to={{
-                                        pathname: '/spotkanie',
-                                        search: 'id='+diet.id.toString()
+                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < diet.date.toString()) {
+                                    return (
+                                        <Link className='btn m-1 shadow' id='trainingCard' to={{
+                                            pathname: '/spotkanie',
+                                            search: 'id=' + diet.id.toString()
 
-                                    }}>
-                                        <div className="container my-auto" id='trainingCardBody'>
-                                            <div className="container font-weight-light">
-                                                <div className="text-center">
-                                                    <h6 className="mb-0">{diet.title}</h6>
-                                                </div>
-                                                <hr/>
-                                                <div className="row">
-                                                    <div className="col-sm-5">
-                                                        <h6 className="mb-0">Start</h6>
+                                        }}>
+                                            <div className="container my-auto" id='trainingCardBody'>
+                                                <div className="container font-weight-light">
+                                                    <div className="text-center">
+                                                        <h6 className="mb-0">{diet.title}</h6>
                                                     </div>
-                                                    <div className="col-sm-7 text-secondary">
-                                                        {diet.date.replace('T', " ").replace('Z', '')}
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-sm-5">
+                                                            <h6 className="mb-0">Start</h6>
+                                                        </div>
+                                                        <div className="col-sm-7 text-secondary">
+                                                            {diet.date.replace('T', " ").replace('Z', '')}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                                )
+                                        </Link>
+                                    )
+                                }
+                            })}
+                        </div>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className="col-md-10 mx-auto mt-3">
+
+                        <div className="text-center">
+                            <hr></hr>
+                            <h1 style={{"fontSize": "5vw"}} className="display-1 font-weight-light mb-4">Przeszłe Spotkania
+                            </h1>
+                            <hr></hr>
+                        </div>
+                        <div className="container text-center" id='trainingCardCon'>
+                            {dietsInfo.map((diet) => {
+                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > diet.date.toString()) {
+                                    return (
+                                        <Link className='btn m-1 shadow' id='trainingCard' to={{
+                                            pathname: '/spotkanie',
+                                            search: 'id=' + diet.id.toString()
+
+                                        }}>
+                                            <div className="container my-auto" id='trainingCardBody'>
+                                                <div className="container font-weight-light">
+                                                    <div className="text-center">
+                                                        <h6 className="mb-0">{diet.title}</h6>
+                                                    </div>
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-sm-5">
+                                                            <h6 className="mb-0">Start</h6>
+                                                        </div>
+                                                        <div className="col-sm-7 text-secondary">
+                                                            {diet.date.replace('T', " ").replace('Z', '')}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    )
+                                }
                             })}
                         </div>
                     </div>

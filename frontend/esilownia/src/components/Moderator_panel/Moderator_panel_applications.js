@@ -21,9 +21,34 @@ function ModeratorPanelApplications(props) {
             })
             .then((res) => {
                 setApplications(res.data)
+
+                res.data.map((application) => {
+
+                    axiosInstance
+                        .post(`/users/get_moderator/`, {
+                            id: application.owner
+                        }, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                            }
+                        })
+                        .then((res2) => {
+
+                            setUserData( userData => [...userData, res2.data])
+                        })
+                })
             });
 
     }, []);
+
+    function uniqBy(a, key) {
+        var seen = {};
+        return a.filter(function (item) {
+            var k = key(item);
+            return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+        })
+    }
 
     const handleSubmitTrainer = (ownerId, appId) => (e) => {
         e.preventDefault();
@@ -142,83 +167,6 @@ function ModeratorPanelApplications(props) {
 
     }
 
-    const userDetails = (owenrId, appId) => (e) => {
-        e.preventDefault();
-
-        axiosInstance
-            .post(`/users/get_moderator/`, {
-                id: owenrId
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-                }
-            })
-            .then((res) => {
-                setUserData(res.data)
-
-                console.log(res.data)
-
-                var div = document.createElement("div");
-
-                var id = document.createElement("p")
-                    id.style.margin = "0 0 0 0";
-                var username = document.createElement("p")
-                    username.style.margin = "0px 0px 0px 0px";
-                var fn = document.createElement("p")
-                    fn.style.margin = "0 0 0 0";
-                var ln = document.createElement("p")
-                    ln.style.margin = "0 0 0 0";
-                var mail = document.createElement("p")
-                mail.style.margin = "0 0 0 0";
-                var joinDate = document.createElement("p")
-                joinDate.style.margin = "0 0 0 0";
-                var roles = document.createElement("p")
-                roles.style.margin = "0 0 0 0";
-
-                let id_z = 'Id : ' + res.data.id
-                id.innerText = id_z;
-                let username_z = 'Username : ' + res.data.username
-                username.innerText = username_z;
-                let fn_z = 'Imie : ' + res.data.first_name
-                fn.innerText = fn_z;
-                let ln_z = 'Nazwisko : ' + res.data.last_name
-                ln.innerText = ln_z;
-                let mail_z = 'Email : ' + res.data.email
-                mail.innerText = mail_z;
-                let joinDate_z = 'Data dołaczenia : ' + res.data.start_date.slice(0, 19).replace('T', " ")
-                joinDate.innerText = joinDate_z;
-                let t = " "
-                let d = " "
-                let n = " "
-                if(res.data.is_coach === true){
-                    t = 'Trener'
-                }
-                if(res.data.is_dietician === true){
-                    d = 'Dietetyk'
-                }
-                if(res.data.is_coach === false && res.data.is_dietician === false){
-                    n = 'Brak'
-                }
-                let roles_z = 'Role : '  + t + " " + d + " " + n
-                roles.innerText = roles_z;
-
-                div.appendChild(id)
-                div.appendChild(username)
-                div.appendChild(fn)
-                div.appendChild(ln)
-                div.appendChild(mail)
-                div.appendChild(joinDate)
-                div.appendChild(roles)
-
-                document.getElementById(`user-${appId}-${owenrId}`).innerHTML = ""
-                document.getElementById(`user-${appId}-${owenrId}`).appendChild(div)
-            });
-
-
-    }
-
-
     function checkStatus(app) {
         return props.appStatus.includes(app.status);
     }
@@ -313,12 +261,24 @@ function ModeratorPanelApplications(props) {
                     <div className="row">
 
                         <div className="col-4">
-                            <h6 className="mb-0">Owner</h6>
+                            <h6 className="mb-0">Właściciel</h6>
                         </div>
 
                         <div className="col text-secondary" id={`user-${id.id}-${id.owner}`}>
-                            <div>{id.owner}</div>
-                            <Link onClick={userDetails(id.owner, id.id)}>Wiecej</Link>
+                            {uniqBy(userData, JSON.stringify).map((user)=>{
+                                if(user.id === id.owner){
+                                    return (
+                                        <div>
+                                            <p className='m-0'>Id : {user.id}</p>
+                                            <p className='m-0'>Email : {user.email}</p>
+                                            <p className='m-0'>Username : {user.username}</p>
+                                            <p className='m-0'>Imie : {user.first_name}</p>
+                                            <p className='m-0'>Nazwisko : {user.last_name}</p>
+                                            <p className='m-0'>Data Dołaczenia : {user.start_date.slice(0, 19).replace('T', " ")}</p>
+                                        </div>
+                                    )
+                                }
+                            })}
                         </div>
 
                     </div>
@@ -326,7 +286,7 @@ function ModeratorPanelApplications(props) {
                     <div className="row">
 
                         <div className="col-4">
-                            <h6 className="mb-0">File</h6>
+                            <h6 className="mb-0">Plik</h6>
                         </div>
 
                         <div className="col text-secondary">

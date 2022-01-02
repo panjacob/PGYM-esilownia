@@ -82,7 +82,7 @@ function TrainingGroupShowUserTrainings() {
                         </h1>
                     <hr></hr>
                 </div>
-                <div className="row border justify-content-center text-center inline-block">
+                <div className="row justify-content-center text-center inline-block">
                     {trainingGroupAll.map((training, idx) => {
 
 
@@ -139,7 +139,7 @@ function TrainingGroupShowUserTrainings() {
                                                     <Link className='btn' to={{
                                                         pathname: '/grupa_treningi',
                                                         search: 'id='+training.id.toString()
-                                                    }}>Szczegóły Grupy {training.id}</Link>
+                                                    }}>Szczegóły Grupy</Link>
 
                                                 </div>
                                             </div>
@@ -154,6 +154,7 @@ function TrainingGroupShowUserTrainings() {
                     <div style={{minWidth: '250px'}} className="col-md-3"></div>
                     <div style={{minWidth: '250px'}} className="col-md-3"></div>
                 </div>
+                <hr/>
             </div>
 
         </div>

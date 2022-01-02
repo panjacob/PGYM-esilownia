@@ -3,28 +3,28 @@ import axiosInstance from "../../Axios/Axios";
 import Button from "react-bootstrap/Button";
 import axios_variebles from "../../Axios/Axios_variebles";
 
-function TrainingGroupChangeVideo(props){
-    const [groupInfo, setGroupInfo] = useState([]);
-    const [video, setVideo] = useState();
-    const [groupInfoVideos, setGroupInfoVideos] = useState([]);
-    const [videoSelected, setVideoSelected] = useState('none');
+function DietChangeImage(props){
+    const [dietInfo, setDietInfo] = useState([]);
+    const [photo, setPhoto] = useState();
+    const [dietInfoPhotos, setDietInfoPhotos] = useState([]);
+    const [photoSelected, setPhotoSelected] = useState('none');
     const [fileToUpload, setFileToUpload] = useState();
     const [fileToUploadName, setFileToUploadName] = useState("");
     const [isFilePicked, setIsFilePicked] = useState(false);
-    const [videoSelectedName, setVideoSelectedName] = useState("");
+    const [photoSelectedName, setPhotoSelectedName] = useState("");
 
     useEffect(() => {
 
         axiosInstance
-            .post(`training/group/get`, {id: props.groupId}, {
+            .post(`diet/get`, {id: props.groupId}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
                 }
             })
             .then((res) => {
-                setGroupInfo(res.data)
-                setGroupInfoVideos(res.data.videos)
+                setDietInfo(res.data)
+                setDietInfoPhotos(res.data.images)
             });
 
     }, [props.groupId]);
@@ -32,11 +32,11 @@ function TrainingGroupChangeVideo(props){
     const onFileChange = (event) => {
         setFileToUpload(event.target.files[0]);
         setFileToUploadName(event.target.files[0].name)
-        setVideo(URL.createObjectURL(event.target.files[0]));
+        setPhoto(URL.createObjectURL(event.target.files[0]));
         setIsFilePicked(true);
     };
 
-    const handleSubmitVid = (e) => {
+    const handleSubmitPic = (e) => {
         e.preventDefault();
 
         var myHeaders = new Headers();
@@ -45,9 +45,9 @@ function TrainingGroupChangeVideo(props){
 
         var formdata = new FormData();
         if(isFilePicked===true){
-            formdata.append("video", fileToUpload, fileToUploadName);
+            formdata.append("image", fileToUpload, fileToUploadName);
         }
-        formdata.append("training_group", groupInfo.id )
+        formdata.append("diet", dietInfo.id )
 
         var requestOptions = {
             method: 'POST',
@@ -56,7 +56,7 @@ function TrainingGroupChangeVideo(props){
             redirect: 'follow'
         };
 
-        fetch(axios_variebles.baseURL + "training/group/video/add", requestOptions)
+        fetch(axios_variebles.baseURL + "diet/image/add", requestOptions)
             .then(response => {
                 response.text();
                 window.location.reload();
@@ -66,26 +66,26 @@ function TrainingGroupChangeVideo(props){
 
     }
 
-    const videoChosen = (e) => {
+    const photoChosen = (e) => {
         if(e.target.value !=='none'){
-            setVideoSelected(e.target.value)
-            groupInfoVideos.map((video)=>{
-                if(video.id.toString() === e.target.value){
-                    setVideoSelectedName(video.url)
+            setPhotoSelected(e.target.value)
+            dietInfoPhotos.map((photo)=>{
+                if(photo.id.toString() === e.target.value){
+                    setPhotoSelectedName(photo.url)
                 }
             })
         }else{
-            setVideoSelectedName( 'none')
-            setVideoSelected('none')
+            setPhotoSelectedName( 'none')
+            setPhotoSelected('none')
         }
     }
 
 
     function validateForm() {
-        return videoSelected !== 'none';
+        return photoSelected !== 'none';
     }
 
-    const handleRemoveVid = (e) => {
+    const handleRemovePic = (e) => {
         e.preventDefault();
 
         var myHeaders = new Headers();
@@ -93,7 +93,7 @@ function TrainingGroupChangeVideo(props){
 
 
         var formdata2 = new FormData();
-        formdata2.append("id", videoSelected);
+        formdata2.append("id", photoSelected);
 
 
         var requestOptions2 = {
@@ -103,7 +103,7 @@ function TrainingGroupChangeVideo(props){
             redirect: 'follow'
         };
 
-        fetch(axios_variebles.baseURL + "training/group/video/remove", requestOptions2)
+        fetch(axios_variebles.baseURL + "diet/image/remove", requestOptions2)
             .then(response => {
                 response.text();
                 window.location.reload();
@@ -115,9 +115,9 @@ function TrainingGroupChangeVideo(props){
 
 
     return(
-        <div className="TrainingGroupChangeVideo">
+        <div className="dietGroupChangeImage">
             <hr/>
-            <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Zmień Filmy Instruktażowe</h1>
+            <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Zmień Zdjęcia Pokazowe</h1>
             <hr/>
             <div className="col-md-8 mx-auto mt-3">
                 <div className="card mb-3 bg-light">
@@ -125,7 +125,7 @@ function TrainingGroupChangeVideo(props){
                         <div className="row justify-content-center">
                             <div className="col-sm-6">
                                 <div className="custom-file">
-                                    <input type="file" accept="video/*"
+                                    <input type="file" accept="image/png, image/gif, image/jpeg"
                                            className="custom-file-input" id="customFile" onChange={onFileChange}>
                                     </input>
                                     <label className="custom-file-label text-left" htmlFor="customFile">Wybierz plik</label>
@@ -145,33 +145,34 @@ function TrainingGroupChangeVideo(props){
                                 </div>
                             </div>
                             <div className="col-sm-3">
-                                <Button onClick={handleSubmitVid} variant="btn" size="sm">Dodaj Film</Button>
+                                <Button onClick={handleSubmitPic} variant="btn" size="sm">Dodaj Zdjęcie</Button>
                             </div>
                         </div>
+
                         <hr></hr>
 
                         <div className="row justify-content-center">
 
                             <div className='col-sm-6'>
                                 <select className='text-center' style={{width: '100%', height: '30px'}}
-                                        onChange={videoChosen}>
+                                        onChange={photoChosen}>
                                     <option value='none'> - </option>
-                                    {groupInfoVideos.map(function (videos, idx) {
+                                    {dietInfoPhotos.map(function (photos, idx) {
                                         return (
                                             <option
                                                 key={idx}
-                                                value={videos.id}
-                                                name={(videos.url).toString()}
+                                                value={photos.id}
+                                                name={(photos.url).toString()}
                                             >
-                                                {(videos.url).split("/").pop()}
+                                                {(photos.url).split("/").pop()}
                                             </option>
                                         )
                                     })}
                                 </select>
-                                <p className='m-0'>Wybierz film do usunięcia</p>
+                                <p className='m-0'>Wybierz zdjęcie do usunięcia</p>
                             </div>
                             <div className="col-sm-3">
-                                <Button onClick={handleRemoveVid} variant="btn" size="sm" disabled={!validateForm()}>Usuń Film</Button>
+                                <Button onClick={handleRemovePic} variant="btn" size="sm" disabled={!validateForm()}>Usuń Zdjęcie</Button>
                             </div>
 
                         </div>
@@ -179,11 +180,13 @@ function TrainingGroupChangeVideo(props){
 
                 </div>
                 <div className="container mt-4 mb-4">
-                    <video className="img-thumbnail" src={axios_variebles.baseURL.slice(0, -1) + videoSelectedName} controls/>
+                    <img src={axios_variebles.baseURL.slice(0, -1) + photoSelectedName}
+                         alt="..." className="img-thumbnail"
+                    />
                 </div>
 
             </div>
         </div>
     );
 }
-export default TrainingGroupChangeVideo
+export default DietChangeImage
