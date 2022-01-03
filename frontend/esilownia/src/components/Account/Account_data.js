@@ -32,11 +32,11 @@ function Account_data() {
     useEffect(() => {
 
         axiosInstance
-            .post(`users/info/`, {},{
+            .post(`users/info/`, {}, {
                 headers: {
-            'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
-        }
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                }
             })
             .then((res) => {
                 setEmail(res.data.email)
@@ -132,7 +132,7 @@ function Account_data() {
                                 {(bankAcc !== null) ? (
                                         <div>{bankAcc}</div>
                                     ) :
-                                    ( ' Brak danych ' )
+                                    (' Brak danych ')
                                 }
                             </div>
                         </div>
@@ -155,33 +155,51 @@ function Account_data() {
             <AccountNotificationsAll></AccountNotificationsAll>
 
             {(isTrainer === true || isDietician === true) ? (
-                <div className="checkout">
+                <div className="checkout mt-4">
                     <div className="row justify-content-center">
-                        <div className="text-center">
+                        <div className="col-md-7 text-center">
                             <hr></hr>
                             <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Wypłać Gymcoiny
                             </h1>
                             <hr></hr>
                         </div>
-                        <div className="col-md-6">
-                            <Form className="p-4">
-                                <Form.Group size="lg" controlId="number" onSubmit={handleSubmit}>
-                                    <Form.Label>Ilość</Form.Label>
-                                    <Form.Control
-                                        type="number"
-                                        value={checkoutMoney}
-                                        placeholder={getCheckout}
-                                        max={getCheckout}
-                                        min={0}
-                                        onChange={(e) => setCheckoutMoney(e.target.value)}
-                                    />
-                                </Form.Group>
-                                <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
-                                        disabled={!validateForm()}>
-                                    Wypłać
-                                </Button>
-                                <hr/>
-                            </Form>
+                        <div className="col-md-7">
+
+                            <div className='row justify-content-center'>
+                                <div className='col-md-7'>
+
+                                    <Form.Group size="lg" controlId="number" onSubmit={handleSubmit}>
+                                        <div className='row justify-content-center'>
+                                            <div className='col-md-4 text-center my-auto'>
+                                        <p className='m-0 font-weight-bold'>Ilość</p>
+                                            </div>
+                                            <div className='col-md-8'>
+                                        <Form.Control
+                                            type="number"
+                                            value={checkoutMoney}
+                                            placeholder={getCheckout}
+                                            max={getCheckout}
+                                            min={0}
+                                            onChange={(e) => setCheckoutMoney(e.target.value)}
+                                        />
+                                            </div>
+                                        </div>
+                                    </Form.Group>
+                                </div>
+                                <div className='col-md-7'>
+                                    <div className='row justify-content-center'>
+                                        <div className='col-md-6'>
+                                            <Button onClick={handleSubmit} block size="md" className="btn"
+                                                    id="btn-login"
+                                                    disabled={!validateForm()}>
+                                                Wypłać
+                                            </Button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr/>
                         </div>
                     </div>
                 </div>

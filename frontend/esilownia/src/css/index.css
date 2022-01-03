@@ -332,7 +332,7 @@ div.notifications div.container div.items div.card div.options div.option{
     color: #999;
 }
 .forum-item .forum-sub-title {
-    color: #999;
+    /*color: #999;*/
     margin-left: 10px;
 }
 .forum-item .forum-post-title {

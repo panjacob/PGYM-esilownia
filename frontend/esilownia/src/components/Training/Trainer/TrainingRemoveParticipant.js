@@ -94,7 +94,7 @@ function TrainingRemoveParticipant(props) {
             <hr/>
 
             <div className="container justify-content-center border p-4">
-                <div className="row m-4 justify-content-center">
+                <div className="row mb-3 justify-content-center">
                     <div className='col-md-5 my-auto'>
                         <p className='m-0'><b>Wybierz użytkownika do usunięcia :</b></p>
                     </div>
@@ -123,7 +123,7 @@ function TrainingRemoveParticipant(props) {
 
                 <div className="row justify-content-center my-auto">
                     <div className='col-md-3'>
-                        <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login"
+                        <Button onClick={handleSubmit} block size="md" className="btn" id="btn-login"
                                 disabled={!validateForm()}>
                             Usuń Użytkownika
                         </Button>

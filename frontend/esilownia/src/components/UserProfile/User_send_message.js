@@ -61,14 +61,16 @@ function Account_data() {
     return (
         <div className="usermessage">
             <div className="row justify-content-center">
-                <div className="text-center">
+                <div className="col-md-7 text-center">
                     <hr></hr>
                     <h1 style={{"fontSize": "4vw"}} className="display-1 font-weight-light mb-4">Wyślij Wiadomość
                     </h1>
                     <hr></hr>
                 </div>
-                <div className="col-md-6">
-                    <Form className="p-4">
+                <div className="col-md-7">
+                    <div className='row justify-content-center'>
+                        <div className='col-md-7'>
+
                         <Form.Group size="lg" controlId="text" onSubmit={handleSubmit}>
                             <Form.Control
                                 type="text"
@@ -76,11 +78,20 @@ function Account_data() {
                                 onChange={(e) => setMessage(e.target.value)}
                             />
                         </Form.Group>
-                        <Button onClick={handleSubmit} block size="lg" className="btn btn-lg" id="btn-login" disabled={!validateForm()}>
+                        </div>
+                        <div className='col-md-7'>
+                            <div className='row justify-content-center'>
+                                <div className='col-md-6'>
+                        <Button onClick={handleSubmit} block size="md" className="btn" id="btn-login" disabled={!validateForm()}>
                             Wyślij
                         </Button>
-                        <hr/>
-                    </Form>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <hr/>
                 </div>
             </div>
         </div>

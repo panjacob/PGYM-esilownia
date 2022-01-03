@@ -7,7 +7,6 @@ function DietMeetingJitsi(props) {
     const [groupId, setGroupId] = useState("")
     const [meetingInfo, setMeetingInfo] = useState([])
     const [meetingDate, setMeetingDate] = useState("")
-    const [participantsInfo, setParticipantsInfo] = useState([])
 
     const location = useLocation()
 
@@ -260,8 +259,6 @@ function DietMeetingJitsi(props) {
             configOverwrite: configOverwrite
         };
         const api = new window.JitsiMeetExternalAPI(domain, options);
-        setParticipantsInfo([])
-        setParticipantsInfo(api.getParticipantsInfo())
         api.on('readyToClose', () => {
             api.dispose();
         });
@@ -304,26 +301,6 @@ function DietMeetingJitsi(props) {
                             </div>
                             <div className="col-sm-7 text-secondary">
                                 {meetingDate.replace("T", " ").replace("Z", " ")}
-                            </div>
-                        </div>
-                        <hr/>
-                    </div>
-
-                </div>
-                <div className="card mb-4 mt-4 bg-light" width="100%">
-                    <div className="card-body">
-                        <hr/>
-                        <div className="row">
-                            <div className="col-sm-5">
-                                <h6 className="mb-0">Użytkownicy</h6>
-                            </div>
-                            <div className="col-sm-7 text-secondary" style={{minHeight:'400px'}}>
-                                {participantsInfo.map(function (participant, idx){
-                                    return(
-                                        <p>participant.email</p>
-                                    )
-
-                                })}
                             </div>
                         </div>
                         <hr/>

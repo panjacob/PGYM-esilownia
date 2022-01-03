@@ -6,6 +6,8 @@ import axiosInstance from "../components/Axios/Axios";
 function TrainingJitsi(props) {
     const [groupId, setGroupId] = useState("")
     const [trainingInfo, setTrainingInfo] = useState([])
+    const [dateStart, setDateStart] = useState('')
+    const [dateEnd, setDateEnd] = useState('')
 
     const location = useLocation()
 
@@ -33,6 +35,8 @@ function TrainingJitsi(props) {
             })
             .then((res) => {
                 setTrainingInfo(res.data)
+                setDateStart(res.data.date_start)
+                setDateEnd(res.data.date_end)
             });
 
     }, [props.groupId]);
@@ -306,7 +310,7 @@ function TrainingJitsi(props) {
                                 <h6 className="mb-0">Czas Trwania</h6>
                             </div>
                             <div className="col-sm-7 text-secondary">
-                                {trainingInfo.date_start} - {trainingInfo.date_end}
+                                {dateStart.replace('T',' ').replace('Z','')}  -  {dateEnd.replace('T',' ').replace('Z','')}
                             </div>
                         </div>
                         <hr/>
