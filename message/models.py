@@ -25,6 +25,7 @@ class Notification(models.Model):
     TRAINING_GROUP_USER_HAS_JOINED = '5'
     DIET_GROUP_JOIN = '6'
     DIET_GROUP_USER_HAS_JOINED = '7'
+    GYMCOIN_BOUGHT = '8'
     TYPE_CHOICES = [
         (USER_REGISTERED, 'USER REGISTERED'),
         (APPLICATION_ACCEPTED, 'APPLICATION ACCEPTED'),
@@ -34,6 +35,7 @@ class Notification(models.Model):
         (TRAINING_GROUP_USER_HAS_JOINED, 'TRAINING_GROUP_USER_HAS_JOINED'),
         (DIET_GROUP_JOIN, 'DIET_GROUP_JOIN'),
         (DIET_GROUP_USER_HAS_JOINED, 'DIET_GROUP_USER_HAS_JOINED'),
+        (GYMCOIN_BOUGHT, ' GYMCOIN_BOUGHT'),
     ]
 
     kind = models.CharField(max_length=1, choices=TYPE_CHOICES, default=None)
