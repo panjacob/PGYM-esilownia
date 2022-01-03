@@ -24,9 +24,12 @@ function ForumTopicPosts() {
 
     useEffect(() => {
 
+        const search = location.search;
+        const id = new URLSearchParams(search).get('id');
+
         setPostList([]);
         axiosInstance
-            .post(`/forum/topic/get`, {id: location.state.topicId}, {
+            .post(`/forum/topic/get`, {id: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
@@ -260,11 +263,16 @@ function ForumTopicPosts() {
                                                         {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                             if(user.id === post.owner){
                                                                 return (
+                                                                    <Link className="forum-item-title" to={{
+                                                                        pathname: '/profil_uzytkownika',
+                                                                        search: 'id=' + user.id.toString()
+                                                                    }}>
                                                                     <div key={idx} className="forum-post-title">{user.first_name} {user.last_name}</div>
+                                                                    </Link>
                                                                 )
                                                             }
                                                         })}
-                                                                <div id={`post-${post.id}`} className="forum-post-body mt-3 border-top" style={{minHeight:'10px'}}>
+                                                                <div id={`post-${post.id}`} className="forum-post-body mt-3 pb-2 border-top border-bottom" style={{minHeight:'10px'}}>
                                                                     <div className="container mt-2">
                                                                         {post.body}
                                                                     </div>
@@ -276,12 +284,21 @@ function ForumTopicPosts() {
 
                                                 </div>
 
+                                                <div className='row pl-3 mt-2'>
                                                 {(currentUser.id === post.owner) ? (
-                                                    <div className='mt-2'>
+                                                    <div>
                                                         <Button className='m-1' id={post.id} onClick={editShowHide} variant="btn" size="md"><img id={post.id} src={editIcon}/></Button>
                                                         <Button className='m-1' id={post.id} onClick={handleDeletePost} variant="btn" size="md"><img id={post.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
+                                                    <div>
+                                                    <Link className='m-1 btn'
+                                                          to={{
+                                                              pathname: '/zgłoszenia',
+                                                          }}
+                                                    >Zgłoś</Link>
+                                                    </div>
+                                                </div>
 
                                                 <div id={`editPost-${post.id}`} style={{display:'none'}}>
                                                     <div className='container border justify-content-center p-3'>

@@ -9,6 +9,7 @@ function Account_Edit_data_edit() {
     const [username, setUsername] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
+    const [bankAcc, setBankAcc] = useState("");
 
     const handleSubmitData = (e) => {
         e.preventDefault();
@@ -18,7 +19,8 @@ function Account_Edit_data_edit() {
                 username: username,
                 first_name: firstname,
                 last_name: lastname,
-                email: email
+                email: email,
+                bank_account: bankAcc
             },{
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,6 +46,7 @@ function Account_Edit_data_edit() {
                 setUsername(res.data.username)
                 setFirstname(res.data.first_name)
                 setLastname(res.data.last_name)
+                setBankAcc(res.data.bank_account)
             });
 
     }, []);
@@ -96,6 +99,17 @@ function Account_Edit_data_edit() {
                             <div className="col-sm-9 text-secondary">
                                 <input type="text" className="form-control form-control-sm" placeholder={email}
                                        onChange={(e) => setEmail(e.target.value)}/>
+                            </div>
+                        </div>
+                        <hr></hr>
+
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <h6 className="mb-0">Konto Bankowe</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                                <input type="text" className="form-control form-control-sm" placeholder={bankAcc}
+                                       onChange={(e) => setBankAcc(e.target.value)}/>
                             </div>
                         </div>
                         <hr></hr>

@@ -128,10 +128,8 @@ function TrainingGroupCreate() {
                 </div>
 
 
-                <div className='container'></div>
-
                 <div className='row mx-auto ml-0 mr-0 justify-content-center'>
-                    <div className='row border p-4' style={{minHeight: '120px'}}>
+                    <div className='row  p-4' style={{minHeight: '130px'}}>
 
                         <div className="col-md-5 text-center my-auto" style={{minWidth: '200px'}}>
                             <button block size="lg" className="btn btn-lg" id="btn-login"

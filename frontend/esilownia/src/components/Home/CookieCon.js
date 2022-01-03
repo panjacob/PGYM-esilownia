@@ -8,17 +8,13 @@ function CookieCon() {
         <CookieConsent
             location="bottom"
             buttonText="Ok!"
-            cookieName="CiastkoDlaKuby"
-            style={{background: "#777"}}
+            cookieName="CiastkeczkoPGYM"
+            style={{background: "black"}}
             buttonStyle={{color: "black", fontSize: "13px", background: "orange"}}
             expires={150}
-            enableDeclineButton
-            onDecline={() => {
-                alert("Nie!");
-            }}
         >
             Ta strona używa ciasteczek! {" "}
-            <span style={{fontSize: "10px"}}>Jeśli się zgadzasz kliknij ok</span>
+            <span style={{fontSize: "12px"}}>Jeśli Ci to nie przeszkadza kliknij Ok!</span>
         </CookieConsent>
     );
 }

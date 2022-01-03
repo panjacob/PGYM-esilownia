@@ -210,10 +210,8 @@ function TrainingGroupEdit() {
                     <hr></hr>
                 </div>
 
-                <div className="container">
-
-                    <div className='row mx-auto ml-0 mr-0 justify-content-center' style={{minHeight: '120px'}}>
-                        <div className='row border p-4 justify-content-center'>
+                    <div className='row mx-auto ml-0 mr-0 justify-content-center' style={{minHeight: '130px'}}>
+                        <div className='row  p-4 justify-content-center'>
                             <div className="col-md-6 text-center my-auto" style={{minWidth: '230px'}}>
                                 <p>Wybierz grupę</p>
                                 <select className='text-center mx-auto' style={{width: '200px', height: '30px'}}
@@ -396,7 +394,6 @@ function TrainingGroupEdit() {
                             </Form>
                         </div>
                     </div>
-                </div>
             </div>
 
         </div>

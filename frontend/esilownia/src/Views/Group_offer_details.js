@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useHistory, useLocation} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import axiosInstance from "../components/Axios/Axios";
 import axios_variebles from "../components/Axios/Axios_variebles";
 import {Button, Card} from "react-bootstrap";
@@ -257,7 +257,19 @@ function GroupOfferDetails() {
                                 </div>
                             </div>
                         </div>
+
+                        <div className='text-left mb-2'>
+                            <Link className='btn'
+                                  to={{
+                                      pathname: '/zgłoszenia',
+                                  }}
+                            >Zgłoś</Link>
+                        </div>
+
                     </div>
+
+
+
                     <div className="col-md-6" style={{backgroundColor:'#f2f2f2', overflowY:'scroll', maxHeight:'1000px'}}>
                         <div className="text-center">
                             {imagesPh.map(function (photos, idx) {

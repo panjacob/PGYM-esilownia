@@ -122,13 +122,13 @@ function TrainingGroupChangeVideo(props){
             <div className="col-md-8 mx-auto mt-3">
                 <div className="card mb-3 bg-light">
                     <div className="card-body">
-                        <div className="row">
-                            <div className="mx-auto pt-1">
+                        <div className="row justify-content-center">
+                            <div className="col-sm-6">
                                 <div className="custom-file">
                                     <input type="file" accept="video/*"
                                            className="custom-file-input" id="customFile" onChange={onFileChange}>
                                     </input>
-                                    <label className="custom-file-label" htmlFor="customFile">Wybierz plik</label>
+                                    <label className="custom-file-label text-left" htmlFor="customFile">Wybierz plik</label>
                                     {isFilePicked ? (
                                         <div>
                                             <p>Nazwa: {fileToUpload.name}</p>
@@ -144,17 +144,15 @@ function TrainingGroupChangeVideo(props){
                                     )}
                                 </div>
                             </div>
-                        </div>
-                        <hr></hr>
-
-                        <div className="row">
                             <div className="col-sm-3">
                                 <Button onClick={handleSubmitVid} variant="btn" size="sm">Dodaj Film</Button>
                             </div>
-                            <div className="col-sm-3">
-                                <p className="font-weight-bold">wybierz film do usunięcia</p>
-                            </div>
-                            <div className='col-sm-3'>
+                        </div>
+                        <hr></hr>
+
+                        <div className="row justify-content-center">
+
+                            <div className='col-sm-6'>
                                 <select className='text-center' style={{width: '100%', height: '30px'}}
                                         onChange={videoChosen}>
                                     <option value='none'> - </option>
@@ -170,6 +168,7 @@ function TrainingGroupChangeVideo(props){
                                         )
                                     })}
                                 </select>
+                                <p className='m-0'>Wybierz film do usunięcia</p>
                             </div>
                             <div className="col-sm-3">
                                 <Button onClick={handleRemoveVid} variant="btn" size="sm" disabled={!validateForm()}>Usuń Film</Button>

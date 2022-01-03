@@ -192,21 +192,34 @@ function ForumTopicsList() {
                                                     <div className="col-md-7">
                                                         <Link className="forum-item-title" to={{
                                                             pathname: '/forum_temat',
-                                                            state: {
-                                                                topicId: topic.id
-                                                            }
+                                                            search: 'id=' + topic.id.toString()
+
                                                         }}>{topic.title}</Link>
                                                         {(topic.post_count > 0) ? (
-                                                            <div className="forum-sub-title">{topic.first_post.body}</div>
+                                                            <div className="forum-sub-title border-top border-bottom pb-2 mt-3">
+                                                                <div className="container mt-2">
+                                                                    {topic.first_post.body}
+                                                                </div>
+                                                            </div>
                                                         ) : (
-                                                            <div className="forum-sub-title">Brak postow w tym temacie</div>)
+                                                            <div className="forum-sub-title border-top border-bottom pb-2 mt-3">
+                                                                <div className="container mt-2">
+                                                                    Brak postow w tym temacie
+                                                                </div>
+                                                            </div>)
                                                         }
                                                     </div>
                                                     <div className="col-md-3">
                                                         {uniqBy(userList, JSON.stringify).map((user,idx)=>{
                                                             if(user.id === topic.owner){
                                                                 return (
+                                                                    <Link className="forum-item-title" to={{
+                                                                        pathname: '/profil_uzytkownika',
+                                                                        search: 'id=' + user.id.toString()
+
+                                                                    }}>
                                                                     <div key={idx} className="forum-sub-title">{user.first_name} {user.last_name}</div>
+                                                                    </Link>
                                                                 )
                                                             }
                                                         })}
@@ -224,11 +237,20 @@ function ForumTopicsList() {
 
                                                 </div>
 
+                                                <div className='row pl-3 mt-2'>
                                                 {(currentUser.id === topic.owner) ? (
-                                                    <div className='mt-2'>
+                                                    <div>
                                                         <Button className='m-1' id={topic.id} onClick={handleDeleteTopic} variant="btn" size="md"><img id={topic.id} src={trashIcon}/></Button>
                                                     </div>
                                                 ) : ('')}
+                                                    <div>
+                                                        <Link className='m-1 btn'
+                                                            to={{
+                                                                pathname: '/zgłoszenia',
+                                                            }}
+                                                        >Zgłoś</Link>
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         )

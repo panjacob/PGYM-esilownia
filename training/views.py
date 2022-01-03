@@ -9,7 +9,7 @@ from core.settings import JITSI_SECRET
 from training import models
 from training.serializers import *
 from training.utilis import jitsi_payload_create, jitsi_token_encode, current_milli_time, training_group_owner_required, \
-    training_owner_required, get_price_and_days_to_add, participant_extend_subscription
+    training_owner_required, get_price_and_days_to_add, participant_extend_subscription, is_training_owner
 from users.utilis import put_owner_in_request_data
 from message.utilis import notification_send
 from users.models import UserExtended
@@ -246,9 +246,11 @@ def training_join(request):
     user = request.user
     training = models.Training.objects.get(id=request.data['id'])
     training.participants.add(user)
-    payload = jitsi_payload_create(user, training)
+    moderator = is_training_owner(user, training)
+    room_name = "training" + "_" + str(training.id)
+    payload = jitsi_payload_create(user, training, room_name=room_name, moderator=moderator)
     token = jitsi_token_encode(JITSI_SECRET, payload)
-    return Response({'token': token}, status=status.HTTP_200_OK)
+    return Response({'token': token, 'moderator': moderator, 'roomName': room_name}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

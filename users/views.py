@@ -47,6 +47,8 @@ def test_connection(request):
 
 @api_view(['POST'])
 def user_edit(request):
+    if not all (k in request.data for k in ('email', 'username')):
+        return Response({'message': 'Missing email and/or username in data'}, status.HTTP_400_BAD_REQUEST)
     if utilis.is_email_in_db(request.user.pk, request.data['email']):
         return Response({'message': 'Email is already in database'}, status.HTTP_400_BAD_REQUEST)
 
