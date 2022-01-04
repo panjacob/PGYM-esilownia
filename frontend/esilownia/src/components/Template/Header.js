@@ -143,6 +143,17 @@ function Header(props) {
                             }
                         }
 
+                        if(notification.kind === '8') {
+                            obj = {
+                                id: notification.id,
+                                kind: notification.kind,
+                                image: bought,
+                                message:  JSON.parse( notification.body ).message,
+                                detailPage: '#',
+                                receivedTime: msToTime(time)
+                            }
+                        }
+
                         setData(data => [...data, obj])
                     })
             });
@@ -263,6 +274,17 @@ function Header(props) {
                                 }
                             }
 
+                            if(notification.kind === '8') {
+                                obj = {
+                                    id: notification.id,
+                                    kind: notification.kind,
+                                    image: bought,
+                                    message:  JSON.parse( notification.body ).message,
+                                    detailPage: '#',
+                                    receivedTime: msToTime(time)
+                                }
+                            }
+
                             setData(data => [...data, obj])
                         })
                     });
@@ -369,6 +391,17 @@ function Header(props) {
                                 }
 
                                 if(notification.kind === '7') {
+                                    obj = {
+                                        id: notification.id,
+                                        kind: notification.kind,
+                                        image: bought,
+                                        message:  JSON.parse( notification.body ).message,
+                                        detailPage: '#',
+                                        receivedTime: msToTime(time)
+                                    }
+                                }
+
+                                if(notification.kind === '8') {
                                     obj = {
                                         id: notification.id,
                                         kind: notification.kind,
