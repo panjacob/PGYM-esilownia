@@ -16,6 +16,7 @@ function ForumTopicPosts() {
     const [postList, setPostList] = useState([])
     const [userList, setUserList] = useState([])
     const [currentUser, setCurrentUser] = useState({})
+    const [owner, setOwner] = useState([])
 
     const [newPostDescription, setNewPostDescription] = useState('')
     const [editPostDescription, setEditPostDescription] = useState('')
@@ -36,6 +37,19 @@ function ForumTopicPosts() {
                 }
             })
             .then((res) => {
+
+                axiosInstance
+                    .post(`users/get/`, {id: res.data.owner},{
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+                        }
+                    })
+                    .then((res2) => {
+                        setOwner(res2.data)
+                    });
+
+
                 setTopicData(res.data)
                     setTopicDate(res.data.date)
 
@@ -75,6 +89,8 @@ function ForumTopicPosts() {
             .then((res) => {
                 setCurrentUser(res.data)
             });
+
+
 
     },[]);
 
@@ -202,17 +218,11 @@ function ForumTopicPosts() {
                                                 </div>
                                             </div>
                                             <div className="col-md-8">
-                                                <div className="forum-item-title">{topicData.title}</div>
-                                                <div className="forum-sub-title">{topicData.body}</div>
+                                                <div className="forum-item-title font-weight-bold text-secondary p-2" style={{fontSize:'25px'}}>{topicData.title}</div>
+                                                <div className="forum-sub-title font-weight-bold mt-2 p-2 border-top border-bottom" style={{fontSize:'20px'}}>{topicData.body}</div>
                                             </div>
                                             <div className='col-md-3'>
-                                                {uniqBy(userList, JSON.stringify).map((user,idx)=>{
-                                                    if(user.id === topicData.owner){
-                                                        return (
-                                                            <div key={idx} className="forum-sub-title">{user.first_name} {user.last_name}</div>
-                                                        )
-                                                    }
-                                                })}
+                                                            <div className="forum-sub-title">{owner.first_name} {owner.last_name}</div>
                                                 <div className="forum-sub-title">{topicDate.replace('T', " ").substr(0, 19)}</div>
                                             </div>
 
