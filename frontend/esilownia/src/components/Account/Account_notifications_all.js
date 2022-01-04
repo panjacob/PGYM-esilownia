@@ -60,7 +60,7 @@ function AccountNotificationsAll() {
                             id: notification.id,
                             kind: notification.kind,
                             image: logo,
-                            message: 'Witamy na platformie P-Gym.',
+                            message: JSON.parse( notification.body ).message,
                             detailPage: '#',
                             receivedTime: msToTime(time)
                         }
@@ -71,7 +71,7 @@ function AccountNotificationsAll() {
                             id: notification.id,
                             kind: notification.kind,
                             image: accepted,
-                            message: 'Twoja Aplikacja została zaakceptowna.',
+                            message:  JSON.parse( notification.body ).message,
                             detailPage: '#',
                             receivedTime: msToTime(time)
                         }
@@ -82,7 +82,7 @@ function AccountNotificationsAll() {
                             id: notification.id,
                             kind: notification.kind,
                             image: denied,
-                            message: 'Twoja Aplikacja została odrzucona.',
+                            message:  JSON.parse( notification.body ).message,
                             detailPage: '#',
                             receivedTime: msToTime(time)
                         }
@@ -93,7 +93,7 @@ function AccountNotificationsAll() {
                             id: notification.id,
                             kind: notification.kind,
                             image: training,
-                            message: 'Dziekujemy za zakup treningu.',
+                            message:  JSON.parse( notification.body ).message,
                             detailPage: '#',
                             receivedTime: msToTime(time)
                         }
@@ -104,7 +104,7 @@ function AccountNotificationsAll() {
                             id: notification.id,
                             kind: notification.kind,
                             image: bought,
-                            message: 'Uzytkownik wykupił dostep do twojego treningu.',
+                            message:  JSON.parse( notification.body ).message,
                             detailPage: '#',
                             receivedTime: msToTime(time)
                         }
@@ -115,7 +115,7 @@ function AccountNotificationsAll() {
                             id: notification.id,
                             kind: notification.kind,
                             image: diet,
-                            message: 'Dziekujemy za zakup diety.',
+                            message:  JSON.parse( notification.body ).message,
                             detailPage: '#',
                             receivedTime: msToTime(time)
                         }
@@ -126,7 +126,18 @@ function AccountNotificationsAll() {
                             id: notification.id,
                             kind: notification.kind,
                             image: bought,
-                            message: 'Uzytkownik wykupił twoja oferte diety.',
+                            message:  JSON.parse( notification.body ).message,
+                            detailPage: '#',
+                            receivedTime: msToTime(time)
+                        }
+                    }
+
+                    if(notification.kind === '8') {
+                        obj = {
+                            id: notification.id,
+                            kind: notification.kind,
+                            image: bought,
+                            message:  JSON.parse( notification.body ).message,
                             detailPage: '#',
                             receivedTime: msToTime(time)
                         }

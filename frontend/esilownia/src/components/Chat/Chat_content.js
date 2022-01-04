@@ -10,6 +10,7 @@ function ChatContent() {
 
     const [users, setUsers] = useState([])
     const [msgs, setMsgs] = useState([])
+    const [msgs2, setMsgs2] = useState([])
     const [msgsNew, setMsgsNew] = useState([])
     const [msgToSend, setMsgToSend] = useState('')
     const [myId, setMyId] = useState('')
@@ -81,7 +82,7 @@ function ChatContent() {
         if (days === 0) {
             return hours + " godz. temu";
         }
-        if (hours > 24) {
+        if (days > 0) {
             if (days === 1) {
                 return days + " dzień temu"
             } else {
@@ -122,11 +123,13 @@ function ChatContent() {
     }
 
     function getMsgs(e) {
+        setMsgs([]);
+
         console.log(e.currentTarget.id)
 
         setMsgToSend('')
         setUserId(e.currentTarget.id)
-        setMsgs([]);
+
 
         axiosInstance
             .post(`/message/get`, {user: e.currentTarget.id, begin: 0, end: 1000}, {
@@ -137,8 +140,9 @@ function ChatContent() {
             })
             .then((res) => {
                 res.data.messages.map((message) => {
-                    setMsgs(msgs => [...msgs, message])
+                    setMsgs2(msgs => [...msgs, message])
                 })
+                setMsgs( msgs2 => [...msgs2])
             });
 
         var divItems = document.getElementsByClassName("user-wrapper");
@@ -182,28 +186,33 @@ function ChatContent() {
                 <div className='row mt-3 mb-3'>
                     <div className='col-lg-4 border' style={{overflowY: 'scroll', minHeight: '750px'}}>
                         {users.map((user, idx) => {
-                            return (
-                                <div key={idx} className='m-1 border border-dark'>
-                                    <div className='p-2 user-wrapper' id={user.id} onClick={getMsgs.bind(this)}>
-                                        <div id='chat-user-wrapper'>
-                                            <div id='chat-user-photo'>
-                                                {(user.profile_photo === null) ? (
-                                                    <img src={photo} alt="..." className="img-thumbnail" width='100px'
-                                                         height='100px'/>
-                                                ) : (
-                                                    <img src={user.profile_photo} alt="..." className="img-thumbnail"
-                                                         width='200px'
-                                                         height='200px'/>
-                                                )}
-                                            </div>
-                                            <div className='align-middle align-self-auto'
-                                                 id='chat-user-name'>{user.first_name} {user.last_name} {user.id}</div>
-                                            <div className='align-middle align-self-auto' id='chat-user-lastMsg'>{user.username}
+                            if(user.id !== myId) {
+                                return (
+                                    <div key={idx} className='m-1 border border-dark'>
+                                        <div className='p-2 user-wrapper' id={user.id} onClick={getMsgs.bind(this)}>
+                                            <div id='chat-user-wrapper'>
+                                                <div id='chat-user-photo'>
+                                                    {(user.profile_photo === null) ? (
+                                                        <img src={photo} alt="..." className="img-thumbnail"
+                                                             width='100px'
+                                                             height='100px'/>
+                                                    ) : (
+                                                        <img src={user.profile_photo} alt="..."
+                                                             className="img-thumbnail"
+                                                             width='200px'
+                                                             height='200px'/>
+                                                    )}
+                                                </div>
+                                                <div className='align-middle align-self-auto'
+                                                     id='chat-user-name'>{user.first_name} {user.last_name}</div>
+                                                <div className='align-middle align-self-auto'
+                                                     id='chat-user-lastMsg'>{user.username}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
+                                )
+                            }
                         })}
                     </div>
                     <div className='col-lg-8 border'>
@@ -213,7 +222,7 @@ function ChatContent() {
                             {msgs.map((msg, idx) => {
                                 if(msg.sender.toString() === myId.toString() && msg.receiver.toString() === userId.toString()) {
                                     return (
-                                        <div key={idx} className='m-1 p-1' style={{width:'75%', float:'right'}}>
+                                        <div key={idx} className='m-1 p-1' style={{width:'75%', float:'right', wordBreak: 'break-word'}}>
                                             <p className='mb-1 p-2 pl-4 pr-4 border rounded' style={{margin: '0', float:'right', color:'white', backgroundColor:'Orange'}}>{msg.message}</p>
                                             <br/>
                                             <br/>
@@ -223,7 +232,7 @@ function ChatContent() {
                                 }
                                 if(msg.receiver.toString() === myId.toString() && msg.sender.toString() === userId.toString()) {
                                     return (
-                                        <div key={idx} className='m-1 p-1' style={{width:'75%', float:'left'}}>
+                                        <div key={idx} className='m-1 p-1' style={{width:'75%', float:'left', wordBreak: 'break-word'}}>
                                             <p className='mb-1 p-2 pl-4 pr-4 border rounded' style={{margin: '0', float:'left', color:'white', backgroundColor:'Gray'}}>{msg.message}</p>
                                             <br/>
                                             <br/>
