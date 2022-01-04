@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Photo from "../../../imgs/gymcoin.png";
+import Photo from "../../../imgs/logoJPEG.jpg";
 import axiosInstance from "../../Axios/Axios";
 import {Link} from "react-router-dom";
 import axios_variebles from "../../Axios/Axios_variebles";

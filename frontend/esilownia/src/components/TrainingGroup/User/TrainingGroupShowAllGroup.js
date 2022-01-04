@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Photo from "../../../imgs/gymcoin.png";
+import Photo from "../../../imgs/logoJPEG.jpg";
 import axiosInstance from "../../Axios/Axios";
 import ReactPaginate from 'react-paginate'
 import {Link} from "react-router-dom";
@@ -258,7 +258,7 @@ function TrainingGroupShowAllGroup() {
                                 <div key={idx} style={{minWidth: '250px'}} className="col-md-4 mb-3 mt-2 flex">
                                     <div className="h-100 card m-1 shadow bg-light" key={idx}>
                                         {(cValue.image === null) ? (
-                                            <img src={Photo} width="100%" height="width"
+                                            <img src={Photo} width="233px" height="233px"
                                                  className="card-img-top rounded-circle"
                                                  alt="..."/>
                                         ) : (

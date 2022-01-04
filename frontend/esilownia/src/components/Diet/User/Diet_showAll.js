@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Photo from "../../../imgs/gymcoin.png";
+import Photo from "../../../imgs/logoJPEG.jpg";
 import axiosInstance from "../../Axios/Axios";
 import ReactPaginate from 'react-paginate'
 import {Link} from "react-router-dom";
