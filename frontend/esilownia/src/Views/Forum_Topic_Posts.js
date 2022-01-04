@@ -202,8 +202,8 @@ function ForumTopicPosts() {
                                                 </div>
                                             </div>
                                             <div className="col-md-8">
-                                                <div className="forum-item-title">{topicData.title}</div>
-                                                <div className="forum-sub-title">{topicData.body}</div>
+                                                <div className="forum-item-title font-weight-bold text-secondary p-2" style={{fontSize:'25px'}}>{topicData.title}</div>
+                                                <div className="forum-sub-title font-weight-bold mt-2 p-2 border-top border-bottom" style={{fontSize:'20px'}}>{topicData.body}</div>
                                             </div>
                                             <div className='col-md-3'>
                                                 {uniqBy(userList, JSON.stringify).map((user,idx)=>{
