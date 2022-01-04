@@ -52,7 +52,9 @@ function ModeratorPanel() {
         return appStatus.includes(app.status);
     }
 
-    const listApplications = applications.filter(checkStatus).map((id) =>
+    const listApplications = applications.sort(function(a, b) {
+        return b.id - a.id;
+    }).filter(checkStatus).map((id) =>
         <li key={id.id}>
             <button className={'btn btn-outline-dark my-1'} id={id.id}
                     onClick={onButtonClick.bind(this)}>Podanie nr.{id.id}</button>
@@ -67,7 +69,9 @@ function ModeratorPanel() {
         return repStatus.includes(rep.is_solved.toString());
     }
 
-    const listReports = report.filter(checkStatusRep).map((id) =>
+    const listReports = report.sort(function(a, b) {
+        return b.id - a.id;
+    }).filter(checkStatusRep).map((id) =>
         <li key={id.id}>
             <button className={'btn btn-outline-dark my-1'} id={id.id}
                     onClick={onButtonClickRep.bind(this)}>Zgłoszenie nr.{id.id}</button>
