@@ -45,7 +45,6 @@ function Dashboard_timetable() {
                                         })
                                         .then((res) => {
 
-                                            console.log(res.data)
                                             setUserTrainings( userTrainings => [...userTrainings , res.data])
 
                                         });
@@ -74,7 +73,6 @@ function Dashboard_timetable() {
     let today_plus5 = today.addDays(5)
     let today_plus6 = today.addDays(6)
 
-    console.log(today)
 
     return (
         <div className="dashboardTimetable">

@@ -26,7 +26,6 @@ function Dashboard_chart(){
                 }
             })
             .then((res)=>{
-                console.log(res.data)
                 setDayData(res.data)
             })
 

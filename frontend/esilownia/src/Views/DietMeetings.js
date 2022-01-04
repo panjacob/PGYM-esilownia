@@ -176,13 +176,16 @@ function DietMeetings() {
                                         <h6 className="mb-0">Spotkania :</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {dietsInfo.map((diets,idx) => {
+                                        {(JSON.stringify(dietMeetings)=== "[]")?(
+                                            <p>Nie ma spotkań </p>
+                                        ):(
+                                            dietsInfo.map((diets,idx) => {
                                             for (let i = 0; i < dietMeetings.length; i++) {
                                                 if (diets.id === dietMeetings[i]) {
                                                     return (<p key={idx}>{diets.title} - {diets.date.replace('T', " ").replace('Z', '')}</p>)
                                                 }
                                             }
-                                        })}
+                                        }))}
                                     </div>
                                 </div>
                                 <hr></hr>
@@ -213,7 +216,10 @@ function DietMeetings() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                            {dietsInfo.map((diet) => {
+                            {(JSON.stringify(dietMeetings)=== "[]")?(
+                                <p>Nie ma spotkań </p>
+                            ):(
+                                dietsInfo.map((diet) => {
                                 if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < diet.date.toString()) {
                                     return (
                                         <Link className='btn m-1 shadow' id='trainingCard' to={{
@@ -240,7 +246,7 @@ function DietMeetings() {
                                         </Link>
                                     )
                                 }
-                            })}
+                            }))}
                         </div>
                     </div>
                 </div>
@@ -254,7 +260,10 @@ function DietMeetings() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                            {dietsInfo.map((diet) => {
+                            {(JSON.stringify(dietMeetings)=== "[]")?(
+                                <p>Nie ma spotkań </p>
+                            ):(
+                                dietsInfo.map((diet) => {
                                 if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > diet.date.toString()) {
                                     return (
                                         <Link className='btn m-1 shadow' id='trainingCard' to={{
@@ -281,7 +290,7 @@ function DietMeetings() {
                                         </Link>
                                     )
                                 }
-                            })}
+                            }))}
                         </div>
                     </div>
 
@@ -295,7 +304,10 @@ function DietMeetings() {
                             <hr></hr>
                         </div>
                         <Carousel variant="dark" activeIndex={index} onSelect={handleSelect} interval={null}>
-                            {video.map(function (videos, idx) {
+                            {(JSON.stringify(video)=== "[]")?(
+                                <p className="text-center mb-1">Nie ma plików </p>
+                            ):(
+                                video.map(function (videos, idx) {
                                 return (
                                     <Carousel.Item>
                                         <div className="container text-center">
@@ -303,7 +315,7 @@ function DietMeetings() {
                                         </div>
                                     </Carousel.Item>
                                 )
-                            })}
+                            }))}
                         </Carousel>
                         <hr/>
                     </div>

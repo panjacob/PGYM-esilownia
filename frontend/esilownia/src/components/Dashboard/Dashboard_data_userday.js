@@ -71,7 +71,6 @@ function Dashboard_data_userday() {
     }
 
     function selectedDate(date) {
-        //console.log(convert( date ))
         setStartDate(date)
 
         var x = document.getElementById(`editUserStat-1`);
