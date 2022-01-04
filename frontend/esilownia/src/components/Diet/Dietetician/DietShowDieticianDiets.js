@@ -69,8 +69,8 @@ function DietShowDieticianDiets() {
                                     <div className="h-100 card m-1 shadow bg-light">
                                         {(diet.image === null) ? (
                                             <img src={Photo}
-                                                 width="100%"
-                                                 height="width"
+                                                 width="233px"
+                                                 height="233px"
                                                  className="card-img-top rounded-circle"
                                                  alt="..."/>
                                         ):(

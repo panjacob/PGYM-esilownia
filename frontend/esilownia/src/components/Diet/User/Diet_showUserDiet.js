@@ -91,7 +91,7 @@ function Diet_showUserDiet() {
                                     <div key={idx} style={{minWidth: '250px'}} className="col-md-3 mb-3 mt-2 flex ">
                                         <div className="h-100 card m-1 shadow bg-light">
                                             {(diet.image === null) ? (
-                                                <img src={Photo} width="100%" height="width"
+                                                <img src={Photo} width="233px" height="233px"
                                                      className="card-img-top rounded-circle"
                                                      alt="..."/>
                                             ):(
