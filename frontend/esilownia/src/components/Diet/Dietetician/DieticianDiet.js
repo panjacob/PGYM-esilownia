@@ -178,13 +178,16 @@ function DieticianDiet() {
                                         <h6 className="mb-0">Spotkania :</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {meetingsInfo.map((diet,idx) => {
+                                        {(JSON.stringify(dietMeetings)=== "[]")?(
+                                            <p>Nie ma spotkań </p>
+                                        ):(
+                                            meetingsInfo.map((diet,idx) => {
                                             for (let i = 0; i < dietMeetings.length; i++) {
                                                 if (diet.id === dietMeetings[i]) {
                                                     return (<p key={idx}>{diet.title} - {diet.date.replace('T', " ").replace('Z', '')}</p>)
                                                 }
                                             }
-                                        })}
+                                        }))}
                                     </div>
                                 </div>
 
@@ -206,7 +209,10 @@ function DieticianDiet() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                            {meetingsInfo.map((meeting) => {
+                            {(JSON.stringify(dietMeetings)=== "[]")?(
+                                <p>Nie ma spotkań </p>
+                            ):(
+                                meetingsInfo.map((meeting) => {
                                 if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < meeting.date.toString()) {
                                     return (
                                         <Link className='btn m-4 shadow border' id='trainingCard' to={{
@@ -234,7 +240,7 @@ function DieticianDiet() {
                                         </Link>
                                     )
                                 }
-                            })}
+                            }))}
                         </div>
                     </div>
                 </div>
@@ -248,7 +254,10 @@ function DieticianDiet() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                            {meetingsInfo.map((meeting) => {
+                            {(JSON.stringify(dietMeetings)=== "[]")?(
+                                <p>Nie ma spotkań </p>
+                            ):(
+                                meetingsInfo.map((meeting) => {
                                 if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > meeting.date.toString()) {
                                     return (
                                         <Link className='btn m-4 shadow border' id='trainingCard' to={{
@@ -276,17 +285,17 @@ function DieticianDiet() {
                                         </Link>
                                     )
                                 }
-                            })}
+                            }))}
                         </div>
                     </div>
                 </div>
                 <div className='row'>
                     <div className="col-md-10 mx-auto mt-3 text-center">
-                        <MeetingCreate groupId={dietId}></MeetingCreate>
-                        <DietRemoveParticipant groupId={dietId}></DietRemoveParticipant>
-                        <DietChangeImage groupId={dietId}></DietChangeImage>
-                        <DietChangeFile groupId={dietId}></DietChangeFile>
-                        <DietRemove groupId={dietId}></DietRemove>
+                        <MeetingCreate groupId={dietId}/>
+                        <DietRemoveParticipant groupId={dietId}/>
+                        <DietChangeImage groupId={dietId}/>
+                        <DietChangeFile groupId={dietId}/>
+                        <DietRemove groupId={dietId}/>
                     </div>
                 </div>
             </div>

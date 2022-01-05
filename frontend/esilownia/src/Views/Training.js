@@ -59,7 +59,6 @@ function Training() {
                 setGroupTypes(res.data.type)
                 setGroupTrainings(res.data.trainings)
                 setVideo(res.data.videos)
-                console.log(res.data)
 
                 if(res.data.image === null){
                     setPhoto(profilePicture)
@@ -206,13 +205,19 @@ function Training() {
                                         <h6 className="mb-0">Treningi :</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {trainingsInfo.map((training,idx) => {
-                                            for (let i = 0; i < groupTrainings.length; i++) {
-                                                if (training.id === groupTrainings[i]) {
-                                                    return (<p key={idx}>{training.title} - {training.date_start.replace('T', " ").replace('Z', '')}</p>)
+                                        {(JSON.stringify(groupTrainings)=== "[]")?(
+                                            <p>Nie ma treningów </p>
+                                        ):(
+                                            trainingsInfo.map((training,idx) => {
+                                                for (let i = 0; i < groupTrainings.length; i++) {
+                                                    if (training.id === groupTrainings[i]) {
+                                                    return (<p key={idx}>{training.title} - {training.date_start.replace('T', " ").replace('Z', '')} </p>)
+                                                    }
                                                 }
-                                            }
-                                        })}
+                                            })
+                                        )
+                                        }
+
                                     </div>
                                 </div>
                                 <hr></hr>
@@ -243,56 +248,62 @@ function Training() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                        {trainingsInfo.map((training) => {
-                            if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_start.toString()) {
-                                return (
-                                    <Link className='btn m-1 shadow' id='trainingCard' to={{
-                                        pathname: '/trening',
-                                        search: 'id=' + training.id.toString()
 
-                                    }}>
-                                        <div className="container my-auto" id='trainingCardBody'>
-                                            <div className="container font-weight-light">
-                                                <div className="text-center">
-                                                    <h6 className="mb-0">{training.title}</h6>
-                                                </div>
-                                                <hr/>
-                                                <div className="text-center" style={{height: '2.5rem'}}>
-                                                    <p className="mb-0">{training.description}</p>
-                                                </div>
-                                                <hr/>
-                                                <div className="row">
-                                                    <div className="col-sm-5">
-                                                        <h6 className="mb-0">Start</h6>
+                        {(JSON.stringify(groupTrainings)=== "[]")?(
+                            <p>Nie ma treningów </p>
+                            ):(
+                            trainingsInfo.map((training) => {
+                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_start.toString()) {
+                                    return (
+                                        <Link className='btn m-1 shadow' id='trainingCard' to={{
+                                            pathname: '/trening',
+                                            search: 'id=' + training.id.toString()
+
+                                        }}>
+                                            <div className="container my-auto" id='trainingCardBody'>
+                                                <div className="container font-weight-light">
+                                                    <div className="text-center">
+                                                        <h6 className="mb-0">{training.title}</h6>
                                                     </div>
-                                                    <div className="col-sm-7 text-secondary">
-                                                        {training.date_start.replace('T', " ").replace('Z', '')}
+                                                    <hr/>
+                                                    <div className="text-center" style={{height: '2.5rem'}}>
+                                                        <p className="mb-0">{training.description}</p>
                                                     </div>
-                                                </div>
-                                                <hr/>
-                                                <div className="row">
-                                                    <div className="col-sm-5">
-                                                        <h6 className="mb-0">Koniec</h6>
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-sm-5">
+                                                            <h6 className="mb-0">Start</h6>
+                                                        </div>
+                                                        <div className="col-sm-7 text-secondary">
+                                                            {training.date_start.replace('T', " ").replace('Z', '')}
+                                                        </div>
                                                     </div>
-                                                    <div className="col-sm-7 text-secondary">
-                                                        {training.date_end.replace('T', " ").replace('Z', '')}
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-sm-5">
+                                                            <h6 className="mb-0">Koniec</h6>
+                                                        </div>
+                                                        <div className="col-sm-7 text-secondary">
+                                                            {training.date_end.replace('T', " ").replace('Z', '')}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <hr/>
-                                                <div className="row">
-                                                    <div className="col-sm-5">
-                                                        <h6 className="mb-0">Kalorie</h6>
-                                                    </div>
-                                                    <div className="col-sm-7 text-secondary mb-4">
-                                                        {training.calories}
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-sm-5">
+                                                            <h6 className="mb-0">Kalorie</h6>
+                                                        </div>
+                                                        <div className="col-sm-7 text-secondary mb-4">
+                                                            {training.calories}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                                )
-                            }
-                        })}
+                                        </Link>
+                                    )
+                                }
+                            })
+                        )
+                       }
                         </div>
                     </div>
                 </div>
@@ -306,7 +317,9 @@ function Training() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                            {trainingsInfo.map((training) => {
+                            {(JSON.stringify(groupTrainings)=== "[]")?(
+                                <p>Nie ma treningów </p>
+                            ):(trainingsInfo.map((training) => {
                                 if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > training.date_start.toString()) {
                                     return (
                                         <Link className='btn m-1 shadow' id='trainingCard' to={{
@@ -355,7 +368,8 @@ function Training() {
                                         </Link>
                                     )
                                 }
-                            })}
+                            }))
+                                }
                         </div>
                     </div>
                 </div>
@@ -370,7 +384,9 @@ function Training() {
                             <hr></hr>
                         </div>
                         <Carousel variant="dark" activeIndex={index} onSelect={handleSelect} interval={null}>
-                            {video.map(function (videos, idx) {
+                            {(JSON.stringify(video)=== "[]")?(
+                                    <p className="text-center mb-1">Nie ma filmów </p>
+                                ):( video.map(function (videos, idx) {
                                 return (
                                     <Carousel.Item>
                                         <div className="container text-center">
@@ -378,7 +394,8 @@ function Training() {
                                         </div>
                                     </Carousel.Item>
                                 )
-                            })}
+                            }))
+                               }
                         </Carousel>
                         <hr/>
                     </div>

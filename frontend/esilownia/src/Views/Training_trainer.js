@@ -207,13 +207,16 @@ function Training() {
                                         <h6 className="mb-0">Treningi :</h6>
                                     </div>
                                     <div className="col-sm-7 text-secondary">
-                                        {trainingsInfo.map((training,idx) => {
+                                        {(JSON.stringify(groupTrainings)=== "[]")?(
+                                            <p>Nie ma treningów </p>
+                                        ):(
+                                            trainingsInfo.map((training,idx) => {
                                             for (let i = 0; i < groupTrainings.length; i++) {
                                                 if (training.id === groupTrainings[i]) {
                                                     return (<p key={idx}>{training.title} - {training.date_start.replace('T', " ").replace('Z', '')}</p>)
                                                 }
                                             }
-                                        })}
+                                        }))}
                                     </div>
                                 </div>
 
@@ -235,7 +238,10 @@ function Training() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                        {trainingsInfo.map((training) => {
+                        {(JSON.stringify(groupTrainings)=== "[]")?(
+                            <p>Nie ma treningów </p>
+                        ):(
+                            trainingsInfo.map((training) => {
                             if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_start.toString()) {
                                 return (
                                     <Link className='btn m-4 shadow border' id='trainingCard' to={{
@@ -284,7 +290,7 @@ function Training() {
                                     </Link>
                                 )
                             }
-                        })}
+                        }))}
                         </div>
                     </div>
                 </div>
@@ -298,7 +304,10 @@ function Training() {
                             <hr></hr>
                         </div>
                         <div className="container text-center" id='trainingCardCon'>
-                            {trainingsInfo.map((training) => {
+                            {(JSON.stringify(groupTrainings)=== "[]")?(
+                                <p>Nie ma treningów </p>
+                            ):(
+                                trainingsInfo.map((training) => {
                                 if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > training.date_start.toString()) {
                                     return (
                                         <Link className='btn m-4 shadow border' id='trainingCard' to={{
@@ -347,17 +356,17 @@ function Training() {
                                         </Link>
                                     )
                                 }
-                            })}
+                            }))}
                         </div>
                     </div>
                 </div>
                 <div className='row'>
                     <div className="col-md-10 mx-auto mt-3 text-center">
-                        <TrainingCreate groupId={groupId}></TrainingCreate>
-                        <TrainingRemoveParticipant groupId={groupId}></TrainingRemoveParticipant>
-                        <TrainingGroupChangeImage groupId={groupId}></TrainingGroupChangeImage>
-                        <TrainingGroupChangeVideo groupId={groupId}></TrainingGroupChangeVideo>
-                        <TrainingGroupRemove groupId={groupId}></TrainingGroupRemove>
+                        <TrainingCreate groupId={groupId}/>
+                        <TrainingRemoveParticipant groupId={groupId}/>
+                        <TrainingGroupChangeImage groupId={groupId}/>
+                        <TrainingGroupChangeVideo groupId={groupId}/>
+                        <TrainingGroupRemove groupId={groupId}/>
                     </div>
                 </div>
             </div>

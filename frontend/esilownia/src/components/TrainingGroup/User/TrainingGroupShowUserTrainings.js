@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Photo from "../../../imgs/gymcoin.png";
+import Photo from "../../../imgs/logoJPEG.jpg";
 import axiosInstance from "../../Axios/Axios";
 import {Link} from "react-router-dom";
 import axios_variebles from "../../Axios/Axios_variebles";
@@ -105,7 +105,7 @@ function TrainingGroupShowUserTrainings() {
                                     <div key={idx} style={{minWidth: '250px'}} className="col-md-3 mb-3 mt-2 flex ">
                                         <div className="h-100 card m-1 shadow bg-light">
                                             {(training.image === null) ? (
-                                                <img src={Photo} width="100%" height="width"
+                                                <img src={Photo} width="233px" height="233px"
                                                      className="card-img-top rounded-circle"
                                                      alt="..."/>
                                             ):(
