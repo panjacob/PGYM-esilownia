@@ -213,7 +213,8 @@ function DieticianDiet() {
                                 <p>Nie ma spotkań </p>
                             ):(
                                 meetingsInfo.map((meeting) => {
-                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < meeting.date.toString()) {
+                                    let de = new Date(meeting.date)
+                                    if(today < de)  {
                                     return (
                                         <Link className='btn m-4 shadow border' id='trainingCard' to={{
                                             pathname: '/spotkanie',
@@ -258,7 +259,8 @@ function DieticianDiet() {
                                 <p>Nie ma spotkań </p>
                             ):(
                                 meetingsInfo.map((meeting) => {
-                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > meeting.date.toString()) {
+                                    let de = new Date(meeting.date)
+                                    if(today > de) {
                                     return (
                                         <Link className='btn m-4 shadow border' id='trainingCard' to={{
                                             pathname: '/spotkanie',

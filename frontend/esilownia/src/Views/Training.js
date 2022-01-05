@@ -253,8 +253,9 @@ function Training() {
                             <p>Nie ma treningów </p>
                             ):(
                             trainingsInfo.map((training) => {
-                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_end.toString()) {
-                                    return (
+                                let de = new Date(training.date_end)
+                                if(today < de ) {
+                                        return (
                                         <Link className='btn m-1 shadow' id='trainingCard' to={{
                                             pathname: '/trening',
                                             search: 'id=' + training.id.toString()
@@ -320,8 +321,9 @@ function Training() {
                             {(JSON.stringify(groupTrainings)=== "[]")?(
                                 <p>Nie ma treningów </p>
                             ):(trainingsInfo.map((training) => {
-                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > training.date_end.toString()) {
-                                    return (
+                                let de = new Date(training.date_end)
+                                if(today > de) {
+                                        return (
                                         <Link className='btn m-1 shadow' id='trainingCard' to={{
                                             pathname: '/trening',
                                             search: 'id=' + training.id.toString()
