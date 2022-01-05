@@ -1,0 +1,258 @@
+#!/bin/bash
+
+set -eu
+
+DOMAIN="https://api.pgym.xyz"
+
+function register() {
+curl -sSX POST \
+-d "email=" \
+-d "username=" \
+-d "password=debildebi" \
+-d "first_name=" \
+-d "last_name=" \
+"${DOMAIN}/users/register/"
+}
+
+function login() {
+variable=$(curl -sSX POST \
+-d "grant_type=password" \
+-d "username=" \
+-d "password=debildebi" \
+-d "client_id=dFdnC978WJPKdx9efSKTFdym2LIQWkd8HXGMTpzs" \
+-d "client_secret=jjKsavkJG913gLTzWm4bcYjLWCdUUDapm7tuXElBji9FQuWckkty2RkqU0Z0rTIqiZw1UlQiKjMUG9a92whxOLCOZriszlHiNfIAELTp6zde31T0IgLKiRzOAzm4HihV" \
+"${DOMAIN}/auth/token/" \
+| jq -r .access_token)
+}
+
+function group_create() {
+curl -sSX POST \
+-H "Authorization: Bearer $(cat .token)" \
+-H "Content-Type: multipart/form-data" \
+-F "difficulty=0" \
+-F "title=Group title" \
+-F "description=Group description" \
+-F "price_day=1" \
+-F "price_week=2" \
+-F "price_month=3" \
+-F "is_private=false" \
+-F "type=2" \
+-F "type=3" \
+-F "image=@img.png" \
+"${DOMAIN}/training/group/create"
+}
+
+function set_moderator() {
+curl -sSX POST \
+-H "Authorization: Bearer ${token_admin}" \
+-d "id=${}" \
+-d "value=True" \
+"${DOMAIN}/users/set_moderator/"
+}
+
+function set_coach() {
+curl -sSX POST \
+-H "Authorization: Bearer ${token_moderator}" \
+-d "id=${}" \
+-d "value=True" \
+"${DOMAIN}/users/set_coach/"
+}
+
+function set_dietician() {
+curl -sSX POST \
+-H "Authorization: Bearer ${token_moderator}" \
+-d "id=${}" \
+-d "value=True" \
+"${DOMAIN}/users/set_dietician/"
+}
+
+function add_profile_photo() {
+curl -sSX POST \
+-H "Authorization: Bearer ${}" \
+-H "Content-Type: multipart/form-data" \
+-F "profile_photo=@data/" \
+"${DOMAIN}/users/photo/add"
+}
+
+function training_group_join() {
+curl -sSX POST \
+-H "Authorization: Bearer ${}" \
+-d "training_group=${}" \
+-d "payment_type=2" \
+"${DOMAIN}/training/group/join"
+}
+
+function training_group_video_add() {
+curl -sSX POST \
+-H "Authorization: Bearer ${}" \
+-H "Content-Type: multipart/form-data" \
+-F "video=@data/video_plyometric1.mp4" \
+-F "owner=${}" \
+-F "training_group=${}" \
+"${DOMAIN}/training/group/video/add"
+}
+
+
+# login admin
+token_admin=$(curl -sSX POST \
+-d "grant_type=password" \
+-d "username=admin@admin.pl" \
+-d "password=admin" \
+-d "client_id=dFdnC978WJPKdx9efSKTFdym2LIQWkd8HXGMTpzs" \
+-d "client_secret=jjKsavkJG913gLTzWm4bcYjLWCdUUDapm7tuXElBji9FQuWckkty2RkqU0Z0rTIqiZw1UlQiKjMUG9a92whxOLCOZriszlHiNfIAELTp6zde31T0IgLKiRzOAzm4HihV" \
+"${DOMAIN}/auth/token/" \
+| jq -r .access_token)
+
+
+# register moderator
+id_moderator=$(curl -sSX POST \
+-d "email=mode1@mail.com" \
+-d "username=warka12" \
+-d "password=debildebi" \
+-d "first_name=Janusz" \
+-d "last_name=Warka" \
+"${DOMAIN}/users/register/" \
+| jq -r .id)
+# add moderator status
+curl -sSX POST \
+-H "Authorization: Bearer ${token_admin}" \
+-d "id=${id_moderator}" \
+-d "value=True" \
+"${DOMAIN}/users/set_moderator/"
+# login moderator
+token_moderator=$(curl -sSX POST \
+-d "grant_type=password" \
+-d "username=mode1@mail.com" \
+-d "password=debildebi" \
+-d "client_id=dFdnC978WJPKdx9efSKTFdym2LIQWkd8HXGMTpzs" \
+-d "client_secret=jjKsavkJG913gLTzWm4bcYjLWCdUUDapm7tuXElBji9FQuWckkty2RkqU0Z0rTIqiZw1UlQiKjMUG9a92whxOLCOZriszlHiNfIAELTp6zde31T0IgLKiRzOAzm4HihV" \
+"${DOMAIN}/auth/token/" \
+| jq -r .access_token)
+# add profile photo
+curl -sSX POST \
+-H "Authorization: Bearer ${token_moderator}" \
+-H "Content-Type: multipart/form-data" \
+-F "profile_photo=@data/profile_byuu.png" \
+"${DOMAIN}/users/photo/add"
+
+
+# register coach1
+id_coach1=$(curl -sSX POST \
+-d "email=trener_krzysztof@mail.com" \
+-d "username=trener_krzysztof" \
+-d "password=debildebi" \
+-d "first_name=Krzysztof" \
+-d "last_name=Pompa" \
+"${DOMAIN}/users/register/" \
+| jq -r .id)
+# add coach status
+curl -sSX POST \
+-H "Authorization: Bearer ${token_moderator}" \
+-d "id=${id_coach1}" \
+-d "value=True" \
+"${DOMAIN}/users/set_coach/"
+# add dietician status
+curl -sSX POST \
+-H "Authorization: Bearer ${token_moderator}" \
+-d "id=${id_coach1}" \
+-d "value=True" \
+"${DOMAIN}/users/set_dietician/"
+# login coach1
+token_coach1=$(curl -sSX POST \
+-d "grant_type=password" \
+-d "username=trener_krzysztof@mail.com" \
+-d "password=debildebi" \
+-d "client_id=dFdnC978WJPKdx9efSKTFdym2LIQWkd8HXGMTpzs" \
+-d "client_secret=jjKsavkJG913gLTzWm4bcYjLWCdUUDapm7tuXElBji9FQuWckkty2RkqU0Z0rTIqiZw1UlQiKjMUG9a92whxOLCOZriszlHiNfIAELTp6zde31T0IgLKiRzOAzm4HihV" \
+"${DOMAIN}/auth/token/" \
+| jq -r .access_token)
+# add profile photo
+curl -sSX POST \
+-H "Authorization: Bearer ${token_coach1}" \
+-H "Content-Type: multipart/form-data" \
+-F "profile_photo=@data/profile_pompa.png" \
+"${DOMAIN}/users/photo/add"
+
+
+# register user1
+id_user1=$(curl -sSX POST \
+-d "email=user1@mail.com" \
+-d "username=user1" \
+-d "password=debildebi" \
+-d "first_name=Jan" \
+-d "last_name=Kowalski" \
+"${DOMAIN}/users/register/" \
+| jq -r .id)
+# login user1
+token_user1=$(curl -sSX POST \
+-d "grant_type=password" \
+-d "username=user1@mail.com" \
+-d "password=debildebi" \
+-d "client_id=dFdnC978WJPKdx9efSKTFdym2LIQWkd8HXGMTpzs" \
+-d "client_secret=jjKsavkJG913gLTzWm4bcYjLWCdUUDapm7tuXElBji9FQuWckkty2RkqU0Z0rTIqiZw1UlQiKjMUG9a92whxOLCOZriszlHiNfIAELTp6zde31T0IgLKiRzOAzm4HihV" \
+"${DOMAIN}/auth/token/" \
+| jq -r .access_token)
+# add profile photo
+curl -sSX POST \
+-H "Authorization: Bearer ${token_user1}" \
+-H "Content-Type: multipart/form-data" \
+-F "profile_photo=@data/profile_byuu.png" \
+"${DOMAIN}/users/photo/add"
+
+
+# create group1
+id_group_1=$(curl -sSX POST \
+-H "Authorization: Bearer ${token_coach1}" \
+-H "Content-Type: multipart/form-data" \
+-F "difficulty=3" \
+-F "title=Masa i siła" \
+-F "description=Trenujemy, byczki" \
+-F "price_day=1" \
+-F "price_week=2" \
+-F "price_month=3" \
+-F "is_private=false" \
+-F "type=1" \
+-F "type=20" \
+-F "image=@data/group_1.jpg" \
+"${DOMAIN}/training/group/create" \
+| jq -r .id)
+# add videos to group
+curl -sSX POST \
+-H "Authorization: Bearer ${token_coach1}" \
+-H "Content-Type: multipart/form-data" \
+-F "video=@data/video_plyometric1.mp4" \
+-F "owner=${id_coach1}" \
+-F "training_group=${id_group_1}" \
+"${DOMAIN}/training/group/video/add"
+curl -sSX POST \
+-H "Authorization: Bearer ${token_coach1}" \
+-H "Content-Type: multipart/form-data" \
+-F "video=@data/video_plyometric2.mp4" \
+-F "owner=${id_coach1}" \
+-F "training_group=${id_group_1}" \
+"${DOMAIN}/training/group/video/add"
+# create training1
+id_training_1=$(curl -sSX POST \
+-H "Authorization: Bearer ${token_coach1}" \
+-H "Content-Type: multipart/form-data" \
+-F "training_group=${id_group_1}" \
+-F "title=Test trening" \
+-F "description=Test description" \
+-F "calories=621" \
+-F "date_start=2021-01-05T00:00" \
+-F "date_end=2021-02-05T00:00" \
+"${DOMAIN}/training/create" \
+| jq -r .id)
+
+
+# TODO: add money to users
+
+
+# add user1 to group1
+curl -sSX POST \
+-H "Authorization: Bearer ${token_user1}" \
+-d "training_group=${id_group_1}" \
+-d "payment_type=2" \
+"${DOMAIN}/training/group/join"
+
+
