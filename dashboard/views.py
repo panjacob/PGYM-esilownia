@@ -32,7 +32,7 @@ def user_day_get_all(request):
 
 @api_view(['POST'])
 def user_day_get(request):
-    day = UserDay.objects.filter(date=request.data['date'])
+    day = UserDay.objects.filter(date=request.data['date'], user_id=request.user.id)
     if day.exists():
         serializer = serializers.UserDaySerializer(instance=day[0])
         return JsonResponse(serializer.data, safe=False)
