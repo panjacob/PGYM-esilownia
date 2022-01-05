@@ -1,7 +1,9 @@
 import React from "react";
 import {Carousel} from "react-bootstrap";
 import {useState} from "react";
-import placeholder from "../../imgs/placeholder.jpg"
+import placeholder1 from "../../imgs/diet1.jpg"
+import placeholder2 from "../../imgs/diet2.jpg"
+import placeholder3 from "../../imgs/diet3.jpg"
 
 function Karuzela_dietetycy() {
     const [index, setIndex] = useState(0);
@@ -17,7 +19,7 @@ function Karuzela_dietetycy() {
 
                 <img
                     className="d-block w-100"
-                    src={placeholder}
+                    src={placeholder1}
                     alt="slide1"
                 />
                 <Carousel.Caption>
@@ -30,12 +32,25 @@ function Karuzela_dietetycy() {
 
                 <img
                     className="d-block w-100"
-                    src={placeholder}
+                    src={placeholder2}
                     alt="slide2"
                 />
                 <Carousel.Caption>
                     <h3 className="font-weight-light">Paweł Karmowski</h3>
                     <p className="font-weight-light">Dietetyk, pasjonata zdrowego żywienia.</p>
+                </Carousel.Caption>
+
+            </Carousel.Item>
+            <Carousel.Item>
+
+                <img
+                    className="d-block w-100"
+                    src={placeholder3}
+                    alt="slide3"
+                />
+                <Carousel.Caption>
+                    <h3 className="font-weight-light">Gaweł Ignaś</h3>
+                    <p className="font-weight-light">Dietetyk, zje wszystko.</p>
                 </Carousel.Caption>
 
             </Carousel.Item>
