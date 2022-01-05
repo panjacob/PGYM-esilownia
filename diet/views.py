@@ -182,7 +182,7 @@ def diet_jitsi_join(request):
     diet.participants.add(user)
     moderator = is_training_owner(user, diet)
     room_name = "diet" + "_" + str(diet.id)
-    payload = jitsi_payload_create(user, diet, room_name=room_name, moderator=moderator)
+    payload = jitsi_payload_create(user, diet, room_name=room_name, moderator=moderator, host=request.get_host())
     token = jitsi_token_encode(JITSI_SECRET, payload)
     return Response({'token': token, 'moderator': moderator, 'roomName': room_name}, status=status.HTTP_200_OK)
 

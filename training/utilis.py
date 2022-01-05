@@ -27,7 +27,7 @@ def jitsi_exp(time_to_live_minutes):
     return current_milli_time() + time_to_live_minutes * 1000 * 60
 
 
-def jitsi_payload_create(user, training, room_name, moderator, time_to_live_minutes=10):
+def jitsi_payload_create(user, training, room_name, moderator, time_to_live_minutes=10, host="api.pgym.xyz"):
     payload = {
         'context': {
             'user': {
@@ -42,6 +42,15 @@ def jitsi_payload_create(user, training, room_name, moderator, time_to_live_minu
         'room': room_name,
         'exp': jitsi_exp(time_to_live_minutes)
     }
+    if host == "api.pgym.xyz":
+        avatar = "https://" + host
+    else:
+        avatar = "http://" + host
+    try:
+        avatar += user.profile_photo.url
+        payload['context']['user']['avatar'] = avatar
+    except:
+        pass
     return payload
 
 
