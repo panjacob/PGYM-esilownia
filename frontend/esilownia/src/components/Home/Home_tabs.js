@@ -14,12 +14,12 @@ function HomeTabs() {
         >
             <Tab eventKey="trening" title="Trening" className="text-center" style={{fontSize:'25px'}}>
                 <p>Trenuj z Profesjonalnymi trenerami.</p>
-                <p>Poznaj ich <Link to={'/kadra'}>tutaj</Link>.</p>
+                <p>Poznaj ich <Link to={'/kadra'} style={{color:'orange'}}>tutaj</Link>.</p>
                 <p>Podglad dostępnych treningów zobaczysz w zakładce 'Treningi' po zalogowaniu.</p>
             </Tab>
             <Tab eventKey="dieta" title="Dieta" className="text-center" style={{fontSize:'25px'}}>
                 <p>Wybierz diete dostosowana do ciebie.</p>
-                <p>Poznaj naszych dietetyków <Link to={'/dieta'}>tutaj</Link>.</p>
+                <p>Poznaj naszych dietetyków <Link to={'/dieta'} style={{color:'orange'}}>tutaj</Link>.</p>
                 <p>Podglad dostępnych diet zobaczysz w zakładce 'Diety' po zalogowaniu.</p>
             </Tab>
             <Tab eventKey="filmy" title="Filmy" className="text-center" style={{fontSize:'25px'}}>
