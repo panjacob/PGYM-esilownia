@@ -96,8 +96,13 @@ function Dashboard_timetable() {
                             return c-d;
                         }).map((training)=>{
                             let ds = new Date(training.date_start)
-                            let de = new Date(training.date_end)
-                            if((today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()).match(training.date_start.substring(0, 10))) {
+                            let de = new Date(training.date_end).getTime()
+                            if((today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0")).match(training.date_start.substring(0, 10))) {
+                                console.log(today - ds)
+                                console.log(today - de)
+                                console.log(today)
+                                console.log(de)
+                                console.log(ds)
                                 if (today - ds > 0 && today - de < 0) {
                                     return (
                                         <td className='col-xl-3'>
