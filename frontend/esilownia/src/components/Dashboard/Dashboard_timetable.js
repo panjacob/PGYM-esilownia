@@ -65,7 +65,8 @@ function Dashboard_timetable() {
         return date;
     }
 
-    let today = new Date();
+    let today = new Date()
+    today.setHours(today.getHours() + 1);
     let today_plus1 = today.addDays(1)
     let today_plus2 = today.addDays(2)
     let today_plus3 = today.addDays(3)
@@ -98,11 +99,6 @@ function Dashboard_timetable() {
                             let ds = new Date(training.date_start)
                             let de = new Date(training.date_end).getTime()
                             if((today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0")).match(training.date_start.substring(0, 10))) {
-                                console.log(today - ds)
-                                console.log(today - de)
-                                console.log(today)
-                                console.log(de)
-                                console.log(ds)
                                 if (today - ds > 0 && today - de < 0) {
                                     return (
                                         <td className='col-xl-3'>
@@ -151,7 +147,7 @@ function Dashboard_timetable() {
                             var d = new Date(b.date_start);
                             return c-d;
                         }).map((training)=>{
-                            if((today_plus1.getFullYear()+'-'+(today_plus1.getMonth()+1)+'-'+today_plus1.getDate()).match(training.date_start.substring(0, 10))) {
+                            if((today_plus1.getFullYear()+'-'+(today_plus1.getMonth()+1).toString().padStart(2, "0")+'-'+today_plus1.getDate().toString().padStart(2, "0")).match(training.date_start.substring(0, 10))) {
                                 return (
                                     <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow'
@@ -176,7 +172,7 @@ function Dashboard_timetable() {
                             var d = new Date(b.date_start);
                             return c-d;
                         }).map((training)=>{
-                            if((today_plus2.getFullYear()+'-'+(today_plus2.getMonth()+1)+'-'+today_plus2.getDate()).match(training.date_start.substring(0, 10))) {
+                            if((today_plus2.getFullYear()+'-'+(today_plus2.getMonth()+1).toString().padStart(2, "0")+'-'+today_plus2.getDate().toString().padStart(2, "0")).match(training.date_start.substring(0, 10))) {
                                 return (
                                     <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow'
@@ -201,7 +197,7 @@ function Dashboard_timetable() {
                             var d = new Date(b.date_start);
                             return c-d;
                         }).map((training)=>{
-                            if((today_plus3.getFullYear()+'-'+(today_plus3.getMonth()+1)+'-'+today_plus3.getDate()).match(training.date_start.substring(0, 10))) {
+                            if((today_plus3.getFullYear()+'-'+(today_plus3.getMonth()+1).toString().padStart(2, "0")+'-'+today_plus3.getDate().toString().padStart(2, "0")).match(training.date_start.substring(0, 10))) {
                                 return (
                                     <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow'
@@ -226,7 +222,7 @@ function Dashboard_timetable() {
                             var d = new Date(b.date_start);
                             return c-d;
                         }).map((training)=>{
-                            if((today_plus4.getFullYear()+'-'+(today_plus4.getMonth()+1)+'-'+today_plus4.getDate()).match(training.date_start.substring(0, 10))) {
+                            if((today_plus4.getFullYear()+'-'+(today_plus4.getMonth()+1).toString().padStart(2, "0")+'-'+today_plus4.getDate().toString().padStart(2, "0")).match(training.date_start.substring(0, 10))) {
                                 return (
                                     <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow'
@@ -251,7 +247,7 @@ function Dashboard_timetable() {
                             var d = new Date(b.date_start);
                             return c-d;
                         }).map((training)=>{
-                            if((today_plus5.getFullYear()+'-'+(today_plus5.getMonth()+1)+'-'+today_plus5.getDate()).match(training.date_start.substring(0, 10))) {
+                            if((today_plus5.getFullYear()+'-'+(today_plus5.getMonth()+1).toString().padStart(2, "0")+'-'+today_plus5.getDate().toString().padStart(2, "0")).match(training.date_start.substring(0, 10))) {
                                 return (
                                     <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow'
@@ -276,7 +272,7 @@ function Dashboard_timetable() {
                             var d = new Date(b.date_start);
                             return c-d;
                         }).map((training)=>{
-                            if((today_plus6.getFullYear()+'-'+(today_plus6.getMonth()+1)+'-'+today_plus6.getDate()).match(training.date_start.substring(0, 10))) {
+                            if((today_plus6.getFullYear()+'-'+(today_plus6.getMonth()+1).toString().padStart(2, "0")+'-'+today_plus6.getDate().toString().padStart(2, "0")).match(training.date_start.substring(0, 10))) {
                                 return (
                                     <td className='col-xl-3 my-auto pt-4 pb-4'>
                                         <div className=' col-md-12 text-center border p-2 shadow'
