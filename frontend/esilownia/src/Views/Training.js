@@ -253,7 +253,7 @@ function Training() {
                             <p>Nie ma treningów </p>
                             ):(
                             trainingsInfo.map((training) => {
-                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_start.toString()) {
+                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_end.toString()) {
                                     return (
                                         <Link className='btn m-1 shadow' id='trainingCard' to={{
                                             pathname: '/trening',
@@ -320,7 +320,7 @@ function Training() {
                             {(JSON.stringify(groupTrainings)=== "[]")?(
                                 <p>Nie ma treningów </p>
                             ):(trainingsInfo.map((training) => {
-                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > training.date_start.toString()) {
+                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > training.date_end.toString()) {
                                     return (
                                         <Link className='btn m-1 shadow' id='trainingCard' to={{
                                             pathname: '/trening',

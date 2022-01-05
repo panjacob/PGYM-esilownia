@@ -242,7 +242,7 @@ function Training() {
                             <p>Nie ma treningów </p>
                         ):(
                             trainingsInfo.map((training) => {
-                            if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_start.toString()) {
+                            if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() < training.date_end.toString()) {
                                 return (
                                     <Link className='btn m-4 shadow border' id='trainingCard' to={{
                                         pathname: '/trening',
@@ -308,7 +308,7 @@ function Training() {
                                 <p>Nie ma treningów </p>
                             ):(
                                 trainingsInfo.map((training) => {
-                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > training.date_start.toString()) {
+                                if((today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()).toString() > training.date_end.toString()) {
                                     return (
                                         <Link className='btn m-4 shadow border' id='trainingCard' to={{
                                             pathname: '/trening',
