@@ -1,6 +1,9 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Photo from '../../imgs/basic_profile_photo.jpg'
+import Photo1 from '../../imgs/trener1.jfif'
+import Photo2 from '../../imgs/trener2.jfif'
+import Photo3 from '../../imgs/trener3.jfif'
+import Photo4 from '../../imgs/trener4.jfif'
 
 function Cadre_trainers() {
     return (
@@ -14,53 +17,53 @@ function Cadre_trainers() {
 
                 <div className="col-sm">
                     <div className="row justify-content-center">
-                        <img src={Photo} width="75%" height="width" className="rounded-circle border border-dark"
+                        <img src={Photo1} width="75%" height="width" className="rounded-circle border border-dark"
                              alt="PhotoTrener"/>
                     </div>
                     <div className="row justify-content-center">
-                        <p><b>Imie Nazwisko</b></p>
+                        <p><b>Ignacy Wojciechowski</b></p>
                     </div>
                     <div className="row justify-content-center">
-                        <i>Trener</i>
+                        <i>Trener Strongman</i>
                     </div>
                 </div>
 
                 <div className="col-sm">
                     <div className="row justify-content-center">
-                        <img src={Photo} width="75%" height="width" className="rounded-circle border border-dark"
+                        <img src={Photo2} width="75%" height="width" className="rounded-circle border border-dark"
                              alt="PhotoTrener"/>
                     </div>
                     <div className="row justify-content-center">
-                        <p><b>Imie Nazwisko</b></p>
+                        <p><b>Robert Jaworski</b></p>
                     </div>
                     <div className="row justify-content-center">
-                        <i>Trener</i>
+                        <i>Trener Kalenistyki</i>
                     </div>
                 </div>
 
                 <div className="col-sm">
                     <div className="row justify-content-center">
-                        <img src={Photo} width="75%" height="width" className="rounded-circle border border-dark"
+                        <img src={Photo3} width="75%" height="width" className="rounded-circle border border-dark"
                              alt="PhotoTrener"/>
                     </div>
                     <div className="row justify-content-center">
-                        <p><b>Imie Nazwisko</b></p>
+                        <p><b>Krystian Kamiński</b></p>
                     </div>
                     <div className="row justify-content-center">
-                        <i>Trener</i>
+                        <i>Trener Crossfit</i>
                     </div>
                 </div>
 
                 <div className="col-sm">
                     <div className="row justify-content-center">
-                        <img src={Photo} width="75%" height="width" className="rounded-circle border border-dark"
+                        <img src={Photo4} width="75%" height="width" className="rounded-circle border border-dark"
                              alt="PhotoTrener"/>
                     </div>
                     <div className="row justify-content-center">
-                        <p><b>Imie Nazwisko</b></p>
+                        <p><b>Aleksandra Zielińska</b></p>
                     </div>
                     <div className="row justify-content-center">
-                        <i>Trener</i>
+                        <i>Trener Fitness</i>
                     </div>
                 </div>
 
