@@ -1,7 +1,10 @@
 import React from "react";
 import {Carousel} from "react-bootstrap";
 import {useState} from "react";
-import placeholder from "../../imgs/placeholder.jpg"
+import placeholder1 from "../../imgs/trening1.jpg"
+import placeholder2 from "../../imgs/trening2.jpg"
+import placeholder3 from "../../imgs/trening3.jpg"
+import placeholder4 from "../../imgs/trening4.jpg"
 
 function Karuzela_kadra() {
     const [index, setIndex] = useState(0);
@@ -17,7 +20,7 @@ function Karuzela_kadra() {
 
                 <img
                     className="d-block w-100"
-                    src={placeholder}
+                    src={placeholder1}
                     alt="slide1"
                 />
                 <Carousel.Caption>
@@ -30,7 +33,7 @@ function Karuzela_kadra() {
 
                 <img
                     className="d-block w-100"
-                    src={placeholder}
+                    src={placeholder2}
                     alt="slide2"
                 />
                 <Carousel.Caption>
@@ -43,7 +46,7 @@ function Karuzela_kadra() {
 
                 <img
                     className="d-block w-100"
-                    src={placeholder}
+                    src={placeholder3}
                     alt="slide3"
                 />
                 <Carousel.Caption>
@@ -56,7 +59,7 @@ function Karuzela_kadra() {
 
                 <img
                     className="d-block w-100"
-                    src={placeholder}
+                    src={placeholder4}
                     alt="slide3"
                 />
 
