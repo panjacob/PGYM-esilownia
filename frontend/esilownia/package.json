@@ -25,6 +25,7 @@
     "react-scripts": "4.0.3",
     "recharts": "^2.1.6",
     "web-vitals": "^1.1.2",
+    "yarn": "^1.22.17",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
