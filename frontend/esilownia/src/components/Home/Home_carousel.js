@@ -1,9 +1,9 @@
 import React from "react";
 import {Carousel} from "react-bootstrap";
 import {useState} from "react";
-import placeholder from "../../imgs/placeholder.jpg"
-import placeholder2 from "../../imgs/placeholder2.jpg"
-import placeholder3 from "../../imgs/placeholder3.jpg"
+import placeholder from "../../imgs/placeholder.png"
+import placeholder2 from "../../imgs/placeholder2.png"
+import placeholder3 from "../../imgs/placeholder3.png"
 
 function Karuzela() {
     const [index, setIndex] = useState(0);
