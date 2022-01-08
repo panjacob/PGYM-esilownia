@@ -303,8 +303,12 @@ function TrainingJitsi(props) {
                     <hr></hr>
                 </div>
             </div>
-                <div id="meet" className="container mt-4 p-0 border">
+
+
+                <div id="meet" className="mt-4 p-0 border">
                 </div>
+
+            <div className='container'>
                 <div className="card mb-4 mt-4 bg-light" width="100%">
                     <div className="card-body">
                         <div className="row">
@@ -338,6 +342,7 @@ function TrainingJitsi(props) {
 
                 </div>
             </div>
+        </div>
     );
 }
 
