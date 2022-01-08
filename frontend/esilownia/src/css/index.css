@@ -493,3 +493,9 @@ th {
         height: 700px;
     }
 }
+
+@media only screen and (min-width: 900px){
+    #meet{
+        height: 900px;
+    }
+}
