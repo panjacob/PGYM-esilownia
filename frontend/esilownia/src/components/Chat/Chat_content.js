@@ -197,7 +197,7 @@ function ChatContent() {
                                                              width='100px'
                                                              height='100px'/>
                                                     ) : (
-                                                        <img src={user.profile_photo} alt="..."
+                                                        <img src={axios_variebles.baseURL.slice(0, -1) + user.profile_photo} alt="..."
                                                              className="img-thumbnail"
                                                              width='200px'
                                                              height='200px'/>
