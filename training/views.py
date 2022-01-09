@@ -281,7 +281,6 @@ def training_ping_get(request):
 
 
 @api_view(['POST'])
-# @training_group_owner_required()
 def training_file_add(request):
     instance = Training.objects.get(id=request.data['id'])
     serializer = TrainingSerializerFile(instance=instance, data=request.data)
