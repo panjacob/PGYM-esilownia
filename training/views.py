@@ -19,7 +19,6 @@ MAX_PING_ACTIVE_SECONDS = 30
 
 
 @api_view(['POST'])
-# Trainer required
 def training_group_create(request):
     request = put_owner_in_request_data(request)
     serializer = TrainingGroupSerializerCreate(data=request.data)
@@ -31,7 +30,7 @@ def training_group_create(request):
 
 
 @api_view(['POST'])
-# Trainer required
+@training_group_owner_required()
 def training_group_edit(request):
     request = put_owner_in_request_data(request)
     instance = TrainingGroup.objects.get(id=request.data['id'])
@@ -86,7 +85,7 @@ def training_group_join(request):
 
 
 @api_view(['POST'])
-# @training_group_owner_required()
+@training_group_owner_required()
 def training_group_participant_remove(request):
     training_group = models.TrainingGroup.objects.get(id=request.data['training_group'])
     models.TrainingGroupParticipant.objects.get(user=request.data['user'], training_group=training_group).delete()
@@ -169,6 +168,7 @@ def training_group_image_add(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_image_remove(request):
     image_id = request.data['id']
     if TrainingGroupImage.objects.filter(id=image_id).exists():
@@ -190,6 +190,7 @@ def training_group_video_add(request):
 
 
 @api_view(['POST'])
+@training_group_owner_required()
 def training_group_video_remove(request):
     video_id = request.data['id']
     print(video_id)

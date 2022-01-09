@@ -168,10 +168,10 @@ def user_get(request):
     return JsonResponse(serializer.data)
 
 
-# TODO: do wyrzucenia?
+
 @csrf_exempt
 @api_view(['POST'])
-# moderator_required()
+@moderator_required()
 def user_get_moderator(request):
     if not UserExtended.objects.filter(id=request.data['id']).exists():
         return Response({'message': 'User doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)

@@ -17,9 +17,6 @@ class CustomAccountManager(BaseUserManager):
         return self.create_user(email, username, first_name, password, **other_fields)
 
     def create_user(self, username, email="fb", first_name="", password="", **other_fields):
-        # print(email)
-        # if not email:
-        #     raise ValueError('You must provide an email address')
         print('other fields: ', other_fields)
         email = self.normalize_email(email)
         user = self.model(email=email, username=username, first_name=first_name, **other_fields)

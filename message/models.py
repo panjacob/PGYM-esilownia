@@ -37,9 +37,7 @@ class Notification(models.Model):
         (DIET_GROUP_USER_HAS_JOINED, 'DIET_GROUP_USER_HAS_JOINED'),
         (GYMCOIN_BOUGHT, ' GYMCOIN_BOUGHT'),
     ]
-
     kind = models.CharField(max_length=1, choices=TYPE_CHOICES, default=None)
-
     body = models.CharField(max_length=10000)
     time = models.IntegerField(default=current_milli_time)
     seen = models.BooleanField(default=False)
