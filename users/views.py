@@ -31,7 +31,11 @@ def is_banned(user):
 def auth_token_wrapper_check_ban(request):
     if request.data['grant_type'] == 'password':
         email = request.data['username']
-        user = UserExtended.objects.get(email=email)
+        try:
+            user = UserExtended.objects.get(email=email)
+        except UserExtended.DoesNotExist:
+            return Response({'message': 'User does not exist'},
+                            status=status.HTTP_400_BAD_REQUEST)
         if is_banned(user):
             return Response({'message': 'User is banned', 'ban_date_expiration': user.ban_date_expiration},
                             status=status.HTTP_200_OK)

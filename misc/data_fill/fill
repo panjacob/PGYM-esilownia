@@ -132,7 +132,7 @@ token_moderator=$(curl -sSX POST \
 curl -sSX POST \
 -H "Authorization: Bearer ${token_moderator}" \
 -H "Content-Type: multipart/form-data" \
--F "profile_photo=@data/profile_byuu.png" \
+-F "profile_photo=@data/profile_kuba.jpg" \
 "${DOMAIN}/users/photo/add"
 
 
@@ -196,7 +196,7 @@ token_user1=$(curl -sSX POST \
 curl -sSX POST \
 -H "Authorization: Bearer ${token_user1}" \
 -H "Content-Type: multipart/form-data" \
--F "profile_photo=@data/profile_byuu.png" \
+-F "profile_photo=@data/profile_kuba.jpg" \
 "${DOMAIN}/users/photo/add"
 
 
