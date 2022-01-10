@@ -31,6 +31,16 @@ def offer_all(request):
 
 
 @api_view(['POST'])
+def transaction_all(request):
+    transactions = models.Transaction.objects.filter(user=request.user)
+    result = []
+    for transaction in transactions:
+        serializer = serializers.TransactionSerializer(instance=transaction)
+        result.append(serializer.data)
+    return JsonResponse(result, safe=False)
+
+
+@api_view(['POST'])
 def stripepk(request):
     stripepk = {'stripepk': settings.STRIPE_PUBLISHABLE_KEY}
     return JsonResponse(stripepk, safe=False)

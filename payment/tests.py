@@ -6,6 +6,7 @@ from payment import views
 class TestUrls(TestCase):
     def test_urls(self):
         url_mappings = {
+            '/payment/transaction/all': views.transaction_all,
             '/payment/offer/all': views.offer_all, 
             '/payment/stripepk': views.stripepk, 
             '/payment/create_checkout_session': views.create_checkout_session, 
